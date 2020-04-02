@@ -17,7 +17,7 @@ impl Lexer {
     }
 
     pub fn get_next_token(&mut self) -> Token {
-        self.increment_character();
+        self.get_next_character();
 
         match self.current_character {
             Some(character) => match character {
@@ -85,7 +85,19 @@ impl Lexer {
         }
     }
 
-    fn increment_character(&mut self) {
+    fn get_next_character(&mut self) {
+        self.increment_character_index();
+
+        match self.current_character {
+            Some(character) => match character {
+                ' ' | '\t' | '\n' | '\r' => self.get_next_character(),
+                _ => {}
+            },
+            None => {}
+        }
+    }
+
+    fn increment_character_index(&mut self) {
         self.current_index += 1;
         self.current_character = self.code.chars().nth(self.current_index as usize);
     }

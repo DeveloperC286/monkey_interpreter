@@ -19,6 +19,16 @@ use token::{Token, TokenType};
             Token{token_type: TokenType::EOF, literal: "".to_string()},
         ]
     ),
+    case(
+        " =\n\r+\t    ( )\t\n",
+        vec![
+            Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
+            Token{token_type: TokenType::PLUS, literal: "+".to_string()},
+            Token{token_type: TokenType::OPENING_ROUND_BRACKET, literal: "(".to_string()},
+            Token{token_type: TokenType::CLOSING_ROUND_BRACKET, literal: ")".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ]
+    ),
 )]
 fn test_lexer_tokenization_for_special_characters(code: &str, expected_token_order: Vec<Token>) {
     //when
