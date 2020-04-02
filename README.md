@@ -3,4 +3,4 @@
 
 Implementation of an interpreter for the Monkey language written in Rust, currently under active development.
 
-This interpreter is being built with the inspiration and help from the book 'Writing an interpreter in Go' by Thorsten Ball. The Monkey lanuage was devised by Thorsten Ball for use in his book.
+This interpreter is being built with the inspiration and help from the book 'Writing an interpreter in Go' by Thorsten Ball. The Monkey language was devised by Thorsten Ball for use in his book.
