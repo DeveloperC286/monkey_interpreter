@@ -1,6 +1,32 @@
+use super::super::token::{Token, TokenType};
 use super::*;
 use rstest::rstest;
-use token::{Token, TokenType};
+
+#[rstest(
+    code,
+    expected_token_order,
+    case(
+        "\n\rfn",
+        vec![
+            Token{token_type: TokenType::FUNCTION, literal: "fn".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ]
+    ),
+    case(
+        "\t  let\n\r",
+        vec![
+            Token{token_type: TokenType::LET, literal: "let".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ]
+    ),
+)]
+fn test_lexer_tokenization_for_keywords(code: &str, expected_token_order: Vec<Token>) {
+    //when
+    let returned_token_order = get_returned_token_order(code);
+
+    //then
+    assert_token_orders_equal(expected_token_order, returned_token_order);
+}
 
 #[rstest(
     code,

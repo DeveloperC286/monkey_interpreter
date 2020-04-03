@@ -1,18 +1,31 @@
-mod token;
-use token::{Token, TokenType};
+use super::token::{Token, TokenType};
+use std::iter::FromIterator;
+
+use std::collections::HashMap;
+
+lazy_static! {
+    static ref KEYWORDS: HashMap<String, TokenType> = {
+        let mut m = HashMap::new();
+        m.insert("fn".to_string(), TokenType::FUNCTION);
+        m.insert("let".to_string(), TokenType::LET);
+        m
+    };
+}
 
 pub struct Lexer {
     pub code: String,
-    current_character: Option<char>,
     current_index: i32,
+    current_character: Option<char>,
+    next_character: Option<char>,
 }
 
 impl Lexer {
     pub fn new(code: String) -> Lexer {
         return Lexer {
             code: code,
-            current_character: None,
             current_index: -1,
+            current_character: None,
+            next_character: None,
         };
     }
 
@@ -70,6 +83,20 @@ impl Lexer {
                     };
                 }
                 _ => {
+                    if character.is_alphabetic() {
+                        let word = self.get_word();
+                        let mut token_type = TokenType::ILLEGAL;
+
+                        if KEYWORDS.contains_key(&word) {
+                            token_type = *KEYWORDS.get(&word).unwrap();
+                        }
+
+                        return Token {
+                            token_type,
+                            literal: word,
+                        };
+                    }
+
                     return Token {
                         token_type: TokenType::ILLEGAL,
                         literal: character.to_string(),
@@ -83,6 +110,28 @@ impl Lexer {
                 };
             }
         }
+    }
+
+    fn get_word(&mut self) -> String {
+        let mut chars: Vec<char> = vec![];
+
+        loop {
+            match self.current_character {
+                Some(character) => {
+                    if character.is_alphabetic() {
+                        chars.push(character);
+                        self.increment_character_index();
+                    } else {
+                        break;
+                    }
+                }
+                None => {
+                    break;
+                }
+            }
+        }
+
+        return String::from_iter(chars.iter());
     }
 
     fn get_next_character(&mut self) {
@@ -100,6 +149,7 @@ impl Lexer {
     fn increment_character_index(&mut self) {
         self.current_index += 1;
         self.current_character = self.code.chars().nth(self.current_index as usize);
+        self.next_character = self.code.chars().nth((self.current_index + 1) as usize);
     }
 }
 
