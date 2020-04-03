@@ -85,7 +85,7 @@ impl Lexer {
                 _ => {
                     if character.is_alphabetic() {
                         let word = self.get_word();
-                        let mut token_type = TokenType::ILLEGAL;
+                        let mut token_type = TokenType::IDENTIFIER;
 
                         if KEYWORDS.contains_key(&word) {
                             token_type = *KEYWORDS.get(&word).unwrap();
@@ -120,6 +120,17 @@ impl Lexer {
                 Some(character) => {
                     if character.is_alphabetic() {
                         chars.push(character);
+                    } else {
+                        break;
+                    }
+                }
+                None => {
+                    break;
+                }
+            }
+            match self.next_character {
+                Some(character) => {
+                    if character.is_alphabetic() {
                         self.increment_character_index();
                     } else {
                         break;
