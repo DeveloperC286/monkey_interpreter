@@ -21,6 +21,6 @@ struct Args {}
 
 fn main() {
     pretty_env_logger::init();
-    let args = Args::from_args();
+    let _args = Args::from_args();
     repl::repl();
 }

@@ -85,10 +85,11 @@ impl Lexer {
                 _ => {
                     if character.is_alphabetic() {
                         let word = self.get_word();
+                        let word_lowercase = word.to_lowercase();
                         let mut token_type = TokenType::IDENTIFIER;
 
-                        if KEYWORDS.contains_key(&word) {
-                            token_type = *KEYWORDS.get(&word).unwrap();
+                        if KEYWORDS.contains_key(&word_lowercase) {
+                            token_type = *KEYWORDS.get(&word_lowercase).unwrap();
                         }
 
                         return Token {

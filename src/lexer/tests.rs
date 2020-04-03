@@ -72,6 +72,20 @@ fn test_lexer_tokenization_for_identifiers(code: &str, expected_token_order: Vec
             Token{token_type: TokenType::EOF, literal: "".to_string()},
         ]
     ),
+    case(
+        " FN",
+        vec![
+            Token{token_type: TokenType::FUNCTION, literal: "FN".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ]
+    ),
+    case(
+        "\t  LET\n\r",
+        vec![
+            Token{token_type: TokenType::LET, literal: "LET".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ]
+    ),
 )]
 fn test_lexer_tokenization_for_keywords(code: &str, expected_token_order: Vec<Token>) {
     //when
