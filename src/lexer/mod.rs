@@ -97,6 +97,15 @@ impl Lexer {
                         };
                     }
 
+                    if character.is_digit(10) {
+                        let integer = self.get_integer();
+
+                        return Token {
+                            token_type: TokenType::INTEGER,
+                            literal: integer,
+                        };
+                    }
+
                     return Token {
                         token_type: TokenType::ILLEGAL,
                         literal: character.to_string(),
@@ -110,6 +119,39 @@ impl Lexer {
                 };
             }
         }
+    }
+
+    fn get_integer(&mut self) -> String {
+        let mut chars: Vec<char> = vec![];
+
+        loop {
+            match self.current_character {
+                Some(character) => {
+                    if character.is_digit(10) {
+                        chars.push(character);
+                    } else {
+                        break;
+                    }
+                }
+                None => {
+                    break;
+                }
+            }
+            match self.next_character {
+                Some(character) => {
+                    if character.is_digit(10) {
+                        self.increment_character_index();
+                    } else {
+                        break;
+                    }
+                }
+                None => {
+                    break;
+                }
+            }
+        }
+
+        return String::from_iter(chars.iter());
     }
 
     fn get_word(&mut self) -> String {

@@ -6,6 +6,25 @@ use rstest::rstest;
     code,
     expected_token_order,
     case(
+        "\t123 \n",
+        vec![
+            Token{token_type: TokenType::INTEGER, literal: "123".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ]
+    ),
+)]
+fn test_lexer_tokenization_for_integers(code: &str, expected_token_order: Vec<Token>) {
+    //when
+    let returned_token_order = get_returned_token_order(code);
+
+    //then
+    assert_token_orders_equal(expected_token_order, returned_token_order);
+}
+
+#[rstest(
+    code,
+    expected_token_order,
+    case(
         "\tlet x;\n",
         vec![
             Token{token_type: TokenType::LET, literal: "let".to_string()},
@@ -20,9 +39,9 @@ use rstest::rstest;
             Token{token_type: TokenType::LET, literal: "let".to_string()},
             Token{token_type: TokenType::IDENTIFIER, literal: "varX".to_string()},
             Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
-            Token{token_type: TokenType::ILLEGAL, literal: "5".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
             Token{token_type: TokenType::PLUS, literal: "+".to_string()},
-            Token{token_type: TokenType::ILLEGAL, literal: "5".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
             Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
             Token{token_type: TokenType::EOF, literal: "".to_string()},
         ]

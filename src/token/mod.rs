@@ -29,9 +29,6 @@ pub enum TokenType {
     OPENING_CURLY_BRACKET,
     CLOSING_CURLY_BRACKET,
 
-    OPENING_SQUARE_BRACKET,
-    CLOSING_SQUARE_BRACKET,
-
     //Keywords
     FUNCTION,
     LET,
