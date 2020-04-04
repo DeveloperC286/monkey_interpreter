@@ -1,11 +1,11 @@
-use super::lexer::Lexer;
+use super::lexical_analysis::LexicalAnalysis;
 use super::token::TokenType;
 use std::io::{self};
 
 pub fn repl() {
     loop {
         let input = read();
-        let mut lexer = Lexer::new(input);
+        let mut lexer = LexicalAnalysis::new(input);
         let mut token = lexer.get_next_token();
 
         while token.token_type != TokenType::EOF {

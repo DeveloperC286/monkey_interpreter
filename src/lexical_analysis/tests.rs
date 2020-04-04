@@ -147,7 +147,7 @@ fn test_empty_code() {
 }
 
 fn get_returned_token_order(code: &str) -> Vec<Token> {
-    let mut lexer = Lexer::new(code.to_string());
+    let mut lexer = LexicalAnalysis::new(code.to_string());
     let mut returned_token_order = Vec::new();
 
     //when

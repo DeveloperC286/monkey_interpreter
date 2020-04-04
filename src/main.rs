@@ -6,7 +6,7 @@ extern crate log;
 #[macro_use]
 extern crate lazy_static;
 
-mod lexer;
+mod lexical_analysis;
 mod repl;
 mod token;
 

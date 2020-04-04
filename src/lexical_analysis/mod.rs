@@ -12,16 +12,16 @@ lazy_static! {
     };
 }
 
-pub struct Lexer {
+pub struct LexicalAnalysis {
     pub code: String,
     current_index: i32,
     current_character: Option<char>,
     next_character: Option<char>,
 }
 
-impl Lexer {
-    pub fn new(code: String) -> Lexer {
-        return Lexer {
+impl LexicalAnalysis {
+    pub fn new(code: String) -> LexicalAnalysis {
+        return LexicalAnalysis {
             code: code,
             current_index: -1,
             current_character: None,
