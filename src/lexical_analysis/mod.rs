@@ -40,6 +40,19 @@ impl LexicalAnalysis {
         match self.current_character {
             Some(character) => match character {
                 '!' => {
+                    match self.next_character {
+                        Some(next_character) => match next_character {
+                            '=' => {
+                                self.increment_character_index();
+                                return Token {
+                                    token_type: TokenType::NOT_EQUALS,
+                                    literal: "!=".to_string(),
+                                };
+                            }
+                            _ => {}
+                        },
+                        None => {}
+                    }
                     return Token {
                         token_type: TokenType::NOT,
                         literal: "!".to_string(),
@@ -76,6 +89,20 @@ impl LexicalAnalysis {
                     };
                 }
                 '=' => {
+                    match self.next_character {
+                        Some(next_character) => match next_character {
+                            '=' => {
+                                self.increment_character_index();
+                                return Token {
+                                    token_type: TokenType::EQUALS,
+                                    literal: "==".to_string(),
+                                };
+                            }
+                            _ => {}
+                        },
+                        None => {}
+                    }
+
                     return Token {
                         token_type: TokenType::ASSIGN,
                         literal: "=".to_string(),

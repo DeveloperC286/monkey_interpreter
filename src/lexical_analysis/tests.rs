@@ -13,7 +13,7 @@ use rstest::rstest;
         ]
     ),
 )]
-fn test_lexer_tokenization_for_integers(code: &str, expected_token_order: Vec<Token>) {
+fn test_lexical_analysis_tokenization_for_integers(code: &str, expected_token_order: Vec<Token>) {
     //when
     let returned_token_order = get_returned_token_order(code);
 
@@ -47,7 +47,10 @@ fn test_lexer_tokenization_for_integers(code: &str, expected_token_order: Vec<To
         ]
     ),
 )]
-fn test_lexer_tokenization_for_identifiers(code: &str, expected_token_order: Vec<Token>) {
+fn test_lexical_analysis_tokenization_for_identifiers(
+    code: &str,
+    expected_token_order: Vec<Token>,
+) {
     //when
     let returned_token_order = get_returned_token_order(code);
 
@@ -121,7 +124,39 @@ fn test_lexer_tokenization_for_identifiers(code: &str, expected_token_order: Vec
         ]
     ),
 )]
-fn test_lexer_tokenization_for_keywords(code: &str, expected_token_order: Vec<Token>) {
+fn test_lexical_analysis_tokenization_for_keywords(code: &str, expected_token_order: Vec<Token>) {
+    //when
+    let returned_token_order = get_returned_token_order(code);
+
+    //then
+    assert_token_orders_equal(expected_token_order, returned_token_order);
+}
+
+#[rstest(
+    code,
+    expected_token_order,
+    case(
+        "\t2 == 4\n",
+        vec![
+            Token{token_type: TokenType::INTEGER, literal: "2".to_string()},
+            Token{token_type: TokenType::EQUALS, literal: "==".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "4".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ]
+    ),
+    case(
+        "\t !=   4",
+        vec![
+            Token{token_type: TokenType::NOT_EQUALS, literal: "!=".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "4".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ]
+    ),
+)]
+fn test_lexical_analysis_tokenization_for_special_multi_characters(
+    code: &str,
+    expected_token_order: Vec<Token>,
+) {
     //when
     let returned_token_order = get_returned_token_order(code);
 
@@ -184,7 +219,10 @@ fn test_lexer_tokenization_for_keywords(code: &str, expected_token_order: Vec<To
         ]
     ),
 )]
-fn test_lexer_tokenization_for_special_characters(code: &str, expected_token_order: Vec<Token>) {
+fn test_lexical_analysis_tokenization_for_special_characters(
+    code: &str,
+    expected_token_order: Vec<Token>,
+) {
     //when
     let returned_token_order = get_returned_token_order(code);
 
@@ -208,12 +246,12 @@ fn test_empty_code() {
 }
 
 fn get_returned_token_order(code: &str) -> Vec<Token> {
-    let mut lexer = LexicalAnalysis::new(code.to_string());
+    let mut lexical_analysis = LexicalAnalysis::new(code.to_string());
     let mut returned_token_order = Vec::new();
 
     //when
     loop {
-        let token = lexer.get_next_token();
+        let token = lexical_analysis.get_next_token();
 
         if token.token_type == TokenType::EOF {
             returned_token_order.push(token);

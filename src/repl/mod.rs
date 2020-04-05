@@ -5,12 +5,12 @@ use std::io::{self};
 pub fn repl() {
     loop {
         let input = read();
-        let mut lexer = LexicalAnalysis::new(input);
-        let mut token = lexer.get_next_token();
+        let mut lexical_analysis = LexicalAnalysis::new(input);
+        let mut token = lexical_analysis.get_next_token();
 
         while token.token_type != TokenType::EOF {
             info!("> {:?}", token);
-            token = lexer.get_next_token();
+            token = lexical_analysis.get_next_token();
         }
     }
 }

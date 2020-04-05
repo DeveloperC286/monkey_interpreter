@@ -23,6 +23,8 @@ pub enum TokenType {
     GREATER_THAN,
     LESSER_THAN,
     NOT,
+    EQUALS,
+    NOT_EQUALS,
 
     // Delimiters
     COMMA,
