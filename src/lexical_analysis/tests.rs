@@ -73,9 +73,9 @@ fn test_lexer_tokenization_for_identifiers(code: &str, expected_token_order: Vec
         ]
     ),
     case(
-        " FN",
+        " Fn",
         vec![
-            Token{token_type: TokenType::FUNCTION, literal: "FN".to_string()},
+            Token{token_type: TokenType::FUNCTION, literal: "Fn".to_string()},
             Token{token_type: TokenType::EOF, literal: "".to_string()},
         ]
     ),
@@ -98,6 +98,15 @@ fn test_lexer_tokenization_for_keywords(code: &str, expected_token_order: Vec<To
 #[rstest(
     code,
     expected_token_order,
+    case(
+        "\r! *\t=",
+        vec![
+            Token{token_type: TokenType::NOT, literal: "!".to_string()},
+            Token{token_type: TokenType::MULTIPLY, literal: "*".to_string()},
+            Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ]
+    ),
     case(
         "\t-/ * ",
         vec![
@@ -188,7 +197,10 @@ fn assert_token_orders_equal(expected_token_order: Vec<Token>, returned_token_or
 
     for i in 0..expected_token_order.len() {
         if expected_token_order[i] != returned_token_order[i] {
-            panic!("expected_token_order[{}] != returned_token_order[{}]", i, i);
+            panic!(
+                "expected_token_order[{:?}] != returned_token_order[{:?}]",
+                expected_token_order[i], returned_token_order[i]
+            );
         }
     }
 }

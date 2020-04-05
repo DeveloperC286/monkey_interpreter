@@ -22,6 +22,7 @@ pub enum TokenType {
     MULTIPLY,
     GREATER_THAN,
     LESSER_THAN,
+    NOT,
 
     // Delimiters
     COMMA,

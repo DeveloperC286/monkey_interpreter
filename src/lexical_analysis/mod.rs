@@ -34,6 +34,12 @@ impl LexicalAnalysis {
 
         match self.current_character {
             Some(character) => match character {
+                '!' => {
+                    return Token {
+                        token_type: TokenType::NOT,
+                        literal: "!".to_string(),
+                    };
+                }
                 '-' => {
                     return Token {
                         token_type: TokenType::MINUS,
