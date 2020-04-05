@@ -59,6 +59,40 @@ fn test_lexer_tokenization_for_identifiers(code: &str, expected_token_order: Vec
     code,
     expected_token_order,
     case(
+        "TRUE\tfalse",
+        vec![
+            Token{token_type: TokenType::TRUE, literal: "TRUE".to_string()},
+            Token{token_type: TokenType::FALSE, literal: "false".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ]
+    ),
+    case(
+        "if\tfalse\n return 3;",
+        vec![
+            Token{token_type: TokenType::IF, literal: "if".to_string()},
+            Token{token_type: TokenType::FALSE, literal: "false".to_string()},
+            Token{token_type: TokenType::RETURN, literal: "return".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "3".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ]
+    ),
+    case(
+        "\tIF TRUE\n\t\treturn 3;\n\telse\n\t\treturn 45;",
+        vec![
+            Token{token_type: TokenType::IF, literal: "IF".to_string()},
+            Token{token_type: TokenType::TRUE, literal: "TRUE".to_string()},
+            Token{token_type: TokenType::RETURN, literal: "return".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "3".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::ELSE, literal: "else".to_string()},
+            Token{token_type: TokenType::RETURN, literal: "return".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "45".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ]
+    ),
+    case(
         "\n\rfn",
         vec![
             Token{token_type: TokenType::FUNCTION, literal: "fn".to_string()},

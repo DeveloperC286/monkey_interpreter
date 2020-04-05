@@ -38,4 +38,9 @@ pub enum TokenType {
     //Keywords
     FUNCTION,
     LET,
+    TRUE,
+    FALSE,
+    IF,
+    ELSE,
+    RETURN,
 }

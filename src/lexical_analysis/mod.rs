@@ -8,6 +8,11 @@ lazy_static! {
         let mut m = HashMap::new();
         m.insert("fn".to_string(), TokenType::FUNCTION);
         m.insert("let".to_string(), TokenType::LET);
+        m.insert("true".to_string(), TokenType::TRUE);
+        m.insert("false".to_string(), TokenType::FALSE);
+        m.insert("if".to_string(), TokenType::IF);
+        m.insert("else".to_string(), TokenType::ELSE);
+        m.insert("return".to_string(), TokenType::RETURN);
         m
     };
 }
