@@ -34,6 +34,36 @@ impl LexicalAnalysis {
 
         match self.current_character {
             Some(character) => match character {
+                '-' => {
+                    return Token {
+                        token_type: TokenType::MINUS,
+                        literal: "-".to_string(),
+                    };
+                }
+                '/' => {
+                    return Token {
+                        token_type: TokenType::DIVIDE,
+                        literal: "/".to_string(),
+                    };
+                }
+                '*' => {
+                    return Token {
+                        token_type: TokenType::MULTIPLY,
+                        literal: "*".to_string(),
+                    };
+                }
+                '>' => {
+                    return Token {
+                        token_type: TokenType::GREATER_THAN,
+                        literal: ">".to_string(),
+                    };
+                }
+                '<' => {
+                    return Token {
+                        token_type: TokenType::LESSER_THAN,
+                        literal: "<".to_string(),
+                    };
+                }
                 '=' => {
                     return Token {
                         token_type: TokenType::ASSIGN,

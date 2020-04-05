@@ -17,6 +17,11 @@ pub enum TokenType {
     // Operators
     ASSIGN,
     PLUS,
+    MINUS,
+    DIVIDE,
+    MULTIPLY,
+    GREATER_THAN,
+    LESSER_THAN,
 
     // Delimiters
     COMMA,

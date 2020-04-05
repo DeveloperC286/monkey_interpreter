@@ -99,6 +99,24 @@ fn test_lexer_tokenization_for_keywords(code: &str, expected_token_order: Vec<To
     code,
     expected_token_order,
     case(
+        "\t-/ * ",
+        vec![
+            Token{token_type: TokenType::MINUS, literal: "-".to_string()},
+            Token{token_type: TokenType::DIVIDE, literal: "/".to_string()},
+            Token{token_type: TokenType::MULTIPLY, literal: "*".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ]
+    ),
+    case(
+        "> < \n * ",
+        vec![
+            Token{token_type: TokenType::GREATER_THAN, literal: ">".to_string()},
+            Token{token_type: TokenType::LESSER_THAN, literal: "<".to_string()},
+            Token{token_type: TokenType::MULTIPLY, literal: "*".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ]
+    ),
+    case(
         "=+(){},;",
         vec![
             Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
