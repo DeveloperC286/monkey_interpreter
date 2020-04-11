@@ -6,8 +6,8 @@ extern crate log;
 #[macro_use]
 extern crate lazy_static;
 
+mod interpreter;
 mod lexical_analysis;
-mod repl;
 mod token;
 
 use structopt::StructOpt;
@@ -22,5 +22,5 @@ struct Args {}
 fn main() {
     pretty_env_logger::init();
     let _args = Args::from_args();
-    repl::repl();
+    interpreter::repl();
 }
