@@ -9,7 +9,7 @@ pub fn repl() {
         let mut token = lexical_analysis.get_next_token();
 
         while token.token_type != TokenType::EOF {
-            info!("> {:?}", token);
+            println!("> {:?}", token);
             token = lexical_analysis.get_next_token();
         }
     }
