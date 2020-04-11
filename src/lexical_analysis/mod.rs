@@ -1,5 +1,7 @@
-use super::token::{Token, TokenType};
 use std::iter::FromIterator;
+
+pub mod token;
+use token::{Token, TokenType};
 
 use std::collections::HashMap;
 

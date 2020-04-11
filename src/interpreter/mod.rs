@@ -1,5 +1,5 @@
+use super::lexical_analysis::token::TokenType;
 use super::lexical_analysis::LexicalAnalysis;
-use super::token::TokenType;
 use std::io::{self};
 
 pub fn repl() {

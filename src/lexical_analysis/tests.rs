@@ -1,4 +1,4 @@
-use super::super::token::{Token, TokenType};
+use super::token::{Token, TokenType};
 use super::*;
 use rstest::rstest;
 
