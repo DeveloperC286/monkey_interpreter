@@ -20,7 +20,7 @@ lazy_static! {
 }
 
 pub struct LexicalAnalysis {
-    pub code: String,
+    code: String,
     current_index: i32,
     current_character: Option<char>,
     next_character: Option<char>,

@@ -270,8 +270,7 @@ fn assert_token_orders_equal(expected_token_order: Vec<Token>, returned_token_or
     for i in 0..expected_token_order.len() {
         if expected_token_order[i] != returned_token_order[i] {
             panic!(
-                "expected_token_order[{:?}] != returned_token_order[{:?}]",
-                expected_token_order[i], returned_token_order[i]
+                "\nexpected_token_order[{}] != returned_token_order[{}]\nexpected_token_order = {:?}\nreturned_token_order = {:?}\n", i, i, expected_token_order[i], returned_token_order[i]
             );
         }
     }
