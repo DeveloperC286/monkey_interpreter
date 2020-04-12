@@ -8,6 +8,7 @@ extern crate lazy_static;
 
 mod interpreter;
 mod lexical_analysis;
+mod syntax_analysis;
 
 use structopt::StructOpt;
 
