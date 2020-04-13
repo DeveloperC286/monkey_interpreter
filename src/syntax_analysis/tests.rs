@@ -24,6 +24,35 @@ use rstest::rstest;
             },
         ]},
     ),
+    case(
+        vec![
+            Token{token_type: TokenType::LET, literal: "let".to_string()},
+            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
+            Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::LET, literal: "let".to_string()},
+            Token{token_type: TokenType::IDENTIFIER, literal: "z".to_string()},
+            Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "7".to_string()},
+            Token{token_type: TokenType::PLUS, literal: "+".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "10".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        AbstractSyntaxTree{ program: vec![
+            SyntaxTreeNode::LetStatement {
+                let_token: Token{token_type: TokenType::LET, literal: "let".to_string()},
+                identifier_token: Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
+            },
+            SyntaxTreeNode::LetStatement {
+                let_token: Token{token_type: TokenType::LET, literal: "let".to_string()},
+                identifier_token: Token{token_type: TokenType::IDENTIFIER, literal: "z".to_string()},
+            },
+        ]},
+    ),
+
+
 )]
 fn test_syntax_analysis_for_let_statements(
     tokenized_let_statement: Vec<Token>,
