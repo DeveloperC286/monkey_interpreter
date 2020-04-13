@@ -24,7 +24,7 @@ rust-monkey-interpreter-build:
     stage: builds
     before_script:
         - pacman -Sy --noconfirm
-        - pacman -S base-devel rust --noconfirm
+        - pacman -S base-devel libffi rust --noconfirm
     script:
         - cargo build
 
@@ -33,6 +33,6 @@ rust-monkey-interpreter-tests:
     stage: tests
     before_script:
         - pacman -Sy --noconfirm
-        - pacman -S base-devel rust --noconfirm
+        - pacman -S base-devel libffi rust --noconfirm
     script:
         - cargo test
