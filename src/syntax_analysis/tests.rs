@@ -30,7 +30,7 @@ fn test_syntax_analysis_for_let_statements(
     expected_abstract_syntax_tree: AbstractSyntaxTree,
 ) {
     //given
-    let syntax_analysis = SyntaxAnalysis::new(tokenized_let_statement);
+    let mut syntax_analysis = SyntaxAnalysis::new(tokenized_let_statement);
 
     //when
     let returned_abstract_syntax_tree = syntax_analysis.parse();
