@@ -18,6 +18,10 @@ use rstest::rstest;
             Token{token_type: TokenType::EOF, literal: "".to_string()},
         ],
         AbstractSyntaxTree{ program: vec![
+            SyntaxTreeNode::LetStatement {
+                let_token: Token{token_type: TokenType::LET, literal: "let".to_string()},
+                identifier_token: Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
+            },
         ]},
     ),
 )]
@@ -43,6 +47,8 @@ fn assert_abstract_syntax_tree_equal(
         expected_abstract_syntax_tree.program.len(),
         returned_abstract_syntax_tree.program.len()
     );
-
-    for i in 0..expected_abstract_syntax_tree.program.len() {}
+    assert_eq!(
+        expected_abstract_syntax_tree.program,
+        returned_abstract_syntax_tree.program
+    );
 }
