@@ -21,6 +21,25 @@ use rstest::rstest;
             },
         ]},
     ),
+    case(
+         vec![
+            Token{token_type: TokenType::RETURN, literal: "RETURN".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::RETURN, literal: "return".to_string()},
+            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        AbstractSyntaxTree{ program: vec![
+            SyntaxTreeNode::ReturnStatement {
+                return_token: Token{token_type: TokenType::RETURN, literal: "RETURN".to_string()},
+            },
+            SyntaxTreeNode::ReturnStatement {
+                return_token: Token{token_type: TokenType::RETURN, literal: "return".to_string()},
+            },
+        ]},
+    ),
 )]
 fn test_syntax_analysis_for_return_statements(
     tokenized_let_statement: Vec<Token>,

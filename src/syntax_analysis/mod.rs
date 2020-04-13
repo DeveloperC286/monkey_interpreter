@@ -29,6 +29,13 @@ impl SyntaxAnalysis {
                         None => {}
                     }
                 }
+                TokenType::RETURN => {
+                    let token_option = self.parse_return_statement();
+                    match token_option {
+                        Some(token) => program.push(token),
+                        None => {}
+                    }
+                }
                 TokenType::EOF => break,
                 _ => break,
             }
@@ -37,6 +44,23 @@ impl SyntaxAnalysis {
         }
 
         return AbstractSyntaxTree { program };
+    }
+
+    fn parse_return_statement(&mut self) -> Option<SyntaxTreeNode> {
+        let return_token = self.tokenized_code[self.current_token_index].clone();
+
+        //TODO handle expression.
+
+        self.increment_token_index();
+        loop {
+            match self.tokenized_code[self.current_token_index].token_type {
+                TokenType::SEMI_COLON => break,
+                _ => {}
+            }
+            self.increment_token_index();
+        }
+
+        return Some(SyntaxTreeNode::ReturnStatement { return_token });
     }
 
     fn parse_let_statement(&mut self) -> Option<SyntaxTreeNode> {
