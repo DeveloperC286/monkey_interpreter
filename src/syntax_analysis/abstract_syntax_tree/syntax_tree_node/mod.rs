@@ -6,4 +6,7 @@ pub enum SyntaxTreeNode {
         let_token: Token,
         identifier_token: Token,
     },
+    ReturnStatement {
+        return_token: Token,
+    },
 }

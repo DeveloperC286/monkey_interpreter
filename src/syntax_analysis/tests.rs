@@ -10,6 +10,37 @@ use rstest::rstest;
     expected_abstract_syntax_tree,
     case(
         vec![
+            Token{token_type: TokenType::RETURN, literal: "RETURN".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        AbstractSyntaxTree{ program: vec![
+            SyntaxTreeNode::ReturnStatement {
+                return_token: Token{token_type: TokenType::RETURN, literal: "RETURN".to_string()},
+            },
+        ]},
+    ),
+)]
+fn test_syntax_analysis_for_return_statements(
+    tokenized_let_statement: Vec<Token>,
+    expected_abstract_syntax_tree: AbstractSyntaxTree,
+) {
+    //given
+    let mut syntax_analysis = SyntaxAnalysis::new(tokenized_let_statement);
+
+    //when
+    let returned_abstract_syntax_tree = syntax_analysis.parse();
+
+    //then
+    assert_abstract_syntax_tree_equal(expected_abstract_syntax_tree, returned_abstract_syntax_tree);
+}
+
+#[rstest(
+    tokenized_let_statement,
+    expected_abstract_syntax_tree,
+    case(
+        vec![
             Token{token_type: TokenType::LET, literal: "let".to_string()},
             Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
             Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
@@ -51,8 +82,6 @@ use rstest::rstest;
             },
         ]},
     ),
-
-
 )]
 fn test_syntax_analysis_for_let_statements(
     tokenized_let_statement: Vec<Token>,
