@@ -1,6 +1,7 @@
 use super::super::lexical_analysis::token::{Token, TokenType};
-use super::abstract_syntax_tree::statement_node::let_statement_node::LetStatementNode;
+use super::abstract_syntax_tree::syntax_tree_node::SyntaxTreeNode;
 use super::abstract_syntax_tree::AbstractSyntaxTree;
+
 use super::*;
 use rstest::rstest;
 
@@ -17,10 +18,6 @@ use rstest::rstest;
             Token{token_type: TokenType::EOF, literal: "".to_string()},
         ],
         AbstractSyntaxTree{ program: vec![
-            Box::new(LetStatementNode{
-                letToken: Box::new(Token{token_type: TokenType::LET, literal: "let".to_string()}),
-                identifierToken: Box::new(Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()}),
-            }),
         ]},
     ),
 )]
@@ -38,10 +35,6 @@ fn test_syntax_analysis_for_let_statements(
     assert_abstract_syntax_tree_equal(expected_abstract_syntax_tree, returned_abstract_syntax_tree);
 }
 
-fn typeid<T: std::any::Any>(_: &T) {
-    println!("{:?}", std::any::TypeId::of::<T>());
-}
-
 fn assert_abstract_syntax_tree_equal(
     expected_abstract_syntax_tree: AbstractSyntaxTree,
     returned_abstract_syntax_tree: AbstractSyntaxTree,
@@ -51,11 +44,5 @@ fn assert_abstract_syntax_tree_equal(
         returned_abstract_syntax_tree.program.len()
     );
 
-    for i in 0..expected_abstract_syntax_tree.program.len() {
-        if typeid(&expected_abstract_syntax_tree.program[i])
-            != typeid(&returned_abstract_syntax_tree.program[i])
-        {
-            panic!("expected_abstract_syntax_tree.program[{}] != returned_abstract_syntax_tree.program[{}]", i, i);
-        }
-    }
+    for i in 0..expected_abstract_syntax_tree.program.len() {}
 }

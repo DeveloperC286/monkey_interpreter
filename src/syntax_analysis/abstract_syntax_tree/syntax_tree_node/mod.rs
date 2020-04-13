@@ -1,1 +1,3 @@
-pub trait SyntaxTreeNode {}
+pub enum SyntaxTreeNode {
+    LetStatement,
+}

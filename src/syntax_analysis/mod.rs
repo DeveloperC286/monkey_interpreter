@@ -1,4 +1,4 @@
-use super::lexical_analysis::token::Token;
+use super::lexical_analysis::token::{Token, TokenType};
 
 mod abstract_syntax_tree;
 use abstract_syntax_tree::AbstractSyntaxTree;
@@ -17,9 +17,7 @@ impl SyntaxAnalysis {
     }
 
     pub fn parse(&self) -> AbstractSyntaxTree {
-        let mut program = vec![];
-
-        return AbstractSyntaxTree { program };
+        return AbstractSyntaxTree { program: vec![] };
     }
 }
 
