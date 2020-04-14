@@ -22,28 +22,28 @@ impl SyntaxAnalysis {
 
         loop {
             match self.tokenized_code[self.current_token_index].token_type {
-                TokenType::LET => {
-                    let token_option = self.parse_let_statement();
-                    match token_option {
-                        Some(token) => program.push(token),
-                        None => {}
-                    }
-                }
-                TokenType::RETURN => {
-                    let token_option = self.parse_return_statement();
-                    match token_option {
-                        Some(token) => program.push(token),
-                        None => {}
-                    }
-                }
                 TokenType::EOF => break,
-                _ => break,
+                _ => {
+                    let token_option = self.parse_next_node();
+                    match token_option {
+                        Some(token) => program.push(token),
+                        None => {}
+                    }
+                }
             }
 
             self.increment_token_index();
         }
 
         return AbstractSyntaxTree { program };
+    }
+
+    fn parse_next_node(&mut self) -> Option<SyntaxTreeNode> {
+        match self.tokenized_code[self.current_token_index].token_type {
+            TokenType::LET => self.parse_let_statement(),
+            TokenType::RETURN => self.parse_return_statement(),
+            _ => None,
+        }
     }
 
     fn parse_return_statement(&mut self) -> Option<SyntaxTreeNode> {
