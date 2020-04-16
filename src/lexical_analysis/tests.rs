@@ -123,7 +123,7 @@ fn test_empty_code() {
     let returned_token_order = get_returned_token_order("");
 
     //then
-    assert_json_snapshot!(returned_token_order);
+    assert_json_snapshot!("test_empty_code", returned_token_order);
 }
 
 fn get_returned_token_order(code: &str) -> Vec<Token> {
