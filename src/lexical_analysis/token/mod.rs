@@ -1,10 +1,12 @@
-#[derive(Debug, Clone, PartialEq)]
+use serde::{Serialize, Deserialize};
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Token {
     pub token_type: TokenType,
     pub literal: String,
 }
 
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, Copy, Clone, PartialEq)]
 #[allow(non_camel_case_types)]
 pub enum TokenType {
     ILLEGAL,

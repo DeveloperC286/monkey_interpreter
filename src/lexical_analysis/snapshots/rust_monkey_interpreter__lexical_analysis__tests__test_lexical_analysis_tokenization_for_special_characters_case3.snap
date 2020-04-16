@@ -1,0 +1,22 @@
+---
+source: src/lexical_analysis/tests.rs
+expression: returned_token_order
+---
+[
+  {
+    "token_type": "GREATER_THAN",
+    "literal": ">"
+  },
+  {
+    "token_type": "LESSER_THAN",
+    "literal": "<"
+  },
+  {
+    "token_type": "MULTIPLY",
+    "literal": "*"
+  },
+  {
+    "token_type": "EOF",
+    "literal": ""
+  }
+]

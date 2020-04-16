@@ -11,6 +11,8 @@ lazy_static = "1.4.0"
 structopt = "0.3.13"
 log = "0.4.8"
 pretty_env_logger = "0.4.0"
+serde = "1.0.106"
 
 [dev-dependencies]
 rstest = "0.6.2"
+insta = "0.16.0"

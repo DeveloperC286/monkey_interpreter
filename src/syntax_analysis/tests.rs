@@ -1,13 +1,12 @@
-use super::super::lexical_analysis::token::{Token, TokenType};
-use super::abstract_syntax_tree::syntax_tree_node::SyntaxTreeNode;
-use super::abstract_syntax_tree::AbstractSyntaxTree;
-
 use super::*;
+use super::super::lexical_analysis::token::{Token, TokenType};
+
 use rstest::rstest;
+use insta::assert_json_snapshot;
 
 #[rstest(
-    tokenized_let_statement,
-    expected_abstract_syntax_tree,
+    token_stream,
+    snapshot_name,
     case(
         vec![
             Token{token_type: TokenType::LET, literal: "let".to_string()},
@@ -20,34 +19,23 @@ use rstest::rstest;
             Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
             Token{token_type: TokenType::EOF, literal: "".to_string()},
         ],
-        AbstractSyntaxTree{ program: vec![
-            SyntaxTreeNode::LetStatement {
-                let_token: Token{token_type: TokenType::LET, literal: "let".to_string()},
-                identifier_token: Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
-            },
-            SyntaxTreeNode::ReturnStatement {
-                return_token: Token{token_type: TokenType::RETURN, literal: "RETURN".to_string()},
-            },
-        ]},
+        "test_syntax_analysis_for_combined_statements_case1"
     ),
 )]
-fn test_syntax_analysis_for_combined_statements(
-    tokenized_let_statement: Vec<Token>,
-    expected_abstract_syntax_tree: AbstractSyntaxTree,
-) {
+fn test_syntax_analysis_for_combined_statements(token_stream: Vec<Token>, snapshot_name: &str) {
     //given
-    let mut syntax_analysis = SyntaxAnalysis::new(tokenized_let_statement);
+    let mut syntax_analysis = SyntaxAnalysis::new(token_stream);
 
     //when
     let returned_abstract_syntax_tree = syntax_analysis.parse();
 
     //then
-    assert_abstract_syntax_tree_equal(expected_abstract_syntax_tree, returned_abstract_syntax_tree);
+    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
 }
 
 #[rstest(
-    tokenized_let_statement,
-    expected_abstract_syntax_tree,
+    token_stream,
+    snapshot_name,
     case(
         vec![
             Token{token_type: TokenType::RETURN, literal: "RETURN".to_string()},
@@ -55,11 +43,7 @@ fn test_syntax_analysis_for_combined_statements(
             Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
             Token{token_type: TokenType::EOF, literal: "".to_string()},
         ],
-        AbstractSyntaxTree{ program: vec![
-            SyntaxTreeNode::ReturnStatement {
-                return_token: Token{token_type: TokenType::RETURN, literal: "RETURN".to_string()},
-            },
-        ]},
+        "test_syntax_analysis_for_return_statements_case1"
     ),
     case(
          vec![
@@ -71,33 +55,23 @@ fn test_syntax_analysis_for_combined_statements(
             Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
             Token{token_type: TokenType::EOF, literal: "".to_string()},
         ],
-        AbstractSyntaxTree{ program: vec![
-            SyntaxTreeNode::ReturnStatement {
-                return_token: Token{token_type: TokenType::RETURN, literal: "RETURN".to_string()},
-            },
-            SyntaxTreeNode::ReturnStatement {
-                return_token: Token{token_type: TokenType::RETURN, literal: "return".to_string()},
-            },
-        ]},
+        "test_syntax_analysis_for_return_statements_case2"
     ),
 )]
-fn test_syntax_analysis_for_return_statements(
-    tokenized_let_statement: Vec<Token>,
-    expected_abstract_syntax_tree: AbstractSyntaxTree,
-) {
+fn test_syntax_analysis_for_return_statements(token_stream: Vec<Token>, snapshot_name: &str ) {
     //given
-    let mut syntax_analysis = SyntaxAnalysis::new(tokenized_let_statement);
+    let mut syntax_analysis = SyntaxAnalysis::new(token_stream);
 
     //when
     let returned_abstract_syntax_tree = syntax_analysis.parse();
 
     //then
-    assert_abstract_syntax_tree_equal(expected_abstract_syntax_tree, returned_abstract_syntax_tree);
+    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
 }
 
 #[rstest(
-    tokenized_let_statement,
-    expected_abstract_syntax_tree,
+    token_stream,
+    snapshot_name,
     case(
         vec![
             Token{token_type: TokenType::LET, literal: "let".to_string()},
@@ -107,12 +81,7 @@ fn test_syntax_analysis_for_return_statements(
             Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
             Token{token_type: TokenType::EOF, literal: "".to_string()},
         ],
-        AbstractSyntaxTree{ program: vec![
-            SyntaxTreeNode::LetStatement {
-                let_token: Token{token_type: TokenType::LET, literal: "let".to_string()},
-                identifier_token: Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
-            },
-        ]},
+        "test_syntax_analysis_for_let_statements_case1"
     ),
     case(
         vec![
@@ -130,42 +99,16 @@ fn test_syntax_analysis_for_return_statements(
             Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
             Token{token_type: TokenType::EOF, literal: "".to_string()},
         ],
-        AbstractSyntaxTree{ program: vec![
-            SyntaxTreeNode::LetStatement {
-                let_token: Token{token_type: TokenType::LET, literal: "let".to_string()},
-                identifier_token: Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
-            },
-            SyntaxTreeNode::LetStatement {
-                let_token: Token{token_type: TokenType::LET, literal: "let".to_string()},
-                identifier_token: Token{token_type: TokenType::IDENTIFIER, literal: "z".to_string()},
-            },
-        ]},
+        "test_syntax_analysis_for_let_statements_case2"
     ),
 )]
-fn test_syntax_analysis_for_let_statements(
-    tokenized_let_statement: Vec<Token>,
-    expected_abstract_syntax_tree: AbstractSyntaxTree,
-) {
+fn test_syntax_analysis_for_let_statements(token_stream: Vec<Token>, snapshot_name: &str ) {
     //given
-    let mut syntax_analysis = SyntaxAnalysis::new(tokenized_let_statement);
+    let mut syntax_analysis = SyntaxAnalysis::new(token_stream);
 
     //when
     let returned_abstract_syntax_tree = syntax_analysis.parse();
 
     //then
-    assert_abstract_syntax_tree_equal(expected_abstract_syntax_tree, returned_abstract_syntax_tree);
-}
-
-fn assert_abstract_syntax_tree_equal(
-    expected_abstract_syntax_tree: AbstractSyntaxTree,
-    returned_abstract_syntax_tree: AbstractSyntaxTree,
-) {
-    assert_eq!(
-        expected_abstract_syntax_tree.program.len(),
-        returned_abstract_syntax_tree.program.len()
-    );
-    assert_eq!(
-        expected_abstract_syntax_tree.program,
-        returned_abstract_syntax_tree.program
-    );
+    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
 }

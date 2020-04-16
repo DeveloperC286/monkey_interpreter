@@ -1,0 +1,22 @@
+---
+source: src/lexical_analysis/tests.rs
+expression: returned_token_order
+---
+[
+  {
+    "token_type": "LET",
+    "literal": "let"
+  },
+  {
+    "token_type": "IDENTIFIER",
+    "literal": "x"
+  },
+  {
+    "token_type": "SEMI_COLON",
+    "literal": ";"
+  },
+  {
+    "token_type": "EOF",
+    "literal": ""
+  }
+]
