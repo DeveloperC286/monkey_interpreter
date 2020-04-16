@@ -1,0 +1,25 @@
+---
+source: src/syntax_analysis/tests.rs
+expression: returned_abstract_syntax_tree
+---
+{
+  "program": [
+    {
+      "EXPRESSION_STATEMENT": {
+        "initial_expression_token": {
+          "token_type": "IDENTIFIER",
+          "literal": "varX"
+        },
+        "expression": {
+          "IDENTIFIER": {
+            "expression_precedence": "LOWEST",
+            "identifier_token": {
+              "token_type": "IDENTIFIER",
+              "literal": "varX"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
