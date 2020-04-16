@@ -1,7 +1,7 @@
 use super::lexical_analysis::token::{Token, TokenType};
 
 mod abstract_syntax_tree;
-use abstract_syntax_tree::syntax_tree_node::SyntaxTreeNode;
+use abstract_syntax_tree::syntax_tree_node::{Expression, ExpressionPrecedence, SyntaxTreeNode};
 use abstract_syntax_tree::AbstractSyntaxTree;
 
 pub struct SyntaxAnalysis {
@@ -31,8 +31,6 @@ impl SyntaxAnalysis {
                     }
                 }
             }
-
-            self.increment_token_index();
         }
 
         return AbstractSyntaxTree { program };
@@ -42,7 +40,53 @@ impl SyntaxAnalysis {
         match self.tokenized_code[self.current_token_index].token_type {
             TokenType::LET => self.parse_let_statement(),
             TokenType::RETURN => self.parse_return_statement(),
-            _ => None,
+            _ => self.parse_expression_statement(),
+        }
+    }
+
+    fn parse_expression_statement(&mut self) -> Option<SyntaxTreeNode> {
+        let initial_expression_token = self.tokenized_code[self.current_token_index].clone();
+
+        let expression_option = self.parse_expression(ExpressionPrecedence::LOWEST);
+
+        if self.tokenized_code[self.current_token_index].token_type == TokenType::SEMI_COLON {
+            self.increment_token_index();
+        }
+
+        match expression_option {
+            Some(expression) => {
+                return Some(SyntaxTreeNode::EXPRESSION_STATEMENT {
+                    initial_expression_token,
+                    expression,
+                });
+            }
+            None => return None,
+        }
+    }
+
+    fn parse_expression(
+        &mut self,
+        expression_precedence: ExpressionPrecedence,
+    ) -> Option<Expression> {
+        let token = self.tokenized_code[self.current_token_index].clone();
+        self.increment_token_index();
+
+        match token.token_type {
+            TokenType::IDENTIFIER => {
+                return Some(Expression::IDENTIFIER {
+                    expression_precedence,
+                    identifier_token: token,
+                });
+            }
+            TokenType::INTEGER => {
+                return Some(Expression::INTEGER {
+                    expression_precedence,
+                    integer_token: token,
+                });
+            }
+            _ => {
+                return None;
+            }
         }
     }
 
@@ -60,7 +104,7 @@ impl SyntaxAnalysis {
             self.increment_token_index();
         }
 
-        return Some(SyntaxTreeNode::ReturnStatement { return_token });
+        return Some(SyntaxTreeNode::RETURN_STATEMENT { return_token });
     }
 
     fn parse_let_statement(&mut self) -> Option<SyntaxTreeNode> {
@@ -86,13 +130,17 @@ impl SyntaxAnalysis {
         self.increment_token_index();
         loop {
             match self.tokenized_code[self.current_token_index].token_type {
-                TokenType::SEMI_COLON => break,
-                _ => {}
+                TokenType::SEMI_COLON => {
+                    self.increment_token_index();
+                    break;
+                }
+                _ => {
+                    self.increment_token_index();
+                }
             }
-            self.increment_token_index();
         }
 
-        return Some(SyntaxTreeNode::LetStatement {
+        return Some(SyntaxTreeNode::LET_STATEMENT {
             let_token,
             identifier_token,
         });

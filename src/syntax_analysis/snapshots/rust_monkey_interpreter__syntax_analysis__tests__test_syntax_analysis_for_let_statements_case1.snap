@@ -5,7 +5,7 @@ expression: returned_abstract_syntax_tree
 {
   "program": [
     {
-      "LetStatement": {
+      "LET_STATEMENT": {
         "let_token": {
           "token_type": "LET",
           "literal": "let"
