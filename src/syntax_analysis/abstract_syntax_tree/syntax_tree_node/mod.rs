@@ -17,13 +17,13 @@ pub enum SyntaxTreeNode {
     },
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub enum Expression {
     IDENTIFIER { identifier_token: Token },
     INTEGER { integer_token: Token },
 }
 
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, Copy, Clone, PartialEq)]
 #[allow(non_camel_case_types)]
 pub enum ExpressionPrecedence {
     LOWEST,
