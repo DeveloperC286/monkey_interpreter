@@ -1,6 +1,8 @@
 use super::super::super::lexical_analysis::token::Token;
 
-#[derive(Debug, PartialEq)]
+use serde::{Serialize, Deserialize};
+
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub enum SyntaxTreeNode {
     LetStatement {
         let_token: Token,

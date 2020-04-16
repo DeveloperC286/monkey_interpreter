@@ -1,0 +1,18 @@
+---
+source: src/lexical_analysis/tests.rs
+expression: returned_token_order
+---
+[
+  {
+    "token_type": "NOT_EQUALS",
+    "literal": "!="
+  },
+  {
+    "token_type": "INTEGER",
+    "literal": "4"
+  },
+  {
+    "token_type": "EOF",
+    "literal": ""
+  }
+]

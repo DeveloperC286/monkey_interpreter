@@ -1,0 +1,46 @@
+---
+source: src/lexical_analysis/tests.rs
+expression: returned_token_order
+---
+[
+  {
+    "token_type": "IF",
+    "literal": "IF"
+  },
+  {
+    "token_type": "TRUE",
+    "literal": "TRUE"
+  },
+  {
+    "token_type": "RETURN",
+    "literal": "return"
+  },
+  {
+    "token_type": "INTEGER",
+    "literal": "3"
+  },
+  {
+    "token_type": "SEMI_COLON",
+    "literal": ";"
+  },
+  {
+    "token_type": "ELSE",
+    "literal": "else"
+  },
+  {
+    "token_type": "RETURN",
+    "literal": "return"
+  },
+  {
+    "token_type": "INTEGER",
+    "literal": "45"
+  },
+  {
+    "token_type": "SEMI_COLON",
+    "literal": ";"
+  },
+  {
+    "token_type": "EOF",
+    "literal": ""
+  }
+]
