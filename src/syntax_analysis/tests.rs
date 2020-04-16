@@ -9,6 +9,38 @@ use rstest::rstest;
     snapshot_name,
     case(
         vec![
+            Token{token_type: TokenType::NOT, literal: "!".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "15".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_for_prefix_expression_case1"
+    ),
+    case(
+        vec![
+            Token{token_type: TokenType::MINUS, literal: "-".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "3".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_for_prefix_expression_case2"
+    ),
+)]
+fn test_syntax_analysis_for_prefix_expression(token_stream: Vec<Token>, snapshot_name: &str) {
+    //given
+    let mut syntax_analysis = SyntaxAnalysis::new(token_stream);
+
+    //when
+    let returned_abstract_syntax_tree = syntax_analysis.parse();
+
+    //then
+    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+}
+
+#[rstest(
+    token_stream,
+    snapshot_name,
+    case(
+        vec![
             Token{token_type: TokenType::IDENTIFIER, literal: "temp".to_string()},
             Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
             Token{token_type: TokenType::EOF, literal: "".to_string()},
