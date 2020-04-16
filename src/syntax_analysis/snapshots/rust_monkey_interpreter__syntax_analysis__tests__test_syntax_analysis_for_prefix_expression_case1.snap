@@ -1,0 +1,32 @@
+---
+source: src/syntax_analysis/tests.rs
+expression: returned_abstract_syntax_tree
+---
+{
+  "program": [
+    {
+      "EXPRESSION_STATEMENT": {
+        "initial_expression_token": {
+          "token_type": "NOT",
+          "literal": "!"
+        },
+        "expression": {
+          "PREFIX": {
+            "prefix_token": {
+              "token_type": "NOT",
+              "literal": "!"
+            },
+            "right_hand_expression": {
+              "INTEGER": {
+                "integer_token": {
+                  "token_type": "INTEGER",
+                  "literal": "15"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

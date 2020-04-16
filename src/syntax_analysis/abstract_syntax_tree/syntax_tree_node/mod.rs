@@ -21,12 +21,14 @@ pub enum SyntaxTreeNode {
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub enum Expression {
     IDENTIFIER {
-        expression_precedence: ExpressionPrecedence,
         identifier_token: Token,
     },
     INTEGER {
-        expression_precedence: ExpressionPrecedence,
         integer_token: Token,
+    },
+    PREFIX {
+        prefix_token: Token,
+        right_hand_expression: Box<Expression>,
     },
 }
 

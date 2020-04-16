@@ -82,19 +82,32 @@ impl SyntaxAnalysis {
             TokenType::IDENTIFIER => {
                 debug!("Returning an identifier expression.");
                 return Some(Expression::IDENTIFIER {
-                    expression_precedence,
                     identifier_token: token,
                 });
             }
             TokenType::INTEGER => {
                 debug!("Returning an integer expression.");
                 return Some(Expression::INTEGER {
-                    expression_precedence,
                     integer_token: token,
                 });
             }
+            TokenType::NOT | TokenType::MINUS => {
+                debug!("Returning a prefix expression.");
+                match self.parse_expression(ExpressionPrecedence::PREFIX) {
+                    Some(right_hand_expression) => {
+                        return Some(Expression::PREFIX {
+                            prefix_token: token,
+                            right_hand_expression: Box::new(right_hand_expression),
+                        });
+                    }
+                    None => {
+                        //TODO add syntax error of prefix with no right hand side.
+                        return None;
+                    }
+                }
+            }
             _ => {
-                debug!("Unable to parse expression.");
+                error!("Unable to parse the token '{:?}'.", token);
                 return None;
             }
         }
