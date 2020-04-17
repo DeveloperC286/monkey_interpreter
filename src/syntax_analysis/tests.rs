@@ -47,6 +47,41 @@ use rstest::rstest;
         ],
         "test_syntax_analysis_for_infix_expression_case4"
     ),
+    case(
+        vec![
+            Token{token_type: TokenType::MINUS, literal: "-".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
+            Token{token_type: TokenType::MULTIPLY, literal: "*".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "10".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_for_infix_expression_case5"
+    ),
+    case(
+        vec![
+            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
+            Token{token_type: TokenType::MINUS, literal: "-".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "10".to_string()},
+            Token{token_type: TokenType::MULTIPLY, literal: "*".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "10".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_for_infix_expression_case6"
+    ),
+    case(
+        vec![
+            Token{token_type: TokenType::INTEGER, literal: "10".to_string()},
+            Token{token_type: TokenType::DIVIDE, literal: "/".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
+            Token{token_type: TokenType::PLUS, literal: "+".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "1".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_for_infix_expression_case7"
+    ),
 )]
 fn test_syntax_analysis_for_infix_expression(token_stream: Vec<Token>, snapshot_name: &str) {
     //given
