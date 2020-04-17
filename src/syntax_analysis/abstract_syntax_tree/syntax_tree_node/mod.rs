@@ -18,7 +18,7 @@ pub enum SyntaxTreeNode {
     },
 }
 
-#[derive(Serialize, Deserialize, Debug, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub enum Expression {
     IDENTIFIER {
         identifier_token: Token,
@@ -30,9 +30,14 @@ pub enum Expression {
         prefix_token: Token,
         right_hand_expression: Box<Expression>,
     },
+    INFIX {
+        left_hand_expression: Box<Expression>,
+        operator_token: Token,
+        right_hand_expression: Box<Expression>,
+    },
 }
 
-#[derive(Serialize, Deserialize, Debug, Copy, Clone, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, Copy, Clone, PartialEq, PartialOrd)]
 #[allow(non_camel_case_types)]
 pub enum ExpressionPrecedence {
     LOWEST,
