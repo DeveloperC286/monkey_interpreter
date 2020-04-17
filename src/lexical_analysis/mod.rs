@@ -174,7 +174,7 @@ impl LexicalAnalysis {
                         };
                     }
                     _ => {
-                        if character.is_alphabetic() {
+                        if is_valid_identifer_character(character) {
                             debug!("Parsing word from characters.");
                             let word = self.get_word();
                             let word_lowercase = word.to_lowercase();
@@ -219,14 +219,13 @@ impl LexicalAnalysis {
             }
         }
     }
-
     fn get_integer(&mut self) -> String {
         let mut chars: Vec<char> = vec![];
 
         loop {
             match self.current_character {
                 Some(character) => {
-                    if character.is_digit(10) {
+                    if is_digit(character) {
                         chars.push(character);
                     } else {
                         error!("self.current_character is not a digit, should never be able to get here.");
@@ -240,7 +239,7 @@ impl LexicalAnalysis {
             }
             match self.next_character {
                 Some(character) => {
-                    if character.is_digit(10) {
+                    if is_digit(character) {
                         self.increment_character_index();
                     } else {
                         break;
@@ -263,7 +262,7 @@ impl LexicalAnalysis {
         loop {
             match self.current_character {
                 Some(character) => {
-                    if character.is_alphabetic() {
+                    if is_valid_identifer_character(character) {
                         chars.push(character);
                     } else {
                         error!("self.current_character is not alphabetic, should never be able to get here.");
@@ -277,7 +276,7 @@ impl LexicalAnalysis {
             }
             match self.next_character {
                 Some(character) => {
-                    if character.is_alphabetic() {
+                    if is_valid_identifer_character(character) {
                         self.increment_character_index();
                     } else {
                         break;
@@ -316,6 +315,14 @@ impl LexicalAnalysis {
         self.current_character = self.code.chars().nth(self.current_index as usize);
         self.next_character = self.code.chars().nth((self.current_index + 1) as usize);
     }
+}
+
+fn is_digit(character: char) -> bool {
+    character.is_digit(10)
+}
+
+fn is_valid_identifer_character(character: char) -> bool {
+    character.is_alphabetic() || character == '_'
 }
 
 #[cfg(test)]

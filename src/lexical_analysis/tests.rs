@@ -27,6 +27,14 @@ fn test_lexical_analysis_tokenization_for_integers(code: &str, snapshot_name: &s
     case(
         "let varX\t=  5 +5;",
         "test_lexical_analysis_tokenization_for_identifiers_case2"
+    ),
+    case(
+        "\tlet camel_case;\n",
+        "test_lexical_analysis_tokenization_for_identifiers_case3"
+    ),
+    case(
+        "\tlet _unused_var;\n",
+        "test_lexical_analysis_tokenization_for_identifiers_case4"
     )
 )]
 fn test_lexical_analysis_tokenization_for_identifiers(code: &str, snapshot_name: &str) {
