@@ -15,30 +15,30 @@ pub fn repl() {
         VERSION.unwrap_or("unknown")
     );
     loop {
-        let tokens = get_tokens(read());
-        println!("{:?}", tokens);
-        let ast = get_abstract_syntax_tree(tokens);
+        let tokenized_code = get_tokens(read());
+        println!("{:?}", tokenized_code);
+        let ast = get_abstract_syntax_tree(tokenized_code);
         println!("{:?}", ast);
     }
 }
 
-fn get_abstract_syntax_tree(tokens: Vec<Token>) -> AbstractSyntaxTree {
-    let mut syntax_analysis = SyntaxAnalysis::new(tokens);
-    return syntax_analysis.parse();
+fn get_abstract_syntax_tree(tokenized_code: Vec<Token>) -> AbstractSyntaxTree {
+    let mut syntax_analysis = SyntaxAnalysis::new();
+    return syntax_analysis.parse(tokenized_code);
 }
 
 fn get_tokens(input: String) -> Vec<Token> {
     let mut lexical_analysis = LexicalAnalysis::new(input);
     let mut token = lexical_analysis.get_next_token();
-    let mut tokens: Vec<Token> = vec![];
+    let mut tokenized_code: Vec<Token> = vec![];
 
     while token.token_type != TokenType::EOF {
-        tokens.push(token);
+        tokenized_code.push(token);
         token = lexical_analysis.get_next_token();
     }
-    tokens.push(token);
+    tokenized_code.push(token);
 
-    return tokens;
+    return tokenized_code;
 }
 
 fn read() -> String {

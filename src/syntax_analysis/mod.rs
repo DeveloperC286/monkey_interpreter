@@ -34,19 +34,33 @@ pub struct SyntaxAnalysis {
 }
 
 impl SyntaxAnalysis {
-    pub fn new(tokenized_code: Vec<Token>) -> SyntaxAnalysis {
-        //TODO check the index.
-        let current_token = tokenized_code[0].clone();
-
+    pub fn new() -> SyntaxAnalysis {
         return SyntaxAnalysis {
-            tokenized_code,
+            tokenized_code: vec![],
             current_token_index: 0,
-            current_token,
+            current_token: Token {
+                token_type: TokenType::EOF,
+                literal: "".to_string(),
+            },
         };
     }
 
-    pub fn parse(&mut self) -> AbstractSyntaxTree {
+    fn reset_parsing(&mut self, tokenized_code: Vec<Token>) {
+        self.tokenized_code = tokenized_code;
+        self.current_token_index = 0;
+        if self.tokenized_code.len() > 0 {
+            self.current_token = self.tokenized_code[self.current_token_index].clone();
+        } else {
+            self.current_token = Token {
+                token_type: TokenType::EOF,
+                literal: "".to_string(),
+            };
+        }
+    }
+
+    pub fn parse(&mut self, tokenized_code: Vec<Token>) -> AbstractSyntaxTree {
         let mut program: Vec<SyntaxTreeNode> = vec![];
+        self.reset_parsing(tokenized_code);
 
         loop {
             debug!(
