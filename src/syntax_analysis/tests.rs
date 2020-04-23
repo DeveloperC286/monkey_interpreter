@@ -5,6 +5,57 @@ use insta::assert_json_snapshot;
 use rstest::rstest;
 
 #[rstest(
+    tokenized_code_1,
+    snapshot_name_1,
+    tokenized_code_2,
+    snapshot_name_2,
+    case(
+        vec![
+            Token{token_type: TokenType::LET, literal: "let".to_string()},
+            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
+            Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_for_let_statements_case1",
+        vec![
+            Token{token_type: TokenType::LET, literal: "let".to_string()},
+            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
+            Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::LET, literal: "let".to_string()},
+            Token{token_type: TokenType::IDENTIFIER, literal: "z".to_string()},
+            Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "7".to_string()},
+            Token{token_type: TokenType::PLUS, literal: "+".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "10".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_for_let_statements_case2"
+    ),
+)]
+fn test_syntax_analysis_for_successive_parsing(
+    tokenized_code_1: Vec<Token>,
+    snapshot_name_1: &str,
+    tokenized_code_2: Vec<Token>,
+    snapshot_name_2: &str,
+) {
+    //given
+    let mut syntax_analysis = SyntaxAnalysis::new();
+
+    //when
+    let returned_abstract_syntax_tree_1 = syntax_analysis.parse(tokenized_code_1);
+    let returned_abstract_syntax_tree_2 = syntax_analysis.parse(tokenized_code_2);
+
+    //then
+    assert_json_snapshot!(snapshot_name_1, returned_abstract_syntax_tree_1);
+    assert_json_snapshot!(snapshot_name_2, returned_abstract_syntax_tree_2);
+}
+
+#[rstest(
     tokenized_code,
     snapshot_name,
     case(
