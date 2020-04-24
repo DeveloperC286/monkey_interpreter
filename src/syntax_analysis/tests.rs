@@ -5,9 +5,9 @@ use insta::assert_json_snapshot;
 use rstest::rstest;
 
 #[rstest(
-    tokenized_code_1,
+    tokens_1,
     snapshot_name_1,
-    tokenized_code_2,
+    tokens_2,
     snapshot_name_2,
     case(
         vec![
@@ -38,17 +38,17 @@ use rstest::rstest;
     ),
 )]
 fn test_syntax_analysis_for_successive_parsing(
-    tokenized_code_1: Vec<Token>,
+    tokens_1: Vec<Token>,
     snapshot_name_1: &str,
-    tokenized_code_2: Vec<Token>,
+    tokens_2: Vec<Token>,
     snapshot_name_2: &str,
 ) {
     //given
     let mut syntax_analysis = SyntaxAnalysis::new();
 
     //when
-    let returned_abstract_syntax_tree_1 = syntax_analysis.parse(tokenized_code_1);
-    let returned_abstract_syntax_tree_2 = syntax_analysis.parse(tokenized_code_2);
+    let returned_abstract_syntax_tree_1 = syntax_analysis.parse(tokens_1);
+    let returned_abstract_syntax_tree_2 = syntax_analysis.parse(tokens_2);
 
     //then
     assert_json_snapshot!(snapshot_name_1, returned_abstract_syntax_tree_1);
@@ -56,7 +56,7 @@ fn test_syntax_analysis_for_successive_parsing(
 }
 
 #[rstest(
-    tokenized_code,
+    tokens,
     snapshot_name,
     case(
         vec![
@@ -134,19 +134,19 @@ fn test_syntax_analysis_for_successive_parsing(
         "test_syntax_analysis_for_infix_expression_case7"
     ),
 )]
-fn test_syntax_analysis_for_infix_expression(tokenized_code: Vec<Token>, snapshot_name: &str) {
+fn test_syntax_analysis_for_infix_expression(tokens: Vec<Token>, snapshot_name: &str) {
     //given
     let mut syntax_analysis = SyntaxAnalysis::new();
 
     //when
-    let returned_abstract_syntax_tree = syntax_analysis.parse(tokenized_code);
+    let returned_abstract_syntax_tree = syntax_analysis.parse(tokens);
 
     //then
     assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
 }
 
 #[rstest(
-    tokenized_code,
+    tokens,
     snapshot_name,
     case(
         vec![
@@ -166,19 +166,19 @@ fn test_syntax_analysis_for_infix_expression(tokenized_code: Vec<Token>, snapsho
         "test_syntax_analysis_for_prefix_expression_case2"
     ),
 )]
-fn test_syntax_analysis_for_prefix_expression(tokenized_code: Vec<Token>, snapshot_name: &str) {
+fn test_syntax_analysis_for_prefix_expression(tokens: Vec<Token>, snapshot_name: &str) {
     //given
     let mut syntax_analysis = SyntaxAnalysis::new();
 
     //when
-    let returned_abstract_syntax_tree = syntax_analysis.parse(tokenized_code);
+    let returned_abstract_syntax_tree = syntax_analysis.parse(tokens);
 
     //then
     assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
 }
 
 #[rstest(
-    tokenized_code,
+    tokens,
     snapshot_name,
     case(
         vec![
@@ -196,19 +196,19 @@ fn test_syntax_analysis_for_prefix_expression(tokenized_code: Vec<Token>, snapsh
         "test_syntax_analysis_for_identifier_expression_case2"
     ),
 )]
-fn test_syntax_analysis_for_identifier_expression(tokenized_code: Vec<Token>, snapshot_name: &str) {
+fn test_syntax_analysis_for_identifier_expression(tokens: Vec<Token>, snapshot_name: &str) {
     //given
     let mut syntax_analysis = SyntaxAnalysis::new();
 
     //when
-    let returned_abstract_syntax_tree = syntax_analysis.parse(tokenized_code);
+    let returned_abstract_syntax_tree = syntax_analysis.parse(tokens);
 
     //then
     assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
 }
 
 #[rstest(
-    tokenized_code,
+    tokens,
     snapshot_name,
     case(
         vec![
@@ -226,19 +226,19 @@ fn test_syntax_analysis_for_identifier_expression(tokenized_code: Vec<Token>, sn
         "test_syntax_analysis_for_integer_expression_case2"
     ),
 )]
-fn test_syntax_analysis_for_integer_expression(tokenized_code: Vec<Token>, snapshot_name: &str) {
+fn test_syntax_analysis_for_integer_expression(tokens: Vec<Token>, snapshot_name: &str) {
     //given
     let mut syntax_analysis = SyntaxAnalysis::new();
 
     //when
-    let returned_abstract_syntax_tree = syntax_analysis.parse(tokenized_code);
+    let returned_abstract_syntax_tree = syntax_analysis.parse(tokens);
 
     //then
     assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
 }
 
 #[rstest(
-    tokenized_code,
+    tokens,
     snapshot_name,
     case(
         vec![
@@ -255,19 +255,19 @@ fn test_syntax_analysis_for_integer_expression(tokenized_code: Vec<Token>, snaps
         "test_syntax_analysis_for_combined_statements_case1"
     ),
 )]
-fn test_syntax_analysis_for_combined_statements(tokenized_code: Vec<Token>, snapshot_name: &str) {
+fn test_syntax_analysis_for_combined_statements(tokens: Vec<Token>, snapshot_name: &str) {
     //given
     let mut syntax_analysis = SyntaxAnalysis::new();
 
     //when
-    let returned_abstract_syntax_tree = syntax_analysis.parse(tokenized_code);
+    let returned_abstract_syntax_tree = syntax_analysis.parse(tokens);
 
     //then
     assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
 }
 
 #[rstest(
-    tokenized_code,
+    tokens,
     snapshot_name,
     case(
         vec![
@@ -291,19 +291,19 @@ fn test_syntax_analysis_for_combined_statements(tokenized_code: Vec<Token>, snap
         "test_syntax_analysis_for_return_statements_case2"
     ),
 )]
-fn test_syntax_analysis_for_return_statements(tokenized_code: Vec<Token>, snapshot_name: &str) {
+fn test_syntax_analysis_for_return_statements(tokens: Vec<Token>, snapshot_name: &str) {
     //given
     let mut syntax_analysis = SyntaxAnalysis::new();
 
     //when
-    let returned_abstract_syntax_tree = syntax_analysis.parse(tokenized_code);
+    let returned_abstract_syntax_tree = syntax_analysis.parse(tokens);
 
     //then
     assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
 }
 
 #[rstest(
-    tokenized_code,
+    tokens,
     snapshot_name,
     case(
         vec![
@@ -335,12 +335,12 @@ fn test_syntax_analysis_for_return_statements(tokenized_code: Vec<Token>, snapsh
         "test_syntax_analysis_for_let_statements_case2"
     ),
 )]
-fn test_syntax_analysis_for_let_statements(tokenized_code: Vec<Token>, snapshot_name: &str) {
+fn test_syntax_analysis_for_let_statements(tokens: Vec<Token>, snapshot_name: &str) {
     //given
     let mut syntax_analysis = SyntaxAnalysis::new();
 
     //when
-    let returned_abstract_syntax_tree = syntax_analysis.parse(tokenized_code);
+    let returned_abstract_syntax_tree = syntax_analysis.parse(tokens);
 
     //then
     assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
