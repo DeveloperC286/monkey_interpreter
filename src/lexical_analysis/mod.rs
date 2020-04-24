@@ -18,214 +18,14 @@ lazy_static! {
     };
 }
 
-pub struct LexicalAnalysis {
-    code: String,
-    current_index: i32,
-    current_character: Option<char>,
-    next_character: Option<char>,
-}
-
-impl LexicalAnalysis {
-    pub fn new(code: String) -> LexicalAnalysis {
-        return LexicalAnalysis {
-            code: code,
-            current_index: -1,
-            current_character: None,
-            next_character: None,
-        };
-    }
-
-    pub fn get_next_token(&mut self) -> Token {
-        self.get_next_character();
-
-        match self.current_character {
-            Some(character) => {
-                debug!(
-                    "Matching the character '{}' at index {}.",
-                    character, self.current_index
-                );
-                match character {
-                    '!' => {
-                        match self.next_character {
-                            Some(next_character) => match next_character {
-                                '=' => {
-                                    self.increment_character_index();
-                                    debug!("Returning TokenType::NOT_EQUALS.");
-                                    return Token {
-                                        token_type: TokenType::NOT_EQUALS,
-                                        literal: "!=".to_string(),
-                                    };
-                                }
-                                _ => {}
-                            },
-                            None => {}
-                        }
-
-                        debug!("Returning TokenType::NOT.");
-                        return Token {
-                            token_type: TokenType::NOT,
-                            literal: "!".to_string(),
-                        };
-                    }
-                    '-' => {
-                        debug!("Returning TokenType::MINUS.");
-                        return Token {
-                            token_type: TokenType::MINUS,
-                            literal: "-".to_string(),
-                        };
-                    }
-                    '/' => {
-                        debug!("Returning TokenType::DIVIDE.");
-                        return Token {
-                            token_type: TokenType::DIVIDE,
-                            literal: "/".to_string(),
-                        };
-                    }
-                    '*' => {
-                        debug!("Returning TokenType::MULTIPLY.");
-                        return Token {
-                            token_type: TokenType::MULTIPLY,
-                            literal: "*".to_string(),
-                        };
-                    }
-                    '>' => {
-                        debug!("Returning TokenType::GREATER_THAN.");
-                        return Token {
-                            token_type: TokenType::GREATER_THAN,
-                            literal: ">".to_string(),
-                        };
-                    }
-                    '<' => {
-                        debug!("Returning TokenType::LESSER_THAN.");
-                        return Token {
-                            token_type: TokenType::LESSER_THAN,
-                            literal: "<".to_string(),
-                        };
-                    }
-                    '=' => {
-                        match self.next_character {
-                            Some(next_character) => match next_character {
-                                '=' => {
-                                    self.increment_character_index();
-                                    debug!("Returning TokenType::EQUALS.");
-                                    return Token {
-                                        token_type: TokenType::EQUALS,
-                                        literal: "==".to_string(),
-                                    };
-                                }
-                                _ => {}
-                            },
-                            None => {}
-                        }
-
-                        debug!("Returning TokenType::ASSIGN.");
-                        return Token {
-                            token_type: TokenType::ASSIGN,
-                            literal: "=".to_string(),
-                        };
-                    }
-                    '+' => {
-                        debug!("Returning TokenType::PLUS.");
-                        return Token {
-                            token_type: TokenType::PLUS,
-                            literal: "+".to_string(),
-                        };
-                    }
-                    '(' => {
-                        debug!("Returning TokenType::OPENING_ROUND_BRACKET.");
-                        return Token {
-                            token_type: TokenType::OPENING_ROUND_BRACKET,
-                            literal: "(".to_string(),
-                        };
-                    }
-                    ')' => {
-                        debug!("Returning TokenType::CLOSING_ROUND_BRACKET.");
-                        return Token {
-                            token_type: TokenType::CLOSING_ROUND_BRACKET,
-                            literal: ")".to_string(),
-                        };
-                    }
-                    '{' => {
-                        debug!("Returning TokenType::OPENING_CURLY_BRACKET.");
-                        return Token {
-                            token_type: TokenType::OPENING_CURLY_BRACKET,
-                            literal: "{".to_string(),
-                        };
-                    }
-                    '}' => {
-                        debug!("Returning TokenType::CLOSING_CURLY_BRACKET.");
-                        return Token {
-                            token_type: TokenType::CLOSING_CURLY_BRACKET,
-                            literal: "}".to_string(),
-                        };
-                    }
-                    ',' => {
-                        debug!("Returning TokenType::COMMA.");
-                        return Token {
-                            token_type: TokenType::COMMA,
-                            literal: ",".to_string(),
-                        };
-                    }
-                    ';' => {
-                        debug!("Returning TokenType::SEMI_COLON.");
-                        return Token {
-                            token_type: TokenType::SEMI_COLON,
-                            literal: ";".to_string(),
-                        };
-                    }
-                    _ => {
-                        if is_valid_identifer_character(character) {
-                            debug!("Parsing word from characters.");
-                            let word = self.get_word();
-                            let word_lowercase = word.to_lowercase();
-                            let mut token_type = TokenType::IDENTIFIER;
-
-                            if KEYWORDS.contains_key(&word_lowercase) {
-                                token_type = *KEYWORDS.get(&word_lowercase).unwrap();
-                            }
-
-                            debug!("Returning TokenType::{:?}.", token_type);
-                            return Token {
-                                token_type,
-                                literal: word,
-                            };
-                        }
-
-                        if character.is_digit(10) {
-                            debug!("Parsing integer from characters.");
-                            let integer = self.get_integer();
-
-                            debug!("Returning TokenType::INTEGER.");
-                            return Token {
-                                token_type: TokenType::INTEGER,
-                                literal: integer,
-                            };
-                        }
-
-                        debug!("Returning TokenType::ILLEGAL.");
-                        return Token {
-                            token_type: TokenType::ILLEGAL,
-                            literal: character.to_string(),
-                        };
-                    }
-                }
-            }
-            None => {
-                debug!("Returning TokenType::EOF.");
-                return Token {
-                    token_type: TokenType::EOF,
-                    literal: "".to_string(),
-                };
-            }
-        }
-    }
-    fn get_integer(&mut self) -> String {
+macro_rules! parse_characters {
+    ($self:expr, $valid_character:ident) => {
         let mut chars: Vec<char> = vec![];
 
         loop {
-            match self.current_character {
+            match $self.current_character {
                 Some(character) => {
-                    if is_digit(character) {
+                    if $valid_character(character) {
                         chars.push(character);
                     } else {
                         error!("self.current_character is not a digit, should never be able to get here.");
@@ -237,10 +37,10 @@ impl LexicalAnalysis {
                     break;
                 }
             }
-            match self.next_character {
+            match $self.next_character {
                 Some(character) => {
-                    if is_digit(character) {
-                        self.increment_character_index();
+                    if $valid_character(character) {
+                        $self.increment_character_index();
                     } else {
                         break;
                     }
@@ -251,46 +51,140 @@ impl LexicalAnalysis {
             }
         }
 
-        let integer = String::from_iter(chars.iter());
-        debug!("Found integer '{}'.", integer);
-        return integer;
+        let string = String::from_iter(chars.iter());
+        return string;
+    }
+}
+
+macro_rules! check_next_character {
+    ($self:expr, $expected_next_character:expr, $literal:expr, $token_type:expr) => {
+        match $self.next_character {
+            Some(next_character) => match next_character {
+                $expected_next_character => {
+                    $self.increment_character_index();
+                    return_token!($literal, $token_type);
+                }
+                _ => {}
+            },
+            None => {}
+        }
+    };
+}
+
+macro_rules! return_token {
+    ($literal:expr, $token_type:expr) => {
+        return Token {
+            token_type: $token_type,
+            literal: $literal.to_string(),
+        };
+    };
+}
+
+pub struct LexicalAnalysis {
+    code: String,
+    current_index: i32,
+    current_character: Option<char>,
+    next_character: Option<char>,
+}
+
+impl LexicalAnalysis {
+    pub fn new() -> LexicalAnalysis {
+        return LexicalAnalysis {
+            code: "".to_string(),
+            current_index: -1,
+            current_character: None,
+            next_character: None,
+        };
+    }
+
+    pub fn get_tokens(&mut self, code: String) -> Vec<Token> {
+        let mut tokens = Vec::new();
+        self.code = code;
+        self.current_index = -1;
+        self.current_character = None;
+        self.next_character = None;
+
+        loop {
+            let token = self.get_next_token();
+
+            if token.token_type == TokenType::EOF {
+                tokens.push(token);
+                break;
+            } else {
+                tokens.push(token);
+            }
+        }
+
+        return tokens;
+    }
+
+    fn get_next_token(&mut self) -> Token {
+        self.get_next_character();
+
+        match self.current_character {
+            Some(character) => {
+                debug!(
+                    "Matching the character '{}' at index {}.",
+                    character, self.current_index
+                );
+                match character {
+                    '!' => {
+                        check_next_character!(self, '=', "!=", TokenType::NOT_EQUALS);
+                        return_token!('!', TokenType::NOT);
+                    }
+                    '-' => return_token!('-', TokenType::MINUS),
+                    '/' => return_token!('/', TokenType::DIVIDE),
+                    '*' => return_token!('*', TokenType::MULTIPLY),
+                    '>' => return_token!('>', TokenType::GREATER_THAN),
+                    '<' => return_token!('<', TokenType::LESSER_THAN),
+                    '=' => {
+                        check_next_character!(self, '=', "==", TokenType::EQUALS);
+                        return_token!('=', TokenType::ASSIGN);
+                    }
+                    '+' => return_token!('+', TokenType::PLUS),
+                    '(' => return_token!('(', TokenType::OPENING_ROUND_BRACKET),
+                    ')' => return_token!(')', TokenType::CLOSING_ROUND_BRACKET),
+                    '{' => return_token!('{', TokenType::OPENING_CURLY_BRACKET),
+                    '}' => return_token!('}', TokenType::CLOSING_CURLY_BRACKET),
+                    ',' => return_token!(',', TokenType::COMMA),
+                    ';' => return_token!(';', TokenType::SEMI_COLON),
+                    _ => {
+                        if is_valid_identifer_character(character) {
+                            debug!("Parsing word from characters.");
+                            let word = self.get_word();
+                            let word_lowercase = word.to_lowercase();
+                            let mut token_type = TokenType::IDENTIFIER;
+
+                            if KEYWORDS.contains_key(&word_lowercase) {
+                                token_type = *KEYWORDS.get(&word_lowercase).unwrap();
+                            }
+
+                            return_token!(word, token_type);
+                        }
+
+                        if is_digit(character) {
+                            debug!("Parsing integer from characters.");
+                            let integer = self.get_integer();
+
+                            return_token!(integer, TokenType::INTEGER);
+                        }
+
+                        return_token!(character, TokenType::ILLEGAL);
+                    }
+                }
+            }
+            None => {
+                return_token!("", TokenType::EOF);
+            }
+        }
+    }
+
+    fn get_integer(&mut self) -> String {
+        parse_characters!(self, is_digit);
     }
 
     fn get_word(&mut self) -> String {
-        let mut chars: Vec<char> = vec![];
-
-        loop {
-            match self.current_character {
-                Some(character) => {
-                    if is_valid_identifer_character(character) {
-                        chars.push(character);
-                    } else {
-                        error!("self.current_character is not alphabetic, should never be able to get here.");
-                        break;
-                    }
-                }
-                None => {
-                    error!("self.current_character is None, should never be able to get here.");
-                    break;
-                }
-            }
-            match self.next_character {
-                Some(character) => {
-                    if is_valid_identifer_character(character) {
-                        self.increment_character_index();
-                    } else {
-                        break;
-                    }
-                }
-                None => {
-                    break;
-                }
-            }
-        }
-
-        let word = String::from_iter(chars.iter());
-        debug!("Found word '{}'.", word);
-        return word;
+        parse_characters!(self, is_valid_identifer_character);
     }
 
     fn get_next_character(&mut self) {

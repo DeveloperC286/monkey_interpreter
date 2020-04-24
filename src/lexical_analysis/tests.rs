@@ -1,4 +1,4 @@
-use super::token::{Token, TokenType};
+use super::token::Token;
 use super::*;
 
 use insta::assert_json_snapshot;
@@ -11,10 +11,10 @@ use rstest::rstest;
 )]
 fn test_lexical_analysis_tokenization_for_integers(code: &str, snapshot_name: &str) {
     //when
-    let returned_token_order = get_returned_token_order(code);
+    let returned_tokens = get_returned_tokens(code);
 
     //then
-    assert_json_snapshot!(snapshot_name, returned_token_order);
+    assert_json_snapshot!(snapshot_name, returned_tokens);
 }
 
 #[rstest(
@@ -39,10 +39,10 @@ fn test_lexical_analysis_tokenization_for_integers(code: &str, snapshot_name: &s
 )]
 fn test_lexical_analysis_tokenization_for_identifiers(code: &str, snapshot_name: &str) {
     //when
-    let returned_token_order = get_returned_token_order(code);
+    let returned_tokens = get_returned_tokens(code);
 
     //then
-    assert_json_snapshot!(snapshot_name, returned_token_order);
+    assert_json_snapshot!(snapshot_name, returned_tokens);
 }
 
 #[rstest(
@@ -64,10 +64,10 @@ fn test_lexical_analysis_tokenization_for_identifiers(code: &str, snapshot_name:
 )]
 fn test_lexical_analysis_tokenization_for_keywords(code: &str, snapshot_name: &str) {
     //when
-    let returned_token_order = get_returned_token_order(code);
+    let returned_tokens = get_returned_tokens(code);
 
     //then
-    assert_json_snapshot!(snapshot_name, returned_token_order);
+    assert_json_snapshot!(snapshot_name, returned_tokens);
 }
 
 #[rstest(
@@ -87,10 +87,10 @@ fn test_lexical_analysis_tokenization_for_special_multi_characters(
     snapshot_name: &str,
 ) {
     //when
-    let returned_token_order = get_returned_token_order(code);
+    let returned_tokens = get_returned_tokens(code);
 
     //then
-    assert_json_snapshot!(snapshot_name, returned_token_order);
+    assert_json_snapshot!(snapshot_name, returned_tokens);
 }
 
 #[rstest(
@@ -119,36 +119,22 @@ fn test_lexical_analysis_tokenization_for_special_multi_characters(
 )]
 fn test_lexical_analysis_tokenization_for_special_characters(code: &str, snapshot_name: &str) {
     //when
-    let returned_token_order = get_returned_token_order(code);
+    let returned_tokens = get_returned_tokens(code);
 
     //then
-    assert_json_snapshot!(snapshot_name, returned_token_order);
+    assert_json_snapshot!(snapshot_name, returned_tokens);
 }
 
 #[test]
 fn test_empty_code() {
     //when
-    let returned_token_order = get_returned_token_order("");
+    let returned_tokens = get_returned_tokens("");
 
     //then
-    assert_json_snapshot!("test_empty_code", returned_token_order);
+    assert_json_snapshot!("test_empty_code", returned_tokens);
 }
 
-fn get_returned_token_order(code: &str) -> Vec<Token> {
-    let mut lexical_analysis = LexicalAnalysis::new(code.to_string());
-    let mut returned_token_order = Vec::new();
-
-    //when
-    loop {
-        let token = lexical_analysis.get_next_token();
-
-        if token.token_type == TokenType::EOF {
-            returned_token_order.push(token);
-            break;
-        } else {
-            returned_token_order.push(token);
-        }
-    }
-
-    return returned_token_order;
+fn get_returned_tokens(code: &str) -> Vec<Token> {
+    let mut lexical_analysis = LexicalAnalysis::new();
+    return lexical_analysis.get_tokens(code.to_string());
 }
