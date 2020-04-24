@@ -13,7 +13,8 @@ format:
     - pacman -Sy --noconfirm
     - pacman -S rust diffutils gawk grep --noconfirm
     script:
-    - for i in $( du -a . | awk '{print $2}' | grep -i ".rs$" ); do
+    - for i in $( du -a ./src/ | awk '{print $2}' | grep -i "[.]rs$" ); do
+    - echo $i
     - cp $i temp.txt
     - rustfmt $i
     - cmp $i temp.txt
