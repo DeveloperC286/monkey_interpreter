@@ -15,21 +15,15 @@ pub fn repl() {
         VERSION.unwrap_or("unknown")
     );
     loop {
-        let tokenized_code = get_tokens(read());
-        println!("{:?}", tokenized_code);
-        let ast = get_abstract_syntax_tree(tokenized_code);
+        let tokens = LexicalAnalysis::get_tokens(read());
+        let ast = get_abstract_syntax_tree(tokens);
         println!("{:?}", ast);
     }
 }
 
-fn get_abstract_syntax_tree(tokenized_code: Vec<Token>) -> AbstractSyntaxTree {
+fn get_abstract_syntax_tree(tokens: Vec<Token>) -> AbstractSyntaxTree {
     let mut syntax_analysis = SyntaxAnalysis::new();
-    return syntax_analysis.parse(tokenized_code);
-}
-
-fn get_tokens(input: String) -> Vec<Token> {
-    let mut lexical_analysis = LexicalAnalysis::new();
-    return lexical_analysis.get_tokens(input);
+    return syntax_analysis.parse(tokens);
 }
 
 fn read() -> String {

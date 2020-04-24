@@ -1,4 +1,3 @@
-use super::token::Token;
 use super::*;
 
 use insta::assert_json_snapshot;
@@ -11,7 +10,7 @@ use rstest::rstest;
 )]
 fn test_lexical_analysis_tokenization_for_integers(code: &str, snapshot_name: &str) {
     //when
-    let returned_tokens = get_returned_tokens(code);
+    let returned_tokens = LexicalAnalysis::get_tokens(code.to_string());
 
     //then
     assert_json_snapshot!(snapshot_name, returned_tokens);
@@ -39,7 +38,7 @@ fn test_lexical_analysis_tokenization_for_integers(code: &str, snapshot_name: &s
 )]
 fn test_lexical_analysis_tokenization_for_identifiers(code: &str, snapshot_name: &str) {
     //when
-    let returned_tokens = get_returned_tokens(code);
+    let returned_tokens = LexicalAnalysis::get_tokens(code.to_string());
 
     //then
     assert_json_snapshot!(snapshot_name, returned_tokens);
@@ -64,7 +63,7 @@ fn test_lexical_analysis_tokenization_for_identifiers(code: &str, snapshot_name:
 )]
 fn test_lexical_analysis_tokenization_for_keywords(code: &str, snapshot_name: &str) {
     //when
-    let returned_tokens = get_returned_tokens(code);
+    let returned_tokens = LexicalAnalysis::get_tokens(code.to_string());
 
     //then
     assert_json_snapshot!(snapshot_name, returned_tokens);
@@ -87,7 +86,7 @@ fn test_lexical_analysis_tokenization_for_special_multi_characters(
     snapshot_name: &str,
 ) {
     //when
-    let returned_tokens = get_returned_tokens(code);
+    let returned_tokens = LexicalAnalysis::get_tokens(code.to_string());
 
     //then
     assert_json_snapshot!(snapshot_name, returned_tokens);
@@ -119,7 +118,7 @@ fn test_lexical_analysis_tokenization_for_special_multi_characters(
 )]
 fn test_lexical_analysis_tokenization_for_special_characters(code: &str, snapshot_name: &str) {
     //when
-    let returned_tokens = get_returned_tokens(code);
+    let returned_tokens = LexicalAnalysis::get_tokens(code.to_string());
 
     //then
     assert_json_snapshot!(snapshot_name, returned_tokens);
@@ -128,13 +127,8 @@ fn test_lexical_analysis_tokenization_for_special_characters(code: &str, snapsho
 #[test]
 fn test_empty_code() {
     //when
-    let returned_tokens = get_returned_tokens("");
+    let returned_tokens = LexicalAnalysis::get_tokens("".to_string());
 
     //then
     assert_json_snapshot!("test_empty_code", returned_tokens);
-}
-
-fn get_returned_tokens(code: &str) -> Vec<Token> {
-    let mut lexical_analysis = LexicalAnalysis::new();
-    return lexical_analysis.get_tokens(code.to_string());
 }

@@ -18,67 +18,8 @@ lazy_static! {
     };
 }
 
-macro_rules! parse_characters {
-    ($self:expr, $valid_character:ident) => {
-        let mut chars: Vec<char> = vec![];
-
-        loop {
-            match $self.current_character {
-                Some(character) => {
-                    if $valid_character(character) {
-                        chars.push(character);
-                    } else {
-                        error!("self.current_character is not a digit, should never be able to get here.");
-                        break;
-                    }
-                }
-                None => {
-                    error!("self.current_character is None, should never be able to get here.");
-                    break;
-                }
-            }
-            match $self.next_character {
-                Some(character) => {
-                    if $valid_character(character) {
-                        $self.increment_character_index();
-                    } else {
-                        break;
-                    }
-                }
-                None => {
-                    break;
-                }
-            }
-        }
-
-        let string = String::from_iter(chars.iter());
-        return string;
-    }
-}
-
-macro_rules! check_next_character {
-    ($self:expr, $expected_next_character:expr, $literal:expr, $token_type:expr) => {
-        match $self.next_character {
-            Some(next_character) => match next_character {
-                $expected_next_character => {
-                    $self.increment_character_index();
-                    return_token!($literal, $token_type);
-                }
-                _ => {}
-            },
-            None => {}
-        }
-    };
-}
-
-macro_rules! return_token {
-    ($literal:expr, $token_type:expr) => {
-        return Token {
-            token_type: $token_type,
-            literal: $literal.to_string(),
-        };
-    };
-}
+#[macro_use]
+mod macros;
 
 pub struct LexicalAnalysis {
     code: String,
@@ -88,24 +29,21 @@ pub struct LexicalAnalysis {
 }
 
 impl LexicalAnalysis {
-    pub fn new() -> LexicalAnalysis {
+    fn new(code: String) -> LexicalAnalysis {
         return LexicalAnalysis {
-            code: "".to_string(),
+            code,
             current_index: -1,
             current_character: None,
             next_character: None,
         };
     }
 
-    pub fn get_tokens(&mut self, code: String) -> Vec<Token> {
+    pub fn get_tokens(code: String) -> Vec<Token> {
+        let mut lexical_analysis = LexicalAnalysis::new(code);
         let mut tokens = Vec::new();
-        self.code = code;
-        self.current_index = -1;
-        self.current_character = None;
-        self.next_character = None;
 
         loop {
-            let token = self.get_next_token();
+            let token = lexical_analysis.get_next_token();
 
             if token.token_type == TokenType::EOF {
                 tokens.push(token);
