@@ -43,12 +43,9 @@ fn test_syntax_analysis_for_successive_parsing(
     tokens_2: Vec<Token>,
     snapshot_name_2: &str,
 ) {
-    //given
-    let mut syntax_analysis = SyntaxAnalysis::new();
-
     //when
-    let returned_abstract_syntax_tree_1 = syntax_analysis.parse(tokens_1);
-    let returned_abstract_syntax_tree_2 = syntax_analysis.parse(tokens_2);
+    let returned_abstract_syntax_tree_1 = SyntaxAnalysis::get_abstract_syntax_tree(tokens_1);
+    let returned_abstract_syntax_tree_2 = SyntaxAnalysis::get_abstract_syntax_tree(tokens_2);
 
     //then
     assert_json_snapshot!(snapshot_name_1, returned_abstract_syntax_tree_1);
@@ -135,11 +132,38 @@ fn test_syntax_analysis_for_successive_parsing(
     ),
 )]
 fn test_syntax_analysis_for_infix_expression(tokens: Vec<Token>, snapshot_name: &str) {
-    //given
-    let mut syntax_analysis = SyntaxAnalysis::new();
-
     //when
-    let returned_abstract_syntax_tree = syntax_analysis.parse(tokens);
+    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
+
+    //then
+    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+}
+
+#[rstest(
+    tokens,
+    snapshot_name,
+    case(
+        vec![
+            Token{token_type: TokenType::NOT, literal: "!".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_for_prefix_expression_syntax_errors_case1"
+    ),
+    case(
+        vec![
+            Token{token_type: TokenType::MINUS, literal: "-".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_for_prefix_expression_syntax_errors_case2"
+    ),
+)]
+fn test_syntax_analysis_for_prefix_expression_syntax_errors(
+    tokens: Vec<Token>,
+    snapshot_name: &str,
+) {
+    //when
+    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
 
     //then
     assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
@@ -167,11 +191,8 @@ fn test_syntax_analysis_for_infix_expression(tokens: Vec<Token>, snapshot_name: 
     ),
 )]
 fn test_syntax_analysis_for_prefix_expression(tokens: Vec<Token>, snapshot_name: &str) {
-    //given
-    let mut syntax_analysis = SyntaxAnalysis::new();
-
     //when
-    let returned_abstract_syntax_tree = syntax_analysis.parse(tokens);
+    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
 
     //then
     assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
@@ -197,11 +218,27 @@ fn test_syntax_analysis_for_prefix_expression(tokens: Vec<Token>, snapshot_name:
     ),
 )]
 fn test_syntax_analysis_for_identifier_expression(tokens: Vec<Token>, snapshot_name: &str) {
-    //given
-    let mut syntax_analysis = SyntaxAnalysis::new();
-
     //when
-    let returned_abstract_syntax_tree = syntax_analysis.parse(tokens);
+    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
+
+    //then
+    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+}
+
+#[rstest(
+    tokens,
+    snapshot_name,
+    case(
+        vec![
+            Token{token_type: TokenType::SEMI_COLON, literal: "%".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_for_expression_syntax_errors_case1"
+    ),
+)]
+fn test_syntax_analysis_for_expression_syntax_errors(tokens: Vec<Token>, snapshot_name: &str) {
+    //when
+    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
 
     //then
     assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
@@ -227,11 +264,8 @@ fn test_syntax_analysis_for_identifier_expression(tokens: Vec<Token>, snapshot_n
     ),
 )]
 fn test_syntax_analysis_for_integer_expression(tokens: Vec<Token>, snapshot_name: &str) {
-    //given
-    let mut syntax_analysis = SyntaxAnalysis::new();
-
     //when
-    let returned_abstract_syntax_tree = syntax_analysis.parse(tokens);
+    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
 
     //then
     assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
@@ -256,11 +290,8 @@ fn test_syntax_analysis_for_integer_expression(tokens: Vec<Token>, snapshot_name
     ),
 )]
 fn test_syntax_analysis_for_combined_statements(tokens: Vec<Token>, snapshot_name: &str) {
-    //given
-    let mut syntax_analysis = SyntaxAnalysis::new();
-
     //when
-    let returned_abstract_syntax_tree = syntax_analysis.parse(tokens);
+    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
 
     //then
     assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
@@ -292,11 +323,8 @@ fn test_syntax_analysis_for_combined_statements(tokens: Vec<Token>, snapshot_nam
     ),
 )]
 fn test_syntax_analysis_for_return_statements(tokens: Vec<Token>, snapshot_name: &str) {
-    //given
-    let mut syntax_analysis = SyntaxAnalysis::new();
-
     //when
-    let returned_abstract_syntax_tree = syntax_analysis.parse(tokens);
+    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
 
     //then
     assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
@@ -336,11 +364,57 @@ fn test_syntax_analysis_for_return_statements(tokens: Vec<Token>, snapshot_name:
     ),
 )]
 fn test_syntax_analysis_for_let_statements(tokens: Vec<Token>, snapshot_name: &str) {
-    //given
-    let mut syntax_analysis = SyntaxAnalysis::new();
-
     //when
-    let returned_abstract_syntax_tree = syntax_analysis.parse(tokens);
+    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
+
+    //then
+    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+}
+
+#[rstest(
+    tokens,
+    snapshot_name,
+    case(
+        vec![
+            Token{token_type: TokenType::LET, literal: "let".to_string()},
+            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_for_let_statements_syntax_errors_case1"
+    ),
+    case(
+        vec![
+            Token{token_type: TokenType::LET, literal: "let".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_for_let_statements_syntax_errors_case2"
+    ),
+)]
+fn test_syntax_analysis_for_let_statements_syntax_errors(tokens: Vec<Token>, snapshot_name: &str) {
+    //when
+    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
+
+    //then
+    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+}
+
+#[rstest(
+    tokens,
+    snapshot_name,
+    case(
+        vec![
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_tokens_input_edgecases_case1"
+    ),
+    case(
+        vec![],
+        "test_syntax_analysis_tokens_input_edgecases_case2"
+    ),
+)]
+fn test_syntax_analysis_tokens_input_edgecases(tokens: Vec<Token>, snapshot_name: &str) {
+    //when
+    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
 
     //then
     assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);

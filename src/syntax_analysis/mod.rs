@@ -27,40 +27,42 @@ lazy_static! {
     };
 }
 
+#[macro_use]
+mod macros;
+
 pub struct SyntaxAnalysis {
-    tokenized_code: Vec<Token>,
+    tokens: Vec<Token>,
+    syntax_parsing_errors: Vec<String>,
     current_token_index: usize,
     current_token: Token,
 }
 
 impl SyntaxAnalysis {
-    pub fn new() -> SyntaxAnalysis {
+    fn new(tokens: Vec<Token>) -> SyntaxAnalysis {
+        let mut current_token = Token {
+            token_type: TokenType::EOF,
+            literal: "".to_string(),
+        };
+
+        if tokens.len() > 0 {
+            current_token = tokens.get(0).unwrap().clone();
+        }
+
         return SyntaxAnalysis {
-            tokenized_code: vec![],
+            syntax_parsing_errors: vec![],
             current_token_index: 0,
-            current_token: Token {
-                token_type: TokenType::EOF,
-                literal: "".to_string(),
-            },
+            current_token,
+            tokens,
         };
     }
 
-    fn reset_parsing(&mut self, tokenized_code: Vec<Token>) {
-        self.tokenized_code = tokenized_code;
-        self.current_token_index = 0;
-        if self.tokenized_code.len() > 0 {
-            self.current_token = self.tokenized_code[self.current_token_index].clone();
-        } else {
-            self.current_token = Token {
-                token_type: TokenType::EOF,
-                literal: "".to_string(),
-            };
-        }
+    pub fn get_abstract_syntax_tree(tokens: Vec<Token>) -> AbstractSyntaxTree {
+        let mut syntax_analysis = SyntaxAnalysis::new(tokens);
+        return syntax_analysis.parse();
     }
 
-    pub fn parse(&mut self, tokenized_code: Vec<Token>) -> AbstractSyntaxTree {
+    fn parse(&mut self) -> AbstractSyntaxTree {
         let mut program: Vec<SyntaxTreeNode> = vec![];
-        self.reset_parsing(tokenized_code);
 
         loop {
             debug!(
@@ -79,7 +81,10 @@ impl SyntaxAnalysis {
             }
         }
 
-        return AbstractSyntaxTree { program };
+        return AbstractSyntaxTree {
+            program,
+            syntax_parsing_errors: self.syntax_parsing_errors.clone(),
+        };
     }
 
     fn parse_next_node(&mut self) -> Option<SyntaxTreeNode> {
@@ -92,6 +97,7 @@ impl SyntaxAnalysis {
 
     fn parse_expression_statement(&mut self) -> Option<SyntaxTreeNode> {
         debug!("Parsing an expression statement.");
+
         let initial_expression_token = self.current_token.clone();
 
         let expression_option = self.parse_expression(ExpressionPrecedence::LOWEST);
@@ -117,6 +123,7 @@ impl SyntaxAnalysis {
         expression_precedence: ExpressionPrecedence,
     ) -> Option<Expression> {
         debug!("Parsing an expression.");
+
         let token = self.current_token.clone();
         self.increment_token_index();
 
@@ -145,24 +152,30 @@ impl SyntaxAnalysis {
                         });
                     }
                     None => {
-                        //TODO add syntax error of prefix with no right hand side.
+                        self.syntax_parsing_errors.push(format!(
+                            "Syntax error : No right hand expression to prefix {:?}.",
+                            token.token_type
+                        ));
+                        return None;
                     }
                 }
             }
             _ => {
-                //TODO convert to add syntax error
-                error!("Unable to parse the token '{:?}'.", token);
+                self.syntax_parsing_errors.push(format!(
+                    "Syntax error : Do not know how to parse {:?} as an expression.",
+                    token.token_type
+                ));
+                return None;
             }
         }
 
+        //Pratt Parsing.
         loop {
             if self.current_token.token_type == TokenType::SEMI_COLON {
-                println!("self.current_token.token_type == TokenType::SEMI_COLON");
                 break;
             }
 
             if !(expression_precedence < self.get_current_expression_precedence()) {
-                println!("!(expression_precedence < self.get_next_expression_precedence())");
                 break;
             }
 
@@ -175,7 +188,6 @@ impl SyntaxAnalysis {
                 | TokenType::NOT_EQUALS
                 | TokenType::LESSER_THAN
                 | TokenType::GREATER_THAN => {
-                    println!("self.parse_inflix_expression");
                     expression = self.parse_inflix_expression(expression.clone().unwrap());
                 }
                 _ => {
@@ -188,7 +200,8 @@ impl SyntaxAnalysis {
     }
 
     fn parse_inflix_expression(&mut self, left_hand_expression: Expression) -> Option<Expression> {
-        println!("\nparse_inflix_expression()");
+        debug!("Parsing a inflix expression.");
+
         let operator_token = self.current_token.clone();
         let precedence = self.get_current_expression_precedence();
         self.increment_token_index();
@@ -206,22 +219,13 @@ impl SyntaxAnalysis {
     }
 
     fn get_current_expression_precedence(&mut self) -> ExpressionPrecedence {
-        println!(
-            "get_current_expression_precedence() {:?}",
-            self.current_token.token_type
-        );
         match TOKEN_PRECEDENCES.get(&self.current_token.token_type) {
             Some(expression_precedence) => {
-                println!(
-                    "get_current_expression_precedence() -> {:?}",
-                    expression_precedence
-                );
+                trace!("get_current_expression_precedence() found the precedence and is returning {:?}.", expression_precedence);
                 return expression_precedence.clone();
             }
             None => {
-                println!(
-                    "get_current_expression_precedence() -> Default ExpressionPrecedence::LOWEST"
-                );
+                trace!("get_current_expression_precedence() couldn't find precedence so returning LOWEST.");
                 return ExpressionPrecedence::LOWEST;
             }
         }
@@ -229,12 +233,11 @@ impl SyntaxAnalysis {
 
     fn parse_return_statement(&mut self) -> Option<SyntaxTreeNode> {
         debug!("Parsing a return statement.");
+
         let return_token = self.current_token.clone();
+        expect_token!(self, TokenType::RETURN);
 
         //TODO handle expression.
-
-        self.increment_token_index();
-
         loop {
             match self.current_token.token_type {
                 TokenType::SEMI_COLON => {
@@ -252,35 +255,16 @@ impl SyntaxAnalysis {
 
     fn parse_let_statement(&mut self) -> Option<SyntaxTreeNode> {
         debug!("Parsing a let statement.");
+
         let let_token = self.current_token.clone();
+        expect_token!(self, TokenType::LET);
 
-        self.increment_token_index();
-
-        if self.current_token.token_type != TokenType::IDENTIFIER {
-            error!(
-                "No TokenType::IDENTIFIER at '{}' for the let statement.",
-                self.current_token_index
-            );
-            //TODO add error message about no IDENTIFIER.
-            return None;
-        }
         let identifier_token = self.current_token.clone();
+        expect_token!(self, TokenType::IDENTIFIER);
 
-        self.increment_token_index();
-
-        if self.current_token.token_type != TokenType::ASSIGN {
-            error!(
-                "No TokenType::ASSIGN at '{}' for the let statement.",
-                self.current_token_index
-            );
-            //TODO add error message about no ASSIGN.
-            return None;
-        }
+        expect_token!(self, TokenType::ASSIGN);
 
         //TODO handle expression.
-
-        self.increment_token_index();
-
         loop {
             match self.current_token.token_type {
                 TokenType::SEMI_COLON => {
@@ -306,10 +290,10 @@ impl SyntaxAnalysis {
             self.current_token_index
         );
 
-        if self.current_token_index < self.tokenized_code.len() {
-            self.current_token = self.tokenized_code[self.current_token_index].clone();
+        if self.current_token_index < self.tokens.len() {
+            self.current_token = self.tokens[self.current_token_index].clone();
         } else {
-            error!("self.current_token_index >= self.tokenized_code.len(), so setting current_token to EOF Token.");
+            error!("self.current_token_index >= self.tokens.len(), so setting current_token to EOF Token.");
             self.current_token = Token {
                 token_type: TokenType::EOF,
                 literal: "".to_string(),

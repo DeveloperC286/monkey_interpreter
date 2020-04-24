@@ -1,6 +1,4 @@
-use super::lexical_analysis::token::Token;
 use super::lexical_analysis::LexicalAnalysis;
-use super::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
 use super::syntax_analysis::SyntaxAnalysis;
 
 use std::io::{stdin, stdout, Write};
@@ -16,14 +14,20 @@ pub fn repl() {
     );
     loop {
         let tokens = LexicalAnalysis::get_tokens(read());
-        let ast = get_abstract_syntax_tree(tokens);
-        println!("{:?}", ast);
-    }
-}
+        let abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
 
-fn get_abstract_syntax_tree(tokens: Vec<Token>) -> AbstractSyntaxTree {
-    let mut syntax_analysis = SyntaxAnalysis::new();
-    return syntax_analysis.parse(tokens);
+        if abstract_syntax_tree.syntax_parsing_errors.len() > 0 {
+            for error in abstract_syntax_tree
+                .syntax_parsing_errors
+                .iter()
+                .enumerate()
+            {
+                error!("{:?}", error);
+            }
+        } else {
+            //TODO Handle the abstract_syntax_tree.
+        }
+    }
 }
 
 fn read() -> String {

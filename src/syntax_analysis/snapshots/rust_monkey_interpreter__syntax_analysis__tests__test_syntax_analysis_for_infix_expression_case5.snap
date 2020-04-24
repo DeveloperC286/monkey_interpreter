@@ -44,5 +44,6 @@ expression: returned_abstract_syntax_tree
         }
       }
     }
-  ]
+  ],
+  "syntax_parsing_errors": []
 }

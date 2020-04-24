@@ -6,4 +6,5 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Debug)]
 pub struct AbstractSyntaxTree {
     pub program: Vec<SyntaxTreeNode>,
+    pub syntax_parsing_errors: Vec<String>,
 }
