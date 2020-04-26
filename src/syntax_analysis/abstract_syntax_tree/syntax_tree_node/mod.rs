@@ -35,6 +35,9 @@ pub enum Expression {
         operator_token: Token,
         right_hand_expression: Box<Expression>,
     },
+    BOOLEAN {
+        boolean_token: Token,
+    },
 }
 
 #[derive(Serialize, Deserialize, Debug, Copy, Clone, PartialEq, PartialOrd)]
