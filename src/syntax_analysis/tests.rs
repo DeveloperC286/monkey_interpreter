@@ -157,6 +157,26 @@ fn test_syntax_analysis_for_successive_parsing(
         ],
         "test_syntax_analysis_for_infix_expression_case7"
     ),
+    case(
+        vec![
+            Token{token_type: TokenType::INTEGER, literal: "10".to_string()},
+            Token{token_type: TokenType::GREATER_THAN, literal: ">".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
+            Token{token_type: TokenType::EQUALS, literal: "==".to_string()},
+            Token{token_type: TokenType::TRUE, literal: "true".to_string()},
+        ],
+        "test_syntax_analysis_for_infix_expression_case8"
+    ),
+    case(
+        vec![
+            Token{token_type: TokenType::INTEGER, literal: "10".to_string()},
+            Token{token_type: TokenType::LESSER_THAN, literal: "<".to_string()},
+            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
+            Token{token_type: TokenType::NOT_EQUALS, literal: "!=".to_string()},
+            Token{token_type: TokenType::FALSE, literal: "false".to_string()},
+        ],
+        "test_syntax_analysis_for_infix_expression_case9"
+    ),
 )]
 fn test_syntax_analysis_for_infix_expression(tokens: Vec<Token>, snapshot_name: &str) {
     //when
@@ -215,6 +235,14 @@ fn test_syntax_analysis_for_prefix_expression_syntax_errors(
             Token{token_type: TokenType::EOF, literal: "".to_string()},
         ],
         "test_syntax_analysis_for_prefix_expression_case2"
+    ),
+    case(
+        vec![
+            Token{token_type: TokenType::NOT, literal: "!".to_string()},
+            Token{token_type: TokenType::FALSE, literal: "false".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_for_prefix_expression_case3"
     ),
 )]
 fn test_syntax_analysis_for_prefix_expression(tokens: Vec<Token>, snapshot_name: &str) {
