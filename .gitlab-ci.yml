@@ -45,8 +45,17 @@ rust-monkey-interpreter-version-tagging:
         - pacman -Sy --noconfirm
         - pacman -S base-devel git --noconfirm
     script:
-        - TAG=`cat Cargo.toml | grep '^version = ' | cut -d '"' -f 2`
-        - git tag $TAG
-        - git push origin $TAG
+        # Get version.
+        - VERSION=`cat Cargo.toml | grep '^version = ' | cut -d '"' -f 2`
+        # Setup ability to push.
+        - eval $(ssh-agent -s)
+        - ssh-keyscan -t rsa gitlab.com >> ~/.ssh/known_hosts
+        - echo "$GITLAB_CI_AUTO_TAG_KEY" | tr -d '\r' | ssh-add - > /dev/null
+        # Test if tag already exists.
+        - export VERSION_TAG_EXISTS=$(git tag | grep $VERSION | wc -l)
+        - test $VERSION_TAG_EXISTS -eq 1 && exit 0
+        # Create tag and push it.
+        - git tag $VERSION
+        - git push origin $VERSION
     only:
         - master
