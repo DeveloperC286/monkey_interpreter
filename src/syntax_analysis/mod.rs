@@ -156,16 +156,22 @@ impl SyntaxAnalysis {
                             "Syntax error : No right hand expression to prefix {:?}.",
                             token.token_type
                         ));
-                        return None;
+                        return expression;
                     }
                 }
+            }
+            TokenType::TRUE | TokenType::FALSE => {
+                debug!("Returning an boolean expression.");
+                expression = Some(Expression::BOOLEAN {
+                    boolean_token: token,
+                });
             }
             _ => {
                 self.syntax_parsing_errors.push(format!(
                     "Syntax error : Do not know how to parse {:?} as an expression.",
                     token.token_type
                 ));
-                return None;
+                return expression;
             }
         }
 

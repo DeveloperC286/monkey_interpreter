@@ -5,6 +5,33 @@ use insta::assert_json_snapshot;
 use rstest::rstest;
 
 #[rstest(
+    tokens,
+    snapshot_name,
+    case(
+        vec![
+            Token{token_type: TokenType::TRUE, literal: "TRUE".to_string()},
+            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_for_boolean_expression_case1"
+    ),
+    case(
+        vec![
+            Token{token_type: TokenType::FALSE, literal: "false".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_for_boolean_expression_case2"
+    ),
+)]
+fn test_syntax_analysis_for_boolean_expression(tokens: Vec<Token>, snapshot_name: &str) {
+    //when
+    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
+
+    //then
+    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+}
+
+#[rstest(
     tokens_1,
     snapshot_name_1,
     tokens_2,
