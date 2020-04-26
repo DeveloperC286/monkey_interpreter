@@ -5,7 +5,7 @@ stages:
     - format
     - builds
     - tests
-
+    - tagging
 
 format:
     stage: format
@@ -37,3 +37,13 @@ rust-monkey-interpreter-tests:
         - pacman -S base-devel libffi rust --noconfirm
     script:
         - cargo test
+
+
+rust-monkey-interpreter-version-tagging:
+    stage: tagging
+    script:
+        - TAG=`cat Cargo.toml | grep '^version = ' | cut -d '"' -f 2`
+        - git tag $TAG
+        - git push origin $TAG
+    only:
+        - master
