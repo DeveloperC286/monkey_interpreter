@@ -43,7 +43,7 @@ rust-monkey-interpreter-version-tagging:
     stage: tagging
     before_script:
         - pacman -Sy --noconfirm
-        - pacman -S base-devel git --noconfirm
+        - pacman -S base-devel git openssh --noconfirm
     script:
         # Get version.
         - VERSION=`cat Cargo.toml | grep '^version = ' | cut -d '"' -f 2`
