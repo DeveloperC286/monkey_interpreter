@@ -44,7 +44,11 @@ rust-monkey-interpreter-version-tagging:
     before_script:
         - pacman -Sy --noconfirm
         - pacman -S base-devel git openssh --noconfirm
+        - git config --global user.name "test"
+        - git config --global user.email "test@test.com"
     script:
+        - echo "${GITLAB_USER_NAME}"
+        - echo "${GITLAB_USER_EMAIL}"
         # Get version.
         - VERSION=`cat Cargo.toml | grep '^version = ' | cut -d '"' -f 2`
         # Setup ability to push.
@@ -57,7 +61,8 @@ rust-monkey-interpreter-version-tagging:
         - export VERSION_TAG_EXISTS=$(git tag | grep $VERSION | wc -l)
         - test $VERSION_TAG_EXISTS -eq 1 && exit 0
         # Create tag and push it.
+        - git remote add gitlab git@gitlab.com:DeveloperC/rust-monkey-interpreter.git
         - git tag $VERSION
-        - git push origin $VERSION
+        - git push gitlab $VERSION
     only:
         - master
