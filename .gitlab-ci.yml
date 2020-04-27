@@ -65,8 +65,8 @@ rust-monkey-interpreter-version-tagging:
         - export VERSION_TAG_EXISTS=$(git tag | grep $VERSION | wc -l)
         - test $VERSION_TAG_EXISTS -eq 1 && exit 1
         # Create tag and push it.
-        - git remote add origin git@gitlab.com:DeveloperC/rust-monkey-interpreter.git
+        - git remote add gitlab git@gitlab.com:DeveloperC/rust-monkey-interpreter.git
         - git tag $VERSION
-        - git push origin $VERSION
+        - git push gitlab $VERSION
     only:
         - master
