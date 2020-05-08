@@ -2,13 +2,14 @@ image: archlinux/base
 
 
 stages:
-    - format
+    - formatting
     - builds
-    - tests
+    - unit-tests
     - tagging
 
-rust-monkey-interpreter-format:
-    stage: format
+
+formatting:
+    stage: formatting
     before_script:
         - pacman -Sy --noconfirm
         - pacman -S rust diffutils gawk grep --noconfirm
@@ -23,7 +24,7 @@ rust-monkey-interpreter-format:
         - branches
 
 
-rust-monkey-interpreter-build:
+builds:
     stage: builds
     before_script:
         - pacman -Sy --noconfirm
@@ -34,8 +35,8 @@ rust-monkey-interpreter-build:
         - branches
 
 
-rust-monkey-interpreter-tests:
-    stage: tests
+unit-tests:
+    stage: unit-tests
     before_script:
         - pacman -Sy --noconfirm
         - pacman -S base-devel libffi rust --noconfirm
@@ -45,7 +46,7 @@ rust-monkey-interpreter-tests:
         - branches
 
 
-rust-monkey-interpreter-version-tagging:
+tagging:
     stage: tagging
     before_script:
         - pacman -Sy --noconfirm
@@ -55,17 +56,16 @@ rust-monkey-interpreter-version-tagging:
     script:
         # Get version.
         - VERSION=`grep '^version = "[0-9].[0-9].[0-9]"$' Cargo.toml | cut -d '"' -f 2`
-        - VERSION_EXISTS=$(echo $VERSION | grep '^[0-9].[0-9].[0-9]$' | wc -l)
+        - VERSION_EXISTS=`echo $VERSION | grep '^[0-9].[0-9].[0-9]$' | wc -l`
         - test $VERSION_EXISTS -ne 1 && { echo >&2 "Unable to parse out the semantic version. Aborting."; exit 1;}
-        # Test if tag already exists.
-        - export VERSION_TAG_EXISTS=$(git tag | grep $VERSION | wc -l)
+        # Test if tag already exists for version.
+        - VERSION_TAG_EXISTS=`git show-ref --tags -d | awk "/ refs\/tags\/$VERSION/" | wc -l`
         - test $VERSION_TAG_EXISTS -eq 1 && exit 0
-        # Setup ability to push.
+        # Setup SSH key to push.
         - eval $(ssh-agent -s)
         - mkdir -p $HOME/.ssh/
-        - touch $HOME/.ssh/known_hosts
-        - ssh-keyscan -t rsa gitlab.com >> $HOME/.ssh/known_hosts
-        - echo "$GITLAB_CI_AUTO_TAG_KEY" | tr -d '\r' | ssh-add - > /dev/null
+        - ssh-keyscan -t rsa gitlab.com > $HOME/.ssh/known_hosts
+        - ssh-add <(echo "$GITLAB_CI_AUTO_TAG_KEY" | base64 -d)
         # Create tag and push it.
         - git remote add gitlab git@gitlab.com:DeveloperC/rust-monkey-interpreter.git
         - git tag $VERSION
