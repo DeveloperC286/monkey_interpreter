@@ -5,7 +5,7 @@ stages:
     - formatting
     - builds
     - unit-tests
-    - tagging
+    - releasing
 
 
 formatting:
@@ -20,8 +20,8 @@ formatting:
         - rustfmt $i
         - cmp $i temp.txt
         - done
-    only:
-        - branches
+    rules:
+        - if: $CI_COMMIT_BRANCH
 
 
 builds:
@@ -31,8 +31,8 @@ builds:
         - pacman -S base-devel libffi rust --noconfirm
     script:
         - cargo build
-    only:
-        - branches
+    rules:
+        - if: $CI_COMMIT_BRANCH
 
 
 unit-tests:
@@ -42,17 +42,15 @@ unit-tests:
         - pacman -S base-devel libffi rust --noconfirm
     script:
         - cargo test
-    only:
-        - branches
+    rules:
+        - if: $CI_COMMIT_BRANCH
 
 
-tagging:
-    stage: tagging
+releasing:
+    stage: releasing
+    image: registry.gitlab.com/gitlab-org/release-cli
     before_script:
-        - pacman -Sy --noconfirm
-        - pacman -S base-devel git openssh --noconfirm
-        - git config --global user.name "${GITLAB_USER_NAME}"
-        - git config --global user.email "${GITLAB_USER_EMAIL}"
+        - apk add git
     script:
         # Get version.
         - VERSION=`grep '^version = "[0-9].[0-9].[0-9]"$' Cargo.toml | cut -d '"' -f 2`
@@ -61,14 +59,7 @@ tagging:
         # Test if tag already exists for version.
         - VERSION_TAG_EXISTS=`git show-ref --tags -d | awk "/ refs\/tags\/$VERSION/" | wc -l`
         - test $VERSION_TAG_EXISTS -eq 1 && exit 0
-        # Setup SSH key to push.
-        - eval $(ssh-agent -s)
-        - mkdir -p $HOME/.ssh/
-        - ssh-keyscan -t rsa gitlab.com > $HOME/.ssh/known_hosts
-        - ssh-add <(echo "$GITLAB_CI_AUTO_TAG_KEY" | base64 -d)
-        # Create tag and push it.
-        - git remote add gitlab git@gitlab.com:DeveloperC/rust-monkey-interpreter.git
-        - git tag $VERSION
-        - git push gitlab $VERSION
-    only:
-        - master
+        # Create release/new tag.
+        - release-cli create --name $VERSION --description "Releasing $CI_COMMIT_REF_NAME as version $VERSION." --tag-name $VERSION --ref $CI_COMMIT_SHA
+    rules:
+        - if: $CI_COMMIT_BRANCH == "master"
