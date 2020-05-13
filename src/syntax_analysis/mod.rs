@@ -166,6 +166,17 @@ impl SyntaxAnalysis {
                     boolean_token: token,
                 });
             }
+            TokenType::OPENING_ROUND_BRACKET => {
+                debug!("Returning a grouped expression.");
+                match self.parse_grouped_expression() {
+                    Some(grouped_expression) => {
+                        expression = Some(grouped_expression);
+                    }
+                    None => {
+                        return expression;
+                    }
+                }
+            }
             _ => {
                 self.syntax_parsing_errors.push(format!(
                     "Syntax error : Do not know how to parse {:?} as an expression.",
@@ -203,6 +214,16 @@ impl SyntaxAnalysis {
         }
 
         return expression;
+    }
+
+    fn parse_grouped_expression(&mut self) -> Option<Expression> {
+        debug!("Parsing a grouped expression.");
+
+        // As only called from parse_expression which checks expect_token!(self, TokenType::OPENING_ROUND_BRACKET);
+        let grouped_expression = self.parse_expression(ExpressionPrecedence::LOWEST);
+        expect_token!(self, TokenType::CLOSING_ROUND_BRACKET);
+
+        return grouped_expression;
     }
 
     fn parse_inflix_expression(&mut self, left_hand_expression: Expression) -> Option<Expression> {
