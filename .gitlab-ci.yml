@@ -6,6 +6,7 @@ stages:
     - builds
     - unit-tests
     - releasing
+    - building-release
 
 
 formatting:
@@ -59,7 +60,28 @@ releasing:
         # Test if tag already exists for version.
         - VERSION_TAG_EXISTS=`git show-ref --tags -d | awk "/ refs\/tags\/$VERSION/" | wc -l`
         - test $VERSION_TAG_EXISTS -eq 1 && exit 0
+        # Creating changelog.
+        - LATEST_EXISTING_TAG=`git tag -l | sort -r | head -1`
+        - LATEST_EXISTING_TAG_COMMIT=`git rev-list -n 1 $LATEST_EXISTING_TAG`
+        - wget https://github.com/clog-tool/clog-cli/releases/download/v0.9.3/clog-v0.9.3-x86_64-unknown-linux-musl.tar.gz
+        - tar xvf clog-v0.9.3-x86_64-unknown-linux-musl.tar.gz
+        - RELEASE_DESCRIPTION=`./clog --from $LATEST_EXISTING_TAG_COMMIT --link-style Gitlab --subtitle $VERSION | tail -n +2`
         # Create release/new tag.
-        - release-cli create --name $VERSION --description "Releasing $CI_COMMIT_REF_NAME as version $VERSION." --tag-name $VERSION --ref $CI_COMMIT_SHA
+        - release-cli create --name $VERSION --description "$RELEASE_DESCRIPTION" --tag-name $VERSION --ref $CI_COMMIT_SHA
     rules:
         - if: $CI_COMMIT_BRANCH == "master"
+
+
+building-release:
+    stage: building-release
+    before_script:
+        - pacman -Sy --noconfirm
+        - pacman -S base-devel libffi rust --noconfirm
+    script:
+        - cargo build --release
+        - mv target/release/rust-monkey-interpreter rust-monkey-interpreter
+    artifacts:
+        paths:
+            - rust-monkey-interpreter
+    rules:
+        - if: $CI_COMMIT_TAG
