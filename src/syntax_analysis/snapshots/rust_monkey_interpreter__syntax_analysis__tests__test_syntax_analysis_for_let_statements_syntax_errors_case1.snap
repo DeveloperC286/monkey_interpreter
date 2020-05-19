@@ -3,7 +3,7 @@ source: src/syntax_analysis/tests.rs
 expression: returned_abstract_syntax_tree
 ---
 {
-  "program": [],
+  "abstract_syntax_tree": [],
   "syntax_parsing_errors": [
     "Syntax error : Expected a ASSIGN."
   ]

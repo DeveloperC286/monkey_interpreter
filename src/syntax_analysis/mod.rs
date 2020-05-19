@@ -1,7 +1,9 @@
 use super::lexical_analysis::token::{Token, TokenType};
 
 pub mod abstract_syntax_tree;
-use abstract_syntax_tree::syntax_tree_node::{Expression, ExpressionPrecedence, SyntaxTreeNode};
+use abstract_syntax_tree::syntax_tree_node::{
+    Expression, ExpressionPrecedence, Statement, SyntaxTreeNode,
+};
 use abstract_syntax_tree::AbstractSyntaxTree;
 
 use std::collections::HashMap;
@@ -62,7 +64,7 @@ impl SyntaxAnalysis {
     }
 
     fn parse(&mut self) -> AbstractSyntaxTree {
-        let mut program: Vec<SyntaxTreeNode> = vec![];
+        let mut abstract_syntax_tree: Vec<SyntaxTreeNode> = vec![];
 
         loop {
             debug!(
@@ -74,7 +76,7 @@ impl SyntaxAnalysis {
                 _ => {
                     let token_option = self.parse_next_node();
                     match token_option {
-                        Some(token) => program.push(token),
+                        Some(token) => abstract_syntax_tree.push(token),
                         None => {}
                     }
                 }
@@ -82,7 +84,7 @@ impl SyntaxAnalysis {
         }
 
         return AbstractSyntaxTree {
-            program,
+            abstract_syntax_tree,
             syntax_parsing_errors: self.syntax_parsing_errors.clone(),
         };
     }
@@ -98,8 +100,6 @@ impl SyntaxAnalysis {
     fn parse_expression_statement(&mut self) -> Option<SyntaxTreeNode> {
         debug!("Parsing an expression statement.");
 
-        let initial_expression_token = self.current_token.clone();
-
         let expression_option = self.parse_expression(ExpressionPrecedence::LOWEST);
 
         if self.current_token.token_type == TokenType::SEMI_COLON {
@@ -109,10 +109,7 @@ impl SyntaxAnalysis {
 
         match expression_option {
             Some(expression) => {
-                return Some(SyntaxTreeNode::EXPRESSION_STATEMENT {
-                    initial_expression_token,
-                    expression,
-                });
+                return Some(SyntaxTreeNode::EXPRESSION { expression });
             }
             None => return None,
         }
@@ -277,7 +274,9 @@ impl SyntaxAnalysis {
             }
         }
 
-        return Some(SyntaxTreeNode::RETURN_STATEMENT { return_token });
+        return Some(SyntaxTreeNode::STATEMENT {
+            statement: Statement::RETURN { return_token },
+        });
     }
 
     fn parse_let_statement(&mut self) -> Option<SyntaxTreeNode> {
@@ -304,9 +303,11 @@ impl SyntaxAnalysis {
             }
         }
 
-        return Some(SyntaxTreeNode::LET_STATEMENT {
-            let_token,
-            identifier_token,
+        return Some(SyntaxTreeNode::STATEMENT {
+            statement: Statement::LET {
+                let_token,
+                identifier_token,
+            },
         });
     }
 

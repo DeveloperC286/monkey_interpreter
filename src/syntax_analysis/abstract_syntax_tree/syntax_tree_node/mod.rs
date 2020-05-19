@@ -2,19 +2,25 @@ use super::super::super::lexical_analysis::token::Token;
 
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug, PartialEq)]
-#[allow(non_camel_case_types)]
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+pub enum Block {
+    BLOCK { blocks: Vec<SyntaxTreeNode> },
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub enum SyntaxTreeNode {
-    LET_STATEMENT {
+    STATEMENT { statement: Statement },
+    EXPRESSION { expression: Expression },
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+pub enum Statement {
+    LET {
         let_token: Token,
         identifier_token: Token,
     },
-    RETURN_STATEMENT {
+    RETURN {
         return_token: Token,
-    },
-    EXPRESSION_STATEMENT {
-        initial_expression_token: Token,
-        expression: Expression,
     },
 }
 
@@ -37,6 +43,12 @@ pub enum Expression {
     },
     BOOLEAN {
         boolean_token: Token,
+    },
+    IF {
+        if_token: Token,
+        condition: Box<Expression>,
+        consequence: Box<Block>,
+        alternative: Box<Block>,
     },
 }
 

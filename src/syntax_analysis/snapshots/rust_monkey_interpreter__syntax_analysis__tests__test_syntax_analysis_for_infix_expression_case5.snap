@@ -3,13 +3,9 @@ source: src/syntax_analysis/tests.rs
 expression: returned_abstract_syntax_tree
 ---
 {
-  "program": [
+  "abstract_syntax_tree": [
     {
-      "EXPRESSION_STATEMENT": {
-        "initial_expression_token": {
-          "token_type": "MINUS",
-          "literal": "-"
-        },
+      "EXPRESSION": {
         "expression": {
           "INFIX": {
             "left_hand_expression": {

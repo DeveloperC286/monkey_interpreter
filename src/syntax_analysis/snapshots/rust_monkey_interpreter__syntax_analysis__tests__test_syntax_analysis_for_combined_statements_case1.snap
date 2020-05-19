@@ -3,24 +3,32 @@ source: src/syntax_analysis/tests.rs
 expression: returned_abstract_syntax_tree
 ---
 {
-  "program": [
+  "abstract_syntax_tree": [
     {
-      "LET_STATEMENT": {
-        "let_token": {
-          "token_type": "LET",
-          "literal": "let"
-        },
-        "identifier_token": {
-          "token_type": "IDENTIFIER",
-          "literal": "x"
+      "STATEMENT": {
+        "statement": {
+          "LET": {
+            "let_token": {
+              "token_type": "LET",
+              "literal": "let"
+            },
+            "identifier_token": {
+              "token_type": "IDENTIFIER",
+              "literal": "x"
+            }
+          }
         }
       }
     },
     {
-      "RETURN_STATEMENT": {
-        "return_token": {
-          "token_type": "RETURN",
-          "literal": "RETURN"
+      "STATEMENT": {
+        "statement": {
+          "RETURN": {
+            "return_token": {
+              "token_type": "RETURN",
+              "literal": "RETURN"
+            }
+          }
         }
       }
     }
