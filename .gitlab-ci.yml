@@ -23,7 +23,8 @@ formatting:
         - cmp $i temp.txt
         - done
     rules:
-        - if: $CI_COMMIT_BRANCH
+        - if: $CI_MERGE_REQUEST_ID
+        - if: $CI_COMMIT_BRANCH == "master"
 
 
 merge-request-conventional-commits-next-version:
@@ -57,7 +58,8 @@ builds:
     script:
         - cargo build
     rules:
-        - if: $CI_COMMIT_BRANCH
+        - if: $CI_MERGE_REQUEST_ID
+        - if: $CI_COMMIT_BRANCH == "master"
 
 
 unit-tests:
@@ -68,7 +70,8 @@ unit-tests:
     script:
         - cargo test
     rules:
-        - if: $CI_COMMIT_BRANCH
+        - if: $CI_MERGE_REQUEST_ID
+        - if: $CI_COMMIT_BRANCH == "master"
 
 
 releasing:
@@ -77,11 +80,8 @@ releasing:
     before_script:
         - apk add git
     script:
-        # Get version.
-        - VERSION=`grep '^version = "[0-9].[0-9].[0-9]"$' Cargo.toml | cut -d '"' -f 2`
-        - VERSION_EXISTS=`echo $VERSION | grep '^[0-9].[0-9].[0-9]$' | wc -l`
-        - test $VERSION_EXISTS -ne 1 && { echo >&2 "Unable to parse out the semantic version. Aborting."; exit 1;}
         # Test if tag already exists for version.
+        - VERSION=`grep '^version = "[0-9].[0-9].[0-9]"$' Cargo.toml | cut -d '"' -f 2`
         - VERSION_TAG_EXISTS=`git show-ref --tags -d | awk "/ refs\/tags\/$VERSION/" | wc -l`
         - test $VERSION_TAG_EXISTS -eq 1 && exit 0
         # Creating changelog.
