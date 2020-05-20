@@ -2,7 +2,7 @@ use super::lexical_analysis::token::{Token, TokenType};
 
 pub mod abstract_syntax_tree;
 use abstract_syntax_tree::syntax_tree_node::{
-    Expression, ExpressionPrecedence, Statement, SyntaxTreeNode,
+    Block, Expression, ExpressionPrecedence, Statement, SyntaxTreeNode,
 };
 use abstract_syntax_tree::AbstractSyntaxTree;
 
@@ -90,6 +90,7 @@ impl SyntaxAnalysis {
     }
 
     fn parse_next_node(&mut self) -> Option<SyntaxTreeNode> {
+        debug!("Parsing next SyntaxTreeNode.");
         match self.current_token.token_type {
             TokenType::LET => self.parse_let_statement(),
             TokenType::RETURN => self.parse_return_statement(),
@@ -98,8 +99,6 @@ impl SyntaxAnalysis {
     }
 
     fn parse_expression_statement(&mut self) -> Option<SyntaxTreeNode> {
-        debug!("Parsing an expression statement.");
-
         let expression_option = self.parse_expression(ExpressionPrecedence::LOWEST);
 
         if self.current_token.token_type == TokenType::SEMI_COLON {
@@ -128,19 +127,19 @@ impl SyntaxAnalysis {
 
         match token.token_type {
             TokenType::IDENTIFIER => {
-                debug!("Returning an identifier expression.");
+                debug!("Found an identifier expression.");
                 expression = Some(Expression::IDENTIFIER {
                     identifier_token: token,
                 });
             }
             TokenType::INTEGER => {
-                debug!("Returning an integer expression.");
+                debug!("Found an integer expression.");
                 expression = Some(Expression::INTEGER {
                     integer_token: token,
                 });
             }
             TokenType::NOT | TokenType::MINUS => {
-                debug!("Returning a prefix expression.");
+                debug!("Found a prefix expression.");
                 match self.parse_expression(ExpressionPrecedence::PREFIX) {
                     Some(right_hand_expression) => {
                         expression = Some(Expression::PREFIX {
@@ -158,32 +157,55 @@ impl SyntaxAnalysis {
                 }
             }
             TokenType::TRUE | TokenType::FALSE => {
-                debug!("Returning an boolean expression.");
+                debug!("Found an boolean expression.");
                 expression = Some(Expression::BOOLEAN {
                     boolean_token: token,
                 });
             }
             TokenType::OPENING_ROUND_BRACKET => {
-                debug!("Returning a grouped expression.");
+                debug!("Found a grouped expression.");
                 match self.parse_grouped_expression() {
                     Some(grouped_expression) => {
                         expression = Some(grouped_expression);
                     }
                     None => {
-                        return expression;
+                        error!("Error parsing grouped expression, returning None.");
+                        return None;
+                    }
+                }
+            }
+            TokenType::IF => {
+                debug!("Found an if expression.");
+                match self.parse_if_expression() {
+                    Some(if_expression) => {
+                        expression = Some(if_expression);
+                    }
+                    None => {
+                        error!("Error parsing if expression, returning None.");
+                        return None;
                     }
                 }
             }
             _ => {
-                self.syntax_parsing_errors.push(format!(
+                let error_message = format!(
                     "Syntax error : Do not know how to parse {:?} as an expression.",
                     token.token_type
-                ));
-                return expression;
+                );
+                self.syntax_parsing_errors.push(error_message.clone());
+                error!("{}", error_message);
+
+                return None;
             }
         }
 
-        //Pratt Parsing.
+        return self.pratt_parsing(expression, expression_precedence);
+    }
+
+    fn pratt_parsing(
+        &mut self,
+        mut expression: Option<Expression>,
+        expression_precedence: ExpressionPrecedence,
+    ) -> Option<Expression> {
         loop {
             if self.current_token.token_type == TokenType::SEMI_COLON {
                 break;
@@ -211,6 +233,65 @@ impl SyntaxAnalysis {
         }
 
         return expression;
+    }
+
+    fn parse_if_expression(&mut self) -> Option<Expression> {
+        debug!("Parsing a if expression.");
+
+        // As only called from parse_expression which checks expect_token!(self, TokenType::IF);
+        expect_token!(self, TokenType::OPENING_ROUND_BRACKET);
+
+        let condition_option = self.parse_expression(ExpressionPrecedence::LOWEST);
+        trace!("Done with condition_option...");
+        expect_token!(self, TokenType::CLOSING_ROUND_BRACKET);
+        let consequence_option = self.parse_block();
+        trace!("Done with consequence_option...");
+
+        // Check condition exists.
+        match condition_option.clone() {
+            Some(_condition) => {}
+            None => {
+                return None;
+            }
+        }
+        let condition = condition_option.unwrap();
+
+        // Check condition exists.
+        match consequence_option.clone() {
+            Some(_consequence) => {}
+            None => {
+                return None;
+            }
+        }
+        let consequence = consequence_option.unwrap();
+
+        return Some(Expression::IF {
+            condition: Box::new(condition),
+            consequence: Box::new(consequence),
+        });
+    }
+
+    fn parse_block(&mut self) -> Option<Block> {
+        debug!("Parsing a block.");
+        expect_token!(self, TokenType::OPENING_CURLY_BRACKET);
+        let mut blocks = vec![];
+
+        loop {
+            match self.current_token.token_type {
+                TokenType::CLOSING_CURLY_BRACKET | TokenType::EOF => break,
+                _ => {
+                    let token_option = self.parse_next_node();
+                    match token_option {
+                        Some(token) => blocks.push(token),
+                        None => {}
+                    }
+                }
+            }
+        }
+
+        expect_token!(self, TokenType::CLOSING_CURLY_BRACKET);
+
+        return Some(Block::BLOCK { blocks });
     }
 
     fn parse_grouped_expression(&mut self) -> Option<Expression> {
@@ -313,15 +394,16 @@ impl SyntaxAnalysis {
 
     fn increment_token_index(&mut self) {
         self.current_token_index += 1;
-        trace!(
-            "Incremented the current token index to '{}'.",
-            self.current_token_index
-        );
 
         if self.current_token_index < self.tokens.len() {
             self.current_token = self.tokens[self.current_token_index].clone();
+            trace!(
+                "self.current_token_index [{}], self.current_token [{:?}]",
+                self.current_token_index,
+                self.current_token
+            );
         } else {
-            error!("self.current_token_index >= self.tokens.len(), so setting current_token to EOF Token.");
+            error!("self.current_token_index [{}] >= self.tokens.len(), so setting current_token to EOF Token.", self.current_token_index);
             self.current_token = Token {
                 token_type: TokenType::EOF,
                 literal: "".to_string(),

@@ -45,10 +45,8 @@ pub enum Expression {
         boolean_token: Token,
     },
     IF {
-        if_token: Token,
         condition: Box<Expression>,
         consequence: Box<Block>,
-        alternative: Box<Block>,
     },
 }
 

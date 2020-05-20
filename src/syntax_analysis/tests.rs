@@ -9,6 +9,29 @@ use rstest::rstest;
     snapshot_name,
     case(
         vec![
+            Token{token_type: TokenType::IF, literal: "if".to_string()},
+            Token{token_type: TokenType::OPENING_ROUND_BRACKET, literal: "(".to_string()},
+            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
+            Token{token_type: TokenType::LESSER_THAN, literal: "<".to_string()},
+            Token{token_type: TokenType::IDENTIFIER, literal: "y".to_string()},
+            Token{token_type: TokenType::CLOSING_ROUND_BRACKET, literal: ")".to_string()},
+            Token{token_type: TokenType::OPENING_CURLY_BRACKET, literal: "{".to_string()},
+            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
+            Token{token_type: TokenType::CLOSING_CURLY_BRACKET, literal: "}".to_string()},
+            Token{token_type: TokenType::EOF, literal: "".to_string()},
+        ],
+        "test_syntax_analysis_for_if_expression_case1"
+    ),
+)]
+fn test_syntax_analysis_for_if_expression(tokens: Vec<Token>, snapshot_name: &str) {
+    assert_expected_returned_abstract_syntax_tree(tokens, snapshot_name);
+}
+
+#[rstest(
+    tokens,
+    snapshot_name,
+    case(
+        vec![
             Token{token_type: TokenType::MINUS, literal: "-".to_string()},
             Token{token_type: TokenType::OPENING_ROUND_BRACKET, literal: "(".to_string()},
             Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
@@ -65,11 +88,7 @@ use rstest::rstest;
     ),
 )]
 fn test_syntax_analysis_for_grouped_expressions(tokens: Vec<Token>, snapshot_name: &str) {
-    //when
-    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
-
-    //then
-    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+    assert_expected_returned_abstract_syntax_tree(tokens, snapshot_name);
 }
 
 #[rstest(
@@ -92,11 +111,7 @@ fn test_syntax_analysis_for_grouped_expressions(tokens: Vec<Token>, snapshot_nam
     ),
 )]
 fn test_syntax_analysis_for_boolean_expression(tokens: Vec<Token>, snapshot_name: &str) {
-    //when
-    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
-
-    //then
-    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+    assert_expected_returned_abstract_syntax_tree(tokens, snapshot_name);
 }
 
 #[rstest(
@@ -138,13 +153,8 @@ fn test_syntax_analysis_for_successive_parsing(
     tokens_2: Vec<Token>,
     snapshot_name_2: &str,
 ) {
-    //when
-    let returned_abstract_syntax_tree_1 = SyntaxAnalysis::get_abstract_syntax_tree(tokens_1);
-    let returned_abstract_syntax_tree_2 = SyntaxAnalysis::get_abstract_syntax_tree(tokens_2);
-
-    //then
-    assert_json_snapshot!(snapshot_name_1, returned_abstract_syntax_tree_1);
-    assert_json_snapshot!(snapshot_name_2, returned_abstract_syntax_tree_2);
+    assert_expected_returned_abstract_syntax_tree(tokens_1, snapshot_name_1);
+    assert_expected_returned_abstract_syntax_tree(tokens_2, snapshot_name_2);
 }
 
 #[rstest(
@@ -247,11 +257,7 @@ fn test_syntax_analysis_for_successive_parsing(
     ),
 )]
 fn test_syntax_analysis_for_infix_expression(tokens: Vec<Token>, snapshot_name: &str) {
-    //when
-    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
-
-    //then
-    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+    assert_expected_returned_abstract_syntax_tree(tokens, snapshot_name);
 }
 
 #[rstest(
@@ -277,11 +283,7 @@ fn test_syntax_analysis_for_prefix_expression_syntax_errors(
     tokens: Vec<Token>,
     snapshot_name: &str,
 ) {
-    //when
-    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
-
-    //then
-    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+    assert_expected_returned_abstract_syntax_tree(tokens, snapshot_name);
 }
 
 #[rstest(
@@ -314,11 +316,7 @@ fn test_syntax_analysis_for_prefix_expression_syntax_errors(
     ),
 )]
 fn test_syntax_analysis_for_prefix_expression(tokens: Vec<Token>, snapshot_name: &str) {
-    //when
-    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
-
-    //then
-    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+    assert_expected_returned_abstract_syntax_tree(tokens, snapshot_name);
 }
 
 #[rstest(
@@ -341,11 +339,7 @@ fn test_syntax_analysis_for_prefix_expression(tokens: Vec<Token>, snapshot_name:
     ),
 )]
 fn test_syntax_analysis_for_identifier_expression(tokens: Vec<Token>, snapshot_name: &str) {
-    //when
-    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
-
-    //then
-    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+    assert_expected_returned_abstract_syntax_tree(tokens, snapshot_name);
 }
 
 #[rstest(
@@ -360,11 +354,7 @@ fn test_syntax_analysis_for_identifier_expression(tokens: Vec<Token>, snapshot_n
     ),
 )]
 fn test_syntax_analysis_for_expression_syntax_errors(tokens: Vec<Token>, snapshot_name: &str) {
-    //when
-    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
-
-    //then
-    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+    assert_expected_returned_abstract_syntax_tree(tokens, snapshot_name);
 }
 
 #[rstest(
@@ -387,11 +377,7 @@ fn test_syntax_analysis_for_expression_syntax_errors(tokens: Vec<Token>, snapsho
     ),
 )]
 fn test_syntax_analysis_for_integer_expression(tokens: Vec<Token>, snapshot_name: &str) {
-    //when
-    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
-
-    //then
-    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+    assert_expected_returned_abstract_syntax_tree(tokens, snapshot_name);
 }
 
 #[rstest(
@@ -413,11 +399,7 @@ fn test_syntax_analysis_for_integer_expression(tokens: Vec<Token>, snapshot_name
     ),
 )]
 fn test_syntax_analysis_for_combined_statements(tokens: Vec<Token>, snapshot_name: &str) {
-    //when
-    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
-
-    //then
-    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+    assert_expected_returned_abstract_syntax_tree(tokens, snapshot_name);
 }
 
 #[rstest(
@@ -446,11 +428,7 @@ fn test_syntax_analysis_for_combined_statements(tokens: Vec<Token>, snapshot_nam
     ),
 )]
 fn test_syntax_analysis_for_return_statements(tokens: Vec<Token>, snapshot_name: &str) {
-    //when
-    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
-
-    //then
-    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+    assert_expected_returned_abstract_syntax_tree(tokens, snapshot_name);
 }
 
 #[rstest(
@@ -487,11 +465,7 @@ fn test_syntax_analysis_for_return_statements(tokens: Vec<Token>, snapshot_name:
     ),
 )]
 fn test_syntax_analysis_for_let_statements(tokens: Vec<Token>, snapshot_name: &str) {
-    //when
-    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
-
-    //then
-    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+    assert_expected_returned_abstract_syntax_tree(tokens, snapshot_name);
 }
 
 #[rstest(
@@ -514,11 +488,7 @@ fn test_syntax_analysis_for_let_statements(tokens: Vec<Token>, snapshot_name: &s
     ),
 )]
 fn test_syntax_analysis_for_let_statements_syntax_errors(tokens: Vec<Token>, snapshot_name: &str) {
-    //when
-    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
-
-    //then
-    assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);
+    assert_expected_returned_abstract_syntax_tree(tokens, snapshot_name);
 }
 
 #[rstest(
@@ -536,6 +506,10 @@ fn test_syntax_analysis_for_let_statements_syntax_errors(tokens: Vec<Token>, sna
     ),
 )]
 fn test_syntax_analysis_tokens_input_edgecases(tokens: Vec<Token>, snapshot_name: &str) {
+    assert_expected_returned_abstract_syntax_tree(tokens, snapshot_name);
+}
+
+fn assert_expected_returned_abstract_syntax_tree(tokens: Vec<Token>, snapshot_name: &str) {
     //when
     let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
 
