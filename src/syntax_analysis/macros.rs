@@ -10,3 +10,10 @@ macro_rules! expect_token {
         $self.increment_token_index();
     };
 }
+
+macro_rules! syntax_error {
+    ($self:expr, $syntax_error:expr) => {
+        $self.syntax_parsing_errors.push($syntax_error);
+        error!("{}", $syntax_error);
+    };
+}
