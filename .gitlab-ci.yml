@@ -3,6 +3,7 @@ image: archlinux/base
 
 stages:
     - formatting
+    - merge-request-conventional-commits-linting
     - merge-request-conventional-commits-next-version
     - builds
     - unit-tests
@@ -25,6 +26,21 @@ formatting:
     rules:
         - if: $CI_MERGE_REQUEST_ID
         - if: $CI_COMMIT_BRANCH == "master"
+
+
+merge-request-conventional-commits-linting:
+    stage: merge-request-conventional-commits-linting
+    image: node
+    before_script:
+        - npm install -g @commitlint/cli @commitlint/config-conventional
+    script:
+        # Get latest tag commit hash.
+        - LATEST_TAG=`git tag -l | sort -r | head -1`
+        - LATEST_TAG_HASH=`git rev-parse $LATEST_TAG`
+        # Lint all the commits in the PR.
+        - commitlint --from=$LATEST_TAG_HASH
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
 
 
 merge-request-conventional-commits-next-version:
