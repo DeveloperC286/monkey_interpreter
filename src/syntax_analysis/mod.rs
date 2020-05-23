@@ -198,7 +198,7 @@ impl SyntaxAnalysis {
                         self.current_token.token_type
                     )
                 );
-
+                self.increment_token_index();
                 return None;
             }
         }
