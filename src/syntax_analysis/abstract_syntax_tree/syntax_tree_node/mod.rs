@@ -47,6 +47,7 @@ pub enum Expression {
     IF {
         condition: Box<Expression>,
         consequence: Box<Block>,
+        alternative: Box<Option<Block>>,
     },
 }
 

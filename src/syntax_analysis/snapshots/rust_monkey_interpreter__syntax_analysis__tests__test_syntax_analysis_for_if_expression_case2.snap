@@ -50,7 +50,24 @@ expression: returned_abstract_syntax_tree
                 ]
               }
             },
-            "alternative": null
+            "alternative": {
+              "BLOCK": {
+                "blocks": [
+                  {
+                    "EXPRESSION": {
+                      "expression": {
+                        "IDENTIFIER": {
+                          "identifier_token": {
+                            "token_type": "IDENTIFIER",
+                            "literal": "y"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
           }
         }
       }

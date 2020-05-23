@@ -243,12 +243,20 @@ impl SyntaxAnalysis {
     fn parse_if_expression(&mut self) -> Option<Expression> {
         debug!("Parsing a if expression.");
 
+        // parse if expression
         expect_token!(self, TokenType::IF);
         expect_token!(self, TokenType::OPENING_ROUND_BRACKET);
         let condition_option = self.parse_expression(ExpressionPrecedence::LOWEST);
         expect_token!(self, TokenType::CLOSING_ROUND_BRACKET);
         let consequence_option = self.parse_block();
+        let mut alternative = None;
 
+        if self.current_token.token_type == TokenType::ELSE {
+            expect_token!(self, TokenType::ELSE);
+            alternative = self.parse_block();
+        }
+
+        // check if expression was parsed correctly
         let condition = match condition_option {
             Some(condition) => condition,
             None => {
@@ -266,6 +274,7 @@ impl SyntaxAnalysis {
         return Some(Expression::IF {
             condition: Box::new(condition),
             consequence: Box::new(consequence),
+            alternative: Box::new(alternative),
         });
     }
 
