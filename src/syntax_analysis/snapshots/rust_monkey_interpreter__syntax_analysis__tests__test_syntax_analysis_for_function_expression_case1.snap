@@ -1,0 +1,69 @@
+---
+source: src/syntax_analysis/tests.rs
+expression: returned_abstract_syntax_tree
+---
+{
+  "abstract_syntax_tree": [
+    {
+      "EXPRESSION": {
+        "expression": {
+          "FUNCTION": {
+            "parameters": [
+              {
+                "IDENTIFIER": {
+                  "identifier_token": {
+                    "token_type": "IDENTIFIER",
+                    "literal": "x"
+                  }
+                }
+              },
+              {
+                "IDENTIFIER": {
+                  "identifier_token": {
+                    "token_type": "IDENTIFIER",
+                    "literal": "y"
+                  }
+                }
+              }
+            ],
+            "block": {
+              "BLOCK": {
+                "blocks": [
+                  {
+                    "EXPRESSION": {
+                      "expression": {
+                        "INFIX": {
+                          "left_hand_expression": {
+                            "IDENTIFIER": {
+                              "identifier_token": {
+                                "token_type": "IDENTIFIER",
+                                "literal": "x"
+                              }
+                            }
+                          },
+                          "operator_token": {
+                            "token_type": "PLUS",
+                            "literal": "+"
+                          },
+                          "right_hand_expression": {
+                            "IDENTIFIER": {
+                              "identifier_token": {
+                                "token_type": "IDENTIFIER",
+                                "literal": "y"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "syntax_parsing_errors": []
+}

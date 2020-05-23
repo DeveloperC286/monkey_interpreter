@@ -49,6 +49,10 @@ pub enum Expression {
         consequence: Box<Block>,
         alternative: Box<Option<Block>>,
     },
+    FUNCTION {
+        parameters: Vec<Expression>,
+        block: Box<Block>,
+    },
 }
 
 #[derive(Serialize, Deserialize, Debug, Copy, Clone, PartialEq, PartialOrd)]

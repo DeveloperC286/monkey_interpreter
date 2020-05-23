@@ -190,6 +190,18 @@ impl SyntaxAnalysis {
                     }
                 }
             }
+            TokenType::FUNCTION => {
+                debug!("Found a function expression.");
+                match self.parse_function_expression() {
+                    Some(function_expression) => {
+                        expression = Some(function_expression);
+                    }
+                    None => {
+                        error!("Error parsing function expression, returning None.");
+                        return None;
+                    }
+                }
+            }
             _ => {
                 syntax_error!(
                     self,
@@ -240,19 +252,111 @@ impl SyntaxAnalysis {
         return expression;
     }
 
+    fn parse_function_expression(&mut self) -> Option<Expression> {
+        debug!("Parsing a function expression.");
+
+        // parse function expression
+        expect_token!(self, TokenType::FUNCTION, None);
+        let parameters = self.parse_parameters();
+        let block_option = self.parse_block();
+
+        // check function expression was parsed correctly
+        let block = match block_option {
+            Some(block) => block,
+            None => {
+                return None;
+            }
+        };
+
+        return Some(Expression::FUNCTION {
+            parameters,
+            block: Box::new(block),
+        });
+    }
+
+    fn parse_parameters(&mut self) -> Vec<Expression> {
+        debug!("Parsing parameters.");
+
+        expect_token!(self, TokenType::OPENING_ROUND_BRACKET, vec![]);
+        let mut parameters = vec![];
+
+        if self.current_token.token_type != TokenType::CLOSING_ROUND_BRACKET {
+            match self.parse_expression(ExpressionPrecedence::LOWEST) {
+                Some(expression) => match expression.clone() {
+                    Expression::IDENTIFIER { identifier_token } => {
+                        parameters.push(expression);
+                    }
+                    _ => {
+                        syntax_error!(
+                            self,
+                            "Only allowed Expression::IDENTIFIER in parameters.".to_string()
+                        );
+                    }
+                },
+                None => {
+                    syntax_error!(
+                        self,
+                        "Unable to parse expression in parameters.".to_string()
+                    );
+                    return vec![];
+                }
+            }
+        }
+
+        loop {
+            match self.current_token.token_type {
+                TokenType::CLOSING_ROUND_BRACKET | TokenType::EOF => break,
+                TokenType::COMMA => {
+                    self.increment_token_index();
+                    match self.parse_expression(ExpressionPrecedence::LOWEST) {
+                        Some(expression) => match expression.clone() {
+                            Expression::IDENTIFIER { identifier_token } => {
+                                parameters.push(expression);
+                            }
+                            _ => {
+                                syntax_error!(
+                                    self,
+                                    "Only allowed Expression::IDENTIFIER in parameters."
+                                        .to_string()
+                                );
+                            }
+                        },
+                        None => {
+                            syntax_error!(
+                                self,
+                                "Unable to parse expression in parameters.".to_string()
+                            );
+                            return vec![];
+                        }
+                    }
+                }
+                _ => {
+                    syntax_error!(
+                        self,
+                        "Paramets must be comma seperated Expression::IDENTIFIER.".to_string()
+                    );
+                    return vec![];
+                }
+            }
+        }
+        expect_token!(self, TokenType::CLOSING_ROUND_BRACKET, vec![]);
+
+        return parameters;
+    }
+
     fn parse_if_expression(&mut self) -> Option<Expression> {
         debug!("Parsing a if expression.");
 
         // parse if expression
-        expect_token!(self, TokenType::IF);
-        expect_token!(self, TokenType::OPENING_ROUND_BRACKET);
+        expect_token!(self, TokenType::IF, None);
+        expect_token!(self, TokenType::OPENING_ROUND_BRACKET, None);
         let condition_option = self.parse_expression(ExpressionPrecedence::LOWEST);
-        expect_token!(self, TokenType::CLOSING_ROUND_BRACKET);
+        expect_token!(self, TokenType::CLOSING_ROUND_BRACKET, None);
         let consequence_option = self.parse_block();
         let mut alternative = None;
 
         if self.current_token.token_type == TokenType::ELSE {
-            expect_token!(self, TokenType::ELSE);
+            expect_token!(self, TokenType::ELSE, None);
             alternative = self.parse_block();
         }
 
@@ -280,7 +384,7 @@ impl SyntaxAnalysis {
 
     fn parse_block(&mut self) -> Option<Block> {
         debug!("Parsing a block.");
-        expect_token!(self, TokenType::OPENING_CURLY_BRACKET);
+        expect_token!(self, TokenType::OPENING_CURLY_BRACKET, None);
         let mut blocks = vec![];
 
         loop {
@@ -293,7 +397,7 @@ impl SyntaxAnalysis {
             }
         }
 
-        expect_token!(self, TokenType::CLOSING_CURLY_BRACKET);
+        expect_token!(self, TokenType::CLOSING_CURLY_BRACKET, None);
 
         return Some(Block::BLOCK { blocks });
     }
@@ -301,9 +405,9 @@ impl SyntaxAnalysis {
     fn parse_grouped_expression(&mut self) -> Option<Expression> {
         debug!("Parsing a grouped expression.");
 
-        expect_token!(self, TokenType::OPENING_ROUND_BRACKET);
+        expect_token!(self, TokenType::OPENING_ROUND_BRACKET, None);
         let grouped_expression = self.parse_expression(ExpressionPrecedence::LOWEST);
-        expect_token!(self, TokenType::CLOSING_ROUND_BRACKET);
+        expect_token!(self, TokenType::CLOSING_ROUND_BRACKET, None);
 
         return grouped_expression;
     }
@@ -344,7 +448,7 @@ impl SyntaxAnalysis {
         debug!("Parsing a return statement.");
 
         let return_token = self.current_token.clone();
-        expect_token!(self, TokenType::RETURN);
+        expect_token!(self, TokenType::RETURN, None);
 
         //TODO handle expression.
         loop {
@@ -368,12 +472,12 @@ impl SyntaxAnalysis {
         debug!("Parsing a let statement.");
 
         let let_token = self.current_token.clone();
-        expect_token!(self, TokenType::LET);
+        expect_token!(self, TokenType::LET, None);
 
         let identifier_token = self.current_token.clone();
-        expect_token!(self, TokenType::IDENTIFIER);
+        expect_token!(self, TokenType::IDENTIFIER, None);
 
-        expect_token!(self, TokenType::ASSIGN);
+        expect_token!(self, TokenType::ASSIGN, None);
 
         //TODO handle expression.
         loop {

@@ -1,5 +1,5 @@
 # Monkey Interpreter
-[![pipeline status](https://img.shields.io/badge/Version-0.5.0-blue)](https://gitlab.com/DeveloperC/rust-monkey-interpreter/commits/master) [![pipeline status](https://gitlab.com/DeveloperC/rust-monkey-interpreter/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/rust-monkey-interpreter/commits/master) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![pipeline status](https://img.shields.io/badge/Version-0.6.0-blue)](https://gitlab.com/DeveloperC/rust-monkey-interpreter/commits/master) [![pipeline status](https://gitlab.com/DeveloperC/rust-monkey-interpreter/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/rust-monkey-interpreter/commits/master) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ![The Monkey Programming Language Logo](https://cloud.githubusercontent.com/assets/1013641/22617482/9c60c27c-eb09-11e6-9dfa-b04c7fe498ea.png)
 
