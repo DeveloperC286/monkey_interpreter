@@ -14,7 +14,7 @@ use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 #[structopt(
-    name = "rust-monkey-interpreter",
+    name = "rust_monkey_interpreter",
     about = "Monkey interpreter written in Rust."
 )]
 struct Args {}

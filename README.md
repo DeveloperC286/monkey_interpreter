@@ -1,5 +1,5 @@
-# Monkey Interpreter
-[![pipeline status](https://img.shields.io/badge/Version-0.6.0-blue)](https://gitlab.com/DeveloperC/rust-monkey-interpreter/commits/master) [![pipeline status](https://gitlab.com/DeveloperC/rust-monkey-interpreter/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/rust-monkey-interpreter/commits/master) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+# Rust Monkey Interpreter
+[![pipeline status](https://img.shields.io/badge/Version-0.6.0-blue)](https://gitlab.com/DeveloperC/rust_monkey_interpreter/commits/master) [![pipeline status](https://gitlab.com/DeveloperC/rust_monkey_interpreter/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/rust_monkey_interpreter/commits/master) [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 ![The Monkey Programming Language Logo](https://cloud.githubusercontent.com/assets/1013641/22617482/9c60c27c-eb09-11e6-9dfa-b04c7fe498ea.png)
 
@@ -31,12 +31,12 @@ cargo test
 
 ## Running the Interactive Interpreter
 ```
-target/release/rust-monkey-interpreter
+target/release/rust_monkey_interpreter
 ```
 
 ## Running with Logging
 You can increase or decrease the level of the logs by altering the enviroment variable 'RUST_LOG'.
 
 ```
-RUST_LOG=trace target/release/rust-monkey-interpreter
+RUST_LOG=trace target/release/rust_monkey_interpreter
 ```
