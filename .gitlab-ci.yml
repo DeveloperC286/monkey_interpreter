@@ -5,7 +5,7 @@ stages:
     - builds
     - unit-tests
     - releasing
-    - building-release
+    - building-release-binary
 
 
 formatting:
@@ -43,24 +43,18 @@ merge-request-conventional-commits-linting:
 
 merge-request-conventional-commits-next-version:
     stage: merge-request-conventional-commits-next-version
-    image: archlinux/base
-    before_script:
-        - pacman -Syu --noconfirm
-        - pacman -S diffutils unzip nettle wget git --noconfirm
+    image: rust
     script:
-        # Get version.
-        - VERSION=`grep '^version = "[0-9].[0-9].[0-9]"$' Cargo.toml | cut -d '"' -f 2`
         # Get latest tag commit hash.
+        - CURRENT_VERSION=`grep '^version = "[0-9].[0-9].[0-9]"$' Cargo.toml | cut -d '"' -f 2`
+        - CURRENT_VERSION=`grep '^version = "[0-9].[0-9].[0-9]"$' Cargo.toml | cut -d '"' -f 2`
         - LATEST_TAG=`git tag -l | sort -r | head -1`
         - LATEST_TAG_HASH=`git rev-parse $LATEST_TAG`
-        # Download conventional-commits-next-version tag 0.4.0
-        - wget https://gitlab.com/DeveloperC/conventional-commits-next-version/-/jobs/artifacts/0.4.0/download?job=building-release
-        - unzip download\?job=building-release
+        # Download conventional_commits_next_version.
+        - wget https://gitlab.com/DeveloperC/conventional_commits_next_version/-/jobs/artifacts/1.1.0/download?job=building-release-binary-linux-musl
+        - unzip download\?job=building-release-binary-linux-musl
         # Compare current version vs expected.
-        - EXPECTED_VERSION=`./conventional_commits_next_version --batch-commits --from-commit $LATEST_TAG_HASH --version $LATEST_TAG`
-        - echo $VERSION
-        - echo $EXPECTED_VERSION
-        - test \"$VERSION\" = \"$EXPECTED_VERSION\"
+        - ./conventional_commits_next_version --batch-commits --from-commit-hash $LATEST_TAG_HASH --from-version $LATEST_TAG --current-version $CURRENT_VERSION
     rules:
         - if: $CI_MERGE_REQUEST_ID
 
@@ -113,28 +107,29 @@ releasing:
     before_script:
         - apk add git
     script:
-        # Test if tag already exists for version.
+        # Test if tag already exists.
         - VERSION=`grep '^version = "[0-9].[0-9].[0-9]"$' Cargo.toml | cut -d '"' -f 2`
         - VERSION_TAG_EXISTS=`git show-ref --tags -d | awk "/ refs\/tags\/$VERSION/" | wc -l`
         - test $VERSION_TAG_EXISTS -eq 1 && exit 0
+        # Tag does not exist so create it and release.
         # Creating changelog.
-        - LATEST_EXISTING_TAG=`git tag -l | sort -r | head -1`
-        - LATEST_EXISTING_TAG_COMMIT=`git rev-list -n 1 $LATEST_EXISTING_TAG`
+        - LATEST_TAG=`git tag -l | sort -r | head -1`
+        - LATEST_TAG_HASH=`git rev-parse $LATEST_TAG`
         - wget https://github.com/clog-tool/clog-cli/releases/download/v0.9.3/clog-v0.9.3-x86_64-unknown-linux-musl.tar.gz
         - tar xvf clog-v0.9.3-x86_64-unknown-linux-musl.tar.gz
-        - RELEASE_DESCRIPTION=`./clog --from $LATEST_EXISTING_TAG_COMMIT --link-style Gitlab --subtitle $VERSION | tail -n +2`
+        - RELEASE_DESCRIPTION=`./clog --from $LATEST_TAG_HASH --link-style Gitlab --subtitle $VERSION | tail -n +2`
         # Create release/new tag.
         - release-cli create --name $VERSION --description "$RELEASE_DESCRIPTION" --tag-name $VERSION --ref $CI_COMMIT_SHA
     rules:
         - if: $CI_COMMIT_BRANCH == "master"
 
 
-building-release:
-    stage: building-release
-    image: rust
+building-release-binary-linux-musl:
+    stage: building-release-binary
+    image: ekidd/rust-musl-builder
     script:
         - cargo build --release
-        - mv target/release/rust-monkey-interpreter rust-monkey-interpreter
+        - mv target/x86_64-unknown-linux-musl/release/rust-monkey-interpreter rust-monkey-interpreter
     artifacts:
         paths:
             - rust-monkey-interpreter
