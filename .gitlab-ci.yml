@@ -2,6 +2,7 @@ stages:
     - formatting
     - merge-request-conventional-commits-linting
     - merge-request-conventional-commits-next-version
+    - checking-version-badge
     - builds
     - unit-tests
     - releasing
@@ -59,6 +60,18 @@ merge-request-conventional-commits-next-version:
         - ./conventional_commits_next_version --batch-commits --from-commit-hash $LATEST_TAG_HASH --from-version $LATEST_TAG --current-version $CURRENT_VERSION
     rules:
         - if: $CI_MERGE_REQUEST_ID
+
+
+checking-version-badge:
+    stage: checking-version-badge
+    image: alpine
+    script:
+        - CURRENT_VERSION=`grep '^version = "[0-9].[0-9].[0-9]"$' Cargo.toml | cut -d '"' -f 2`
+        - BADGE_PRESENT=`grep "(https://img.shields.io/badge/Version-$CURRENT_VERSION-blue)]" README.md | wc -l`
+        - test $BADGE_PRESENT -eq 1
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
+        - if: $CI_COMMIT_BRANCH == "master"
 
 
 builds:
