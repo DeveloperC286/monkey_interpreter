@@ -53,6 +53,10 @@ pub enum Expression {
         parameters: Vec<Expression>,
         block: Box<Block>,
     },
+    CALL {
+        function: Box<Expression>,
+        arguments: Vec<Expression>,
+    },
 }
 
 #[derive(Serialize, Deserialize, Debug, Copy, Clone, PartialEq, PartialOrd)]
@@ -64,5 +68,5 @@ pub enum ExpressionPrecedence {
     PLUS,
     MULTIPLY,
     PREFIX,
-    FUNCTION_CALL,
+    CALL,
 }

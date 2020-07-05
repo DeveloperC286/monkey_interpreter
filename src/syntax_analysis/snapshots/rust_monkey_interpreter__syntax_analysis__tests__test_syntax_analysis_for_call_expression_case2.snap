@@ -1,0 +1,59 @@
+---
+source: src/syntax_analysis/tests.rs
+expression: returned_abstract_syntax_tree
+---
+{
+  "abstract_syntax_tree": [
+    {
+      "EXPRESSION": {
+        "expression": {
+          "CALL": {
+            "function": {
+              "IDENTIFIER": {
+                "identifier_token": {
+                  "token_type": "IDENTIFIER",
+                  "literal": "add"
+                }
+              }
+            },
+            "arguments": [
+              {
+                "INTEGER": {
+                  "integer_token": {
+                    "token_type": "INTEGER",
+                    "literal": "3"
+                  }
+                }
+              },
+              {
+                "INFIX": {
+                  "left_hand_expression": {
+                    "INTEGER": {
+                      "integer_token": {
+                        "token_type": "INTEGER",
+                        "literal": "7"
+                      }
+                    }
+                  },
+                  "operator_token": {
+                    "token_type": "MULTIPLY",
+                    "literal": "*"
+                  },
+                  "right_hand_expression": {
+                    "INTEGER": {
+                      "integer_token": {
+                        "token_type": "INTEGER",
+                        "literal": "2"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "syntax_parsing_errors": []
+}

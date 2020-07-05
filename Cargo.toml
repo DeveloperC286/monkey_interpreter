@@ -1,6 +1,6 @@
 [package]
 name = "rust_monkey_interpreter"
-version = "0.6.0"
+version = "0.7.0"
 authors = ["C <DeveloperC@protonmail.com>"]
 edition = "2018"
 

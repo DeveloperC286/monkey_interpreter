@@ -25,6 +25,7 @@ lazy_static! {
         m.insert(TokenType::MINUS, ExpressionPrecedence::PLUS);
         m.insert(TokenType::MULTIPLY, ExpressionPrecedence::MULTIPLY);
         m.insert(TokenType::DIVIDE, ExpressionPrecedence::MULTIPLY);
+        m.insert(TokenType::OPENING_ROUND_BRACKET, ExpressionPrecedence::CALL);
         m
     };
 }
@@ -243,6 +244,9 @@ impl SyntaxAnalysis {
                 | TokenType::GREATER_THAN => {
                     expression = self.parse_inflix_expression(expression.clone().unwrap());
                 }
+                TokenType::OPENING_ROUND_BRACKET => {
+                    expression = self.parse_call_expression(expression.clone().unwrap());
+                }
                 _ => {
                     break;
                 }
@@ -250,6 +254,63 @@ impl SyntaxAnalysis {
         }
 
         return expression;
+    }
+
+    fn parse_call_expression(&mut self, function: Expression) -> Option<Expression> {
+        debug!("Parsing a call expression.");
+
+        // parse call expression
+        let arguments = self.parse_arguments();
+
+        // check call expression was correctly called
+        match function.clone() {
+            Expression::IDENTIFIER { identifier_token } => {}
+            _ => {
+                error!("parse_call_expression called with the function not being an Expression::IDENTIFIER.");
+                return None;
+            }
+        }
+
+        return Some(Expression::CALL {
+            function: Box::new(function),
+            arguments,
+        });
+    }
+
+    fn parse_arguments(&mut self) -> Vec<Expression> {
+        debug!("Parsing arguments.");
+
+        expect_token!(self, TokenType::OPENING_ROUND_BRACKET, vec![]);
+        let mut arguments = vec![];
+
+        if self.current_token.token_type != TokenType::CLOSING_ROUND_BRACKET {
+            loop {
+                match self.parse_expression(ExpressionPrecedence::LOWEST) {
+                    Some(expression) => {
+                        arguments.push(expression);
+                    }
+                    None => {
+                        syntax_error!(self, "Unable to parse expression in arguments.".to_string());
+                        return vec![];
+                    }
+                }
+
+                match self.current_token.token_type {
+                    TokenType::CLOSING_ROUND_BRACKET => break,
+                    TokenType::COMMA => self.increment_token_index(),
+                    _ => {
+                        syntax_error!(
+                            self,
+                            "Arguments must be comma seperated expressions.".to_string()
+                        );
+                        return vec![];
+                    }
+                }
+            }
+        }
+
+        expect_token!(self, TokenType::CLOSING_ROUND_BRACKET, vec![]);
+        return arguments;
     }
 
     fn parse_function_expression(&mut self) -> Option<Expression> {
