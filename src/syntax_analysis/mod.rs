@@ -264,6 +264,7 @@ impl SyntaxAnalysis {
         let block = match block_option {
             Some(block) => block,
             None => {
+                error!("parse_function_expression could not parse the functions block.");
                 return None;
             }
         };
@@ -281,66 +282,43 @@ impl SyntaxAnalysis {
         let mut parameters = vec![];
 
         if self.current_token.token_type != TokenType::CLOSING_ROUND_BRACKET {
-            match self.parse_expression(ExpressionPrecedence::LOWEST) {
-                Some(expression) => match expression.clone() {
-                    Expression::IDENTIFIER { identifier_token } => {
-                        parameters.push(expression);
+            loop {
+                match self.parse_expression(ExpressionPrecedence::LOWEST) {
+                    Some(expression) => match expression.clone() {
+                        Expression::IDENTIFIER { identifier_token } => {
+                            parameters.push(expression);
+                        }
+                        _ => {
+                            syntax_error!(
+                                self,
+                                "Only allowed Expression::IDENTIFIER in parameters.".to_string()
+                            );
+                        }
+                    },
+                    None => {
+                        syntax_error!(
+                            self,
+                            "Unable to parse expression in parameters.".to_string()
+                        );
+                        return vec![];
                     }
+                }
+
+                match self.current_token.token_type {
+                    TokenType::CLOSING_ROUND_BRACKET => break,
+                    TokenType::COMMA => self.increment_token_index(),
                     _ => {
                         syntax_error!(
                             self,
-                            "Only allowed Expression::IDENTIFIER in parameters.".to_string()
+                            "Parameters must be comma seperated identifiers.".to_string()
                         );
+                        return vec![];
                     }
-                },
-                None => {
-                    syntax_error!(
-                        self,
-                        "Unable to parse expression in parameters.".to_string()
-                    );
-                    return vec![];
                 }
             }
         }
 
-        loop {
-            match self.current_token.token_type {
-                TokenType::CLOSING_ROUND_BRACKET | TokenType::EOF => break,
-                TokenType::COMMA => {
-                    self.increment_token_index();
-                    match self.parse_expression(ExpressionPrecedence::LOWEST) {
-                        Some(expression) => match expression.clone() {
-                            Expression::IDENTIFIER { identifier_token } => {
-                                parameters.push(expression);
-                            }
-                            _ => {
-                                syntax_error!(
-                                    self,
-                                    "Only allowed Expression::IDENTIFIER in parameters."
-                                        .to_string()
-                                );
-                            }
-                        },
-                        None => {
-                            syntax_error!(
-                                self,
-                                "Unable to parse expression in parameters.".to_string()
-                            );
-                            return vec![];
-                        }
-                    }
-                }
-                _ => {
-                    syntax_error!(
-                        self,
-                        "Paramets must be comma seperated Expression::IDENTIFIER.".to_string()
-                    );
-                    return vec![];
-                }
-            }
-        }
         expect_token!(self, TokenType::CLOSING_ROUND_BRACKET, vec![]);
-
         return parameters;
     }
 
