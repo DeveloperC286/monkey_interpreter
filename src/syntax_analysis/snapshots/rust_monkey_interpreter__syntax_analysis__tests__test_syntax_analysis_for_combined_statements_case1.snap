@@ -8,13 +8,17 @@ expression: returned_abstract_syntax_tree
       "STATEMENT": {
         "statement": {
           "LET": {
-            "let_token": {
-              "token_type": "LET",
-              "literal": "let"
-            },
             "identifier_token": {
               "token_type": "IDENTIFIER",
               "literal": "x"
+            },
+            "expression": {
+              "INTEGER": {
+                "integer_token": {
+                  "token_type": "INTEGER",
+                  "literal": "5"
+                }
+              }
             }
           }
         }
@@ -24,9 +28,13 @@ expression: returned_abstract_syntax_tree
       "STATEMENT": {
         "statement": {
           "RETURN": {
-            "return_token": {
-              "token_type": "RETURN",
-              "literal": "RETURN"
+            "expression": {
+              "INTEGER": {
+                "integer_token": {
+                  "token_type": "INTEGER",
+                  "literal": "5"
+                }
+              }
             }
           }
         }

@@ -486,31 +486,30 @@ impl SyntaxAnalysis {
     fn parse_return_statement(&mut self) -> Option<SyntaxTreeNode> {
         debug!("Parsing a return statement.");
 
-        let return_token = self.current_token.clone();
         expect_token!(self, TokenType::RETURN, None);
 
-        //TODO handle expression.
-        loop {
-            match self.current_token.token_type {
-                TokenType::SEMI_COLON => {
-                    self.increment_token_index();
-                    break;
-                }
-                _ => {
-                    self.increment_token_index();
-                }
+        let expression = match self.parse_expression(ExpressionPrecedence::LOWEST) {
+            Some(expression) => expression,
+            None => {
+                syntax_error!(self, "".to_string());
+                return None;
             }
+        };
+
+        if self.current_token.token_type == TokenType::SEMI_COLON {
+            self.increment_token_index();
         }
 
         return Some(SyntaxTreeNode::STATEMENT {
-            statement: Statement::RETURN { return_token },
+            statement: Statement::RETURN {
+                expression: Box::new(expression),
+            },
         });
     }
 
     fn parse_let_statement(&mut self) -> Option<SyntaxTreeNode> {
         debug!("Parsing a let statement.");
 
-        let let_token = self.current_token.clone();
         expect_token!(self, TokenType::LET, None);
 
         let identifier_token = self.current_token.clone();
@@ -518,23 +517,22 @@ impl SyntaxAnalysis {
 
         expect_token!(self, TokenType::ASSIGN, None);
 
-        //TODO handle expression.
-        loop {
-            match self.current_token.token_type {
-                TokenType::SEMI_COLON => {
-                    self.increment_token_index();
-                    break;
-                }
-                _ => {
-                    self.increment_token_index();
-                }
+        let expression = match self.parse_expression(ExpressionPrecedence::LOWEST) {
+            Some(expression) => expression,
+            None => {
+                syntax_error!(self, "".to_string());
+                return None;
             }
+        };
+
+        if self.current_token.token_type == TokenType::SEMI_COLON {
+            self.increment_token_index();
         }
 
         return Some(SyntaxTreeNode::STATEMENT {
             statement: Statement::LET {
-                let_token,
                 identifier_token,
+                expression: Box::new(expression),
             },
         });
     }

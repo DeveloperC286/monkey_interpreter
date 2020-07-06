@@ -16,11 +16,11 @@ pub enum SyntaxTreeNode {
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub enum Statement {
     LET {
-        let_token: Token,
         identifier_token: Token,
+        expression: Box<Expression>,
     },
     RETURN {
-        return_token: Token,
+        expression: Box<Expression>,
     },
 }
 
