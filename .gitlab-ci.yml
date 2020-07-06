@@ -144,9 +144,9 @@ building-release-binary-linux-musl:
     image: ekidd/rust-musl-builder
     script:
         - cargo build --release
-        - mv target/x86_64-unknown-linux-musl/release/rust-monkey-interpreter rust-monkey-interpreter
+        - mv target/x86_64-unknown-linux-musl/release/rust_monkey_interpreter rust_monkey_interpreter
     artifacts:
         paths:
-            - rust-monkey-interpreter
+            - rust_monkey_interpreter
     rules:
         - if: $CI_COMMIT_TAG
