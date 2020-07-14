@@ -1,7 +1,8 @@
-pub mod syntax_tree_node;
+use serde::{Deserialize, Serialize};
+
 use syntax_tree_node::SyntaxTreeNode;
 
-use serde::{Deserialize, Serialize};
+pub mod syntax_tree_node;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct AbstractSyntaxTree {

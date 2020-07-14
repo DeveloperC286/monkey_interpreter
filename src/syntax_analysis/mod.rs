@@ -1,11 +1,13 @@
-pub mod abstract_syntax_tree;
-
-use super::lexical_analysis::token::{Token, TokenType};
-use crate::utilities::TOKEN_PRECEDENCES;
 use abstract_syntax_tree::syntax_tree_node::{
     Block, Expression, ExpressionPrecedence, Statement, SyntaxTreeNode,
 };
 use abstract_syntax_tree::AbstractSyntaxTree;
+
+use crate::utilities::TOKEN_PRECEDENCES;
+
+use super::lexical_analysis::token::{Token, TokenType};
+
+pub mod abstract_syntax_tree;
 
 #[macro_use]
 mod macros;

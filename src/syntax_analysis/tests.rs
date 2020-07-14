@@ -1,8 +1,8 @@
-use super::super::lexical_analysis::token::{Token, TokenType};
-use super::*;
-
 use insta::assert_json_snapshot;
 use rstest::rstest;
+
+use super::super::lexical_analysis::token::{Token, TokenType};
+use super::*;
 
 #[rstest(
     tokens,

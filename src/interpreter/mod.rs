@@ -1,7 +1,6 @@
-use super::lexical_analysis::LexicalAnalysis;
-use super::syntax_analysis::SyntaxAnalysis;
-
 use std::io::{stdin, stdout, Write};
+
+use crate::syntax_analysis::SyntaxAnalysis;
 
 const NAME: Option<&'static str> = option_env!("CARGO_PKG_NAME");
 const VERSION: Option<&'static str> = option_env!("CARGO_PKG_VERSION");
@@ -13,7 +12,7 @@ pub fn repl() {
         VERSION.unwrap_or("unknown")
     );
     loop {
-        let tokens = LexicalAnalysis::get_tokens(read());
+        let tokens = crate::lexical_analysis::get_tokens(read());
         let abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
 
         if abstract_syntax_tree.syntax_parsing_errors.len() > 0 {

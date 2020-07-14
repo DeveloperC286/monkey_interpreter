@@ -1,6 +1,7 @@
+use std::collections::HashMap;
+
 use crate::lexical_analysis::token::TokenType;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::ExpressionPrecedence;
-use std::collections::HashMap;
 
 lazy_static! {
     pub static ref KEYWORDS: HashMap<String, TokenType> = {

@@ -1,14 +1,12 @@
 macro_rules! parse_characters {
-    ($self:expr, $valid_character:ident) => {
-        let mut chars: Vec<char> = vec![];
+    ($iterator:expr, $current_character:expr, $valid_character:ident) => {
+        let mut characters = vec![$current_character];
 
         loop {
-            chars.push($self.current_character.unwrap());
-
-            match $self.next_character {
+            match $iterator.peek() {
                 Some(character) => {
-                    if $valid_character(character) {
-                        $self.increment_character_index();
+                    if $valid_character(*character) {
+                        characters.push($iterator.next().unwrap());
                     } else {
                         break;
                     }
@@ -19,18 +17,18 @@ macro_rules! parse_characters {
             }
         }
 
-        let string = String::from_iter(chars.iter());
-        return string;
+        let string = String::from_iter(characters.iter());
+        return ($iterator, string);
     };
 }
 
 macro_rules! check_next_character {
-    ($self:expr, $expected_next_character:expr, $literal:expr, $token_type:expr) => {
-        match $self.next_character {
+    ($iterator:expr, $expected_next_character:expr, $literal:expr, $token_type:expr) => {
+        match $iterator.peek() {
             Some(next_character) => match next_character {
                 $expected_next_character => {
-                    $self.increment_character_index();
-                    return_token!($literal, $token_type);
+                    $iterator.next();
+                    return_token!($iterator, $literal, $token_type);
                 }
                 _ => {}
             },
@@ -40,10 +38,13 @@ macro_rules! check_next_character {
 }
 
 macro_rules! return_token {
-    ($literal:expr, $token_type:expr) => {
-        return Token {
-            token_type: $token_type,
-            literal: $literal.to_string(),
-        };
+    ($iterator:expr, $literal:expr, $token_type:expr) => {
+        return (
+            $iterator,
+            Token {
+                token_type: $token_type,
+                literal: $literal.to_string(),
+            },
+        );
     };
 }
