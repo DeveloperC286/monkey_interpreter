@@ -9,7 +9,6 @@ use structopt::StructOpt;
 mod interpreter;
 mod lexical_analysis;
 mod syntax_analysis;
-mod utilities;
 
 #[derive(Debug, StructOpt)]
 #[structopt(

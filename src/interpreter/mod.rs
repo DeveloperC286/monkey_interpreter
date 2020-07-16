@@ -1,7 +1,5 @@
 use std::io::{stdin, stdout, Write};
 
-use crate::syntax_analysis::SyntaxAnalysis;
-
 const NAME: Option<&'static str> = option_env!("CARGO_PKG_NAME");
 const VERSION: Option<&'static str> = option_env!("CARGO_PKG_VERSION");
 
@@ -13,7 +11,7 @@ pub fn repl() {
     );
     loop {
         let tokens = crate::lexical_analysis::get_tokens(read());
-        let abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
+        let abstract_syntax_tree = crate::syntax_analysis::get_abstract_syntax_tree(tokens);
 
         if abstract_syntax_tree.syntax_parsing_errors.len() > 0 {
             for error in abstract_syntax_tree

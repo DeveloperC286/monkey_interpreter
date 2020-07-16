@@ -614,7 +614,7 @@ fn test_syntax_analysis_tokens_input_edgecases(tokens: Vec<Token>, snapshot_name
 
 fn assert_expected_returned_abstract_syntax_tree(tokens: Vec<Token>, snapshot_name: &str) {
     //when
-    let returned_abstract_syntax_tree = SyntaxAnalysis::get_abstract_syntax_tree(tokens);
+    let returned_abstract_syntax_tree = get_abstract_syntax_tree(tokens);
 
     //then
     assert_json_snapshot!(snapshot_name, returned_abstract_syntax_tree);

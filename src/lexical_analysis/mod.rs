@@ -1,9 +1,22 @@
+use std::collections::HashMap;
 use std::iter::{FromIterator, Peekable};
 use std::str::Chars;
 
 use token::{Token, TokenType};
 
-use crate::utilities::KEYWORDS;
+lazy_static! {
+    static ref KEYWORDS: HashMap<String, TokenType> = {
+        let mut m = HashMap::new();
+        m.insert("fn".to_string(), TokenType::FUNCTION);
+        m.insert("let".to_string(), TokenType::LET);
+        m.insert("true".to_string(), TokenType::TRUE);
+        m.insert("false".to_string(), TokenType::FALSE);
+        m.insert("if".to_string(), TokenType::IF);
+        m.insert("else".to_string(), TokenType::ELSE);
+        m.insert("return".to_string(), TokenType::RETURN);
+        m
+    };
+}
 
 pub mod token;
 #[macro_use]

@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::super::super::lexical_analysis::token::Token;
+use crate::lexical_analysis::token::Token;
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub enum Block {
