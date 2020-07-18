@@ -86,3 +86,6 @@ pub fn parse_let_statement(
         }),
     );
 }
+
+#[cfg(test)]
+mod tests;

@@ -8,7 +8,7 @@ use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
 use crate::syntax_analysis::expression_precedence;
 
 pub mod call_expression;
-pub mod inflix_expression;
+pub mod infix_expression;
 
 pub fn pratt_parsing(
     mut iterator: Peekable<Iter<Token>>,
@@ -42,7 +42,7 @@ pub fn pratt_parsing(
             | TokenType::LESSER_THAN
             | TokenType::GREATER_THAN => {
                 let (returned_iterator, returned_syntax_parsing_errors, returned_expression) =
-                    inflix_expression::parse_inflix_expression(
+                    infix_expression::parse_infix_expression(
                         iterator,
                         syntax_parsing_errors,
                         expression.unwrap(),

@@ -1,0 +1,10 @@
+---
+source: src/syntax_analysis/statements/tests.rs
+expression: returned_abstract_syntax_tree
+---
+{
+  "abstract_syntax_tree": [],
+  "syntax_parsing_errors": [
+    "Syntax error : Expected a IDENTIFIER."
+  ]
+}

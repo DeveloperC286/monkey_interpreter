@@ -1,0 +1,32 @@
+---
+source: src/syntax_analysis/expressions/function_expression/tests.rs
+expression: returned_abstract_syntax_tree
+---
+{
+  "abstract_syntax_tree": [
+    {
+      "EXPRESSION": {
+        "expression": {
+          "FUNCTION": {
+            "parameters": [
+              {
+                "IDENTIFIER": {
+                  "identifier_token": {
+                    "token_type": "IDENTIFIER",
+                    "literal": "x"
+                  }
+                }
+              }
+            ],
+            "block": {
+              "BLOCK": {
+                "blocks": []
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "syntax_parsing_errors": []
+}

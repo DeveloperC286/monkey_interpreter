@@ -35,3 +35,6 @@ pub fn parse_grouped_expression(
 
     return (iterator, syntax_parsing_errors, grouped_expression);
 }
+
+#[cfg(test)]
+mod tests;

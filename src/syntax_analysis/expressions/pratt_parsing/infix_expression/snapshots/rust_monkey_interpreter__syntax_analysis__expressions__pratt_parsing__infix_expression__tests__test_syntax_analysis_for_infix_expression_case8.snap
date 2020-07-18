@@ -1,0 +1,53 @@
+---
+source: src/syntax_analysis/expressions/pratt_parsing/infix_expression/tests.rs
+expression: returned_abstract_syntax_tree
+---
+{
+  "abstract_syntax_tree": [
+    {
+      "EXPRESSION": {
+        "expression": {
+          "INFIX": {
+            "left_hand_expression": {
+              "INFIX": {
+                "left_hand_expression": {
+                  "INTEGER": {
+                    "integer_token": {
+                      "token_type": "INTEGER",
+                      "literal": "10"
+                    }
+                  }
+                },
+                "operator_token": {
+                  "token_type": "GREATER_THAN",
+                  "literal": ">"
+                },
+                "right_hand_expression": {
+                  "INTEGER": {
+                    "integer_token": {
+                      "token_type": "INTEGER",
+                      "literal": "5"
+                    }
+                  }
+                }
+              }
+            },
+            "operator_token": {
+              "token_type": "EQUALS",
+              "literal": "=="
+            },
+            "right_hand_expression": {
+              "BOOLEAN": {
+                "boolean_token": {
+                  "token_type": "TRUE",
+                  "literal": "true"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "syntax_parsing_errors": []
+}

@@ -122,3 +122,6 @@ fn parse_parameters(
     );
     return (iterator, syntax_parsing_errors, parameters);
 }
+
+#[cfg(test)]
+mod tests;

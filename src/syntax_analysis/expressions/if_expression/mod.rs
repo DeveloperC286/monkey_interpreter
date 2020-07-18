@@ -80,3 +80,6 @@ pub fn parse_if_expression(
         }),
     );
 }
+
+#[cfg(test)]
+mod tests;

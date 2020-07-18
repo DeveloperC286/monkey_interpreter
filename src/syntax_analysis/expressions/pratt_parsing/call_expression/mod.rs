@@ -105,3 +105,6 @@ fn parse_arguments(
     );
     return (iterator, syntax_parsing_errors, arguments);
 }
+
+#[cfg(test)]
+mod tests;

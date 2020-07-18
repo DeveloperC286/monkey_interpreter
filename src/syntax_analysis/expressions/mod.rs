@@ -171,3 +171,6 @@ pub fn get_expression(
         expression_precedence,
     );
 }
+
+#[cfg(test)]
+mod tests;
