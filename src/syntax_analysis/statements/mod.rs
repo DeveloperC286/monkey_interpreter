@@ -7,6 +7,9 @@ use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
 };
 use crate::syntax_analysis::expressions;
 
+#[macro_use]
+pub mod macros;
+
 pub fn parse_return_statement(
     mut iterator: Peekable<Iter<Token>>,
     mut syntax_parsing_errors: Vec<String>,
@@ -14,23 +17,7 @@ pub fn parse_return_statement(
     debug!("Parsing a return statement.");
 
     assert_token!(iterator, syntax_parsing_errors, TokenType::RETURN, None);
-
-    let expression = match expressions::get_expression(
-        iterator,
-        syntax_parsing_errors,
-        ExpressionPrecedence::LOWEST,
-    ) {
-        (returned_iterator, returned_syntax_parsing_errors, Some(expression)) => {
-            iterator = returned_iterator;
-            syntax_parsing_errors = returned_syntax_parsing_errors;
-            expression
-        }
-        (returned_iterator, returned_syntax_parsing_errors, None) => {
-            //TODO syntax_error!(self, "".to_string());
-            return (returned_iterator, returned_syntax_parsing_errors, None);
-        }
-    };
-
+    let expression = consume_expression!(iterator, syntax_parsing_errors);
     semicolon!(iterator);
 
     return (
@@ -51,28 +38,10 @@ pub fn parse_let_statement(
     debug!("Parsing a let statement.");
 
     assert_token!(iterator, syntax_parsing_errors, TokenType::LET, None);
-
     let identifier_token = iterator.peek().unwrap().clone();
     assert_token!(iterator, syntax_parsing_errors, TokenType::IDENTIFIER, None);
-
     assert_token!(iterator, syntax_parsing_errors, TokenType::ASSIGN, None);
-
-    let expression = match expressions::get_expression(
-        iterator,
-        syntax_parsing_errors,
-        ExpressionPrecedence::LOWEST,
-    ) {
-        (returned_iterator, returned_syntax_parsing_errors, Some(expression)) => {
-            iterator = returned_iterator;
-            syntax_parsing_errors = returned_syntax_parsing_errors;
-            expression
-        }
-        (returned_iterator, returned_syntax_parsing_errors, None) => {
-            //TODO syntax_error!(self, "".to_string());
-            return (returned_iterator, returned_syntax_parsing_errors, None);
-        }
-    };
-
+    let expression = consume_expression!(iterator, syntax_parsing_errors);
     semicolon!(iterator);
 
     return (

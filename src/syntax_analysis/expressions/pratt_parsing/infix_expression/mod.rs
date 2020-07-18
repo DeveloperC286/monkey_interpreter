@@ -7,7 +7,7 @@ use crate::syntax_analysis::expression_precedence;
 
 pub fn parse_infix_expression(
     mut iterator: Peekable<Iter<Token>>,
-    mut syntax_parsing_errors: Vec<String>,
+    syntax_parsing_errors: Vec<String>,
     left_hand_expression: Expression,
 ) -> (Peekable<Iter<Token>>, Vec<String>, Option<Expression>) {
     debug!("Parsing a infix expression.");
@@ -19,7 +19,11 @@ pub fn parse_infix_expression(
     let precedence =
         expression_precedence::get_current_expression_precedence(&operator_token.token_type);
 
-    return match super::super::get_expression(iterator, syntax_parsing_errors, precedence) {
+    return match crate::syntax_analysis::expressions::get_expression(
+        iterator,
+        syntax_parsing_errors,
+        precedence,
+    ) {
         (returned_iterator, returned_syntax_parsing_errors, Some(right_hand_expression)) => (
             returned_iterator,
             returned_syntax_parsing_errors,

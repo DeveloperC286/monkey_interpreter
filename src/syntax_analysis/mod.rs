@@ -48,7 +48,7 @@ pub fn get_abstract_syntax_tree(tokens: Vec<Token>) -> AbstractSyntaxTree {
 
 fn get_next_syntax_tree_node(
     mut iterator: Peekable<Iter<Token>>,
-    mut syntax_parsing_errors: Vec<String>,
+    syntax_parsing_errors: Vec<String>,
 ) -> (Peekable<Iter<Token>>, Vec<String>, Option<SyntaxTreeNode>) {
     debug!("Parsing next SyntaxTreeNode.");
     match iterator.peek() {

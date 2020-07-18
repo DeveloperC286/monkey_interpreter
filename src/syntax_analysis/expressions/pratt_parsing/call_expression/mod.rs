@@ -20,7 +20,7 @@ pub fn parse_call_expression(
     syntax_parsing_errors = returned_syntax_parsing_errors;
 
     // check call expression was correctly called
-    match function.clone() {
+    match &function {
         Expression::IDENTIFIER { identifier_token } => {}
         _ => {
             error!("parse_call_expression called with the function not being an Expression::IDENTIFIER.");
@@ -75,18 +75,15 @@ fn parse_arguments(
                     }
 
                     match iterator.peek() {
-                        Some(token) => {
-                            match token.token_type {
-                                TokenType::CLOSING_ROUND_BRACKET => break,
-                                TokenType::COMMA => {
-                                    iterator.next();
-                                }
-                                _ => {
-                                    //TODO syntax_error!(self, "Arguments must be comma seperated expressions.".to_string());
-                                    return (iterator, syntax_parsing_errors, vec![]);
-                                }
+                        Some(token) => match token.token_type {
+                            TokenType::CLOSING_ROUND_BRACKET => break,
+                            TokenType::COMMA => {
+                                iterator.next();
                             }
-                        }
+                            _ => {
+                                return (iterator, syntax_parsing_errors, vec![]);
+                            }
+                        },
                         None => {
                             return (iterator, syntax_parsing_errors, vec![]);
                         }
