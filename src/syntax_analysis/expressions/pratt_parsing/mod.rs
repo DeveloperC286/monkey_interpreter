@@ -1,7 +1,7 @@
 use std::iter::Peekable;
 use std::slice::Iter;
 
-use crate::lexical_analysis::token::{Token, TokenType};
+use crate::lexical_analysis::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
     Expression, ExpressionPrecedence,
 };
@@ -22,25 +22,25 @@ pub fn pratt_parsing(
             None => break,
         };
 
-        if token.token_type == TokenType::SEMI_COLON {
+        if **token == Token::SEMI_COLON {
             break;
         }
 
         if !(expression_precedence
-            < expression_precedence::get_current_expression_precedence(&token.token_type))
+            < expression_precedence::get_current_expression_precedence(&token))
         {
             break;
         }
 
-        match token.token_type {
-            TokenType::PLUS
-            | TokenType::MINUS
-            | TokenType::DIVIDE
-            | TokenType::MULTIPLY
-            | TokenType::EQUALS
-            | TokenType::NOT_EQUALS
-            | TokenType::LESSER_THAN
-            | TokenType::GREATER_THAN => {
+        match token {
+            Token::PLUS
+            | Token::MINUS
+            | Token::DIVIDE
+            | Token::MULTIPLY
+            | Token::EQUALS
+            | Token::NOT_EQUALS
+            | Token::LESSER_THAN
+            | Token::GREATER_THAN => {
                 let (returned_iterator, returned_syntax_parsing_errors, returned_expression) =
                     infix_expression::parse_infix_expression(
                         iterator,
@@ -51,7 +51,7 @@ pub fn pratt_parsing(
                 syntax_parsing_errors = returned_syntax_parsing_errors;
                 expression = returned_expression;
             }
-            TokenType::OPENING_ROUND_BRACKET => {
+            Token::OPENING_ROUND_BRACKET => {
                 let (returned_iterator, returned_syntax_parsing_errors, returned_expression) =
                     call_expression::parse_call_expression(
                         iterator,

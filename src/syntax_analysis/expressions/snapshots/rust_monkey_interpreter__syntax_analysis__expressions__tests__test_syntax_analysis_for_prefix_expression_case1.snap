@@ -8,15 +8,13 @@ expression: returned_abstract_syntax_tree
       "EXPRESSION": {
         "expression": {
           "PREFIX": {
-            "prefix_token": {
-              "token_type": "NOT",
-              "literal": "!"
-            },
+            "prefix_token": "NOT",
             "right_hand_expression": {
               "INTEGER": {
                 "integer_token": {
-                  "token_type": "INTEGER",
-                  "literal": "15"
+                  "INTEGER": {
+                    "literal": "15"
+                  }
                 }
               }
             }

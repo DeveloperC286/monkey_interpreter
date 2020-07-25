@@ -1,18 +1,13 @@
 ---
 source: src/lexical_analysis/tests.rs
-expression: returned_token_order
+expression: returned_tokens
 ---
 [
+  "NOT_EQUALS",
   {
-    "token_type": "NOT_EQUALS",
-    "literal": "!="
+    "INTEGER": {
+      "literal": "4"
+    }
   },
-  {
-    "token_type": "INTEGER",
-    "literal": "4"
-  },
-  {
-    "token_type": "EOF",
-    "literal": ""
-  }
+  "EOF"
 ]

@@ -11,8 +11,9 @@ expression: returned_abstract_syntax_tree
             "expression": {
               "INTEGER": {
                 "integer_token": {
-                  "token_type": "INTEGER",
-                  "literal": "5"
+                  "INTEGER": {
+                    "literal": "5"
+                  }
                 }
               }
             }

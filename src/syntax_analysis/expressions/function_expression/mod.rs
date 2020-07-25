@@ -1,7 +1,7 @@
 use std::iter::Peekable;
 use std::slice::Iter;
 
-use crate::lexical_analysis::token::{Token, TokenType};
+use crate::lexical_analysis::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
     Expression, ExpressionPrecedence,
 };
@@ -14,7 +14,7 @@ pub fn parse_function_expression(
     debug!("Parsing a function expression.");
 
     // parse function expression
-    assert_token!(iterator, syntax_parsing_errors, TokenType::FUNCTION, None);
+    assert_token!(iterator, syntax_parsing_errors, Token::FUNCTION, None);
     let (returned_iterator, returned_syntax_parsing_errors, parameters) =
         parse_parameters(iterator, syntax_parsing_errors);
     iterator = returned_iterator;
@@ -52,14 +52,14 @@ fn parse_parameters(
     assert_token!(
         iterator,
         syntax_parsing_errors,
-        TokenType::OPENING_ROUND_BRACKET,
+        Token::OPENING_ROUND_BRACKET,
         vec![]
     );
     let mut parameters = vec![];
 
     match iterator.peek() {
         Some(token) => {
-            if token.token_type != TokenType::CLOSING_ROUND_BRACKET {
+            if **token != Token::CLOSING_ROUND_BRACKET {
                 loop {
                     match super::get_expression(
                         iterator,
@@ -92,9 +92,9 @@ fn parse_parameters(
                     }
 
                     match iterator.peek() {
-                        Some(token) => match token.token_type {
-                            TokenType::CLOSING_ROUND_BRACKET => break,
-                            TokenType::COMMA => {
+                        Some(token) => match token {
+                            Token::CLOSING_ROUND_BRACKET => break,
+                            Token::COMMA => {
                                 iterator.next();
                             }
                             _ => {
@@ -117,7 +117,7 @@ fn parse_parameters(
     assert_token!(
         iterator,
         syntax_parsing_errors,
-        TokenType::CLOSING_ROUND_BRACKET,
+        Token::CLOSING_ROUND_BRACKET,
         vec![]
     );
     return (iterator, syntax_parsing_errors, parameters);

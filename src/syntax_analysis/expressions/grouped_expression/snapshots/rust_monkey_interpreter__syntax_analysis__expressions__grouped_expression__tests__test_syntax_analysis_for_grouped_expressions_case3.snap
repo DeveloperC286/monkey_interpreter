@@ -13,34 +13,31 @@ expression: returned_abstract_syntax_tree
                 "left_hand_expression": {
                   "INTEGER": {
                     "integer_token": {
-                      "token_type": "INTEGER",
-                      "literal": "1"
+                      "INTEGER": {
+                        "literal": "1"
+                      }
                     }
                   }
                 },
-                "operator_token": {
-                  "token_type": "PLUS",
-                  "literal": "+"
-                },
+                "operator_token": "PLUS",
                 "right_hand_expression": {
                   "INFIX": {
                     "left_hand_expression": {
                       "INTEGER": {
                         "integer_token": {
-                          "token_type": "INTEGER",
-                          "literal": "2"
+                          "INTEGER": {
+                            "literal": "2"
+                          }
                         }
                       }
                     },
-                    "operator_token": {
-                      "token_type": "PLUS",
-                      "literal": "+"
-                    },
+                    "operator_token": "PLUS",
                     "right_hand_expression": {
                       "INTEGER": {
                         "integer_token": {
-                          "token_type": "INTEGER",
-                          "literal": "3"
+                          "INTEGER": {
+                            "literal": "3"
+                          }
                         }
                       }
                     }
@@ -48,15 +45,13 @@ expression: returned_abstract_syntax_tree
                 }
               }
             },
-            "operator_token": {
-              "token_type": "PLUS",
-              "literal": "+"
-            },
+            "operator_token": "PLUS",
             "right_hand_expression": {
               "INTEGER": {
                 "integer_token": {
-                  "token_type": "INTEGER",
-                  "literal": "4"
+                  "INTEGER": {
+                    "literal": "4"
+                  }
                 }
               }
             }

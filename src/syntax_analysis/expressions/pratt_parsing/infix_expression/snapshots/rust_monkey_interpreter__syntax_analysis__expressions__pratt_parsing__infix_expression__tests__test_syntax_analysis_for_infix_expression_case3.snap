@@ -11,20 +11,19 @@ expression: returned_abstract_syntax_tree
             "left_hand_expression": {
               "INTEGER": {
                 "integer_token": {
-                  "token_type": "INTEGER",
-                  "literal": "3"
+                  "INTEGER": {
+                    "literal": "3"
+                  }
                 }
               }
             },
-            "operator_token": {
-              "token_type": "MULTIPLY",
-              "literal": "*"
-            },
+            "operator_token": "MULTIPLY",
             "right_hand_expression": {
               "INTEGER": {
                 "integer_token": {
-                  "token_type": "INTEGER",
-                  "literal": "4"
+                  "INTEGER": {
+                    "literal": "4"
+                  }
                 }
               }
             }

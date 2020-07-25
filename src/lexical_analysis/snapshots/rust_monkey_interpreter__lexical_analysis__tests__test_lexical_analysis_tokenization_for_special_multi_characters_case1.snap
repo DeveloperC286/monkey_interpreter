@@ -1,22 +1,18 @@
 ---
 source: src/lexical_analysis/tests.rs
-expression: returned_token_order
+expression: returned_tokens
 ---
 [
   {
-    "token_type": "INTEGER",
-    "literal": "2"
+    "INTEGER": {
+      "literal": "2"
+    }
   },
+  "EQUALS",
   {
-    "token_type": "EQUALS",
-    "literal": "=="
+    "INTEGER": {
+      "literal": "4"
+    }
   },
-  {
-    "token_type": "INTEGER",
-    "literal": "4"
-  },
-  {
-    "token_type": "EOF",
-    "literal": ""
-  }
+  "EOF"
 ]

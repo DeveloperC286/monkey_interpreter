@@ -1,14 +1,14 @@
 use insta::assert_json_snapshot;
 use rstest::rstest;
 
-use crate::lexical_analysis::token::{Token, TokenType};
+use crate::lexical_analysis::token::Token;
 
 #[rstest(
     tokens,
     snapshot_name,
     case(
         vec ! [
-            Token{token_type: TokenType::EOF, literal: "".to_string()},
+            Token::EOF,
         ],
         "test_syntax_analysis_tokens_input_edgecases_case1"
     ),
@@ -18,8 +18,8 @@ use crate::lexical_analysis::token::{Token, TokenType};
     ),
     case(
         vec ! [
-            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
-            Token{token_type: TokenType::EOF, literal: "".to_string()},
+            Token::SEMI_COLON,
+            Token::EOF,
         ],
         "test_syntax_analysis_tokens_input_edgecases_case3"
     ),

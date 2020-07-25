@@ -1,42 +1,42 @@
 use insta::assert_json_snapshot;
 use rstest::rstest;
 
-use crate::lexical_analysis::token::{Token, TokenType};
+use crate::lexical_analysis::token::Token;
 
 #[rstest(
     tokens,
     snapshot_name,
     case(
         vec ! [
-            Token{token_type: TokenType::IF, literal: "if".to_string()},
-            Token{token_type: TokenType::OPENING_ROUND_BRACKET, literal: "(".to_string()},
-            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
-            Token{token_type: TokenType::LESSER_THAN, literal: "<".to_string()},
-            Token{token_type: TokenType::IDENTIFIER, literal: "y".to_string()},
-            Token{token_type: TokenType::CLOSING_ROUND_BRACKET, literal: ")".to_string()},
-            Token{token_type: TokenType::OPENING_CURLY_BRACKET, literal: "{".to_string()},
-            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
-            Token{token_type: TokenType::CLOSING_CURLY_BRACKET, literal: "}".to_string()},
-            Token{token_type: TokenType::EOF, literal: "".to_string()},
+            Token::IF,
+            Token::OPENING_ROUND_BRACKET,
+            Token::IDENTIFIER{literal: "x".to_string()},
+            Token::LESSER_THAN,
+            Token::IDENTIFIER{literal: "y".to_string()},
+            Token::CLOSING_ROUND_BRACKET,
+            Token::OPENING_CURLY_BRACKET,
+            Token::IDENTIFIER{literal: "x".to_string()},
+            Token::CLOSING_CURLY_BRACKET,
+            Token::EOF,
         ],
         "test_syntax_analysis_for_if_expression_case1"
     ),
     case(
         vec ! [
-            Token{token_type: TokenType::IF, literal: "if".to_string()},
-            Token{token_type: TokenType::OPENING_ROUND_BRACKET, literal: "(".to_string()},
-            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
-            Token{token_type: TokenType::LESSER_THAN, literal: "<".to_string()},
-            Token{token_type: TokenType::IDENTIFIER, literal: "y".to_string()},
-            Token{token_type: TokenType::CLOSING_ROUND_BRACKET, literal: ")".to_string()},
-            Token{token_type: TokenType::OPENING_CURLY_BRACKET, literal: "{".to_string()},
-            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
-            Token{token_type: TokenType::CLOSING_CURLY_BRACKET, literal: "}".to_string()},
-            Token{token_type: TokenType::ELSE, literal: "else".to_string()},
-            Token{token_type: TokenType::OPENING_CURLY_BRACKET, literal: "{".to_string()},
-            Token{token_type: TokenType::IDENTIFIER, literal: "y".to_string()},
-            Token{token_type: TokenType::CLOSING_CURLY_BRACKET, literal: "}".to_string()},
-            Token{token_type: TokenType::EOF, literal: "".to_string()},
+            Token::IF,
+            Token::OPENING_ROUND_BRACKET,
+            Token::IDENTIFIER{literal: "x".to_string()},
+            Token::LESSER_THAN,
+            Token::IDENTIFIER{literal: "y".to_string()},
+            Token::CLOSING_ROUND_BRACKET,
+            Token::OPENING_CURLY_BRACKET,
+            Token::IDENTIFIER{literal: "x".to_string()},
+            Token::CLOSING_CURLY_BRACKET,
+            Token::ELSE,
+            Token::OPENING_CURLY_BRACKET,
+            Token::IDENTIFIER{literal: "y".to_string()},
+            Token::CLOSING_CURLY_BRACKET,
+            Token::EOF,
         ],
         "test_syntax_analysis_for_if_expression_case2"
     ),

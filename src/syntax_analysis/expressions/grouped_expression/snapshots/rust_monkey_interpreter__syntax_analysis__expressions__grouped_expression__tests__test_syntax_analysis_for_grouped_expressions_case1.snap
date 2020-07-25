@@ -8,29 +8,25 @@ expression: returned_abstract_syntax_tree
       "EXPRESSION": {
         "expression": {
           "PREFIX": {
-            "prefix_token": {
-              "token_type": "MINUS",
-              "literal": "-"
-            },
+            "prefix_token": "MINUS",
             "right_hand_expression": {
               "INFIX": {
                 "left_hand_expression": {
                   "INTEGER": {
                     "integer_token": {
-                      "token_type": "INTEGER",
-                      "literal": "5"
+                      "INTEGER": {
+                        "literal": "5"
+                      }
                     }
                   }
                 },
-                "operator_token": {
-                  "token_type": "MULTIPLY",
-                  "literal": "*"
-                },
+                "operator_token": "MULTIPLY",
                 "right_hand_expression": {
                   "INTEGER": {
                     "integer_token": {
-                      "token_type": "INTEGER",
-                      "literal": "10"
+                      "INTEGER": {
+                        "literal": "10"
+                      }
                     }
                   }
                 }

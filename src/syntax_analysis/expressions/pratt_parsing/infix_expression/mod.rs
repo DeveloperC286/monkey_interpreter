@@ -16,8 +16,7 @@ pub fn parse_infix_expression(
         Some(token) => token,
         None => return (iterator, syntax_parsing_errors, None),
     };
-    let precedence =
-        expression_precedence::get_current_expression_precedence(&operator_token.token_type);
+    let precedence = expression_precedence::get_current_expression_precedence(&operator_token);
 
     return match crate::syntax_analysis::expressions::get_expression(
         iterator,

@@ -1,22 +1,14 @@
 ---
 source: src/lexical_analysis/tests.rs
-expression: returned_token_order
+expression: returned_tokens
 ---
 [
+  "LET",
   {
-    "token_type": "LET",
-    "literal": "let"
+    "IDENTIFIER": {
+      "literal": "camel_case"
+    }
   },
-  {
-    "token_type": "IDENTIFIER",
-    "literal": "camel_case"
-  },
-  {
-    "token_type": "SEMI_COLON",
-    "literal": ";"
-  },
-  {
-    "token_type": "EOF",
-    "literal": ""
-  }
+  "SEMI_COLON",
+  "EOF"
 ]

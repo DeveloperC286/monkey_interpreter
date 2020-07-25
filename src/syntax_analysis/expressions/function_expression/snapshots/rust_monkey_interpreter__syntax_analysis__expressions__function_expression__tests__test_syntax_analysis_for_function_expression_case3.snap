@@ -12,8 +12,9 @@ expression: returned_abstract_syntax_tree
               {
                 "IDENTIFIER": {
                   "identifier_token": {
-                    "token_type": "IDENTIFIER",
-                    "literal": "x"
+                    "IDENTIFIER": {
+                      "literal": "x"
+                    }
                   }
                 }
               }

@@ -1,24 +1,10 @@
-use std::collections::HashMap;
 use std::iter::{FromIterator, Peekable};
 use std::str::Chars;
 
-use token::{Token, TokenType};
-
-lazy_static! {
-    static ref KEYWORDS: HashMap<String, TokenType> = {
-        let mut m = HashMap::new();
-        m.insert("fn".to_string(), TokenType::FUNCTION);
-        m.insert("let".to_string(), TokenType::LET);
-        m.insert("true".to_string(), TokenType::TRUE);
-        m.insert("false".to_string(), TokenType::FALSE);
-        m.insert("if".to_string(), TokenType::IF);
-        m.insert("else".to_string(), TokenType::ELSE);
-        m.insert("return".to_string(), TokenType::RETURN);
-        m
-    };
-}
+use token::Token;
 
 pub mod token;
+pub mod utilities;
 #[macro_use]
 mod macros;
 
@@ -31,7 +17,7 @@ pub fn get_tokens(code: String) -> Vec<Token> {
         tokens.push(token.clone());
         iterator = returned_iterator;
 
-        if token.token_type == TokenType::EOF {
+        if token == Token::EOF {
             break;
         }
     }
@@ -47,52 +33,51 @@ fn get_next_token(mut iterator: Peekable<Chars>) -> (Peekable<Chars>, Token) {
             debug!("Matching the character '{}'.", character);
             match character {
                 '!' => {
-                    check_next_character!(iterator, '=', "!=", TokenType::NOT_EQUALS);
-                    return_token!(iterator, '!', TokenType::NOT);
+                    check_next_character!(iterator, '=', Token::NOT_EQUALS);
+                    return (iterator, Token::NOT);
                 }
-                '-' => return_token!(iterator, '-', TokenType::MINUS),
-                '/' => return_token!(iterator, '/', TokenType::DIVIDE),
-                '*' => return_token!(iterator, '*', TokenType::MULTIPLY),
-                '>' => return_token!(iterator, '>', TokenType::GREATER_THAN),
-                '<' => return_token!(iterator, '<', TokenType::LESSER_THAN),
+                '-' => return (iterator, Token::MINUS),
+                '/' => return (iterator, Token::DIVIDE),
+                '*' => return (iterator, Token::MULTIPLY),
+                '>' => return (iterator, Token::GREATER_THAN),
+                '<' => return (iterator, Token::LESSER_THAN),
                 '=' => {
-                    check_next_character!(iterator, '=', "==", TokenType::EQUALS);
-                    return_token!(iterator, '=', TokenType::ASSIGN);
+                    check_next_character!(iterator, '=', Token::EQUALS);
+                    return (iterator, Token::ASSIGN);
                 }
-                '+' => return_token!(iterator, '+', TokenType::PLUS),
-                '(' => return_token!(iterator, '(', TokenType::OPENING_ROUND_BRACKET),
-                ')' => return_token!(iterator, ')', TokenType::CLOSING_ROUND_BRACKET),
-                '{' => return_token!(iterator, '{', TokenType::OPENING_CURLY_BRACKET),
-                '}' => return_token!(iterator, '}', TokenType::CLOSING_CURLY_BRACKET),
-                ',' => return_token!(iterator, ',', TokenType::COMMA),
-                ';' => return_token!(iterator, ';', TokenType::SEMI_COLON),
+                '+' => return (iterator, Token::PLUS),
+                '(' => return (iterator, Token::OPENING_ROUND_BRACKET),
+                ')' => return (iterator, Token::CLOSING_ROUND_BRACKET),
+                '{' => return (iterator, Token::OPENING_CURLY_BRACKET),
+                '}' => return (iterator, Token::CLOSING_CURLY_BRACKET),
+                ',' => return (iterator, Token::COMMA),
+                ';' => return (iterator, Token::SEMI_COLON),
                 _ => {
                     if is_valid_identifier_character(character) {
                         debug!("Parsing word from characters.");
                         let (returned_iterator, word) = get_word(iterator, character);
-                        let word_lowercase = word.to_lowercase();
-                        let mut token_type = TokenType::IDENTIFIER;
 
-                        if KEYWORDS.contains_key(&word_lowercase) {
-                            token_type = *KEYWORDS.get(&word_lowercase).unwrap();
-                        }
-
-                        return_token!(returned_iterator, word, token_type);
+                        return (returned_iterator, utilities::get_keyword_token(word));
                     }
 
                     if is_digit(character) {
                         debug!("Parsing integer from characters.");
                         let (returned_iterator, integer) = get_integer(iterator, character);
 
-                        return_token!(returned_iterator, integer, TokenType::INTEGER);
+                        return (returned_iterator, Token::INTEGER { literal: integer });
                     }
 
-                    return_token!(iterator, character, TokenType::ILLEGAL);
+                    return (
+                        iterator,
+                        Token::ILLEGAL {
+                            literal: character.to_string(),
+                        },
+                    );
                 }
             }
         }
         None => {
-            return_token!(iterator, "", TokenType::EOF);
+            return (iterator, Token::EOF);
         }
     }
 }

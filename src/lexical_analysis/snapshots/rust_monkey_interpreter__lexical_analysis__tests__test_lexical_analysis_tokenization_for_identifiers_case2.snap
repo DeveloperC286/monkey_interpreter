@@ -1,38 +1,26 @@
 ---
 source: src/lexical_analysis/tests.rs
-expression: returned_token_order
+expression: returned_tokens
 ---
 [
+  "LET",
   {
-    "token_type": "LET",
-    "literal": "let"
+    "IDENTIFIER": {
+      "literal": "varX"
+    }
   },
+  "ASSIGN",
   {
-    "token_type": "IDENTIFIER",
-    "literal": "varX"
+    "INTEGER": {
+      "literal": "5"
+    }
   },
+  "PLUS",
   {
-    "token_type": "ASSIGN",
-    "literal": "="
+    "INTEGER": {
+      "literal": "5"
+    }
   },
-  {
-    "token_type": "INTEGER",
-    "literal": "5"
-  },
-  {
-    "token_type": "PLUS",
-    "literal": "+"
-  },
-  {
-    "token_type": "INTEGER",
-    "literal": "5"
-  },
-  {
-    "token_type": "SEMI_COLON",
-    "literal": ";"
-  },
-  {
-    "token_type": "EOF",
-    "literal": ""
-  }
+  "SEMI_COLON",
+  "EOF"
 ]

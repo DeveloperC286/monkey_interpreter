@@ -4,7 +4,7 @@ use std::slice::Iter;
 use abstract_syntax_tree::syntax_tree_node::SyntaxTreeNode;
 use abstract_syntax_tree::AbstractSyntaxTree;
 
-use crate::lexical_analysis::token::{Token, TokenType};
+use crate::lexical_analysis::token::Token;
 
 #[macro_use]
 pub mod macros;
@@ -21,8 +21,8 @@ pub fn get_abstract_syntax_tree(tokens: Vec<Token>) -> AbstractSyntaxTree {
 
     loop {
         match iterator.peek() {
-            Some(token) => match token.token_type {
-                TokenType::EOF => break,
+            Some(token) => match token {
+                Token::EOF => break,
                 _ => {
                     let (returned_iterator, returned_syntax_parsing_errors, syntax_tree_node) =
                         get_next_syntax_tree_node(iterator, syntax_parsing_errors);
@@ -52,11 +52,9 @@ fn get_next_syntax_tree_node(
 ) -> (Peekable<Iter<Token>>, Vec<String>, Option<SyntaxTreeNode>) {
     debug!("Parsing next SyntaxTreeNode.");
     match iterator.peek() {
-        Some(token) => match token.token_type {
-            TokenType::LET => statements::parse_let_statement(iterator, syntax_parsing_errors),
-            TokenType::RETURN => {
-                statements::parse_return_statement(iterator, syntax_parsing_errors)
-            }
+        Some(token) => match token {
+            Token::LET => statements::parse_let_statement(iterator, syntax_parsing_errors),
+            Token::RETURN => statements::parse_return_statement(iterator, syntax_parsing_errors),
             _ => expressions::parse_expression(iterator, syntax_parsing_errors),
         },
         None => (iterator, syntax_parsing_errors, None),

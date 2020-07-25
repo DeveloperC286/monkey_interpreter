@@ -1,14 +1,8 @@
 ---
 source: src/lexical_analysis/tests.rs
-expression: returned_token_order
+expression: returned_tokens
 ---
 [
-  {
-    "token_type": "LET",
-    "literal": "LET"
-  },
-  {
-    "token_type": "EOF",
-    "literal": ""
-  }
+  "LET",
+  "EOF"
 ]

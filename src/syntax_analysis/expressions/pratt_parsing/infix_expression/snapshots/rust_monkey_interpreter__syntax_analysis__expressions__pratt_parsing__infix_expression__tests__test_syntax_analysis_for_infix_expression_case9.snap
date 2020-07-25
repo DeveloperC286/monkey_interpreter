@@ -13,35 +13,28 @@ expression: returned_abstract_syntax_tree
                 "left_hand_expression": {
                   "INTEGER": {
                     "integer_token": {
-                      "token_type": "INTEGER",
-                      "literal": "10"
+                      "INTEGER": {
+                        "literal": "10"
+                      }
                     }
                   }
                 },
-                "operator_token": {
-                  "token_type": "LESSER_THAN",
-                  "literal": "<"
-                },
+                "operator_token": "LESSER_THAN",
                 "right_hand_expression": {
                   "INTEGER": {
                     "integer_token": {
-                      "token_type": "INTEGER",
-                      "literal": "5"
+                      "INTEGER": {
+                        "literal": "5"
+                      }
                     }
                   }
                 }
               }
             },
-            "operator_token": {
-              "token_type": "NOT_EQUALS",
-              "literal": "!="
-            },
+            "operator_token": "NOT_EQUALS",
             "right_hand_expression": {
               "BOOLEAN": {
-                "boolean_token": {
-                  "token_type": "FALSE",
-                  "literal": "false"
-                }
+                "boolean_token": "FALSE"
               }
             }
           }

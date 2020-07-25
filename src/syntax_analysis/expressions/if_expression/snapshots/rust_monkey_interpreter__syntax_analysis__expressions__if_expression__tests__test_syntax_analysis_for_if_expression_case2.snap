@@ -13,20 +13,19 @@ expression: returned_abstract_syntax_tree
                 "left_hand_expression": {
                   "IDENTIFIER": {
                     "identifier_token": {
-                      "token_type": "IDENTIFIER",
-                      "literal": "x"
+                      "IDENTIFIER": {
+                        "literal": "x"
+                      }
                     }
                   }
                 },
-                "operator_token": {
-                  "token_type": "LESSER_THAN",
-                  "literal": "<"
-                },
+                "operator_token": "LESSER_THAN",
                 "right_hand_expression": {
                   "IDENTIFIER": {
                     "identifier_token": {
-                      "token_type": "IDENTIFIER",
-                      "literal": "y"
+                      "IDENTIFIER": {
+                        "literal": "y"
+                      }
                     }
                   }
                 }
@@ -40,8 +39,9 @@ expression: returned_abstract_syntax_tree
                       "expression": {
                         "IDENTIFIER": {
                           "identifier_token": {
-                            "token_type": "IDENTIFIER",
-                            "literal": "x"
+                            "IDENTIFIER": {
+                              "literal": "x"
+                            }
                           }
                         }
                       }
@@ -58,8 +58,9 @@ expression: returned_abstract_syntax_tree
                       "expression": {
                         "IDENTIFIER": {
                           "identifier_token": {
-                            "token_type": "IDENTIFIER",
-                            "literal": "y"
+                            "IDENTIFIER": {
+                              "literal": "y"
+                            }
                           }
                         }
                       }

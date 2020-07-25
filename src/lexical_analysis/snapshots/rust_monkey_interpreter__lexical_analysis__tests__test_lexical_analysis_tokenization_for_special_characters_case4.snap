@@ -1,42 +1,15 @@
 ---
 source: src/lexical_analysis/tests.rs
-expression: returned_token_order
+expression: returned_tokens
 ---
 [
-  {
-    "token_type": "ASSIGN",
-    "literal": "="
-  },
-  {
-    "token_type": "PLUS",
-    "literal": "+"
-  },
-  {
-    "token_type": "OPENING_ROUND_BRACKET",
-    "literal": "("
-  },
-  {
-    "token_type": "CLOSING_ROUND_BRACKET",
-    "literal": ")"
-  },
-  {
-    "token_type": "OPENING_CURLY_BRACKET",
-    "literal": "{"
-  },
-  {
-    "token_type": "CLOSING_CURLY_BRACKET",
-    "literal": "}"
-  },
-  {
-    "token_type": "COMMA",
-    "literal": ","
-  },
-  {
-    "token_type": "SEMI_COLON",
-    "literal": ";"
-  },
-  {
-    "token_type": "EOF",
-    "literal": ""
-  }
+  "ASSIGN",
+  "PLUS",
+  "OPENING_ROUND_BRACKET",
+  "CLOSING_ROUND_BRACKET",
+  "OPENING_CURLY_BRACKET",
+  "CLOSING_CURLY_BRACKET",
+  "COMMA",
+  "SEMI_COLON",
+  "EOF"
 ]

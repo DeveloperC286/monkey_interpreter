@@ -1,22 +1,10 @@
 ---
 source: src/lexical_analysis/tests.rs
-expression: returned_token_order
+expression: returned_tokens
 ---
 [
-  {
-    "token_type": "GREATER_THAN",
-    "literal": ">"
-  },
-  {
-    "token_type": "LESSER_THAN",
-    "literal": "<"
-  },
-  {
-    "token_type": "MULTIPLY",
-    "literal": "*"
-  },
-  {
-    "token_type": "EOF",
-    "literal": ""
-  }
+  "GREATER_THAN",
+  "LESSER_THAN",
+  "MULTIPLY",
+  "EOF"
 ]

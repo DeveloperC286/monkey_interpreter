@@ -9,14 +9,16 @@ expression: returned_abstract_syntax_tree
         "statement": {
           "LET": {
             "identifier_token": {
-              "token_type": "IDENTIFIER",
-              "literal": "x"
+              "IDENTIFIER": {
+                "literal": "x"
+              }
             },
             "expression": {
               "INTEGER": {
                 "integer_token": {
-                  "token_type": "INTEGER",
-                  "literal": "5"
+                  "INTEGER": {
+                    "literal": "5"
+                  }
                 }
               }
             }
@@ -29,28 +31,28 @@ expression: returned_abstract_syntax_tree
         "statement": {
           "LET": {
             "identifier_token": {
-              "token_type": "IDENTIFIER",
-              "literal": "z"
+              "IDENTIFIER": {
+                "literal": "z"
+              }
             },
             "expression": {
               "INFIX": {
                 "left_hand_expression": {
                   "INTEGER": {
                     "integer_token": {
-                      "token_type": "INTEGER",
-                      "literal": "7"
+                      "INTEGER": {
+                        "literal": "7"
+                      }
                     }
                   }
                 },
-                "operator_token": {
-                  "token_type": "PLUS",
-                  "literal": "+"
-                },
+                "operator_token": "PLUS",
                 "right_hand_expression": {
                   "INTEGER": {
                     "integer_token": {
-                      "token_type": "INTEGER",
-                      "literal": "10"
+                      "INTEGER": {
+                        "literal": "10"
+                      }
                     }
                   }
                 }

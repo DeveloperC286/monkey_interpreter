@@ -1,7 +1,7 @@
 use std::iter::Peekable;
 use std::slice::Iter;
 
-use crate::lexical_analysis::token::{Token, TokenType};
+use crate::lexical_analysis::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
     Expression, ExpressionPrecedence,
 };
@@ -15,11 +15,11 @@ pub fn parse_if_expression(
     debug!("Parsing a if expression.");
 
     // parse if expression
-    assert_token!(iterator, syntax_parsing_errors, TokenType::IF, None);
+    assert_token!(iterator, syntax_parsing_errors, Token::IF, None);
     assert_token!(
         iterator,
         syntax_parsing_errors,
-        TokenType::OPENING_ROUND_BRACKET,
+        Token::OPENING_ROUND_BRACKET,
         None
     );
     let (returned_iterator, returned_syntax_parsing_errors, condition_option) = get_expression(
@@ -32,7 +32,7 @@ pub fn parse_if_expression(
     assert_token!(
         iterator,
         syntax_parsing_errors,
-        TokenType::CLOSING_ROUND_BRACKET,
+        Token::CLOSING_ROUND_BRACKET,
         None
     );
     let (returned_iterator, returned_syntax_parsing_errors, consequence_option) =
@@ -43,8 +43,8 @@ pub fn parse_if_expression(
 
     match iterator.peek() {
         Some(token) => {
-            if token.token_type == TokenType::ELSE {
-                assert_token!(iterator, syntax_parsing_errors, TokenType::ELSE, None);
+            if **token == Token::ELSE {
+                assert_token!(iterator, syntax_parsing_errors, Token::ELSE, None);
                 let (returned_iterator, returned_syntax_parsing_errors, returned_alternative) =
                     parse_block(iterator, syntax_parsing_errors);
                 alternative = returned_alternative;

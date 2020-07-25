@@ -1,22 +1,10 @@
 ---
 source: src/lexical_analysis/tests.rs
-expression: returned_token_order
+expression: returned_tokens
 ---
 [
-  {
-    "token_type": "MINUS",
-    "literal": "-"
-  },
-  {
-    "token_type": "DIVIDE",
-    "literal": "/"
-  },
-  {
-    "token_type": "MULTIPLY",
-    "literal": "*"
-  },
-  {
-    "token_type": "EOF",
-    "literal": ""
-  }
+  "MINUS",
+  "DIVIDE",
+  "MULTIPLY",
+  "EOF"
 ]

@@ -1,30 +1,16 @@
 ---
 source: src/lexical_analysis/tests.rs
-expression: returned_token_order
+expression: returned_tokens
 ---
 [
+  "IF",
+  "FALSE",
+  "RETURN",
   {
-    "token_type": "IF",
-    "literal": "if"
+    "INTEGER": {
+      "literal": "3"
+    }
   },
-  {
-    "token_type": "FALSE",
-    "literal": "false"
-  },
-  {
-    "token_type": "RETURN",
-    "literal": "return"
-  },
-  {
-    "token_type": "INTEGER",
-    "literal": "3"
-  },
-  {
-    "token_type": "SEMI_COLON",
-    "literal": ";"
-  },
-  {
-    "token_type": "EOF",
-    "literal": ""
-  }
+  "SEMI_COLON",
+  "EOF"
 ]

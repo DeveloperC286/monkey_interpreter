@@ -1,7 +1,7 @@
 use std::iter::Peekable;
 use std::slice::Iter;
 
-use crate::lexical_analysis::token::{Token, TokenType};
+use crate::lexical_analysis::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
     Expression, ExpressionPrecedence,
 };
@@ -47,14 +47,14 @@ fn parse_arguments(
     assert_token!(
         iterator,
         syntax_parsing_errors,
-        TokenType::OPENING_ROUND_BRACKET,
+        Token::OPENING_ROUND_BRACKET,
         vec![]
     );
     let mut arguments = vec![];
 
     match iterator.peek() {
         Some(token) => {
-            if token.token_type != TokenType::CLOSING_ROUND_BRACKET {
+            if **token != Token::CLOSING_ROUND_BRACKET {
                 loop {
                     match super::super::get_expression(
                         iterator,
@@ -75,9 +75,9 @@ fn parse_arguments(
                     }
 
                     match iterator.peek() {
-                        Some(token) => match token.token_type {
-                            TokenType::CLOSING_ROUND_BRACKET => break,
-                            TokenType::COMMA => {
+                        Some(token) => match token {
+                            Token::CLOSING_ROUND_BRACKET => break,
+                            Token::COMMA => {
                                 iterator.next();
                             }
                             _ => {
@@ -97,7 +97,7 @@ fn parse_arguments(
     assert_token!(
         iterator,
         syntax_parsing_errors,
-        TokenType::CLOSING_ROUND_BRACKET,
+        Token::CLOSING_ROUND_BRACKET,
         vec![]
     );
     return (iterator, syntax_parsing_errors, arguments);

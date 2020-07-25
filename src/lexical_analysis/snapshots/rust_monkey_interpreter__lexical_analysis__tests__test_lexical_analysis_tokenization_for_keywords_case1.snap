@@ -1,18 +1,9 @@
 ---
 source: src/lexical_analysis/tests.rs
-expression: returned_token_order
+expression: returned_tokens
 ---
 [
-  {
-    "token_type": "TRUE",
-    "literal": "TRUE"
-  },
-  {
-    "token_type": "FALSE",
-    "literal": "false"
-  },
-  {
-    "token_type": "EOF",
-    "literal": ""
-  }
+  "TRUE",
+  "FALSE",
+  "EOF"
 ]

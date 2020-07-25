@@ -11,8 +11,9 @@ expression: returned_abstract_syntax_tree
             "function": {
               "IDENTIFIER": {
                 "identifier_token": {
-                  "token_type": "IDENTIFIER",
-                  "literal": "add"
+                  "IDENTIFIER": {
+                    "literal": "add"
+                  }
                 }
               }
             },
@@ -20,16 +21,18 @@ expression: returned_abstract_syntax_tree
               {
                 "INTEGER": {
                   "integer_token": {
-                    "token_type": "INTEGER",
-                    "literal": "5"
+                    "INTEGER": {
+                      "literal": "5"
+                    }
                   }
                 }
               },
               {
                 "INTEGER": {
                   "integer_token": {
-                    "token_type": "INTEGER",
-                    "literal": "12"
+                    "INTEGER": {
+                      "literal": "12"
+                    }
                   }
                 }
               }

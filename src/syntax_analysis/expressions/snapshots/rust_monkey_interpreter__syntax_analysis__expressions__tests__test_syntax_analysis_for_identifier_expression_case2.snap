@@ -9,8 +9,9 @@ expression: returned_abstract_syntax_tree
         "expression": {
           "IDENTIFIER": {
             "identifier_token": {
-              "token_type": "IDENTIFIER",
-              "literal": "varX"
+              "IDENTIFIER": {
+                "literal": "varX"
+              }
             }
           }
         }

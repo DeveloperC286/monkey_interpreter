@@ -1,29 +1,29 @@
 use insta::assert_json_snapshot;
 use rstest::rstest;
 
-use crate::lexical_analysis::token::{Token, TokenType};
+use crate::lexical_analysis::token::Token;
 
 #[rstest(
     tokens,
     snapshot_name,
     case(
         vec ! [
-            Token{token_type: TokenType::RETURN, literal: "RETURN".to_string()},
-            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
-            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
-            Token{token_type: TokenType::EOF, literal: "".to_string()},
+            Token::RETURN,
+            Token::INTEGER{literal: "5".to_string()},
+            Token::SEMI_COLON,
+            Token::EOF,
         ],
         "test_syntax_analysis_for_return_statements_case1"
         ),
     case(
         vec ! [
-            Token{token_type: TokenType::RETURN, literal: "RETURN".to_string()},
-            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
-            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
-            Token{token_type: TokenType::RETURN, literal: "return".to_string()},
-            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
-            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
-            Token{token_type: TokenType::EOF, literal: "".to_string()},
+            Token::RETURN,
+            Token::INTEGER{literal: "5".to_string()},
+            Token::SEMI_COLON,
+            Token::RETURN,
+            Token::IDENTIFIER{literal: "x".to_string()},
+            Token::SEMI_COLON,
+            Token::EOF,
         ],
         "test_syntax_analysis_for_return_statements_case2"
     ),
@@ -37,30 +37,30 @@ fn test_syntax_analysis_for_return_statements(tokens: Vec<Token>, snapshot_name:
     snapshot_name,
     case(
         vec ! [
-            Token{token_type: TokenType::LET, literal: "let".to_string()},
-            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
-            Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
-            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
-            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
-            Token{token_type: TokenType::EOF, literal: "".to_string()},
+            Token::LET,
+            Token::IDENTIFIER{literal: "x".to_string()},
+            Token::ASSIGN,
+            Token::INTEGER{literal: "5".to_string()},
+            Token::SEMI_COLON,
+            Token::EOF,
         ],
         "test_syntax_analysis_for_let_statements_case1"
     ),
     case(
         vec ! [
-            Token{token_type: TokenType::LET, literal: "let".to_string()},
-            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
-            Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
-            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
-            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
-            Token{token_type: TokenType::LET, literal: "let".to_string()},
-            Token{token_type: TokenType::IDENTIFIER, literal: "z".to_string()},
-            Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
-            Token{token_type: TokenType::INTEGER, literal: "7".to_string()},
-            Token{token_type: TokenType::PLUS, literal: "+".to_string()},
-            Token{token_type: TokenType::INTEGER, literal: "10".to_string()},
-            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
-            Token{token_type: TokenType::EOF, literal: "".to_string()},
+            Token::LET,
+            Token::IDENTIFIER{literal: "x".to_string()},
+            Token::ASSIGN,
+            Token::INTEGER{literal: "5".to_string()},
+            Token::SEMI_COLON,
+            Token::LET,
+            Token::IDENTIFIER{literal: "z".to_string()},
+            Token::ASSIGN,
+            Token::INTEGER{literal: "7".to_string()},
+            Token::PLUS,
+            Token::INTEGER{literal: "10".to_string()},
+            Token::SEMI_COLON,
+            Token::EOF,
         ],
         "test_syntax_analysis_for_let_statements_case2"
     ),
@@ -74,16 +74,16 @@ fn test_syntax_analysis_for_let_statements(tokens: Vec<Token>, snapshot_name: &s
     snapshot_name,
     case(
         vec ! [
-            Token{token_type: TokenType::LET, literal: "let".to_string()},
-            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
-            Token{token_type: TokenType::EOF, literal: "".to_string()},
+            Token::LET,
+            Token::IDENTIFIER{literal: "x".to_string()},
+            Token::EOF,
         ],
         "test_syntax_analysis_for_let_statements_syntax_errors_case1"
     ),
     case(
         vec ! [
-            Token{token_type: TokenType::LET, literal: "let".to_string()},
-            Token{token_type: TokenType::EOF, literal: "".to_string()},
+            Token::LET,
+            Token::EOF,
         ],
         "test_syntax_analysis_for_let_statements_syntax_errors_case2"
     ),
@@ -99,28 +99,28 @@ fn test_syntax_analysis_for_let_statements_syntax_errors(tokens: Vec<Token>, sna
     snapshot_name_2,
     case(
         vec ! [
-            Token{token_type: TokenType::LET, literal: "let".to_string()},
-            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
-            Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
-            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
-            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
-            Token{token_type: TokenType::EOF, literal: "".to_string()},
+            Token::LET,
+            Token::IDENTIFIER{literal: "x".to_string()},
+            Token::ASSIGN,
+            Token::INTEGER{literal: "5".to_string()},
+            Token::SEMI_COLON,
+            Token::EOF,
         ],
         "test_syntax_analysis_for_let_statements_case1",
         vec ! [
-            Token{token_type: TokenType::LET, literal: "let".to_string()},
-            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
-            Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
-            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
-            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
-            Token{token_type: TokenType::LET, literal: "let".to_string()},
-            Token{token_type: TokenType::IDENTIFIER, literal: "z".to_string()},
-            Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
-            Token{token_type: TokenType::INTEGER, literal: "7".to_string()},
-            Token{token_type: TokenType::PLUS, literal: "+".to_string()},
-            Token{token_type: TokenType::INTEGER, literal: "10".to_string()},
-            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
-            Token{token_type: TokenType::EOF, literal: "".to_string()},
+            Token::LET,
+            Token::IDENTIFIER{literal: "x".to_string()},
+            Token::ASSIGN,
+            Token::INTEGER{literal: "5".to_string()},
+            Token::SEMI_COLON,
+            Token::LET,
+            Token::IDENTIFIER{literal: "z".to_string()},
+            Token::ASSIGN,
+            Token::INTEGER{literal: "7".to_string()},
+            Token::PLUS,
+            Token::INTEGER{literal: "10".to_string()},
+            Token::SEMI_COLON,
+            Token::EOF,
         ],
         "test_syntax_analysis_for_let_statements_case2"
     ),
@@ -140,15 +140,15 @@ fn test_syntax_analysis_for_successive_parsing(
     snapshot_name,
     case(
         vec ! [
-            Token{token_type: TokenType::LET, literal: "let".to_string()},
-            Token{token_type: TokenType::IDENTIFIER, literal: "x".to_string()},
-            Token{token_type: TokenType::ASSIGN, literal: "=".to_string()},
-            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
-            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
-            Token{token_type: TokenType::RETURN, literal: "RETURN".to_string()},
-            Token{token_type: TokenType::INTEGER, literal: "5".to_string()},
-            Token{token_type: TokenType::SEMI_COLON, literal: ";".to_string()},
-            Token{token_type: TokenType::EOF, literal: "".to_string()},
+            Token::LET,
+            Token::IDENTIFIER{literal: "x".to_string()},
+            Token::ASSIGN,
+            Token::INTEGER{literal: "5".to_string()},
+            Token::SEMI_COLON,
+            Token::RETURN,
+            Token::INTEGER{literal: "5".to_string()},
+            Token::SEMI_COLON,
+            Token::EOF,
         ],
         "test_syntax_analysis_for_combined_statements_case1"
     ),

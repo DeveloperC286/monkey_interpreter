@@ -1,20 +1,14 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
-pub struct Token {
-    pub token_type: TokenType,
-    pub literal: String,
-}
-
-#[derive(Serialize, Deserialize, Debug, Copy, Clone, PartialEq, Eq, Hash)]
 #[allow(non_camel_case_types)]
-pub enum TokenType {
-    ILLEGAL,
+pub enum Token {
+    ILLEGAL { literal: String },
     EOF,
 
     // Identifiers
-    IDENTIFIER,
-    INTEGER,
+    IDENTIFIER { literal: String },
+    INTEGER { literal: String },
 
     // Operators
     ASSIGN,

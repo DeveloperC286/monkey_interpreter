@@ -11,20 +11,19 @@ expression: returned_abstract_syntax_tree
             "left_hand_expression": {
               "INTEGER": {
                 "integer_token": {
-                  "token_type": "INTEGER",
-                  "literal": "5"
+                  "INTEGER": {
+                    "literal": "5"
+                  }
                 }
               }
             },
-            "operator_token": {
-              "token_type": "DIVIDE",
-              "literal": "/"
-            },
+            "operator_token": "DIVIDE",
             "right_hand_expression": {
               "INTEGER": {
                 "integer_token": {
-                  "token_type": "INTEGER",
-                  "literal": "10"
+                  "INTEGER": {
+                    "literal": "10"
+                  }
                 }
               }
             }

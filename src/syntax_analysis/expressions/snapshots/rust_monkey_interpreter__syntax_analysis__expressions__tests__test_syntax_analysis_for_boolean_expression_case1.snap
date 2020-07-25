@@ -8,10 +8,7 @@ expression: returned_abstract_syntax_tree
       "EXPRESSION": {
         "expression": {
           "BOOLEAN": {
-            "boolean_token": {
-              "token_type": "TRUE",
-              "literal": "TRUE"
-            }
+            "boolean_token": "TRUE"
           }
         }
       }

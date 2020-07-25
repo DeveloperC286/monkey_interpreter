@@ -8,16 +8,10 @@ expression: returned_abstract_syntax_tree
       "EXPRESSION": {
         "expression": {
           "PREFIX": {
-            "prefix_token": {
-              "token_type": "NOT",
-              "literal": "!"
-            },
+            "prefix_token": "NOT",
             "right_hand_expression": {
               "BOOLEAN": {
-                "boolean_token": {
-                  "token_type": "FALSE",
-                  "literal": "false"
-                }
+                "boolean_token": "FALSE"
               }
             }
           }
