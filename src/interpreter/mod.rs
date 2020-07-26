@@ -22,7 +22,8 @@ pub fn repl() {
                 error!("{:?}", error);
             }
         } else {
-            //TODO Handle the abstract_syntax_tree.
+            let object = crate::evaluator::evaluate(abstract_syntax_tree);
+            println!("{:?}", object);
         }
     }
 }
