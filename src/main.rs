@@ -1,6 +1,4 @@
 #[macro_use]
-extern crate lazy_static;
-#[macro_use]
 extern crate log;
 extern crate pretty_env_logger;
 
@@ -9,6 +7,7 @@ use structopt::StructOpt;
 mod interpreter;
 mod lexical_analysis;
 mod syntax_analysis;
+mod evaluator;
 
 #[derive(Debug, StructOpt)]
 #[structopt(

@@ -1,0 +1,5 @@
+---
+source: src/evaluator/tests.rs
+expression: returned_object
+---
+"NULL"

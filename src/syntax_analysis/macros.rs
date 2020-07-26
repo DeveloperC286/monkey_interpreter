@@ -29,10 +29,9 @@ macro_rules! assert_token {
     };
 }
 
+#[allow(unused_macros)]
 macro_rules! assert_expected_returned_abstract_syntax_tree {
     ($tokens:expr, $snapshot_name:expr) => {
-        let returned_abstract_syntax_tree =
-            crate::syntax_analysis::get_abstract_syntax_tree($tokens);
-        assert_json_snapshot!($snapshot_name, returned_abstract_syntax_tree);
+        assert_json_snapshot!($snapshot_name, crate::syntax_analysis::get_abstract_syntax_tree($tokens));
     };
 }
