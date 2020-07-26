@@ -1,8 +1,6 @@
 use insta::assert_json_snapshot;
 use rstest::rstest;
 
-use crate::lexical_analysis::token::Token;
-
 #[rstest(
     code,
     snapshot_name,
@@ -31,10 +29,7 @@ fn test_syntax_analysis_for_boolean_expression(code: String, snapshot_name: &str
         "test_syntax_analysis_for_prefix_expression_syntax_errors_case2"
     ),
 )]
-fn test_syntax_analysis_for_prefix_expression_syntax_errors(
-    code: String,
-    snapshot_name: &str,
-) {
+fn test_syntax_analysis_for_prefix_expression_syntax_errors(code: String, snapshot_name: &str) {
     assert_expected_returned_abstract_syntax_tree!(code, snapshot_name)
 }
 

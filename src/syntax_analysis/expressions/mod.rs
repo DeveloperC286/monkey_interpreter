@@ -17,11 +17,8 @@ pub fn parse_expression(
     mut syntax_parsing_errors: Vec<String>,
     expression_precedence: ExpressionPrecedence,
 ) -> (Peekable<Iter<Token>>, Vec<String>, Option<SyntaxTreeNode>) {
-    let (returned_iterator, returned_syntax_parsing_errors, expression_option) = get_expression(
-        iterator,
-        syntax_parsing_errors,
-        expression_precedence,
-    );
+    let (returned_iterator, returned_syntax_parsing_errors, expression_option) =
+        get_expression(iterator, syntax_parsing_errors, expression_precedence);
     iterator = returned_iterator;
     syntax_parsing_errors = returned_syntax_parsing_errors;
 

@@ -1,8 +1,6 @@
 use insta::assert_json_snapshot;
 use rstest::rstest;
 
-use crate::lexical_analysis::token::Token;
-
 #[rstest(
     code,
     snapshot_name,

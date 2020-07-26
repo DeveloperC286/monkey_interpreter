@@ -56,7 +56,11 @@ fn get_next_syntax_tree_node(
         Some(token) => match token {
             Token::LET => statements::parse_let_statement(iterator, syntax_parsing_errors),
             Token::RETURN => statements::parse_return_statement(iterator, syntax_parsing_errors),
-            _ => expressions::parse_expression(iterator, syntax_parsing_errors, ExpressionPrecedence::LOWEST),
+            _ => expressions::parse_expression(
+                iterator,
+                syntax_parsing_errors,
+                ExpressionPrecedence::LOWEST,
+            ),
         },
         None => (iterator, syntax_parsing_errors, None),
     }
