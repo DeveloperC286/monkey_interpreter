@@ -4,43 +4,17 @@ use rstest::rstest;
 use crate::lexical_analysis::token::Token;
 
 #[rstest(
-    tokens,
+    code,
     snapshot_name,
     case(
-        vec ! [
-            Token::IF,
-            Token::OPENING_ROUND_BRACKET,
-            Token::IDENTIFIER{literal: "x".to_string()},
-            Token::LESSER_THAN,
-            Token::IDENTIFIER{literal: "y".to_string()},
-            Token::CLOSING_ROUND_BRACKET,
-            Token::OPENING_CURLY_BRACKET,
-            Token::IDENTIFIER{literal: "x".to_string()},
-            Token::CLOSING_CURLY_BRACKET,
-            Token::EOF,
-        ],
+        "if (x < y) { x }".to_string(),
         "test_syntax_analysis_for_if_expression_case1"
     ),
     case(
-        vec ! [
-            Token::IF,
-            Token::OPENING_ROUND_BRACKET,
-            Token::IDENTIFIER{literal: "x".to_string()},
-            Token::LESSER_THAN,
-            Token::IDENTIFIER{literal: "y".to_string()},
-            Token::CLOSING_ROUND_BRACKET,
-            Token::OPENING_CURLY_BRACKET,
-            Token::IDENTIFIER{literal: "x".to_string()},
-            Token::CLOSING_CURLY_BRACKET,
-            Token::ELSE,
-            Token::OPENING_CURLY_BRACKET,
-            Token::IDENTIFIER{literal: "y".to_string()},
-            Token::CLOSING_CURLY_BRACKET,
-            Token::EOF,
-        ],
+        "if (x < y) { x } else { y }".to_string(),
         "test_syntax_analysis_for_if_expression_case2"
     ),
 )]
-fn test_syntax_analysis_for_if_expression(tokens: Vec<Token>, snapshot_name: &str) {
-    assert_expected_returned_abstract_syntax_tree!(tokens, snapshot_name);
+fn test_syntax_analysis_for_if_expression(code: String, snapshot_name: &str) {
+    assert_expected_returned_abstract_syntax_tree!(code, snapshot_name);
 }

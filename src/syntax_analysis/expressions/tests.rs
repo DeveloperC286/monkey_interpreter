@@ -4,129 +4,88 @@ use rstest::rstest;
 use crate::lexical_analysis::token::Token;
 
 #[rstest(
-    tokens,
+    code,
     snapshot_name,
     case(
-        vec ! [
-            Token::TRUE,
-            Token::SEMI_COLON,
-            Token::EOF,
-        ],
+        "true;".to_string(),
         "test_syntax_analysis_for_boolean_expression_case1"
     ),
     case(
-        vec ! [
-            Token::FALSE,
-            Token::EOF,
-        ],
+        "false".to_string(),
         "test_syntax_analysis_for_boolean_expression_case2"
     ),
 )]
-fn test_syntax_analysis_for_boolean_expression(tokens: Vec<Token>, snapshot_name: &str) {
-    assert_expected_returned_abstract_syntax_tree!(tokens, snapshot_name);
+fn test_syntax_analysis_for_boolean_expression(code: String, snapshot_name: &str) {
+    assert_expected_returned_abstract_syntax_tree!(code, snapshot_name)
 }
 
 #[rstest(
-    tokens,
+    code,
     snapshot_name,
     case(
-        vec ! [
-            Token::NOT,
-            Token::EOF,
-        ],
+        "!".to_string(),
         "test_syntax_analysis_for_prefix_expression_syntax_errors_case1"
     ),
     case(
-        vec ! [
-            Token::MINUS,
-            Token::SEMI_COLON,
-            Token::EOF,
-        ],
+        "-;".to_string(),
         "test_syntax_analysis_for_prefix_expression_syntax_errors_case2"
     ),
 )]
 fn test_syntax_analysis_for_prefix_expression_syntax_errors(
-    tokens: Vec<Token>,
+    code: String,
     snapshot_name: &str,
 ) {
-    assert_expected_returned_abstract_syntax_tree!(tokens, snapshot_name);
+    assert_expected_returned_abstract_syntax_tree!(code, snapshot_name)
 }
 
 #[rstest(
-    tokens,
+    code,
     snapshot_name,
     case(
-        vec ! [
-            Token::NOT,
-            Token::INTEGER{literal: "15".to_string()},
-            Token::EOF,
-        ],
+        "!15".to_string(),
         "test_syntax_analysis_for_prefix_expression_case1"
     ),
     case(
-        vec ! [
-            Token::MINUS,
-            Token::INTEGER{literal: "3".to_string()},
-            Token::SEMI_COLON,
-            Token::EOF,
-        ],
+        "-3;".to_string(),
         "test_syntax_analysis_for_prefix_expression_case2"
     ),
     case(
-        vec ! [
-            Token::NOT,
-            Token::FALSE,
-            Token::EOF,
-        ],
+        "!FALSE".to_string(),
         "test_syntax_analysis_for_prefix_expression_case3"
     ),
 )]
-fn test_syntax_analysis_for_prefix_expression(tokens: Vec<Token>, snapshot_name: &str) {
-    assert_expected_returned_abstract_syntax_tree!(tokens, snapshot_name);
+fn test_syntax_analysis_for_prefix_expression(code: String, snapshot_name: &str) {
+    assert_expected_returned_abstract_syntax_tree!(code, snapshot_name)
 }
 
 #[rstest(
-    tokens,
+    code,
     snapshot_name,
     case(
-        vec ! [
-            Token::IDENTIFIER{literal: "temp".to_string()},
-            Token::SEMI_COLON,
-            Token::EOF,
-        ],
+        "temp;".to_string(),
         "test_syntax_analysis_for_identifier_expression_case1"
     ),
     case(
-        vec ! [
-            Token::IDENTIFIER{literal: "varX".to_string()},
-            Token::EOF,
-        ],
+        "varX".to_string(),
         "test_syntax_analysis_for_identifier_expression_case2"
     ),
 )]
-fn test_syntax_analysis_for_identifier_expression(tokens: Vec<Token>, snapshot_name: &str) {
-    assert_expected_returned_abstract_syntax_tree!(tokens, snapshot_name);
+fn test_syntax_analysis_for_identifier_expression(code: String, snapshot_name: &str) {
+    assert_expected_returned_abstract_syntax_tree!(code, snapshot_name)
 }
 
 #[rstest(
-    tokens,
+    code,
     snapshot_name,
     case(
-        vec ! [
-            Token::INTEGER{literal: "5".to_string()},
-            Token::SEMI_COLON,
-            Token::EOF,
-        ],
+        "5;".to_string(),
         "test_syntax_analysis_for_integer_expression_case1"
     ),
     case(
-        vec ! [
-            Token::INTEGER{literal: "12".to_string()},
-            Token::EOF,
-        ],
+        "12".to_string(),
         "test_syntax_analysis_for_integer_expression_case2"
     ),
 )]
-fn test_syntax_analysis_for_integer_expression(tokens: Vec<Token>, snapshot_name: &str) {
-    assert_expected_returned_abstract_syntax_tree!(tokens, snapshot_name);
+fn test_syntax_analysis_for_integer_expression(code: String, snapshot_name: &str) {
+    assert_expected_returned_abstract_syntax_tree!(code, snapshot_name)
 }

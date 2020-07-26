@@ -31,10 +31,10 @@ macro_rules! assert_token {
 
 #[allow(unused_macros)]
 macro_rules! assert_expected_returned_abstract_syntax_tree {
-    ($tokens:expr, $snapshot_name:expr) => {
+    ($code:expr, $snapshot_name:expr) => {
         assert_json_snapshot!(
             $snapshot_name,
-            crate::syntax_analysis::get_abstract_syntax_tree($tokens)
+            crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens($code))
         );
     };
 }

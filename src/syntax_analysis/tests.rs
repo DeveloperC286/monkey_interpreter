@@ -4,26 +4,17 @@ use rstest::rstest;
 use crate::lexical_analysis::token::Token;
 
 #[rstest(
-    tokens,
+    code,
     snapshot_name,
     case(
-        vec ! [
-            Token::EOF,
-        ],
+        "".to_string(),
         "test_syntax_analysis_tokens_input_edgecases_case1"
     ),
     case(
-        vec ! [],
+        ";".to_string(),
         "test_syntax_analysis_tokens_input_edgecases_case2"
     ),
-    case(
-        vec ! [
-            Token::SEMI_COLON,
-            Token::EOF,
-        ],
-        "test_syntax_analysis_tokens_input_edgecases_case3"
-    ),
 )]
-fn test_syntax_analysis_tokens_input_edgecases(tokens: Vec<Token>, snapshot_name: &str) {
-    assert_expected_returned_abstract_syntax_tree!(tokens, snapshot_name);
+fn test_syntax_analysis_tokens_input_edgecases(code: String, snapshot_name: &str) {
+    assert_expected_returned_abstract_syntax_tree!(code, snapshot_name)
 }
