@@ -7,6 +7,8 @@ use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
 pub mod object;
 #[macro_use]
 pub mod macros;
+mod integer;
+mod boolean;
 
 pub fn evaluate(abstract_syntax_tree: AbstractSyntaxTree) -> Object {
     let mut object = Object::NULL;
@@ -21,17 +23,8 @@ pub fn evaluate(abstract_syntax_tree: AbstractSyntaxTree) -> Object {
 fn evaluate_node(syntax_tree_node: SyntaxTreeNode) -> Object {
     return match syntax_tree_node {
         SyntaxTreeNode::EXPRESSION { expression } => match expression {
-            Expression::INTEGER { integer_token } => match integer_token {
-                Token::INTEGER { literal } => {
-                    Object::INTEGER { value: literal.parse().unwrap() }
-                }
-                _ => Object::NULL
-            }
-            Expression::BOOLEAN { boolean_token } => match boolean_token {
-                Token::TRUE => Object::BOOLEAN { value: true },
-                Token::FALSE => Object::BOOLEAN { value: false },
-                _ => Object::NULL
-            }
+            Expression::INTEGER { integer_token } => integer::parse_integer_token(integer_token),
+            Expression::BOOLEAN { boolean_token } => boolean::parse_boolean_token(boolean_token),
             _ => Object::NULL
         },
         _ => Object::NULL
