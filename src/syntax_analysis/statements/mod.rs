@@ -40,14 +40,12 @@ pub fn parse_let_statement(
     assert_token!(iterator, syntax_parsing_errors, Token::LET, None);
     let identifier_token = match iterator.next() {
         Some(token) => match token {
-            Token::IDENTIFIER { literal } => {
-                token
-            }
+            Token::IDENTIFIER { literal } => token,
             _ => {
                 syntax_parsing_errors.push(format!("Syntax error : Expected a IDENTIFIER.",));
                 return (iterator, syntax_parsing_errors, None);
             }
-        }
+        },
         None => {
             return (iterator, syntax_parsing_errors, None);
         }
