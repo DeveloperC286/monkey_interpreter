@@ -2,8 +2,4 @@
 source: src/evaluator/boolean/tests.rs
 expression: "crate::evaluator::evaluate(abstract_syntax_tree)"
 ---
-{
-  "BOOLEAN": {
-    "value": false
-  }
-}
+"FALSE"

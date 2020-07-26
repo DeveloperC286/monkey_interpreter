@@ -1,14 +1,15 @@
 use object::Object;
 
 use crate::lexical_analysis::token::Token;
-use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
 use crate::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
+use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
 
 pub mod object;
 #[macro_use]
 pub mod macros;
 mod boolean;
 mod integer;
+mod prefix;
 
 pub fn evaluate(abstract_syntax_tree: AbstractSyntaxTree) -> Object {
     let mut object = Object::NULL;
@@ -20,11 +21,12 @@ pub fn evaluate(abstract_syntax_tree: AbstractSyntaxTree) -> Object {
     return object;
 }
 
-fn evaluate_node(syntax_tree_node: SyntaxTreeNode) -> Object {
+pub fn evaluate_node(syntax_tree_node: SyntaxTreeNode) -> Object {
     return match syntax_tree_node {
         SyntaxTreeNode::EXPRESSION { expression } => match expression {
-            Expression::INTEGER { integer_token } => integer::parse_integer_token(integer_token),
-            Expression::BOOLEAN { boolean_token } => boolean::parse_boolean_token(boolean_token),
+            Expression::INTEGER { integer_token } => integer::parse_integer(integer_token),
+            Expression::BOOLEAN { boolean_token } => boolean::parse_boolean(boolean_token),
+            Expression::PREFIX { prefix_token, right_hand_expression } => prefix::parse_prefix(prefix_token, right_hand_expression),
             _ => Object::NULL,
         },
         _ => Object::NULL,

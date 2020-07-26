@@ -1,6 +1,6 @@
 ---
 source: src/syntax_analysis/expressions/tests.rs
-expression: returned_abstract_syntax_tree
+expression: "crate::syntax_analysis::get_abstract_syntax_tree(tokens)"
 ---
 {
   "abstract_syntax_tree": [
@@ -10,8 +10,12 @@ expression: returned_abstract_syntax_tree
           "PREFIX": {
             "prefix_token": "NOT",
             "right_hand_expression": {
-              "BOOLEAN": {
-                "boolean_token": "FALSE"
+              "EXPRESSION": {
+                "expression": {
+                  "BOOLEAN": {
+                    "boolean_token": "FALSE"
+                  }
+                }
               }
             }
           }

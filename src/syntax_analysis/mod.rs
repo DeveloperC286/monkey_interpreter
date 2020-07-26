@@ -1,10 +1,11 @@
 use std::iter::Peekable;
 use std::slice::Iter;
 
-use abstract_syntax_tree::syntax_tree_node::SyntaxTreeNode;
 use abstract_syntax_tree::AbstractSyntaxTree;
+use abstract_syntax_tree::syntax_tree_node::SyntaxTreeNode;
 
 use crate::lexical_analysis::token::Token;
+use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::ExpressionPrecedence;
 
 #[macro_use]
 pub mod macros;
@@ -55,7 +56,7 @@ fn get_next_syntax_tree_node(
         Some(token) => match token {
             Token::LET => statements::parse_let_statement(iterator, syntax_parsing_errors),
             Token::RETURN => statements::parse_return_statement(iterator, syntax_parsing_errors),
-            _ => expressions::parse_expression(iterator, syntax_parsing_errors),
+            _ => expressions::parse_expression(iterator, syntax_parsing_errors, ExpressionPrecedence::LOWEST),
         },
         None => (iterator, syntax_parsing_errors, None),
     }

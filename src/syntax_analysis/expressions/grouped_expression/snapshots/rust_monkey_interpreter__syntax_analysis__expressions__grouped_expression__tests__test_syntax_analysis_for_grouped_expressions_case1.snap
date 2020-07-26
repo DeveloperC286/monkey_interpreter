@@ -1,6 +1,6 @@
 ---
 source: src/syntax_analysis/expressions/grouped_expression/tests.rs
-expression: returned_abstract_syntax_tree
+expression: "crate::syntax_analysis::get_abstract_syntax_tree(tokens)"
 ---
 {
   "abstract_syntax_tree": [
@@ -10,22 +10,26 @@ expression: returned_abstract_syntax_tree
           "PREFIX": {
             "prefix_token": "MINUS",
             "right_hand_expression": {
-              "INFIX": {
-                "left_hand_expression": {
-                  "INTEGER": {
-                    "integer_token": {
+              "EXPRESSION": {
+                "expression": {
+                  "INFIX": {
+                    "left_hand_expression": {
                       "INTEGER": {
-                        "literal": "5"
+                        "integer_token": {
+                          "INTEGER": {
+                            "literal": "5"
+                          }
+                        }
                       }
-                    }
-                  }
-                },
-                "operator_token": "MULTIPLY",
-                "right_hand_expression": {
-                  "INTEGER": {
-                    "integer_token": {
+                    },
+                    "operator_token": "MULTIPLY",
+                    "right_hand_expression": {
                       "INTEGER": {
-                        "literal": "10"
+                        "integer_token": {
+                          "INTEGER": {
+                            "literal": "10"
+                          }
+                        }
                       }
                     }
                   }

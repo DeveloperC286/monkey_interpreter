@@ -34,7 +34,7 @@ pub enum Expression {
     },
     PREFIX {
         prefix_token: Token,
-        right_hand_expression: Box<Expression>,
+        right_hand_expression: Box<SyntaxTreeNode>,
     },
     INFIX {
         left_hand_expression: Box<Expression>,

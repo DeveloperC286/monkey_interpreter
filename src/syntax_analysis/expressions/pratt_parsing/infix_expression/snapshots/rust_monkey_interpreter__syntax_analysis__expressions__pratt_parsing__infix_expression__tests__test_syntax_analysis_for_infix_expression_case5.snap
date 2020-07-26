@@ -1,6 +1,6 @@
 ---
 source: src/syntax_analysis/expressions/pratt_parsing/infix_expression/tests.rs
-expression: returned_abstract_syntax_tree
+expression: "crate::syntax_analysis::get_abstract_syntax_tree(tokens)"
 ---
 {
   "abstract_syntax_tree": [
@@ -12,10 +12,14 @@ expression: returned_abstract_syntax_tree
               "PREFIX": {
                 "prefix_token": "MINUS",
                 "right_hand_expression": {
-                  "INTEGER": {
-                    "integer_token": {
+                  "EXPRESSION": {
+                    "expression": {
                       "INTEGER": {
-                        "literal": "5"
+                        "integer_token": {
+                          "INTEGER": {
+                            "literal": "5"
+                          }
+                        }
                       }
                     }
                   }
