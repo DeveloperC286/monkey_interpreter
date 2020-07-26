@@ -1,0 +1,9 @@
+---
+source: src/evaluator/prefix/tests.rs
+expression: "crate::evaluator::evaluate(abstract_syntax_tree)"
+---
+{
+  "INTEGER": {
+    "value": -5
+  }
+}

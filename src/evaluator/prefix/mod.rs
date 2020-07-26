@@ -13,6 +13,12 @@ pub fn parse_prefix(prefix_token: Token, right_hand_node: Box<SyntaxTreeNode>) -
                 _ => Object::NULL
             }
         }
+        Token::MINUS => {
+            match object {
+                Object::INTEGER { value } => Object::INTEGER { value: -value },
+                _ => Object::NULL
+            }
+        }
         _ => Object::NULL
     };
 }
