@@ -4,24 +4,13 @@ use rstest::rstest;
 use super::*;
 
 #[rstest(
-    abstract_syntax_tree,
+    code,
     snapshot_name,
     case(
-        AbstractSyntaxTree{
-            abstract_syntax_tree: vec![
-                SyntaxTreeNode::EXPRESSION {
-                    expression: Expression::INTEGER {
-                        integer_token: Token::INTEGER {
-                            literal: "5".to_string()
-                        }
-                    }
-                }
-            ],
-            syntax_parsing_errors: vec![],
-        },
+        "5".to_string(),
         "test_evaluator_integer_nodes_case1"
     ),
 )]
-fn test_evaluator_integer_nodes(abstract_syntax_tree: AbstractSyntaxTree, snapshot_name: &str) {
-    assert_expected_returned_object!(abstract_syntax_tree, snapshot_name);
+fn test_evaluator_integer_nodes(code: String, snapshot_name: &str) {
+    assert_expected_returned_object!(code, snapshot_name);
 }
