@@ -1,8 +1,6 @@
 use insta::assert_json_snapshot;
 use rstest::rstest;
 
-use super::*;
-
 #[rstest(
     code,
     snapshot_name,

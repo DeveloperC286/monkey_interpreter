@@ -8,33 +8,49 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
       "EXPRESSION": {
         "expression": {
           "INFIX": {
-            "left_hand_expression": {
-              "INTEGER": {
-                "integer_token": {
+            "left_hand_node": {
+              "EXPRESSION": {
+                "expression": {
                   "INTEGER": {
-                    "literal": "5"
+                    "integer_token": {
+                      "INTEGER": {
+                        "literal": "5"
+                      }
+                    }
                   }
                 }
               }
             },
             "operator_token": "MINUS",
-            "right_hand_expression": {
-              "INFIX": {
-                "left_hand_expression": {
-                  "INTEGER": {
-                    "integer_token": {
-                      "INTEGER": {
-                        "literal": "10"
+            "right_hand_node": {
+              "EXPRESSION": {
+                "expression": {
+                  "INFIX": {
+                    "left_hand_node": {
+                      "EXPRESSION": {
+                        "expression": {
+                          "INTEGER": {
+                            "integer_token": {
+                              "INTEGER": {
+                                "literal": "10"
+                              }
+                            }
+                          }
+                        }
                       }
-                    }
-                  }
-                },
-                "operator_token": "MULTIPLY",
-                "right_hand_expression": {
-                  "INTEGER": {
-                    "integer_token": {
-                      "INTEGER": {
-                        "literal": "10"
+                    },
+                    "operator_token": "MULTIPLY",
+                    "right_hand_node": {
+                      "EXPRESSION": {
+                        "expression": {
+                          "INTEGER": {
+                            "integer_token": {
+                              "INTEGER": {
+                                "literal": "10"
+                              }
+                            }
+                          }
+                        }
                       }
                     }
                   }

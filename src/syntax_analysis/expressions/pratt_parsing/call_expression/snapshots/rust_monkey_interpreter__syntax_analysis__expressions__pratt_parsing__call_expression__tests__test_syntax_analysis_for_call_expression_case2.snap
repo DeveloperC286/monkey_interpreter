@@ -29,21 +29,29 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
               },
               {
                 "INFIX": {
-                  "left_hand_expression": {
-                    "INTEGER": {
-                      "integer_token": {
+                  "left_hand_node": {
+                    "EXPRESSION": {
+                      "expression": {
                         "INTEGER": {
-                          "literal": "7"
+                          "integer_token": {
+                            "INTEGER": {
+                              "literal": "7"
+                            }
+                          }
                         }
                       }
                     }
                   },
                   "operator_token": "MULTIPLY",
-                  "right_hand_expression": {
-                    "INTEGER": {
-                      "integer_token": {
+                  "right_hand_node": {
+                    "EXPRESSION": {
+                      "expression": {
                         "INTEGER": {
-                          "literal": "2"
+                          "integer_token": {
+                            "INTEGER": {
+                              "literal": "2"
+                            }
+                          }
                         }
                       }
                     }

@@ -9,7 +9,7 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
         "expression": {
           "PREFIX": {
             "prefix_token": "NOT",
-            "right_hand_expression": {
+            "right_hand_node": {
               "EXPRESSION": {
                 "expression": {
                   "BOOLEAN": {

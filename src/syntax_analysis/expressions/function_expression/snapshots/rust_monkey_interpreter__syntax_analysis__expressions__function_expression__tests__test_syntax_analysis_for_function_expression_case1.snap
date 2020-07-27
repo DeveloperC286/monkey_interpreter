@@ -35,21 +35,29 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
                     "EXPRESSION": {
                       "expression": {
                         "INFIX": {
-                          "left_hand_expression": {
-                            "IDENTIFIER": {
-                              "identifier_token": {
+                          "left_hand_node": {
+                            "EXPRESSION": {
+                              "expression": {
                                 "IDENTIFIER": {
-                                  "literal": "x"
+                                  "identifier_token": {
+                                    "IDENTIFIER": {
+                                      "literal": "x"
+                                    }
+                                  }
                                 }
                               }
                             }
                           },
                           "operator_token": "PLUS",
-                          "right_hand_expression": {
-                            "IDENTIFIER": {
-                              "identifier_token": {
+                          "right_hand_node": {
+                            "EXPRESSION": {
+                              "expression": {
                                 "IDENTIFIER": {
-                                  "literal": "y"
+                                  "identifier_token": {
+                                    "IDENTIFIER": {
+                                      "literal": "y"
+                                    }
+                                  }
                                 }
                               }
                             }

@@ -12,7 +12,7 @@ pub mod if_expression;
 pub mod pratt_parsing;
 pub mod utilities;
 
-pub fn parse_expression(
+pub fn get_expression_node(
     mut iterator: Peekable<Iter<Token>>,
     mut syntax_parsing_errors: Vec<String>,
     expression_precedence: ExpressionPrecedence,
@@ -61,21 +61,17 @@ pub fn get_expression(
                 debug!("Found a prefix expression.");
                 let token = iterator.next().unwrap().clone();
 
-                match parse_expression(
+                match get_expression_node(
                     iterator,
                     syntax_parsing_errors,
                     ExpressionPrecedence::PREFIX,
                 ) {
-                    (
-                        returned_iterator,
-                        returned_syntax_parsing_errors,
-                        Some(right_hand_expression),
-                    ) => {
+                    (returned_iterator, returned_syntax_parsing_errors, Some(right_hand_node)) => {
                         iterator = returned_iterator;
                         syntax_parsing_errors = returned_syntax_parsing_errors;
                         expression = Some(Expression::PREFIX {
                             prefix_token: token,
-                            right_hand_expression: Box::new(right_hand_expression),
+                            right_hand_node: Box::new(right_hand_node),
                         });
                     }
                     (returned_iterator, returned_syntax_parsing_errors, None) => {

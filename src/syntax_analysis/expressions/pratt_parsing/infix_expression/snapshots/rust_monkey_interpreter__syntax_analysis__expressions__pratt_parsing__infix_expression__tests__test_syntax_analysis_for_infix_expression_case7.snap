@@ -8,23 +8,35 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
       "EXPRESSION": {
         "expression": {
           "INFIX": {
-            "left_hand_expression": {
-              "INFIX": {
-                "left_hand_expression": {
-                  "INTEGER": {
-                    "integer_token": {
-                      "INTEGER": {
-                        "literal": "10"
+            "left_hand_node": {
+              "EXPRESSION": {
+                "expression": {
+                  "INFIX": {
+                    "left_hand_node": {
+                      "EXPRESSION": {
+                        "expression": {
+                          "INTEGER": {
+                            "integer_token": {
+                              "INTEGER": {
+                                "literal": "10"
+                              }
+                            }
+                          }
+                        }
                       }
-                    }
-                  }
-                },
-                "operator_token": "DIVIDE",
-                "right_hand_expression": {
-                  "INTEGER": {
-                    "integer_token": {
-                      "INTEGER": {
-                        "literal": "5"
+                    },
+                    "operator_token": "DIVIDE",
+                    "right_hand_node": {
+                      "EXPRESSION": {
+                        "expression": {
+                          "INTEGER": {
+                            "integer_token": {
+                              "INTEGER": {
+                                "literal": "5"
+                              }
+                            }
+                          }
+                        }
                       }
                     }
                   }
@@ -32,11 +44,15 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
               }
             },
             "operator_token": "PLUS",
-            "right_hand_expression": {
-              "INTEGER": {
-                "integer_token": {
+            "right_hand_node": {
+              "EXPRESSION": {
+                "expression": {
                   "INTEGER": {
-                    "literal": "1"
+                    "integer_token": {
+                      "INTEGER": {
+                        "literal": "1"
+                      }
+                    }
                   }
                 }
               }
