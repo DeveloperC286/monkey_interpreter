@@ -48,8 +48,38 @@ pub fn parse_infix(
                 _ => Object::NULL,
             }
         }
+        Object::TRUE => {
+            match crate::evaluator::evaluate_node(right_hand_node) {
+                Object::TRUE => evaluate_same_boolean(operator_token),
+                Object::FALSE => evaluate_opposite_boolean(operator_token),
+                _ => Object::NULL,
+            }
+        }
+        Object::FALSE => {
+            match crate::evaluator::evaluate_node(right_hand_node) {
+                Object::FALSE => evaluate_same_boolean(operator_token),
+                Object::TRUE => evaluate_opposite_boolean(operator_token),
+                _ => Object::NULL,
+            }
+        }
         _ => Object::NULL,
     };
+}
+
+fn evaluate_same_boolean(operator_token: Token) -> Object {
+    match operator_token {
+        Token::EQUALS => Object::TRUE,
+        Token::NOT_EQUALS => Object::FALSE,
+        _ => Object::NULL,
+    }
+}
+
+fn evaluate_opposite_boolean(operator_token: Token) -> Object {
+    match operator_token {
+        Token::EQUALS => Object::FALSE,
+        Token::NOT_EQUALS => Object::TRUE,
+        _ => Object::NULL,
+    }
 }
 
 #[cfg(test)]

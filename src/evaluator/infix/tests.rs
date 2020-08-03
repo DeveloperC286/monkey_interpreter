@@ -84,6 +84,54 @@ fn test_evaluator_infix_integer_expressions(code: String, snapshot_name: &str) {
         "7 != 7".to_string(),
         "test_evaluator_infix_boolean_expressions_case8"
     ),
+    case(
+        "true == true".to_string(),
+        "test_evaluator_infix_boolean_expressions_case9"
+    ),
+    case(
+        "false == false".to_string(),
+        "test_evaluator_infix_boolean_expressions_case10"
+    ),
+    case(
+        "true == false".to_string(),
+        "test_evaluator_infix_boolean_expressions_case11"
+    ),
+    case(
+        "false == true".to_string(),
+        "test_evaluator_infix_boolean_expressions_case12"
+    ),
+    case(
+        "true != false".to_string(),
+        "test_evaluator_infix_boolean_expressions_case13"
+    ),
+    case(
+        "false != true".to_string(),
+        "test_evaluator_infix_boolean_expressions_case14"
+    ),
+    case(
+        "true != true".to_string(),
+        "test_evaluator_infix_boolean_expressions_case15"
+    ),
+    case(
+        "false != false".to_string(),
+        "test_evaluator_infix_boolean_expressions_case16"
+    ),
+    case(
+        "(1 < 2) == true".to_string(),
+        "test_evaluator_infix_boolean_expressions_case17"
+    ),
+    case(
+        "(1 < 2) == false".to_string(),
+        "test_evaluator_infix_boolean_expressions_case18"
+    ),
+    case(
+        "(1 > 2) == true".to_string(),
+        "test_evaluator_infix_boolean_expressions_case19"
+    ),
+    case(
+        "(1 > 2) == false".to_string(),
+        "test_evaluator_infix_boolean_expressions_case20"
+    ),
 )]
 fn test_evaluator_infix_boolean_expressions(code: String, snapshot_name: &str) {
     assert_expected_returned_object!(code, snapshot_name);
