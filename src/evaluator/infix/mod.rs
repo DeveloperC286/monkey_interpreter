@@ -26,6 +26,22 @@ pub fn parse_infix(
                         Token::DIVIDE => Object::INTEGER {
                             value: left_value / right_value,
                         },
+                        Token::GREATER_THAN => match left_value > right_value {
+                            true => Object::TRUE,
+                            false => Object::FALSE,
+                        },
+                        Token::LESSER_THAN => match left_value < right_value {
+                            true => Object::TRUE,
+                            false => Object::FALSE,
+                        },
+                        Token::EQUALS => match left_value == right_value {
+                            true => Object::TRUE,
+                            false => Object::FALSE,
+                        },
+                        Token::NOT_EQUALS => match left_value != right_value {
+                            true => Object::TRUE,
+                            false => Object::FALSE,
+                        }
                         _ => Object::NULL,
                     }
                 }
