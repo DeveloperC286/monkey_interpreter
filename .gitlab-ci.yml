@@ -50,7 +50,7 @@ merge-request-conventional-commits-next-version:
         - apk add git unzip wget
     script:
         # Get latest tag commit hash.
-        - VERSION=`grep '^version = "[0-9]*.[0-9]*.[0-9]*"$' Cargo.toml | cut -d '"' -f 2`
+        - VERSION=`grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2`
         - LATEST_TAG=`git tag -l | sort -r | head -1`
         - LATEST_TAG_HASH=`git rev-parse $LATEST_TAG`
         # Download conventional_commits_next_version.
@@ -66,7 +66,7 @@ checking-version-badge:
     stage: checking-version-badge
     image: alpine
     script:
-        - VERSION=`grep '^version = "[0-9]*.[0-9]*.[0-9]*"$' Cargo.toml | cut -d '"' -f 2`
+        - VERSION=`grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2`
         - BADGE_PRESENT=`grep "(https://img.shields.io/badge/Version-$VERSION-blue)]" README.md | wc -l`
         - test $BADGE_PRESENT -eq 1
     rules:
@@ -123,7 +123,7 @@ releasing:
         - apk add git
     script:
         # Test if tag already exists.
-        - VERSION=`grep '^version = "[0-9]*.[0-9]*.[0-9]*"$' Cargo.toml | cut -d '"' -f 2`
+        - VERSION=`grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2`
         - VERSION_TAG_EXISTS=`git show-ref --tags -d | awk "/ refs\/tags\/$VERSION/" | wc -l`
         - test $VERSION_TAG_EXISTS -eq 1 && exit 0
         # Tag does not exist so create it and release.
