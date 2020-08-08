@@ -1,5 +1,6 @@
 stages:
     - formatting
+    - linting
     - merge-request-conventional-commits-linting
     - merge-request-conventional-commits-next-version
     - checking-version-badge
@@ -11,20 +12,30 @@ stages:
 
 formatting:
     stage: formatting
-    image: archlinux/base
+    image: rust
     before_script:
-        - pacman -Sy --noconfirm
-        - pacman -S rust diffutils gawk grep --noconfirm
+        - rustup component add rustfmt
     script:
-        - for i in $( du -a ./src/ | awk '{print $2}' | grep -i "[.]rs$" ); do
-        - echo $i
-        - cp $i temp.txt
-        - rustfmt $i
-        - cmp $i temp.txt
+        - for i in $( du -a . | awk '{print $2}' | grep -i "[.]rs$" ); do
+        -   cp $i temp.txt
+        -   rustfmt $i
+        -   cmp $i temp.txt
         - done
     rules:
         - if: $CI_MERGE_REQUEST_ID
-        - if: $CI_COMMIT_BRANCH == "master"
+
+
+linting:
+    stage: linting
+    image: rust
+    before_script:
+        - apt update
+        - apt --yes install libasound2-dev libudev-dev
+        - rustup component add clippy
+    script:
+        - cargo clippy -- -D warnings
+    rules:
+        - if: $CI_MERGE_REQUEST_ID
 
 
 merge-request-conventional-commits-linting:
