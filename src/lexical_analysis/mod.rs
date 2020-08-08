@@ -22,7 +22,7 @@ pub fn get_tokens(code: String) -> Vec<Token> {
         }
     }
 
-    return tokens;
+    tokens
 }
 
 fn get_next_token(mut iterator: Peekable<Chars>) -> (Peekable<Chars>, Token) {
@@ -34,24 +34,24 @@ fn get_next_token(mut iterator: Peekable<Chars>) -> (Peekable<Chars>, Token) {
             match character {
                 '!' => {
                     check_next_character!(iterator, '=', Token::NOT_EQUALS);
-                    return (iterator, Token::NOT);
+                    (iterator, Token::NOT)
                 }
-                '-' => return (iterator, Token::MINUS),
-                '/' => return (iterator, Token::DIVIDE),
-                '*' => return (iterator, Token::MULTIPLY),
-                '>' => return (iterator, Token::GREATER_THAN),
-                '<' => return (iterator, Token::LESSER_THAN),
+                '-' => (iterator, Token::MINUS),
+                '/' => (iterator, Token::DIVIDE),
+                '*' => (iterator, Token::MULTIPLY),
+                '>' => (iterator, Token::GREATER_THAN),
+                '<' => (iterator, Token::LESSER_THAN),
                 '=' => {
                     check_next_character!(iterator, '=', Token::EQUALS);
-                    return (iterator, Token::ASSIGN);
+                    (iterator, Token::ASSIGN)
                 }
-                '+' => return (iterator, Token::PLUS),
-                '(' => return (iterator, Token::OPENING_ROUND_BRACKET),
-                ')' => return (iterator, Token::CLOSING_ROUND_BRACKET),
-                '{' => return (iterator, Token::OPENING_CURLY_BRACKET),
-                '}' => return (iterator, Token::CLOSING_CURLY_BRACKET),
-                ',' => return (iterator, Token::COMMA),
-                ';' => return (iterator, Token::SEMI_COLON),
+                '+' => (iterator, Token::PLUS),
+                '(' => (iterator, Token::OPENING_ROUND_BRACKET),
+                ')' => (iterator, Token::CLOSING_ROUND_BRACKET),
+                '{' => (iterator, Token::OPENING_CURLY_BRACKET),
+                '}' => (iterator, Token::CLOSING_CURLY_BRACKET),
+                ',' => (iterator, Token::COMMA),
+                ';' => (iterator, Token::SEMI_COLON),
                 _ => {
                     if is_valid_identifier_character(character) {
                         debug!("Parsing word from characters.");
@@ -67,18 +67,16 @@ fn get_next_token(mut iterator: Peekable<Chars>) -> (Peekable<Chars>, Token) {
                         return (returned_iterator, Token::INTEGER { literal: integer });
                     }
 
-                    return (
+                    (
                         iterator,
                         Token::ILLEGAL {
                             literal: character.to_string(),
                         },
-                    );
+                    )
                 }
             }
         }
-        None => {
-            return (iterator, Token::EOF);
-        }
+        None => (iterator, Token::EOF),
     }
 }
 
@@ -94,8 +92,8 @@ fn get_next_character(mut iterator: Peekable<Chars>) -> (Peekable<Chars>, Option
     trace!("Getting next character.");
     let mut next_character = iterator.next();
 
-    match next_character {
-        Some(character) => match character {
+    if let Some(character) = next_character {
+        match character {
             ' ' | '\t' | '\n' | '\r' => {
                 trace!("Consuming formatting character.");
                 let (returned_iterator, returned_next_character) = get_next_character(iterator);
@@ -103,11 +101,10 @@ fn get_next_character(mut iterator: Peekable<Chars>) -> (Peekable<Chars>, Option
                 next_character = returned_next_character;
             }
             _ => {}
-        },
-        None => {}
+        }
     }
 
-    return (iterator, next_character);
+    (iterator, next_character)
 }
 
 fn is_digit(character: char) -> bool {

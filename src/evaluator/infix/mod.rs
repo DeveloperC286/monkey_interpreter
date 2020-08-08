@@ -7,7 +7,7 @@ pub fn parse_infix(
     operator_token: Token,
     right_hand_node: SyntaxTreeNode,
 ) -> Object {
-    return match crate::evaluator::evaluate_node(left_hand_node) {
+    match crate::evaluator::evaluate_node(left_hand_node) {
         Object::INTEGER { value } => {
             let left_value = value;
             match crate::evaluator::evaluate_node(right_hand_node) {
@@ -41,29 +41,25 @@ pub fn parse_infix(
                         Token::NOT_EQUALS => match left_value != right_value {
                             true => Object::TRUE,
                             false => Object::FALSE,
-                        }
+                        },
                         _ => Object::NULL,
                     }
                 }
                 _ => Object::NULL,
             }
         }
-        Object::TRUE => {
-            match crate::evaluator::evaluate_node(right_hand_node) {
-                Object::TRUE => evaluate_same_boolean(operator_token),
-                Object::FALSE => evaluate_opposite_boolean(operator_token),
-                _ => Object::NULL,
-            }
-        }
-        Object::FALSE => {
-            match crate::evaluator::evaluate_node(right_hand_node) {
-                Object::FALSE => evaluate_same_boolean(operator_token),
-                Object::TRUE => evaluate_opposite_boolean(operator_token),
-                _ => Object::NULL,
-            }
-        }
+        Object::TRUE => match crate::evaluator::evaluate_node(right_hand_node) {
+            Object::TRUE => evaluate_same_boolean(operator_token),
+            Object::FALSE => evaluate_opposite_boolean(operator_token),
+            _ => Object::NULL,
+        },
+        Object::FALSE => match crate::evaluator::evaluate_node(right_hand_node) {
+            Object::FALSE => evaluate_same_boolean(operator_token),
+            Object::TRUE => evaluate_opposite_boolean(operator_token),
+            _ => Object::NULL,
+        },
         _ => Object::NULL,
-    };
+    }
 }
 
 fn evaluate_same_boolean(operator_token: Token) -> Object {

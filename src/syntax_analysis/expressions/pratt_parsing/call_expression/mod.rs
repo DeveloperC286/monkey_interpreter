@@ -21,21 +21,23 @@ pub fn parse_call_expression(
 
     // check call expression was correctly called
     match &function {
-        Expression::IDENTIFIER { identifier_token } => {}
+        Expression::IDENTIFIER {
+            identifier_token: _,
+        } => {}
         _ => {
             error!("parse_call_expression called with the function not being an Expression::IDENTIFIER.");
             return (iterator, syntax_parsing_errors, None);
         }
     }
 
-    return (
+    (
         iterator,
         syntax_parsing_errors,
         Some(Expression::CALL {
             function: Box::new(function),
             arguments,
         }),
-    );
+    )
 }
 
 fn parse_arguments(
@@ -52,46 +54,43 @@ fn parse_arguments(
     );
     let mut arguments = vec![];
 
-    match iterator.peek() {
-        Some(token) => {
-            if **token != Token::CLOSING_ROUND_BRACKET {
-                loop {
-                    match super::super::get_expression(
-                        iterator,
-                        syntax_parsing_errors,
-                        ExpressionPrecedence::LOWEST,
-                    ) {
-                        (returned_iterator, returned_syntax_parsing_errors, Some(expression)) => {
-                            arguments.push(expression);
-                            iterator = returned_iterator;
-                            syntax_parsing_errors = returned_syntax_parsing_errors;
-                        }
-                        (returned_iterator, returned_syntax_parsing_errors, None) => {
-                            syntax_parsing_errors = returned_syntax_parsing_errors;
-                            syntax_parsing_errors
-                                .push("Unable to parse expression in arguments.".to_string());
-                            return (returned_iterator, syntax_parsing_errors, vec![]);
-                        }
+    if let Some(token) = iterator.peek() {
+        if **token != Token::CLOSING_ROUND_BRACKET {
+            loop {
+                match super::super::get_expression(
+                    iterator,
+                    syntax_parsing_errors,
+                    ExpressionPrecedence::LOWEST,
+                ) {
+                    (returned_iterator, returned_syntax_parsing_errors, Some(expression)) => {
+                        arguments.push(expression);
+                        iterator = returned_iterator;
+                        syntax_parsing_errors = returned_syntax_parsing_errors;
                     }
+                    (returned_iterator, returned_syntax_parsing_errors, None) => {
+                        syntax_parsing_errors = returned_syntax_parsing_errors;
+                        syntax_parsing_errors
+                            .push("Unable to parse expression in arguments.".to_string());
+                        return (returned_iterator, syntax_parsing_errors, vec![]);
+                    }
+                }
 
-                    match iterator.peek() {
-                        Some(token) => match token {
-                            Token::CLOSING_ROUND_BRACKET => break,
-                            Token::COMMA => {
-                                iterator.next();
-                            }
-                            _ => {
-                                return (iterator, syntax_parsing_errors, vec![]);
-                            }
-                        },
-                        None => {
+                match iterator.peek() {
+                    Some(token) => match token {
+                        Token::CLOSING_ROUND_BRACKET => break,
+                        Token::COMMA => {
+                            iterator.next();
+                        }
+                        _ => {
                             return (iterator, syntax_parsing_errors, vec![]);
                         }
+                    },
+                    None => {
+                        return (iterator, syntax_parsing_errors, vec![]);
                     }
                 }
             }
         }
-        None => {}
     }
 
     assert_token!(
@@ -100,7 +99,7 @@ fn parse_arguments(
         Token::CLOSING_ROUND_BRACKET,
         vec![]
     );
-    return (iterator, syntax_parsing_errors, arguments);
+    (iterator, syntax_parsing_errors, arguments)
 }
 
 #[cfg(test)]

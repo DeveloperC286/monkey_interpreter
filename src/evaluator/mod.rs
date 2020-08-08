@@ -18,11 +18,11 @@ pub fn evaluate(abstract_syntax_tree: AbstractSyntaxTree) -> Object {
         object = evaluate_node(syntax_tree_node);
     }
 
-    return object;
+    object
 }
 
 pub fn evaluate_node(syntax_tree_node: SyntaxTreeNode) -> Object {
-    return match syntax_tree_node {
+    match syntax_tree_node {
         SyntaxTreeNode::EXPRESSION { expression } => match expression {
             Expression::INTEGER { integer_token } => integer::parse_integer(integer_token),
             Expression::BOOLEAN { boolean_token } => boolean::parse_boolean(boolean_token),
@@ -38,7 +38,7 @@ pub fn evaluate_node(syntax_tree_node: SyntaxTreeNode) -> Object {
             _ => Object::NULL,
         },
         _ => Object::NULL,
-    };
+    }
 }
 
 #[cfg(test)]

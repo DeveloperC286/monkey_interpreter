@@ -33,14 +33,14 @@ pub fn parse_function_expression(
         }
     };
 
-    return (
+    (
         iterator,
         syntax_parsing_errors,
         Some(Expression::FUNCTION {
             parameters,
             block: Box::new(block),
         }),
-    );
+    )
 }
 
 fn parse_parameters(
@@ -57,61 +57,60 @@ fn parse_parameters(
     );
     let mut parameters = vec![];
 
-    match iterator.peek() {
-        Some(token) => {
-            if **token != Token::CLOSING_ROUND_BRACKET {
-                loop {
-                    match super::get_expression(
-                        iterator,
-                        syntax_parsing_errors,
-                        ExpressionPrecedence::LOWEST,
-                    ) {
-                        (returned_iterator, returned_syntax_parsing_errors, Some(expression)) => {
-                            match expression.clone() {
-                                Expression::IDENTIFIER { identifier_token } => {
-                                    parameters.push(expression);
-                                    iterator = returned_iterator;
-                                    syntax_parsing_errors = returned_syntax_parsing_errors;
-                                }
-                                _ => {
-                                    iterator = returned_iterator;
-                                    syntax_parsing_errors = returned_syntax_parsing_errors;
-                                    syntax_parsing_errors.push(
-                                        "Only allowed Expression::IDENTIFIER in parameters."
-                                            .to_string(),
-                                    );
-                                }
-                            }
-                        }
-                        (returned_iterator, returned_syntax_parsing_errors, None) => {
-                            syntax_parsing_errors = returned_syntax_parsing_errors;
-                            syntax_parsing_errors
-                                .push("Unable to parse expression in parameters.".to_string());
-                            return (returned_iterator, syntax_parsing_errors, vec![]);
-                        }
-                    }
-
-                    match iterator.peek() {
-                        Some(token) => match token {
-                            Token::CLOSING_ROUND_BRACKET => break,
-                            Token::COMMA => {
-                                iterator.next();
+    if let Some(token) = iterator.peek() {
+        if **token != Token::CLOSING_ROUND_BRACKET {
+            loop {
+                match super::get_expression(
+                    iterator,
+                    syntax_parsing_errors,
+                    ExpressionPrecedence::LOWEST,
+                ) {
+                    (returned_iterator, returned_syntax_parsing_errors, Some(expression)) => {
+                        match expression.clone() {
+                            Expression::IDENTIFIER {
+                                identifier_token: _,
+                            } => {
+                                parameters.push(expression);
+                                iterator = returned_iterator;
+                                syntax_parsing_errors = returned_syntax_parsing_errors;
                             }
                             _ => {
+                                iterator = returned_iterator;
+                                syntax_parsing_errors = returned_syntax_parsing_errors;
                                 syntax_parsing_errors.push(
-                                    "Parameters must be comma seperated identifiers.".to_string(),
+                                    "Only allowed Expression::IDENTIFIER in parameters."
+                                        .to_string(),
                                 );
-                                return (iterator, syntax_parsing_errors, vec![]);
                             }
-                        },
-                        None => {
+                        }
+                    }
+                    (returned_iterator, returned_syntax_parsing_errors, None) => {
+                        syntax_parsing_errors = returned_syntax_parsing_errors;
+                        syntax_parsing_errors
+                            .push("Unable to parse expression in parameters.".to_string());
+                        return (returned_iterator, syntax_parsing_errors, vec![]);
+                    }
+                }
+
+                match iterator.peek() {
+                    Some(token) => match token {
+                        Token::CLOSING_ROUND_BRACKET => break,
+                        Token::COMMA => {
+                            iterator.next();
+                        }
+                        _ => {
+                            syntax_parsing_errors.push(
+                                "Parameters must be comma seperated identifiers.".to_string(),
+                            );
                             return (iterator, syntax_parsing_errors, vec![]);
                         }
+                    },
+                    None => {
+                        return (iterator, syntax_parsing_errors, vec![]);
                     }
                 }
             }
         }
-        None => {}
     }
 
     assert_token!(
@@ -120,7 +119,7 @@ fn parse_parameters(
         Token::CLOSING_ROUND_BRACKET,
         vec![]
     );
-    return (iterator, syntax_parsing_errors, parameters);
+    (iterator, syntax_parsing_errors, parameters)
 }
 
 #[cfg(test)]

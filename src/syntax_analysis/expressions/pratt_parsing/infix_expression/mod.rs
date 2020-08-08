@@ -18,7 +18,7 @@ pub fn parse_infix_expression(
     };
     let precedence = expression_precedence::get_current_expression_precedence(&operator_token);
 
-    return match crate::syntax_analysis::expressions::get_expression_node(
+    match crate::syntax_analysis::expressions::get_expression_node(
         iterator,
         syntax_parsing_errors,
         precedence,
@@ -37,7 +37,7 @@ pub fn parse_infix_expression(
         (returned_iterator, returned_syntax_parsing_errors, None) => {
             (returned_iterator, returned_syntax_parsing_errors, None)
         }
-    };
+    }
 }
 
 #[cfg(test)]

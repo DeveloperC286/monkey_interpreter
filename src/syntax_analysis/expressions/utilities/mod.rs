@@ -18,23 +18,20 @@ pub fn parse_block(
     );
     let mut blocks = vec![];
 
-    loop {
-        match iterator.peek() {
-            Some(token) => match token {
-                Token::CLOSING_CURLY_BRACKET | Token::EOF => break,
-                _ => match get_next_syntax_tree_node(iterator, syntax_parsing_errors) {
-                    (returned_iterator, returned_syntax_parsing_errors, Some(token)) => {
-                        iterator = returned_iterator;
-                        syntax_parsing_errors = returned_syntax_parsing_errors;
-                        blocks.push(token)
-                    }
-                    (returned_iterator, returned_syntax_parsing_errors, None) => {
-                        iterator = returned_iterator;
-                        syntax_parsing_errors = returned_syntax_parsing_errors;
-                    }
-                },
+    while let Some(token) = iterator.peek() {
+        match token {
+            Token::CLOSING_CURLY_BRACKET | Token::EOF => break,
+            _ => match get_next_syntax_tree_node(iterator, syntax_parsing_errors) {
+                (returned_iterator, returned_syntax_parsing_errors, Some(token)) => {
+                    iterator = returned_iterator;
+                    syntax_parsing_errors = returned_syntax_parsing_errors;
+                    blocks.push(token)
+                }
+                (returned_iterator, returned_syntax_parsing_errors, None) => {
+                    iterator = returned_iterator;
+                    syntax_parsing_errors = returned_syntax_parsing_errors;
+                }
             },
-            None => break,
         }
     }
 
@@ -45,9 +42,9 @@ pub fn parse_block(
         None
     );
 
-    return (
+    (
         iterator,
         syntax_parsing_errors,
         Some(Block::BLOCK { blocks }),
-    );
+    )
 }

@@ -13,7 +13,7 @@ pub fn repl() {
         let tokens = crate::lexical_analysis::get_tokens(read());
         let abstract_syntax_tree = crate::syntax_analysis::get_abstract_syntax_tree(tokens);
 
-        if abstract_syntax_tree.syntax_parsing_errors.len() > 0 {
+        if !abstract_syntax_tree.syntax_parsing_errors.is_empty() {
             for error in abstract_syntax_tree
                 .syntax_parsing_errors
                 .iter()
@@ -39,5 +39,5 @@ fn read() -> String {
         Err(error) => error!("Error reading user input: {}", error),
     }
 
-    return buffer;
+    buffer
 }

@@ -20,31 +20,25 @@ pub fn get_abstract_syntax_tree(tokens: Vec<Token>) -> AbstractSyntaxTree {
     let mut syntax_parsing_errors: Vec<String> = vec![];
     let mut iterator: Peekable<Iter<Token>> = tokens.iter().peekable();
 
-    loop {
-        match iterator.peek() {
-            Some(token) => match token {
-                Token::EOF => break,
-                _ => {
-                    let (returned_iterator, returned_syntax_parsing_errors, syntax_tree_node) =
-                        get_next_syntax_tree_node(iterator, syntax_parsing_errors);
-                    iterator = returned_iterator;
-                    syntax_parsing_errors = returned_syntax_parsing_errors;
-                    match syntax_tree_node {
-                        Some(syntax_tree_node) => abstract_syntax_tree.push(syntax_tree_node),
-                        None => {}
-                    }
+    while let Some(token) = iterator.peek() {
+        match token {
+            Token::EOF => break,
+            _ => {
+                let (returned_iterator, returned_syntax_parsing_errors, syntax_tree_node) =
+                    get_next_syntax_tree_node(iterator, syntax_parsing_errors);
+                iterator = returned_iterator;
+                syntax_parsing_errors = returned_syntax_parsing_errors;
+                if let Some(syntax_tree_node) = syntax_tree_node {
+                    abstract_syntax_tree.push(syntax_tree_node)
                 }
-            },
-            None => {
-                break;
             }
         }
     }
 
-    return AbstractSyntaxTree {
+    AbstractSyntaxTree {
         abstract_syntax_tree,
         syntax_parsing_errors,
-    };
+    }
 }
 
 fn get_next_syntax_tree_node(

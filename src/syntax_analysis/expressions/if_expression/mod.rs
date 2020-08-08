@@ -41,18 +41,15 @@ pub fn parse_if_expression(
     syntax_parsing_errors = returned_syntax_parsing_errors;
     let mut alternative = None;
 
-    match iterator.peek() {
-        Some(token) => {
-            if **token == Token::ELSE {
-                assert_token!(iterator, syntax_parsing_errors, Token::ELSE, None);
-                let (returned_iterator, returned_syntax_parsing_errors, returned_alternative) =
-                    parse_block(iterator, syntax_parsing_errors);
-                alternative = returned_alternative;
-                iterator = returned_iterator;
-                syntax_parsing_errors = returned_syntax_parsing_errors;
-            }
+    if let Some(token) = iterator.peek() {
+        if **token == Token::ELSE {
+            assert_token!(iterator, syntax_parsing_errors, Token::ELSE, None);
+            let (returned_iterator, returned_syntax_parsing_errors, returned_alternative) =
+                parse_block(iterator, syntax_parsing_errors);
+            alternative = returned_alternative;
+            iterator = returned_iterator;
+            syntax_parsing_errors = returned_syntax_parsing_errors;
         }
-        None => {}
     }
 
     // check if expression was parsed correctly
@@ -70,7 +67,7 @@ pub fn parse_if_expression(
         }
     };
 
-    return (
+    (
         iterator,
         syntax_parsing_errors,
         Some(Expression::IF {
@@ -78,7 +75,7 @@ pub fn parse_if_expression(
             consequence: Box::new(consequence),
             alternative: Box::new(alternative),
         }),
-    );
+    )
 }
 
 #[cfg(test)]

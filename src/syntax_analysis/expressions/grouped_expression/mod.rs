@@ -33,7 +33,7 @@ pub fn parse_grouped_expression(
         None
     );
 
-    return (iterator, syntax_parsing_errors, grouped_expression);
+    (iterator, syntax_parsing_errors, grouped_expression)
 }
 
 #[cfg(test)]

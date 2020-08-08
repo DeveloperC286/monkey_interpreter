@@ -1,3 +1,4 @@
+use std::cmp::Ordering;
 use std::iter::Peekable;
 use std::slice::Iter;
 
@@ -16,19 +17,16 @@ pub fn pratt_parsing(
     mut expression: Option<Expression>,
     expression_precedence: ExpressionPrecedence,
 ) -> (Peekable<Iter<Token>>, Vec<String>, Option<Expression>) {
-    loop {
-        let token = match iterator.peek() {
-            Some(token) => token,
-            None => break,
-        };
-
+    while let Some(token) = iterator.peek() {
         if **token == Token::SEMI_COLON {
             break;
         }
 
-        if !(expression_precedence
-            < expression_precedence::get_current_expression_precedence(&token))
-        {
+        //if expression_precedence.
+        let expression_precedence_comparison = expression_precedence.partial_cmp(
+            &expression_precedence::get_current_expression_precedence(&token),
+        );
+        if expression_precedence_comparison != Some(Ordering::Less) {
             break;
         }
 
@@ -68,5 +66,5 @@ pub fn pratt_parsing(
         }
     }
 
-    return (iterator, syntax_parsing_errors, expression);
+    (iterator, syntax_parsing_errors, expression)
 }

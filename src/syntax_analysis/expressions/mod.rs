@@ -41,17 +41,17 @@ pub fn get_expression(
 ) -> (Peekable<Iter<Token>>, Vec<String>, Option<Expression>) {
     debug!("Parsing an expression.");
 
-    let mut expression: Option<Expression> = None;
+    let expression: Option<Expression>;
 
     match iterator.peek() {
         Some(token) => match token {
-            Token::IDENTIFIER { literal } => {
+            Token::IDENTIFIER { literal: _ } => {
                 debug!("Found an identifier expression.");
                 expression = Some(Expression::IDENTIFIER {
                     identifier_token: iterator.next().unwrap().clone(),
                 });
             }
-            Token::INTEGER { literal } => {
+            Token::INTEGER { literal: _ } => {
                 debug!("Found an integer expression.");
                 expression = Some(Expression::INTEGER {
                     integer_token: iterator.next().unwrap().clone(),
@@ -158,12 +158,12 @@ pub fn get_expression(
         }
     }
 
-    return pratt_parsing::pratt_parsing(
+    pratt_parsing::pratt_parsing(
         iterator,
         syntax_parsing_errors,
         expression,
         expression_precedence,
-    );
+    )
 }
 
 #[cfg(test)]

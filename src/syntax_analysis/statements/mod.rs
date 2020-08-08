@@ -20,7 +20,7 @@ pub fn parse_return_statement(
     let expression = consume_expression!(iterator, syntax_parsing_errors);
     semicolon!(iterator);
 
-    return (
+    (
         iterator,
         syntax_parsing_errors,
         Some(SyntaxTreeNode::STATEMENT {
@@ -28,7 +28,7 @@ pub fn parse_return_statement(
                 expression: Box::new(expression),
             },
         }),
-    );
+    )
 }
 
 pub fn parse_let_statement(
@@ -40,9 +40,9 @@ pub fn parse_let_statement(
     assert_token!(iterator, syntax_parsing_errors, Token::LET, None);
     let identifier_token = match iterator.next() {
         Some(token) => match token {
-            Token::IDENTIFIER { literal } => token,
+            Token::IDENTIFIER { literal: _ } => token,
             _ => {
-                syntax_parsing_errors.push(format!("Syntax error : Expected a IDENTIFIER.",));
+                syntax_parsing_errors.push("Syntax error : Expected a IDENTIFIER.".to_string());
                 return (iterator, syntax_parsing_errors, None);
             }
         },
@@ -55,7 +55,7 @@ pub fn parse_let_statement(
 
     semicolon!(iterator);
 
-    return (
+    (
         iterator,
         syntax_parsing_errors,
         Some(SyntaxTreeNode::STATEMENT {
@@ -64,7 +64,7 @@ pub fn parse_let_statement(
                 expression: Box::new(expression),
             },
         }),
-    );
+    )
 }
 
 #[cfg(test)]
