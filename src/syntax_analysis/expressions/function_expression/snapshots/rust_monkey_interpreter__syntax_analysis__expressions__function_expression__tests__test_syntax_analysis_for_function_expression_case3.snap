@@ -20,9 +20,7 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
               }
             ],
             "block": {
-              "BLOCK": {
-                "blocks": []
-              }
+              "blocks": []
             }
           }
         }

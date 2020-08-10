@@ -3,8 +3,8 @@ use serde::{Deserialize, Serialize};
 use crate::lexical_analysis::token::Token;
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
-pub enum Block {
-    BLOCK { blocks: Vec<SyntaxTreeNode> },
+pub struct Block {
+    pub blocks: Vec<SyntaxTreeNode>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]

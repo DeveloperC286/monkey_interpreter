@@ -32,23 +32,21 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
               }
             },
             "consequence": {
-              "BLOCK": {
-                "blocks": [
-                  {
-                    "EXPRESSION": {
-                      "expression": {
-                        "IDENTIFIER": {
-                          "identifier_token": {
-                            "IDENTIFIER": {
-                              "literal": "x"
-                            }
+              "blocks": [
+                {
+                  "EXPRESSION": {
+                    "expression": {
+                      "IDENTIFIER": {
+                        "identifier_token": {
+                          "IDENTIFIER": {
+                            "literal": "x"
                           }
                         }
                       }
                     }
                   }
-                ]
-              }
+                }
+              ]
             },
             "alternative": null
           }
