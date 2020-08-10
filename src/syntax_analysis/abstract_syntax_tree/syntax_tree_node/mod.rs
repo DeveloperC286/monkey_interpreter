@@ -34,12 +34,12 @@ pub enum Expression {
     },
     PREFIX {
         prefix_token: Token,
-        right_hand_node: Box<SyntaxTreeNode>,
+        right_hand: Box<Expression>,
     },
     INFIX {
-        left_hand_node: Box<SyntaxTreeNode>,
+        left_hand: Box<Expression>,
         operator_token: Token,
-        right_hand_node: Box<SyntaxTreeNode>,
+        right_hand: Box<Expression>,
     },
     BOOLEAN {
         boolean_token: Token,

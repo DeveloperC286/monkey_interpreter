@@ -8,55 +8,35 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
       "EXPRESSION": {
         "expression": {
           "INFIX": {
-            "left_hand_node": {
-              "EXPRESSION": {
-                "expression": {
+            "left_hand": {
+              "INFIX": {
+                "left_hand": {
+                  "INTEGER": {
+                    "integer_token": {
+                      "INTEGER": {
+                        "literal": "1"
+                      }
+                    }
+                  }
+                },
+                "operator_token": "PLUS",
+                "right_hand": {
                   "INFIX": {
-                    "left_hand_node": {
-                      "EXPRESSION": {
-                        "expression": {
+                    "left_hand": {
+                      "INTEGER": {
+                        "integer_token": {
                           "INTEGER": {
-                            "integer_token": {
-                              "INTEGER": {
-                                "literal": "1"
-                              }
-                            }
+                            "literal": "2"
                           }
                         }
                       }
                     },
                     "operator_token": "PLUS",
-                    "right_hand_node": {
-                      "EXPRESSION": {
-                        "expression": {
-                          "INFIX": {
-                            "left_hand_node": {
-                              "EXPRESSION": {
-                                "expression": {
-                                  "INTEGER": {
-                                    "integer_token": {
-                                      "INTEGER": {
-                                        "literal": "2"
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            "operator_token": "PLUS",
-                            "right_hand_node": {
-                              "EXPRESSION": {
-                                "expression": {
-                                  "INTEGER": {
-                                    "integer_token": {
-                                      "INTEGER": {
-                                        "literal": "3"
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
+                    "right_hand": {
+                      "INTEGER": {
+                        "integer_token": {
+                          "INTEGER": {
+                            "literal": "3"
                           }
                         }
                       }
@@ -66,15 +46,11 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
               }
             },
             "operator_token": "PLUS",
-            "right_hand_node": {
-              "EXPRESSION": {
-                "expression": {
+            "right_hand": {
+              "INTEGER": {
+                "integer_token": {
                   "INTEGER": {
-                    "integer_token": {
-                      "INTEGER": {
-                        "literal": "4"
-                      }
-                    }
+                    "literal": "4"
                   }
                 }
               }

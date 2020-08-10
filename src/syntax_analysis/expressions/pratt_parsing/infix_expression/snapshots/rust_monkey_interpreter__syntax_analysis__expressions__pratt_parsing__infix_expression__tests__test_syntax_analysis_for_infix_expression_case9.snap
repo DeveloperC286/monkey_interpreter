@@ -8,35 +8,23 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
       "EXPRESSION": {
         "expression": {
           "INFIX": {
-            "left_hand_node": {
-              "EXPRESSION": {
-                "expression": {
-                  "INFIX": {
-                    "left_hand_node": {
-                      "EXPRESSION": {
-                        "expression": {
-                          "INTEGER": {
-                            "integer_token": {
-                              "INTEGER": {
-                                "literal": "10"
-                              }
-                            }
-                          }
-                        }
+            "left_hand": {
+              "INFIX": {
+                "left_hand": {
+                  "INTEGER": {
+                    "integer_token": {
+                      "INTEGER": {
+                        "literal": "10"
                       }
-                    },
-                    "operator_token": "LESSER_THAN",
-                    "right_hand_node": {
-                      "EXPRESSION": {
-                        "expression": {
-                          "INTEGER": {
-                            "integer_token": {
-                              "INTEGER": {
-                                "literal": "5"
-                              }
-                            }
-                          }
-                        }
+                    }
+                  }
+                },
+                "operator_token": "LESSER_THAN",
+                "right_hand": {
+                  "INTEGER": {
+                    "integer_token": {
+                      "INTEGER": {
+                        "literal": "5"
                       }
                     }
                   }
@@ -44,13 +32,9 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
               }
             },
             "operator_token": "NOT_EQUALS",
-            "right_hand_node": {
-              "EXPRESSION": {
-                "expression": {
-                  "BOOLEAN": {
-                    "boolean_token": "FALSE"
-                  }
-                }
+            "right_hand": {
+              "BOOLEAN": {
+                "boolean_token": "FALSE"
               }
             }
           }

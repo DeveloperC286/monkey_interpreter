@@ -10,29 +10,21 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
           "IF": {
             "condition": {
               "INFIX": {
-                "left_hand_node": {
-                  "EXPRESSION": {
-                    "expression": {
+                "left_hand": {
+                  "IDENTIFIER": {
+                    "identifier_token": {
                       "IDENTIFIER": {
-                        "identifier_token": {
-                          "IDENTIFIER": {
-                            "literal": "x"
-                          }
-                        }
+                        "literal": "x"
                       }
                     }
                   }
                 },
                 "operator_token": "LESSER_THAN",
-                "right_hand_node": {
-                  "EXPRESSION": {
-                    "expression": {
+                "right_hand": {
+                  "IDENTIFIER": {
+                    "identifier_token": {
                       "IDENTIFIER": {
-                        "identifier_token": {
-                          "IDENTIFIER": {
-                            "literal": "y"
-                          }
-                        }
+                        "literal": "y"
                       }
                     }
                   }

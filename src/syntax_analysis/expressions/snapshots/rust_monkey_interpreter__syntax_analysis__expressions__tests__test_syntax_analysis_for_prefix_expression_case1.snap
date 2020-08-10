@@ -9,15 +9,11 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
         "expression": {
           "PREFIX": {
             "prefix_token": "NOT",
-            "right_hand_node": {
-              "EXPRESSION": {
-                "expression": {
+            "right_hand": {
+              "INTEGER": {
+                "integer_token": {
                   "INTEGER": {
-                    "integer_token": {
-                      "INTEGER": {
-                        "literal": "15"
-                      }
-                    }
+                    "literal": "15"
                   }
                 }
               }

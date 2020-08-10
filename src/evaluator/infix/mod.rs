@@ -2,15 +2,11 @@ use crate::evaluator::object::Object;
 use crate::lexical_analysis::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
 
-pub fn parse_infix(
-    left_hand_node: SyntaxTreeNode,
-    operator_token: Token,
-    right_hand_node: SyntaxTreeNode,
-) -> Object {
-    match crate::evaluator::evaluate_node(left_hand_node) {
+pub fn evaluate(left_hand: Expression, operator_token: Token, right_hand: Expression) -> Object {
+    match crate::evaluator::evaluate_expression(left_hand) {
         Object::INTEGER { value } => {
             let left_value = value;
-            match crate::evaluator::evaluate_node(right_hand_node) {
+            match crate::evaluator::evaluate_expression(right_hand) {
                 Object::INTEGER { value } => {
                     let right_value = value;
                     match operator_token {
@@ -48,12 +44,12 @@ pub fn parse_infix(
                 _ => Object::NULL,
             }
         }
-        Object::TRUE => match crate::evaluator::evaluate_node(right_hand_node) {
+        Object::TRUE => match crate::evaluator::evaluate_expression(right_hand) {
             Object::TRUE => evaluate_same_boolean(operator_token),
             Object::FALSE => evaluate_opposite_boolean(operator_token),
             _ => Object::NULL,
         },
-        Object::FALSE => match crate::evaluator::evaluate_node(right_hand_node) {
+        Object::FALSE => match crate::evaluator::evaluate_expression(right_hand) {
             Object::FALSE => evaluate_same_boolean(operator_token),
             Object::TRUE => evaluate_opposite_boolean(operator_token),
             _ => Object::NULL,

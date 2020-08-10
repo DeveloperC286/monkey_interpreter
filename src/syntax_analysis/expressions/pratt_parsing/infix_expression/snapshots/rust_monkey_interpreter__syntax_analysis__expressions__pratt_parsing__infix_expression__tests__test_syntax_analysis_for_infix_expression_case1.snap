@@ -8,29 +8,21 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
       "EXPRESSION": {
         "expression": {
           "INFIX": {
-            "left_hand_node": {
-              "EXPRESSION": {
-                "expression": {
+            "left_hand": {
+              "INTEGER": {
+                "integer_token": {
                   "INTEGER": {
-                    "integer_token": {
-                      "INTEGER": {
-                        "literal": "15"
-                      }
-                    }
+                    "literal": "15"
                   }
                 }
               }
             },
             "operator_token": "PLUS",
-            "right_hand_node": {
-              "EXPRESSION": {
-                "expression": {
+            "right_hand": {
+              "INTEGER": {
+                "integer_token": {
                   "INTEGER": {
-                    "integer_token": {
-                      "INTEGER": {
-                        "literal": "5"
-                      }
-                    }
+                    "literal": "5"
                   }
                 }
               }

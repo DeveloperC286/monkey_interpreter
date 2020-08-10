@@ -37,29 +37,21 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
             },
             "expression": {
               "INFIX": {
-                "left_hand_node": {
-                  "EXPRESSION": {
-                    "expression": {
+                "left_hand": {
+                  "INTEGER": {
+                    "integer_token": {
                       "INTEGER": {
-                        "integer_token": {
-                          "INTEGER": {
-                            "literal": "7"
-                          }
-                        }
+                        "literal": "7"
                       }
                     }
                   }
                 },
                 "operator_token": "PLUS",
-                "right_hand_node": {
-                  "EXPRESSION": {
-                    "expression": {
+                "right_hand": {
+                  "INTEGER": {
+                    "integer_token": {
                       "INTEGER": {
-                        "integer_token": {
-                          "INTEGER": {
-                            "literal": "10"
-                          }
-                        }
+                        "literal": "10"
                       }
                     }
                   }

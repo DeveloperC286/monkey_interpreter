@@ -23,20 +23,28 @@ pub fn evaluate(abstract_syntax_tree: AbstractSyntaxTree) -> Object {
 
 pub fn evaluate_node(syntax_tree_node: SyntaxTreeNode) -> Object {
     match syntax_tree_node {
-        SyntaxTreeNode::EXPRESSION { expression } => match expression {
-            Expression::INTEGER { integer_token } => integer::parse_integer(integer_token),
-            Expression::BOOLEAN { boolean_token } => boolean::parse_boolean(boolean_token),
-            Expression::PREFIX {
-                prefix_token,
-                right_hand_node,
-            } => prefix::parse_prefix(prefix_token, *right_hand_node),
-            Expression::INFIX {
-                left_hand_node,
-                operator_token,
-                right_hand_node,
-            } => infix::parse_infix(*left_hand_node, operator_token, *right_hand_node),
-            _ => Object::NULL,
-        },
+        SyntaxTreeNode::EXPRESSION { expression } => evaluate_expression(expression),
+        SyntaxTreeNode::STATEMENT { statement } => evaluate_statement(statement),
+    }
+}
+
+fn evaluate_statement(_statement: Statement) -> Object {
+    Object::NULL
+}
+
+fn evaluate_expression(expression: Expression) -> Object {
+    match expression {
+        Expression::INTEGER { integer_token } => integer::evaluate(integer_token),
+        Expression::BOOLEAN { boolean_token } => boolean::evaluate(boolean_token),
+        Expression::PREFIX {
+            prefix_token,
+            right_hand,
+        } => prefix::evaluate(prefix_token, *right_hand),
+        Expression::INFIX {
+            left_hand,
+            operator_token,
+            right_hand,
+        } => infix::evaluate(*left_hand, operator_token, *right_hand),
         _ => Object::NULL,
     }
 }

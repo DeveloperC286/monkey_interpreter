@@ -9,35 +9,23 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
         "expression": {
           "PREFIX": {
             "prefix_token": "MINUS",
-            "right_hand_node": {
-              "EXPRESSION": {
-                "expression": {
-                  "INFIX": {
-                    "left_hand_node": {
-                      "EXPRESSION": {
-                        "expression": {
-                          "INTEGER": {
-                            "integer_token": {
-                              "INTEGER": {
-                                "literal": "5"
-                              }
-                            }
-                          }
-                        }
+            "right_hand": {
+              "INFIX": {
+                "left_hand": {
+                  "INTEGER": {
+                    "integer_token": {
+                      "INTEGER": {
+                        "literal": "5"
                       }
-                    },
-                    "operator_token": "MULTIPLY",
-                    "right_hand_node": {
-                      "EXPRESSION": {
-                        "expression": {
-                          "INTEGER": {
-                            "integer_token": {
-                              "INTEGER": {
-                                "literal": "10"
-                              }
-                            }
-                          }
-                        }
+                    }
+                  }
+                },
+                "operator_token": "MULTIPLY",
+                "right_hand": {
+                  "INTEGER": {
+                    "integer_token": {
+                      "INTEGER": {
+                        "literal": "10"
                       }
                     }
                   }

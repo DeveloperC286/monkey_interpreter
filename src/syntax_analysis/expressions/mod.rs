@@ -15,10 +15,12 @@ pub mod utilities;
 pub fn get_expression_node(
     mut iterator: Peekable<Iter<Token>>,
     mut syntax_parsing_errors: Vec<String>,
-    expression_precedence: ExpressionPrecedence,
 ) -> (Peekable<Iter<Token>>, Vec<String>, Option<SyntaxTreeNode>) {
-    let (returned_iterator, returned_syntax_parsing_errors, expression_option) =
-        get_expression(iterator, syntax_parsing_errors, expression_precedence);
+    let (returned_iterator, returned_syntax_parsing_errors, expression_option) = get_expression(
+        iterator,
+        syntax_parsing_errors,
+        ExpressionPrecedence::LOWEST,
+    );
     iterator = returned_iterator;
     syntax_parsing_errors = returned_syntax_parsing_errors;
 
@@ -61,17 +63,17 @@ pub fn get_expression(
                 debug!("Found a prefix expression.");
                 let token = iterator.next().unwrap().clone();
 
-                match get_expression_node(
+                match get_expression(
                     iterator,
                     syntax_parsing_errors,
                     ExpressionPrecedence::PREFIX,
                 ) {
-                    (returned_iterator, returned_syntax_parsing_errors, Some(right_hand_node)) => {
+                    (returned_iterator, returned_syntax_parsing_errors, Some(right_hand)) => {
                         iterator = returned_iterator;
                         syntax_parsing_errors = returned_syntax_parsing_errors;
                         expression = Some(Expression::PREFIX {
                             prefix_token: token,
-                            right_hand_node: Box::new(right_hand_node),
+                            right_hand: Box::new(right_hand),
                         });
                     }
                     (returned_iterator, returned_syntax_parsing_errors, None) => {
