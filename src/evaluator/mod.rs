@@ -3,14 +3,15 @@ use object::Object;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
 use crate::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
 
-pub mod object;
 #[macro_use]
-pub mod macros;
+mod macros;
 mod boolean;
 mod if_statement;
 mod infix;
 mod integer;
+mod object;
 mod prefix;
+mod return_statement;
 
 pub fn evaluate(abstract_syntax_tree: AbstractSyntaxTree) -> Object {
     evaluate_nodes(abstract_syntax_tree.abstract_syntax_tree)
@@ -21,6 +22,14 @@ fn evaluate_nodes(syntax_tree_nodes: Vec<SyntaxTreeNode>) -> Object {
 
     for syntax_tree_node in syntax_tree_nodes {
         object = evaluate_node(syntax_tree_node);
+
+        match object {
+            Object::RETURN { value } => {
+                object = *value;
+                break;
+            }
+            _ => {}
+        }
     }
 
     object
@@ -33,8 +42,12 @@ fn evaluate_node(syntax_tree_node: SyntaxTreeNode) -> Object {
     }
 }
 
-fn evaluate_statement(_statement: Statement) -> Object {
-    Object::NULL
+fn evaluate_statement(statement: Statement) -> Object {
+    //Box<Expression>
+    match statement {
+        Statement::RETURN { expression } => return_statement::evaluate(*expression),
+        _ => Object::NULL,
+    }
 }
 
 fn evaluate_expression(expression: Expression) -> Object {

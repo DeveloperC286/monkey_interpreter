@@ -5,7 +5,6 @@ pub fn evaluate(condition: Expression, consequence: Block, alternative: Option<B
     match crate::evaluator::evaluate_expression(condition) {
         Object::NULL | Object::FALSE => match alternative {
             Some(block) => crate::evaluator::evaluate_nodes(block.blocks),
-
             None => Object::NULL,
         },
         _ => crate::evaluator::evaluate_nodes(consequence.blocks),
