@@ -42,5 +42,9 @@ pub fn parse_block(
         None
     );
 
-    (iterator, syntax_parsing_errors, Some(Block { blocks }))
+    (
+        iterator,
+        syntax_parsing_errors,
+        Some(Block { nodes: blocks }),
+    )
 }

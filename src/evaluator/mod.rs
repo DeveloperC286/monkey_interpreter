@@ -14,21 +14,28 @@ mod prefix;
 mod return_statement;
 
 pub fn evaluate(abstract_syntax_tree: AbstractSyntaxTree) -> Object {
-    evaluate_nodes(abstract_syntax_tree.abstract_syntax_tree)
-}
-
-fn evaluate_nodes(syntax_tree_nodes: Vec<SyntaxTreeNode>) -> Object {
     let mut object = Object::NULL;
 
-    for syntax_tree_node in syntax_tree_nodes {
+    for syntax_tree_node in abstract_syntax_tree.abstract_syntax_tree {
         object = evaluate_node(syntax_tree_node);
 
-        match object {
-            Object::RETURN { value } => {
-                object = *value;
-                break;
-            }
-            _ => {}
+        if let Object::RETURN { value } = object.clone() {
+            object = *value;
+            break;
+        }
+    }
+
+    object
+}
+
+fn evaluate_block(block: Block) -> Object {
+    let mut object = Object::NULL;
+
+    for syntax_tree_node in block.nodes {
+        object = evaluate_node(syntax_tree_node);
+
+        if let Object::RETURN { value: _ } = object.clone() {
+            break;
         }
     }
 
@@ -43,7 +50,6 @@ fn evaluate_node(syntax_tree_node: SyntaxTreeNode) -> Object {
 }
 
 fn evaluate_statement(statement: Statement) -> Object {
-    //Box<Expression>
     match statement {
         Statement::RETURN { expression } => return_statement::evaluate(*expression),
         _ => Object::NULL,

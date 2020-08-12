@@ -4,7 +4,7 @@ use crate::lexical_analysis::token::Token;
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub struct Block {
-    pub blocks: Vec<SyntaxTreeNode>,
+    pub nodes: Vec<SyntaxTreeNode>,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]

@@ -20,6 +20,10 @@ use rstest::rstest;
         "13; return 8 / 2; 0;".to_string(),
         "test_evaluator_return_nodes_case4"
     ),
+    case(
+        "if (10 > 1) { if (10 > 1) { return TRUE;} return FALSE;}".to_string(),
+        "test_evaluator_return_nodes_case5"
+    ),
 )]
 fn test_evaluator_return_nodes(code: String, snapshot_name: &str) {
     assert_expected_returned_object!(code, snapshot_name);
