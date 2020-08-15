@@ -37,33 +37,30 @@ linting:
 
 conventional-commits-linting:
     stage: conventional-commits-linting
-    image: node
+    image: rust
     before_script:
-        - npm install -g @commitlint/cli @commitlint/config-conventional
+        - cargo install conventional_commits_linter
     script:
-        - BRANCH_FIRST_COMMIT=`git log --pretty=tformat:"%H" origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME --not origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME | tail -1`
+        - COMMON_ANCESTOR_COMMIT=`git merge-base origin/$CI_MERGE_REQUEST_SOURCE_BRANCH_NAME origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME`
         # Lint all the commits in the branch.
-        - commitlint --from=$BRANCH_FIRST_COMMIT
+        - /usr/local/cargo/bin/conventional_commits_linter --from-commit-hash $COMMON_ANCESTOR_COMMIT
     rules:
         - if: $CI_MERGE_REQUEST_ID
 
 
 conventional-commits-next-version-checking:
     stage: conventional-commits-next-version-checking
-    image: archlinux/base
+    image: rust
     before_script:
-        - pacman -Syu --noconfirm
-        - pacman -S diffutils unzip nettle wget git --noconfirm
+        - cargo install conventional_commits_next_version
     script:
         # Get current version and latest tag.
         - CURRENT_VERSION=`grep '^version = "[0-9][0-9]*.[0-9][0-9]*.[0-9][0-9]*"$' Cargo.toml | cut -d '"' -f 2`
-        - LATEST_TAG=`git tag -l | sort -r | head -1`
+        # If the latest tag is not a semantic version then conventional_commits_next_version will fail.
+        - LATEST_TAG=`git describe --tags | cut -d '-' -f 1`
         - LATEST_TAG_HASH=`git rev-parse $LATEST_TAG`
-        # Download conventional_commits_next_version binary.
-        - wget https://gitlab.com/DeveloperC/conventional_commits_next_version/-/jobs/artifacts/1.1.0/download?job=building-release-binary-linux-musl
-        - unzip download\?job=building-release-binary-linux-musl
         # Check current vs expected.
-        - ./conventional_commits_next_version --batch-commits --from-commit-hash $LATEST_TAG_HASH --from-version $LATEST_TAG --current-version $CURRENT_VERSION
+        - /usr/local/cargo/bin/conventional_commits_next_version --batch-commits --from-commit-hash $LATEST_TAG_HASH --from-version $LATEST_TAG --current-version $CURRENT_VERSION
     rules:
         - if: $CI_MERGE_REQUEST_ID
 
