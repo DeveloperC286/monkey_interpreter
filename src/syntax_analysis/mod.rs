@@ -7,12 +7,12 @@ use abstract_syntax_tree::AbstractSyntaxTree;
 use crate::lexical_analysis::token::Token;
 
 #[macro_use]
-pub mod macros;
+mod macros;
 
 pub mod abstract_syntax_tree;
-pub mod expression_precedence;
-pub mod expressions;
-pub mod statements;
+mod expression_precedence;
+mod expressions;
+mod statements;
 
 pub fn get_abstract_syntax_tree(tokens: Vec<Token>) -> AbstractSyntaxTree {
     let mut abstract_syntax_tree: Vec<SyntaxTreeNode> = vec![];

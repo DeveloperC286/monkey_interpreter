@@ -6,11 +6,11 @@ use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
     Expression, ExpressionPrecedence, SyntaxTreeNode,
 };
 
-pub mod function_expression;
-pub mod grouped_expression;
-pub mod if_expression;
-pub mod pratt_parsing;
-pub mod utilities;
+mod function_expression;
+mod grouped_expression;
+mod if_expression;
+mod pratt_parsing;
+mod utilities;
 
 pub fn get_expression_node(
     mut iterator: Peekable<Iter<Token>>,

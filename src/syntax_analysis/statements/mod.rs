@@ -8,7 +8,7 @@ use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
 use crate::syntax_analysis::expressions;
 
 #[macro_use]
-pub mod macros;
+mod macros;
 
 pub fn parse_return_statement(
     mut iterator: Peekable<Iter<Token>>,

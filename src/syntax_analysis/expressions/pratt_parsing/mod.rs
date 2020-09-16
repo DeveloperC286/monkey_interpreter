@@ -8,8 +8,8 @@ use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
 };
 use crate::syntax_analysis::expression_precedence;
 
-pub mod call_expression;
-pub mod infix_expression;
+mod call_expression;
+mod infix_expression;
 
 pub fn pratt_parsing(
     mut iterator: Peekable<Iter<Token>>,

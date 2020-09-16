@@ -3,10 +3,11 @@ use std::str::Chars;
 
 use token::Token;
 
-pub mod token;
-pub mod utilities;
 #[macro_use]
 mod macros;
+
+pub mod token;
+mod utilities;
 
 pub fn get_tokens(code: String) -> Vec<Token> {
     let mut tokens = Vec::new();
