@@ -1,9 +1,0 @@
----
-source: src/evaluator/infix/tests.rs
-expression: "crate::evaluator::evaluate(crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens(code)))"
----
-{
-  "INTEGER": {
-    "value": 2
-  }
-}

@@ -4,6 +4,10 @@ extern crate pretty_env_logger;
 
 use structopt::StructOpt;
 
+#[cfg(test)]
+#[macro_use]
+mod tests;
+
 mod evaluator;
 mod interpreter;
 mod lexical_analysis;

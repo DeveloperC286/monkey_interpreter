@@ -1,5 +1,5 @@
 ---
-source: src/syntax_analysis/tests.rs
+source: src/syntax_analysis/tests/mod.rs
 expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens(code))"
 ---
 {

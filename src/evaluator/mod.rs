@@ -3,8 +3,6 @@ use object::Object;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
 use crate::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
 
-#[macro_use]
-mod macros;
 mod boolean;
 mod if_statement;
 mod infix;

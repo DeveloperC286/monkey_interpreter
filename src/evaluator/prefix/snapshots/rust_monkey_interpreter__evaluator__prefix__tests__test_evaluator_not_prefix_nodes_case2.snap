@@ -1,5 +1,5 @@
 ---
 source: src/evaluator/prefix/tests.rs
-expression: "crate::evaluator::evaluate(abstract_syntax_tree)"
+expression: "crate::evaluator::evaluate(crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens(code)))"
 ---
 "TRUE"

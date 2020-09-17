@@ -1,5 +1,5 @@
 ---
-source: src/evaluator/infix/tests.rs
+source: src/evaluator/tests/mod.rs
 expression: "crate::evaluator::evaluate(crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens(code)))"
 ---
-"TRUE"
+"NULL"
