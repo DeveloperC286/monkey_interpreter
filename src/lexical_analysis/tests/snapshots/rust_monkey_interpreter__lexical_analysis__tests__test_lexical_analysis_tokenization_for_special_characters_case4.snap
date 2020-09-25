@@ -1,0 +1,15 @@
+---
+source: src/lexical_analysis/tests/mod.rs
+expression: returned_tokens
+---
+[
+  "ASSIGN",
+  "PLUS",
+  "OPENING_ROUND_BRACKET",
+  "CLOSING_ROUND_BRACKET",
+  "OPENING_CURLY_BRACKET",
+  "CLOSING_CURLY_BRACKET",
+  "COMMA",
+  "SEMI_COLON",
+  "EOF"
+]

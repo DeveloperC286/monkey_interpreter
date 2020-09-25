@@ -1,0 +1,10 @@
+---
+source: src/lexical_analysis/tests/mod.rs
+expression: returned_tokens
+---
+[
+  "GREATER_THAN",
+  "LESSER_THAN",
+  "MULTIPLY",
+  "EOF"
+]

@@ -1,0 +1,10 @@
+---
+source: src/lexical_analysis/tests/mod.rs
+expression: returned_tokens
+---
+[
+  "MINUS",
+  "DIVIDE",
+  "MULTIPLY",
+  "EOF"
+]

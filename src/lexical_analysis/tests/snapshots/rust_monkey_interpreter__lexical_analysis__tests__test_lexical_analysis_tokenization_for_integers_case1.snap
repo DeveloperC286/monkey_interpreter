@@ -1,0 +1,12 @@
+---
+source: src/lexical_analysis/tests/mod.rs
+expression: returned_tokens
+---
+[
+  {
+    "INTEGER": {
+      "literal": "123"
+    }
+  },
+  "EOF"
+]

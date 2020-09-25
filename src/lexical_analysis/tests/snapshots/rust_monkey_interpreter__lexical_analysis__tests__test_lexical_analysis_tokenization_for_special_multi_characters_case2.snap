@@ -1,0 +1,13 @@
+---
+source: src/lexical_analysis/tests/mod.rs
+expression: returned_tokens
+---
+[
+  "NOT_EQUALS",
+  {
+    "INTEGER": {
+      "literal": "4"
+    }
+  },
+  "EOF"
+]

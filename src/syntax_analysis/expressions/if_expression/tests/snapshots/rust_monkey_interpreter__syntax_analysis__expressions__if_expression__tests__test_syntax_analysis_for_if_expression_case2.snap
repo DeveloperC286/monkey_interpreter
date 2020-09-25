@@ -1,0 +1,74 @@
+---
+source: src/syntax_analysis/expressions/if_expression/tests/mod.rs
+expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens(code.to_string()))"
+---
+{
+  "abstract_syntax_tree": [
+    {
+      "EXPRESSION": {
+        "expression": {
+          "IF": {
+            "condition": {
+              "INFIX": {
+                "left_hand": {
+                  "IDENTIFIER": {
+                    "identifier_token": {
+                      "IDENTIFIER": {
+                        "literal": "x"
+                      }
+                    }
+                  }
+                },
+                "operator_token": "LESSER_THAN",
+                "right_hand": {
+                  "IDENTIFIER": {
+                    "identifier_token": {
+                      "IDENTIFIER": {
+                        "literal": "y"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "consequence": {
+              "nodes": [
+                {
+                  "EXPRESSION": {
+                    "expression": {
+                      "IDENTIFIER": {
+                        "identifier_token": {
+                          "IDENTIFIER": {
+                            "literal": "x"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "alternative": {
+              "nodes": [
+                {
+                  "EXPRESSION": {
+                    "expression": {
+                      "IDENTIFIER": {
+                        "identifier_token": {
+                          "IDENTIFIER": {
+                            "literal": "y"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ],
+  "syntax_parsing_errors": []
+}

@@ -1,0 +1,14 @@
+---
+source: src/lexical_analysis/tests/mod.rs
+expression: returned_tokens
+---
+[
+  "LET",
+  {
+    "IDENTIFIER": {
+      "literal": "_unused_var"
+    }
+  },
+  "SEMI_COLON",
+  "EOF"
+]

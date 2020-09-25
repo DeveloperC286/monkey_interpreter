@@ -1,0 +1,18 @@
+---
+source: src/lexical_analysis/tests/mod.rs
+expression: returned_tokens
+---
+[
+  {
+    "INTEGER": {
+      "literal": "2"
+    }
+  },
+  "EQUALS",
+  {
+    "INTEGER": {
+      "literal": "4"
+    }
+  },
+  "EOF"
+]

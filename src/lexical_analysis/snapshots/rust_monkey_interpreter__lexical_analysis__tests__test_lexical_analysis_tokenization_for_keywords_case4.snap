@@ -1,8 +1,0 @@
----
-source: src/lexical_analysis/tests.rs
-expression: returned_tokens
----
-[
-  "FUNCTION",
-  "EOF"
-]

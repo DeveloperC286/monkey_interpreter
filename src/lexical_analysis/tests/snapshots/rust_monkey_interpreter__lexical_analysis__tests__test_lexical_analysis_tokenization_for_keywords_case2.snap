@@ -1,0 +1,16 @@
+---
+source: src/lexical_analysis/tests/mod.rs
+expression: returned_tokens
+---
+[
+  "IF",
+  "FALSE",
+  "RETURN",
+  {
+    "INTEGER": {
+      "literal": "3"
+    }
+  },
+  "SEMI_COLON",
+  "EOF"
+]

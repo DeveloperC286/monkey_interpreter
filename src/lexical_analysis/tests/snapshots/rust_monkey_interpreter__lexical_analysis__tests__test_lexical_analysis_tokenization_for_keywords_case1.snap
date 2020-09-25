@@ -1,0 +1,9 @@
+---
+source: src/lexical_analysis/tests/mod.rs
+expression: returned_tokens
+---
+[
+  "TRUE",
+  "FALSE",
+  "EOF"
+]
