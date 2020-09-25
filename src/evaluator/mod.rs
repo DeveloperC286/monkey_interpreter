@@ -14,6 +14,10 @@ mod return_statement;
 pub fn evaluate(abstract_syntax_tree: AbstractSyntaxTree) -> Object {
     let mut object = Object::NULL;
 
+    if !abstract_syntax_tree.syntax_parsing_errors.is_empty() {
+        panic!("Syntax errors unable to evaluate.");
+    }
+
     for syntax_tree_node in abstract_syntax_tree.abstract_syntax_tree {
         object = evaluate_node(syntax_tree_node);
 
@@ -22,7 +26,7 @@ pub fn evaluate(abstract_syntax_tree: AbstractSyntaxTree) -> Object {
                 object = *value;
                 break;
             }
-            Object::TYPE_MISMATCH => break,
+            Object::TYPE_MISMATCH | Object::UNKNOWN_OPERATOR => break,
             _ => {}
         }
     }
@@ -37,7 +41,7 @@ fn evaluate_block(block: Block) -> Object {
         object = evaluate_node(syntax_tree_node);
 
         match object.clone() {
-            Object::RETURN { value: _ } | Object::TYPE_MISMATCH => break,
+            Object::RETURN { value: _ } | Object::TYPE_MISMATCH | Object::UNKNOWN_OPERATOR => break,
             _ => {}
         }
     }

@@ -64,3 +64,23 @@ fn test_evaluator_infix_boolean_expressions(code: &str, snapshot_name: &str) {
 fn test_evaluator_infix_type_mismatch_expressions(code: &str, snapshot_name: &str) {
     assert_expected_returned_object!(code, snapshot_name);
 }
+
+#[rstest(
+    code,
+    snapshot_name,
+    case(
+        "true + TRUE",
+        "test_evaluator_infix_unknown_operator_expressions_case1"
+    ),
+    case(
+        "5 + 10; FALSE * FALSE; 7",
+        "test_evaluator_infix_unknown_operator_expressions_case2"
+    ),
+    case(
+        "if (5 < 10) { FALSE + FALSE }",
+        "test_evaluator_infix_unknown_operator_expressions_case3"
+    )
+)]
+fn test_evaluator_infix_unknown_operator_expressions(code: &str, snapshot_name: &str) {
+    assert_expected_returned_object!(code, snapshot_name);
+}

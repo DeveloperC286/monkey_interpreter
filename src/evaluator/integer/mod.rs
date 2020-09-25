@@ -6,7 +6,7 @@ pub fn evaluate(integer_token: Token) -> Object {
         Token::INTEGER { literal } => Object::INTEGER {
             value: literal.parse().unwrap(),
         },
-        _ => Object::NULL,
+        _ => panic!("Integer token not a integer token."),
     }
 }
 

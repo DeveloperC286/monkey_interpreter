@@ -9,4 +9,5 @@ pub enum Object {
     FALSE,
     NULL,
     TYPE_MISMATCH,
+    UNKNOWN_OPERATOR,
 }

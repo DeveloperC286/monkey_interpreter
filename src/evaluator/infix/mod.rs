@@ -35,7 +35,7 @@ pub fn evaluate(left_hand: Expression, operator_token: Token, right_hand: Expres
                         true => Object::TRUE,
                         false => Object::FALSE,
                     },
-                    _ => Object::NULL,
+                    _ => panic!("Operator token is not operator token."),
                 },
                 _ => Object::TYPE_MISMATCH,
             }
@@ -58,7 +58,7 @@ fn evaluate_same_boolean(operator_token: Token) -> Object {
     match operator_token {
         Token::EQUALS => Object::TRUE,
         Token::NOT_EQUALS => Object::FALSE,
-        _ => Object::NULL,
+        _ => Object::UNKNOWN_OPERATOR,
     }
 }
 
@@ -66,7 +66,7 @@ fn evaluate_opposite_boolean(operator_token: Token) -> Object {
     match operator_token {
         Token::EQUALS => Object::FALSE,
         Token::NOT_EQUALS => Object::TRUE,
-        _ => Object::NULL,
+        _ => Object::UNKNOWN_OPERATOR,
     }
 }
 

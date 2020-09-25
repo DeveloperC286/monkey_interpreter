@@ -8,13 +8,13 @@ pub fn evaluate(prefix_token: Token, right_hand_expression: Expression) -> Objec
         Token::NOT => match object {
             Object::TRUE => Object::FALSE,
             Object::FALSE => Object::TRUE,
-            _ => Object::NULL,
+            _ => Object::UNKNOWN_OPERATOR,
         },
         Token::MINUS => match object {
             Object::INTEGER { value } => Object::INTEGER { value: -value },
-            _ => Object::NULL,
+            _ => Object::UNKNOWN_OPERATOR,
         },
-        _ => Object::NULL,
+        _ => panic!("Prefix token not a prefix token."),
     }
 }
 
