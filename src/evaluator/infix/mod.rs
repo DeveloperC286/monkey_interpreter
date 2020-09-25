@@ -4,55 +4,51 @@ use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
 
 pub fn evaluate(left_hand: Expression, operator_token: Token, right_hand: Expression) -> Object {
     match crate::evaluator::evaluate_expression(left_hand) {
-        Object::INTEGER { value } => {
-            let left_value = value;
+        Object::INTEGER { value: left_value } => {
             match crate::evaluator::evaluate_expression(right_hand) {
-                Object::INTEGER { value } => {
-                    let right_value = value;
-                    match operator_token {
-                        Token::PLUS => Object::INTEGER {
-                            value: left_value + right_value,
-                        },
-                        Token::MINUS => Object::INTEGER {
-                            value: left_value - right_value,
-                        },
-                        Token::MULTIPLY => Object::INTEGER {
-                            value: left_value * right_value,
-                        },
-                        Token::DIVIDE => Object::INTEGER {
-                            value: left_value / right_value,
-                        },
-                        Token::GREATER_THAN => match left_value > right_value {
-                            true => Object::TRUE,
-                            false => Object::FALSE,
-                        },
-                        Token::LESSER_THAN => match left_value < right_value {
-                            true => Object::TRUE,
-                            false => Object::FALSE,
-                        },
-                        Token::EQUALS => match left_value == right_value {
-                            true => Object::TRUE,
-                            false => Object::FALSE,
-                        },
-                        Token::NOT_EQUALS => match left_value != right_value {
-                            true => Object::TRUE,
-                            false => Object::FALSE,
-                        },
-                        _ => Object::NULL,
-                    }
-                }
-                _ => Object::NULL,
+                Object::INTEGER { value: right_value } => match operator_token {
+                    Token::PLUS => Object::INTEGER {
+                        value: left_value + right_value,
+                    },
+                    Token::MINUS => Object::INTEGER {
+                        value: left_value - right_value,
+                    },
+                    Token::MULTIPLY => Object::INTEGER {
+                        value: left_value * right_value,
+                    },
+                    Token::DIVIDE => Object::INTEGER {
+                        value: left_value / right_value,
+                    },
+                    Token::GREATER_THAN => match left_value > right_value {
+                        true => Object::TRUE,
+                        false => Object::FALSE,
+                    },
+                    Token::LESSER_THAN => match left_value < right_value {
+                        true => Object::TRUE,
+                        false => Object::FALSE,
+                    },
+                    Token::EQUALS => match left_value == right_value {
+                        true => Object::TRUE,
+                        false => Object::FALSE,
+                    },
+                    Token::NOT_EQUALS => match left_value != right_value {
+                        true => Object::TRUE,
+                        false => Object::FALSE,
+                    },
+                    _ => Object::NULL,
+                },
+                _ => Object::TYPE_MISMATCH,
             }
         }
         Object::TRUE => match crate::evaluator::evaluate_expression(right_hand) {
             Object::TRUE => evaluate_same_boolean(operator_token),
             Object::FALSE => evaluate_opposite_boolean(operator_token),
-            _ => Object::NULL,
+            _ => Object::TYPE_MISMATCH,
         },
         Object::FALSE => match crate::evaluator::evaluate_expression(right_hand) {
             Object::FALSE => evaluate_same_boolean(operator_token),
             Object::TRUE => evaluate_opposite_boolean(operator_token),
-            _ => Object::NULL,
+            _ => Object::TYPE_MISMATCH,
         },
         _ => Object::NULL,
     }

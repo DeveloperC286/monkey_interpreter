@@ -17,9 +17,13 @@ pub fn evaluate(abstract_syntax_tree: AbstractSyntaxTree) -> Object {
     for syntax_tree_node in abstract_syntax_tree.abstract_syntax_tree {
         object = evaluate_node(syntax_tree_node);
 
-        if let Object::RETURN { value } = object.clone() {
-            object = *value;
-            break;
+        match object.clone() {
+            Object::RETURN { value } => {
+                object = *value;
+                break;
+            }
+            Object::TYPE_MISMATCH => break,
+            _ => {}
         }
     }
 
@@ -32,8 +36,9 @@ fn evaluate_block(block: Block) -> Object {
     for syntax_tree_node in block.nodes {
         object = evaluate_node(syntax_tree_node);
 
-        if let Object::RETURN { value: _ } = object.clone() {
-            break;
+        match object.clone() {
+            Object::RETURN { value: _ } | Object::TYPE_MISMATCH => break,
+            _ => {}
         }
     }
 

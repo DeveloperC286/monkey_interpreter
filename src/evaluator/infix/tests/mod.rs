@@ -46,3 +46,21 @@ fn test_evaluator_infix_integer_expressions(code: &str, snapshot_name: &str) {
 fn test_evaluator_infix_boolean_expressions(code: &str, snapshot_name: &str) {
     assert_expected_returned_object!(code, snapshot_name);
 }
+
+#[rstest(
+    code,
+    snapshot_name,
+    case("(1 > 2) == 5", "test_evaluator_infix_type_mismatch_expressions_case1"),
+    case(
+        "5 + TRUE; 5 + 10;",
+        "test_evaluator_infix_type_mismatch_expressions_case2"
+    ),
+    case("FALSE - 10;", "test_evaluator_infix_type_mismatch_expressions_case3"),
+    case(
+        "if (10 > 1) { return TRUE + 5; } return 1;",
+        "test_evaluator_infix_type_mismatch_expressions_case4"
+    )
+)]
+fn test_evaluator_infix_type_mismatch_expressions(code: &str, snapshot_name: &str) {
+    assert_expected_returned_object!(code, snapshot_name);
+}
