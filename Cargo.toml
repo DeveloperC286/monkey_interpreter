@@ -4,12 +4,14 @@ version = "0.13.0"
 authors = ["C <DeveloperC@protonmail.com>"]
 edition = "2018"
 
+
 [dependencies]
-structopt = "0.3.17"
+structopt = "0.3.20"
 log = "0.4.11"
 pretty_env_logger = "0.4.0"
-serde = "1.0.116"
+serde = "1.0.117"
+
 
 [dev-dependencies]
 rstest = "0.6.4"
-insta = "0.16.1"
+insta = "1.2.0"
