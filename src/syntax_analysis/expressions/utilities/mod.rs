@@ -3,7 +3,6 @@ use std::slice::Iter;
 
 use crate::lexical_analysis::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::Block;
-use crate::syntax_analysis::get_next_syntax_tree_node;
 
 pub fn parse_block(
     mut iterator: Peekable<Iter<Token>>,
@@ -21,7 +20,7 @@ pub fn parse_block(
     while let Some(token) = iterator.peek() {
         match token {
             Token::CLOSING_CURLY_BRACKET | Token::EOF => break,
-            _ => match get_next_syntax_tree_node(iterator, syntax_parsing_errors) {
+            _ => match crate::syntax_analysis::get_next_syntax_tree_node(iterator, syntax_parsing_errors) {
                 (returned_iterator, returned_syntax_parsing_errors, Some(token)) => {
                     iterator = returned_iterator;
                     syntax_parsing_errors = returned_syntax_parsing_errors;

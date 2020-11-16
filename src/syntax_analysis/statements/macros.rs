@@ -1,6 +1,6 @@
 macro_rules! consume_expression {
     ($iterator:expr, $syntax_parsing_errors:expr) => {
-        match expressions::get_expression(
+        match crate::syntax_analysis::expressions::get_expression(
             $iterator,
             $syntax_parsing_errors,
             ExpressionPrecedence::LOWEST,

@@ -1,5 +1,5 @@
 use crate::evaluator::object::Object;
-use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
+use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{Block, Expression};
 
 pub fn evaluate(condition: Expression, consequence: Block, alternative: Option<Block>) -> Object {
     match crate::evaluator::evaluate_expression(condition) {

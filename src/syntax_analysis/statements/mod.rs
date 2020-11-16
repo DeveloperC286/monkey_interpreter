@@ -5,7 +5,6 @@ use crate::lexical_analysis::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
     ExpressionPrecedence, Statement, SyntaxTreeNode,
 };
-use crate::syntax_analysis::expressions;
 
 #[macro_use]
 mod macros;

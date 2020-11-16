@@ -1,7 +1,7 @@
 use std::iter::{FromIterator, Peekable};
 use std::str::Chars;
 
-use token::Token;
+use crate::lexical_analysis::token::Token;
 
 #[macro_use]
 mod macros;

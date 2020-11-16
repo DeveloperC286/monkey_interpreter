@@ -1,10 +1,9 @@
 use std::iter::Peekable;
 use std::slice::Iter;
 
-use abstract_syntax_tree::syntax_tree_node::SyntaxTreeNode;
-use abstract_syntax_tree::AbstractSyntaxTree;
-
 use crate::lexical_analysis::token::Token;
+use crate::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
+use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::SyntaxTreeNode;
 
 #[macro_use]
 mod macros;

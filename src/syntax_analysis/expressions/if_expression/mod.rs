@@ -5,7 +5,6 @@ use crate::lexical_analysis::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
     Expression, ExpressionPrecedence,
 };
-use crate::syntax_analysis::expressions::get_expression;
 use crate::syntax_analysis::expressions::utilities::parse_block;
 
 pub fn parse_if_expression(
@@ -22,7 +21,7 @@ pub fn parse_if_expression(
         Token::OPENING_ROUND_BRACKET,
         None
     );
-    let (returned_iterator, returned_syntax_parsing_errors, condition_option) = get_expression(
+    let (returned_iterator, returned_syntax_parsing_errors, condition_option) =crate::syntax_analysis::expressions::get_expression(
         iterator,
         syntax_parsing_errors,
         ExpressionPrecedence::LOWEST,

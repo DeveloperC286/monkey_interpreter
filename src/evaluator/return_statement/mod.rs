@@ -1,5 +1,5 @@
 use crate::evaluator::object::Object;
-use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
+use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::Expression;
 
 pub fn evaluate(expression: Expression) -> Object {
     Object::RETURN {

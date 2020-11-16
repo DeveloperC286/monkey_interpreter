@@ -1,6 +1,6 @@
 use crate::evaluator::object::Object;
 use crate::lexical_analysis::token::Token;
-use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
+use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::Expression;
 
 pub fn evaluate(prefix_token: Token, right_hand_expression: Expression) -> Object {
     let object = crate::evaluator::evaluate_expression(right_hand_expression);

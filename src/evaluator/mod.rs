@@ -1,7 +1,7 @@
 use object::Object;
 
-use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
 use crate::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
+use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
 
 mod boolean;
 mod if_statement;

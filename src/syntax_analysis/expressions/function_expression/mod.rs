@@ -5,7 +5,6 @@ use crate::lexical_analysis::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
     Expression, ExpressionPrecedence,
 };
-use crate::syntax_analysis::expressions::utilities::parse_block;
 
 pub fn parse_function_expression(
     mut iterator: Peekable<Iter<Token>>,
@@ -21,7 +20,7 @@ pub fn parse_function_expression(
     syntax_parsing_errors = returned_syntax_parsing_errors;
 
     // check function expression was parsed correctly
-    let block = match parse_block(iterator, syntax_parsing_errors) {
+    let block = match crate::syntax_analysis::expressions::utilities::parse_block(iterator, syntax_parsing_errors) {
         (returned_iterator, returned_syntax_parsing_errors, Some(block)) => {
             iterator = returned_iterator;
             syntax_parsing_errors = returned_syntax_parsing_errors;

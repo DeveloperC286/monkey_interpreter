@@ -3,7 +3,6 @@ use std::slice::Iter;
 
 use crate::lexical_analysis::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::Expression;
-use crate::syntax_analysis::expression_precedence;
 
 pub fn parse_infix_expression(
     mut iterator: Peekable<Iter<Token>>,
@@ -16,7 +15,7 @@ pub fn parse_infix_expression(
         Some(token) => token,
         None => return (iterator, syntax_parsing_errors, None),
     };
-    let precedence = expression_precedence::get_current_expression_precedence(&operator_token);
+    let precedence = crate::syntax_analysis::expression_precedence::get_current_expression_precedence(&operator_token);
 
     match crate::syntax_analysis::expressions::get_expression(
         iterator,

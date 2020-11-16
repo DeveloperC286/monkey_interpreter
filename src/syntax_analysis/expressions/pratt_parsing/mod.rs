@@ -6,7 +6,6 @@ use crate::lexical_analysis::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
     Expression, ExpressionPrecedence,
 };
-use crate::syntax_analysis::expression_precedence;
 
 mod call_expression;
 mod infix_expression;
@@ -24,7 +23,7 @@ pub fn pratt_parsing(
 
         //if expression_precedence.
         let expression_precedence_comparison = expression_precedence.partial_cmp(
-            &expression_precedence::get_current_expression_precedence(&token),
+            &crate::syntax_analysis::expression_precedence::get_current_expression_precedence(&token),
         );
         if expression_precedence_comparison != Some(Ordering::Less) {
             break;
