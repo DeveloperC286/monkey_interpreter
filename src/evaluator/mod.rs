@@ -3,9 +3,8 @@ use crate::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
 
 mod object;
-mod return_statement;
-
 mod expression;
+mod statement;
 
 pub fn evaluate(abstract_syntax_tree: AbstractSyntaxTree) -> Object {
     let mut object = Object::NULL;
@@ -48,14 +47,7 @@ fn evaluate_block(block: Block) -> Object {
 fn evaluate_node(syntax_tree_node: SyntaxTreeNode) -> Object {
     match syntax_tree_node {
         SyntaxTreeNode::EXPRESSION { expression } => crate::evaluator::expression::evaluate(expression),
-        SyntaxTreeNode::STATEMENT { statement } => evaluate_statement(statement),
-    }
-}
-
-fn evaluate_statement(statement: Statement) -> Object {
-    match statement {
-        Statement::RETURN { expression } => return_statement::evaluate(*expression),
-        _ => Object::NULL,
+        SyntaxTreeNode::STATEMENT { statement } => crate::evaluator::statement::evaluate(statement),
     }
 }
 
