@@ -2,6 +2,7 @@ use std::iter::{FromIterator, Peekable};
 use std::str::Chars;
 
 use crate::lexical_analysis::token::Token;
+use crate::lexical_analysis::utilities::*;
 
 #[macro_use]
 mod macros;
@@ -58,7 +59,7 @@ fn get_next_token(mut iterator: Peekable<Chars>) -> (Peekable<Chars>, Token) {
                         debug!("Parsing word from characters.");
                         let (returned_iterator, word) = get_word(iterator, character);
 
-                        return (returned_iterator, utilities::get_keyword_token(word));
+                        return (returned_iterator, get_keyword_token(word));
                     }
 
                     if is_digit(character) {
@@ -106,14 +107,6 @@ fn get_next_character(mut iterator: Peekable<Chars>) -> (Peekable<Chars>, Option
     }
 
     (iterator, next_character)
-}
-
-fn is_digit(character: char) -> bool {
-    character.is_digit(10)
-}
-
-fn is_valid_identifier_character(character: char) -> bool {
-    character.is_alphabetic() || character == '_'
 }
 
 #[cfg(test)]

@@ -12,3 +12,11 @@ pub fn get_keyword_token(keyword: String) -> Token {
         _ => Token::IDENTIFIER { literal: keyword },
     }
 }
+
+pub fn is_digit(character: char) -> bool {
+    character.is_digit(10)
+}
+
+pub fn is_valid_identifier_character(character: char) -> bool {
+    character.is_alphabetic() || character == '_'
+}
