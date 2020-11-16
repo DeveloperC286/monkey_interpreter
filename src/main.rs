@@ -8,20 +8,14 @@ use structopt::StructOpt;
 #[macro_use]
 mod tests;
 
+mod cli;
 mod evaluator;
 mod interpreter;
 mod lexical_analysis;
 mod syntax_analysis;
 
-#[derive(Debug, StructOpt)]
-#[structopt(
-    name = "rust_monkey_interpreter",
-    about = "Monkey interpreter written in Rust."
-)]
-struct Args {}
-
 fn main() {
     pretty_env_logger::init();
-    let _args = Args::from_args();
+    let _arguments = cli::Arguments::from_args();
     interpreter::repl();
 }
