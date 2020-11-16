@@ -10,7 +10,7 @@ pub fn repl() {
         VERSION.unwrap_or("unknown")
     );
     loop {
-        let tokens = crate::lexical_analysis::get_tokens(read());
+        let tokens = crate::lexical_analysis::get_tokens(&read());
         let abstract_syntax_tree = crate::syntax_analysis::get_abstract_syntax_tree(tokens);
 
         if !abstract_syntax_tree.syntax_parsing_errors.is_empty() {

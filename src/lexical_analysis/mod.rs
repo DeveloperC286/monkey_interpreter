@@ -9,7 +9,7 @@ mod macros;
 pub mod token;
 mod utilities;
 
-pub fn get_tokens(code: String) -> Vec<Token> {
+pub fn get_tokens(code: &str) -> Vec<Token> {
     let mut tokens = Vec::new();
     let mut iterator = code.chars().peekable();
 
