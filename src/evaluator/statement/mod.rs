@@ -5,7 +5,9 @@ mod return_statement;
 
 pub fn evaluate(statement: Statement) -> Object {
     match statement {
-        Statement::RETURN { expression } => crate::evaluator::statement::return_statement::evaluate(*expression),
+        Statement::RETURN { expression } => {
+            crate::evaluator::statement::return_statement::evaluate(*expression)
+        }
         _ => Object::NULL,
     }
 }

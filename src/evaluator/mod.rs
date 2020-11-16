@@ -1,9 +1,9 @@
 use crate::evaluator::object::Object;
-use crate::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
+use crate::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
 
-mod object;
 mod expression;
+mod object;
 mod statement;
 
 pub fn evaluate(abstract_syntax_tree: AbstractSyntaxTree) -> Object {
@@ -46,7 +46,9 @@ fn evaluate_block(block: Block) -> Object {
 
 fn evaluate_node(syntax_tree_node: SyntaxTreeNode) -> Object {
     match syntax_tree_node {
-        SyntaxTreeNode::EXPRESSION { expression } => crate::evaluator::expression::evaluate(expression),
+        SyntaxTreeNode::EXPRESSION { expression } => {
+            crate::evaluator::expression::evaluate(expression)
+        }
         SyntaxTreeNode::STATEMENT { statement } => crate::evaluator::statement::evaluate(statement),
     }
 }
