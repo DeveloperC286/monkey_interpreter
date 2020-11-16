@@ -1,10 +1,10 @@
 macro_rules! semicolon {
-    ($iterator:expr) => {
-        match $iterator.peek() {
+    ($syntax_analysis_context:expr) => {
+        match $syntax_analysis_context.tokens.peek() {
             Some(token) => {
                 if **token == Token::SEMI_COLON {
                     trace!("Ignoring expression's semi colon.");
-                    $iterator.next();
+                    $syntax_analysis_context.tokens.next();
                 }
             }
             None => {}
@@ -13,17 +13,18 @@ macro_rules! semicolon {
 }
 
 macro_rules! assert_token {
-    ($iterator:expr, $syntax_parsing_errors:expr, $expect_token:expr, $failure_returning:expr) => {
-        match $iterator.next() {
+    ($syntax_analysis_context:expr, $expect_token:expr, $failure_returning:expr) => {
+        match $syntax_analysis_context.tokens.next() {
             Some(token) => {
                 if *token != $expect_token {
-                    $syntax_parsing_errors
+                    $syntax_analysis_context
+                        .syntax_parsing_errors
                         .push(format!("Syntax error : Expected a {:?}.", $expect_token));
-                    return ($iterator, $syntax_parsing_errors, $failure_returning);
+                    return ($syntax_analysis_context, $failure_returning);
                 }
             }
             None => {
-                return ($iterator, $syntax_parsing_errors, $failure_returning);
+                return ($syntax_analysis_context, $failure_returning);
             }
         }
     };

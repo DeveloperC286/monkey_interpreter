@@ -1,10 +1,8 @@
-use std::iter::Peekable;
-use std::slice::Iter;
-
 use crate::lexical_analysis::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
     Expression, ExpressionPrecedence, SyntaxTreeNode,
 };
+use crate::syntax_analysis::syntax_analysis_context::SyntaxAnalysisContext;
 
 mod function_expression;
 mod grouped_expression;
@@ -13,159 +11,128 @@ mod pratt_parsing;
 mod utilities;
 
 pub fn get_expression_node(
-    mut iterator: Peekable<Iter<Token>>,
-    mut syntax_parsing_errors: Vec<String>,
-) -> (Peekable<Iter<Token>>, Vec<String>, Option<SyntaxTreeNode>) {
-    let (returned_iterator, returned_syntax_parsing_errors, expression_option) = get_expression(
-        iterator,
-        syntax_parsing_errors,
-        ExpressionPrecedence::LOWEST,
-    );
-    iterator = returned_iterator;
-    syntax_parsing_errors = returned_syntax_parsing_errors;
+    mut syntax_analysis_context: SyntaxAnalysisContext,
+) -> (SyntaxAnalysisContext, Option<SyntaxTreeNode>) {
+    let (returned_syntax_analysis_context, expression_option) =
+        get_expression(syntax_analysis_context, ExpressionPrecedence::LOWEST);
+    syntax_analysis_context = returned_syntax_analysis_context;
 
-    semicolon!(iterator);
+    semicolon!(syntax_analysis_context);
 
     match expression_option {
         Some(expression) => (
-            iterator,
-            syntax_parsing_errors,
+            syntax_analysis_context,
             Some(SyntaxTreeNode::EXPRESSION { expression }),
         ),
-        None => (iterator, syntax_parsing_errors, None),
+        None => (syntax_analysis_context, None),
     }
 }
 
 pub fn get_expression(
-    mut iterator: Peekable<Iter<Token>>,
-    mut syntax_parsing_errors: Vec<String>,
+    mut syntax_analysis_context: SyntaxAnalysisContext,
     expression_precedence: ExpressionPrecedence,
-) -> (Peekable<Iter<Token>>, Vec<String>, Option<Expression>) {
+) -> (SyntaxAnalysisContext, Option<Expression>) {
     debug!("Parsing an expression.");
 
     let expression: Option<Expression>;
 
-    match iterator.peek() {
+    match syntax_analysis_context.tokens.peek() {
         Some(token) => match token {
             Token::IDENTIFIER { literal: _ } => {
                 debug!("Found an identifier expression.");
                 expression = Some(Expression::IDENTIFIER {
-                    identifier_token: iterator.next().unwrap().clone(),
+                    identifier_token: syntax_analysis_context.tokens.next().unwrap().clone(),
                 });
             }
             Token::INTEGER { literal: _ } => {
                 debug!("Found an integer expression.");
                 expression = Some(Expression::INTEGER {
-                    integer_token: iterator.next().unwrap().clone(),
+                    integer_token: syntax_analysis_context.tokens.next().unwrap().clone(),
                 });
             }
             Token::NOT | Token::MINUS => {
                 debug!("Found a prefix expression.");
-                let token = iterator.next().unwrap().clone();
+                let token = syntax_analysis_context.tokens.next().unwrap().clone();
 
-                match get_expression(
-                    iterator,
-                    syntax_parsing_errors,
-                    ExpressionPrecedence::PREFIX,
-                ) {
-                    (returned_iterator, returned_syntax_parsing_errors, Some(right_hand)) => {
-                        iterator = returned_iterator;
-                        syntax_parsing_errors = returned_syntax_parsing_errors;
+                match get_expression(syntax_analysis_context, ExpressionPrecedence::PREFIX) {
+                    (returned_syntax_analysis_context, Some(right_hand)) => {
+                        syntax_analysis_context = returned_syntax_analysis_context;
                         expression = Some(Expression::PREFIX {
                             prefix_token: token,
                             right_hand: Box::new(right_hand),
                         });
                     }
-                    (returned_iterator, returned_syntax_parsing_errors, None) => {
-                        syntax_parsing_errors = returned_syntax_parsing_errors;
-                        syntax_parsing_errors.push(format!(
-                            "Syntax error : No right hand expression to prefix {:?}.",
-                            token
-                        ));
-                        return (returned_iterator, syntax_parsing_errors, None);
+                    (mut returned_syntax_analysis_context, None) => {
+                        returned_syntax_analysis_context
+                            .syntax_parsing_errors
+                            .push(format!(
+                                "Syntax error : No right hand expression to prefix {:?}.",
+                                token
+                            ));
+                        return (returned_syntax_analysis_context, None);
                     }
                 }
             }
             Token::TRUE | Token::FALSE => {
                 debug!("Found an boolean expression.");
                 expression = Some(Expression::BOOLEAN {
-                    boolean_token: iterator.next().unwrap().clone(),
+                    boolean_token: syntax_analysis_context.tokens.next().unwrap().clone(),
                 });
             }
             Token::OPENING_ROUND_BRACKET => {
                 debug!("Found a grouped expression.");
-                match grouped_expression::parse_grouped_expression(iterator, syntax_parsing_errors)
-                {
-                    (
-                        returned_iterator,
-                        returned_syntax_parsing_errors,
-                        Some(grouped_expression),
-                    ) => {
-                        iterator = returned_iterator;
-                        syntax_parsing_errors = returned_syntax_parsing_errors;
+                match grouped_expression::parse_grouped_expression(syntax_analysis_context) {
+                    (returned_syntax_analysis_context, Some(grouped_expression)) => {
+                        syntax_analysis_context = returned_syntax_analysis_context;
                         expression = Some(grouped_expression);
                     }
-                    (returned_iterator, returned_syntax_parsing_errors, None) => {
+                    (returned_syntax_analysis_context, None) => {
                         error!("Error parsing grouped expression, returning None.");
-                        return (returned_iterator, returned_syntax_parsing_errors, None);
+                        return (returned_syntax_analysis_context, None);
                     }
                 }
             }
             Token::IF => {
                 debug!("Found an if expression.");
-                match if_expression::parse_if_expression(iterator, syntax_parsing_errors) {
-                    (returned_iterator, returned_syntax_parsing_errors, Some(if_expression)) => {
-                        iterator = returned_iterator;
-                        syntax_parsing_errors = returned_syntax_parsing_errors;
+                match if_expression::parse_if_expression(syntax_analysis_context) {
+                    (returned_syntax_analysis_context, Some(if_expression)) => {
+                        syntax_analysis_context = returned_syntax_analysis_context;
                         expression = Some(if_expression);
                     }
-                    (returned_iterator, returned_syntax_parsing_errors, None) => {
+                    (returned_syntax_analysis_context, None) => {
                         error!("Error parsing if expression, returning None.");
-                        return (returned_iterator, returned_syntax_parsing_errors, None);
+                        return (returned_syntax_analysis_context, None);
                     }
                 }
             }
             Token::FUNCTION => {
                 debug!("Found a function expression.");
-                match function_expression::parse_function_expression(
-                    iterator,
-                    syntax_parsing_errors,
-                ) {
-                    (
-                        returned_iterator,
-                        returned_syntax_parsing_errors,
-                        Some(function_expression),
-                    ) => {
-                        iterator = returned_iterator;
-                        syntax_parsing_errors = returned_syntax_parsing_errors;
+                match function_expression::parse_function_expression(syntax_analysis_context) {
+                    (returned_syntax_analysis_context, Some(function_expression)) => {
+                        syntax_analysis_context = returned_syntax_analysis_context;
                         expression = Some(function_expression);
                     }
-                    (returned_iterator, returned_syntax_parsing_errors, None) => {
+                    (returned_syntax_analysis_context, None) => {
                         error!("Error parsing function expression, returning None.");
-                        return (returned_iterator, returned_syntax_parsing_errors, None);
+                        return (returned_syntax_analysis_context, None);
                     }
                 }
             }
             _ => {
-                syntax_parsing_errors.push(format!(
+                syntax_analysis_context.syntax_parsing_errors.push(format!(
                     "Syntax error : Do not know how to parse {:?} as an expression.",
                     token
                 ));
-                iterator.next();
-                return (iterator, syntax_parsing_errors, None);
+                syntax_analysis_context.tokens.next();
+                return (syntax_analysis_context, None);
             }
         },
         None => {
-            return (iterator, syntax_parsing_errors, None);
+            return (syntax_analysis_context, None);
         }
     }
 
-    pratt_parsing::pratt_parsing(
-        iterator,
-        syntax_parsing_errors,
-        expression,
-        expression_precedence,
-    )
+    pratt_parsing::pratt_parsing(syntax_analysis_context, expression, expression_precedence)
 }
 
 #[cfg(test)]

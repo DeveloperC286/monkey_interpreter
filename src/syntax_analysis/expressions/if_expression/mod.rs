@@ -1,53 +1,37 @@
-use std::iter::Peekable;
-use std::slice::Iter;
-
 use crate::lexical_analysis::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
     Expression, ExpressionPrecedence,
 };
 use crate::syntax_analysis::expressions::utilities::parse_block;
+use crate::syntax_analysis::syntax_analysis_context::SyntaxAnalysisContext;
 
 pub fn parse_if_expression(
-    mut iterator: Peekable<Iter<Token>>,
-    mut syntax_parsing_errors: Vec<String>,
-) -> (Peekable<Iter<Token>>, Vec<String>, Option<Expression>) {
+    mut syntax_analysis_context: SyntaxAnalysisContext,
+) -> (SyntaxAnalysisContext, Option<Expression>) {
     debug!("Parsing a if expression.");
 
     // parse if expression
-    assert_token!(iterator, syntax_parsing_errors, Token::IF, None);
-    assert_token!(
-        iterator,
-        syntax_parsing_errors,
-        Token::OPENING_ROUND_BRACKET,
-        None
-    );
-    let (returned_iterator, returned_syntax_parsing_errors, condition_option) =crate::syntax_analysis::expressions::get_expression(
-        iterator,
-        syntax_parsing_errors,
-        ExpressionPrecedence::LOWEST,
-    );
-    iterator = returned_iterator;
-    syntax_parsing_errors = returned_syntax_parsing_errors;
-    assert_token!(
-        iterator,
-        syntax_parsing_errors,
-        Token::CLOSING_ROUND_BRACKET,
-        None
-    );
-    let (returned_iterator, returned_syntax_parsing_errors, consequence_option) =
-        parse_block(iterator, syntax_parsing_errors);
-    iterator = returned_iterator;
-    syntax_parsing_errors = returned_syntax_parsing_errors;
+    assert_token!(syntax_analysis_context, Token::IF, None);
+    assert_token!(syntax_analysis_context, Token::OPENING_ROUND_BRACKET, None);
+    let (returned_syntax_analysis_context, condition_option) =
+        crate::syntax_analysis::expressions::get_expression(
+            syntax_analysis_context,
+            ExpressionPrecedence::LOWEST,
+        );
+    syntax_analysis_context = returned_syntax_analysis_context;
+    assert_token!(syntax_analysis_context, Token::CLOSING_ROUND_BRACKET, None);
+    let (returned_syntax_analysis_context, consequence_option) =
+        parse_block(syntax_analysis_context);
+    syntax_analysis_context = returned_syntax_analysis_context;
     let mut alternative = None;
 
-    if let Some(token) = iterator.peek() {
+    if let Some(token) = syntax_analysis_context.tokens.peek() {
         if **token == Token::ELSE {
-            assert_token!(iterator, syntax_parsing_errors, Token::ELSE, None);
-            let (returned_iterator, returned_syntax_parsing_errors, returned_alternative) =
-                parse_block(iterator, syntax_parsing_errors);
+            assert_token!(syntax_analysis_context, Token::ELSE, None);
+            let (returned_syntax_analysis_context, returned_alternative) =
+                parse_block(syntax_analysis_context);
             alternative = returned_alternative;
-            iterator = returned_iterator;
-            syntax_parsing_errors = returned_syntax_parsing_errors;
+            syntax_analysis_context = returned_syntax_analysis_context;
         }
     }
 
@@ -55,20 +39,19 @@ pub fn parse_if_expression(
     let condition = match condition_option {
         Some(condition) => condition,
         None => {
-            return (iterator, syntax_parsing_errors, None);
+            return (syntax_analysis_context, None);
         }
     };
 
     let consequence = match consequence_option {
         Some(consequence) => consequence,
         None => {
-            return (iterator, syntax_parsing_errors, None);
+            return (syntax_analysis_context, None);
         }
     };
 
     (
-        iterator,
-        syntax_parsing_errors,
+        syntax_analysis_context,
         Some(Expression::IF {
             condition: Box::new(condition),
             consequence: Box::new(consequence),

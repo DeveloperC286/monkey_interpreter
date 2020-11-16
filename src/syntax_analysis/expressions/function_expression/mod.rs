@@ -1,40 +1,35 @@
-use std::iter::Peekable;
-use std::slice::Iter;
-
 use crate::lexical_analysis::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
     Expression, ExpressionPrecedence,
 };
+use crate::syntax_analysis::syntax_analysis_context::SyntaxAnalysisContext;
 
 pub fn parse_function_expression(
-    mut iterator: Peekable<Iter<Token>>,
-    mut syntax_parsing_errors: Vec<String>,
-) -> (Peekable<Iter<Token>>, Vec<String>, Option<Expression>) {
+    mut syntax_analysis_context: SyntaxAnalysisContext,
+) -> (SyntaxAnalysisContext, Option<Expression>) {
     debug!("Parsing a function expression.");
 
     // parse function expression
-    assert_token!(iterator, syntax_parsing_errors, Token::FUNCTION, None);
-    let (returned_iterator, returned_syntax_parsing_errors, parameters) =
-        parse_parameters(iterator, syntax_parsing_errors);
-    iterator = returned_iterator;
-    syntax_parsing_errors = returned_syntax_parsing_errors;
+    assert_token!(syntax_analysis_context, Token::FUNCTION, None);
+    let (returned_syntax_analysis_context, parameters) = parse_parameters(syntax_analysis_context);
+    syntax_analysis_context = returned_syntax_analysis_context;
 
     // check function expression was parsed correctly
-    let block = match crate::syntax_analysis::expressions::utilities::parse_block(iterator, syntax_parsing_errors) {
-        (returned_iterator, returned_syntax_parsing_errors, Some(block)) => {
-            iterator = returned_iterator;
-            syntax_parsing_errors = returned_syntax_parsing_errors;
+    let block = match crate::syntax_analysis::expressions::utilities::parse_block(
+        syntax_analysis_context,
+    ) {
+        (returned_syntax_analysis_context, Some(block)) => {
+            syntax_analysis_context = returned_syntax_analysis_context;
             block
         }
-        (returned_iterator, returned_syntax_parsing_errors, None) => {
+        (returned_syntax_analysis_context, None) => {
             error!("parse_function_expression could not parse the functions block.");
-            return (returned_iterator, returned_syntax_parsing_errors, None);
+            return (returned_syntax_analysis_context, None);
         }
     };
 
     (
-        iterator,
-        syntax_parsing_errors,
+        syntax_analysis_context,
         Some(Expression::FUNCTION {
             parameters,
             block: Box::new(block),
@@ -43,69 +38,61 @@ pub fn parse_function_expression(
 }
 
 fn parse_parameters(
-    mut iterator: Peekable<Iter<Token>>,
-    mut syntax_parsing_errors: Vec<String>,
-) -> (Peekable<Iter<Token>>, Vec<String>, Vec<Expression>) {
+    mut syntax_analysis_context: SyntaxAnalysisContext,
+) -> (SyntaxAnalysisContext, Vec<Expression>) {
     debug!("Parsing parameters.");
 
     assert_token!(
-        iterator,
-        syntax_parsing_errors,
+        syntax_analysis_context,
         Token::OPENING_ROUND_BRACKET,
         vec![]
     );
     let mut parameters = vec![];
 
-    if let Some(token) = iterator.peek() {
+    if let Some(token) = syntax_analysis_context.tokens.peek() {
         if **token != Token::CLOSING_ROUND_BRACKET {
             loop {
-                match super::get_expression(
-                    iterator,
-                    syntax_parsing_errors,
-                    ExpressionPrecedence::LOWEST,
-                ) {
-                    (returned_iterator, returned_syntax_parsing_errors, Some(expression)) => {
+                match super::get_expression(syntax_analysis_context, ExpressionPrecedence::LOWEST) {
+                    (returned_syntax_analysis_context, Some(expression)) => {
                         match expression.clone() {
                             Expression::IDENTIFIER {
                                 identifier_token: _,
                             } => {
                                 parameters.push(expression);
-                                iterator = returned_iterator;
-                                syntax_parsing_errors = returned_syntax_parsing_errors;
+                                syntax_analysis_context = returned_syntax_analysis_context;
                             }
                             _ => {
-                                iterator = returned_iterator;
-                                syntax_parsing_errors = returned_syntax_parsing_errors;
-                                syntax_parsing_errors.push(
+                                syntax_analysis_context = returned_syntax_analysis_context;
+                                syntax_analysis_context.syntax_parsing_errors.push(
                                     "Only allowed Expression::IDENTIFIER in parameters."
                                         .to_string(),
                                 );
                             }
                         }
                     }
-                    (returned_iterator, returned_syntax_parsing_errors, None) => {
-                        syntax_parsing_errors = returned_syntax_parsing_errors;
-                        syntax_parsing_errors
+                    (mut returned_syntax_analysis_context, None) => {
+                        returned_syntax_analysis_context
+                            .syntax_parsing_errors
                             .push("Unable to parse expression in parameters.".to_string());
-                        return (returned_iterator, syntax_parsing_errors, vec![]);
+                        return (returned_syntax_analysis_context, vec![]);
                     }
                 }
 
-                match iterator.peek() {
+                match syntax_analysis_context.tokens.peek() {
                     Some(token) => match token {
                         Token::CLOSING_ROUND_BRACKET => break,
                         Token::COMMA => {
-                            iterator.next();
+                            syntax_analysis_context.tokens.next();
                         }
                         _ => {
-                            syntax_parsing_errors.push(
+                            syntax_analysis_context.syntax_parsing_errors.push(
                                 "Parameters must be comma seperated identifiers.".to_string(),
                             );
-                            return (iterator, syntax_parsing_errors, vec![]);
+                            return (syntax_analysis_context, vec![]);
                         }
                     },
                     None => {
-                        return (iterator, syntax_parsing_errors, vec![]);
+                        return (syntax_analysis_context, vec![]);
                     }
                 }
             }
@@ -113,12 +100,11 @@ fn parse_parameters(
     }
 
     assert_token!(
-        iterator,
-        syntax_parsing_errors,
+        syntax_analysis_context,
         Token::CLOSING_ROUND_BRACKET,
         vec![]
     );
-    (iterator, syntax_parsing_errors, parameters)
+    (syntax_analysis_context, parameters)
 }
 
 #[cfg(test)]

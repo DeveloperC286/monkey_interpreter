@@ -1,23 +1,18 @@
-use std::iter::Peekable;
-use std::slice::Iter;
-
 use crate::lexical_analysis::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
     Expression, ExpressionPrecedence,
 };
+use crate::syntax_analysis::syntax_analysis_context::SyntaxAnalysisContext;
 
 pub fn parse_call_expression(
-    mut iterator: Peekable<Iter<Token>>,
-    mut syntax_parsing_errors: Vec<String>,
+    mut syntax_analysis_context: SyntaxAnalysisContext,
     function: Expression,
-) -> (Peekable<Iter<Token>>, Vec<String>, Option<Expression>) {
+) -> (SyntaxAnalysisContext, Option<Expression>) {
     debug!("Parsing a call expression.");
 
     // parse call expression
-    let (returned_iterator, returned_syntax_parsing_errors, arguments) =
-        parse_arguments(iterator, syntax_parsing_errors);
-    iterator = returned_iterator;
-    syntax_parsing_errors = returned_syntax_parsing_errors;
+    let (returned_syntax_analysis_context, arguments) = parse_arguments(syntax_analysis_context);
+    syntax_analysis_context = returned_syntax_analysis_context;
 
     // check call expression was correctly called
     match &function {
@@ -26,13 +21,12 @@ pub fn parse_call_expression(
         } => {}
         _ => {
             error!("parse_call_expression called with the function not being an Expression::IDENTIFIER.");
-            return (iterator, syntax_parsing_errors, None);
+            return (syntax_analysis_context, None);
         }
     }
 
     (
-        iterator,
-        syntax_parsing_errors,
+        syntax_analysis_context,
         Some(Expression::CALL {
             function: Box::new(function),
             arguments,
@@ -41,52 +35,48 @@ pub fn parse_call_expression(
 }
 
 fn parse_arguments(
-    mut iterator: Peekable<Iter<Token>>,
-    mut syntax_parsing_errors: Vec<String>,
-) -> (Peekable<Iter<Token>>, Vec<String>, Vec<Expression>) {
+    mut syntax_analysis_context: SyntaxAnalysisContext,
+) -> (SyntaxAnalysisContext, Vec<Expression>) {
     debug!("Parsing arguments.");
 
     assert_token!(
-        iterator,
-        syntax_parsing_errors,
+        syntax_analysis_context,
         Token::OPENING_ROUND_BRACKET,
         vec![]
     );
     let mut arguments = vec![];
 
-    if let Some(token) = iterator.peek() {
+    if let Some(token) = syntax_analysis_context.tokens.peek() {
         if **token != Token::CLOSING_ROUND_BRACKET {
             loop {
                 match super::super::get_expression(
-                    iterator,
-                    syntax_parsing_errors,
+                    syntax_analysis_context,
                     ExpressionPrecedence::LOWEST,
                 ) {
-                    (returned_iterator, returned_syntax_parsing_errors, Some(expression)) => {
+                    (returned_syntax_analysis_context, Some(expression)) => {
                         arguments.push(expression);
-                        iterator = returned_iterator;
-                        syntax_parsing_errors = returned_syntax_parsing_errors;
+                        syntax_analysis_context = returned_syntax_analysis_context;
                     }
-                    (returned_iterator, returned_syntax_parsing_errors, None) => {
-                        syntax_parsing_errors = returned_syntax_parsing_errors;
-                        syntax_parsing_errors
+                    (mut returned_syntax_analysis_context, None) => {
+                        returned_syntax_analysis_context
+                            .syntax_parsing_errors
                             .push("Unable to parse expression in arguments.".to_string());
-                        return (returned_iterator, syntax_parsing_errors, vec![]);
+                        return (returned_syntax_analysis_context, vec![]);
                     }
                 }
 
-                match iterator.peek() {
+                match syntax_analysis_context.tokens.peek() {
                     Some(token) => match token {
                         Token::CLOSING_ROUND_BRACKET => break,
                         Token::COMMA => {
-                            iterator.next();
+                            syntax_analysis_context.tokens.next();
                         }
                         _ => {
-                            return (iterator, syntax_parsing_errors, vec![]);
+                            return (syntax_analysis_context, vec![]);
                         }
                     },
                     None => {
-                        return (iterator, syntax_parsing_errors, vec![]);
+                        return (syntax_analysis_context, vec![]);
                     }
                 }
             }
@@ -94,12 +84,11 @@ fn parse_arguments(
     }
 
     assert_token!(
-        iterator,
-        syntax_parsing_errors,
+        syntax_analysis_context,
         Token::CLOSING_ROUND_BRACKET,
         vec![]
     );
-    (iterator, syntax_parsing_errors, arguments)
+    (syntax_analysis_context, arguments)
 }
 
 #[cfg(test)]

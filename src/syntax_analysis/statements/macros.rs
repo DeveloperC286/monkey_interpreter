@@ -1,17 +1,15 @@
 macro_rules! consume_expression {
-    ($iterator:expr, $syntax_parsing_errors:expr) => {
+    ($syntax_analysis_context:expr) => {
         match crate::syntax_analysis::expressions::get_expression(
-            $iterator,
-            $syntax_parsing_errors,
+            $syntax_analysis_context,
             ExpressionPrecedence::LOWEST,
         ) {
-            (returned_iterator, returned_syntax_parsing_errors, Some(expression)) => {
-                $iterator = returned_iterator;
-                $syntax_parsing_errors = returned_syntax_parsing_errors;
+            (returned_syntax_analysis_context, Some(expression)) => {
+                $syntax_analysis_context = returned_syntax_analysis_context;
                 expression
             }
-            (returned_iterator, returned_syntax_parsing_errors, None) => {
-                return (returned_iterator, returned_syntax_parsing_errors, None);
+            (returned_syntax_analysis_context, None) => {
+                return (returned_syntax_analysis_context, None);
             }
         };
     };
