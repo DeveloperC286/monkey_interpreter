@@ -52,7 +52,10 @@ fn parse_parameters(
     if let Some(token) = syntax_analysis_context.tokens.peek() {
         if **token != Token::CLOSING_ROUND_BRACKET {
             loop {
-                match super::get_expression(syntax_analysis_context, ExpressionPrecedence::LOWEST) {
+                match crate::syntax_analysis::expressions::get_expression(
+                    syntax_analysis_context,
+                    ExpressionPrecedence::LOWEST,
+                ) {
                     (returned_syntax_analysis_context, Some(expression)) => {
                         match expression.clone() {
                             Expression::IDENTIFIER {

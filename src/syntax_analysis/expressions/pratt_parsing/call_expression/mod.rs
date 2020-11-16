@@ -49,7 +49,7 @@ fn parse_arguments(
     if let Some(token) = syntax_analysis_context.tokens.peek() {
         if **token != Token::CLOSING_ROUND_BRACKET {
             loop {
-                match super::super::get_expression(
+                match crate::syntax_analysis::expressions::get_expression(
                     syntax_analysis_context,
                     ExpressionPrecedence::LOWEST,
                 ) {
