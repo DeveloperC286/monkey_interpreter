@@ -1,0 +1,10 @@
+---
+source: src/syntax_analysis/statement/tests/mod.rs
+expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens(code.to_string()))"
+---
+{
+  "abstract_syntax_tree": [],
+  "syntax_parsing_errors": [
+    "Syntax error : Expected a IDENTIFIER."
+  ]
+}

@@ -1,0 +1,11 @@
+---
+source: src/syntax_analysis/expression/tests/mod.rs
+expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens(code.to_string()))"
+---
+{
+  "abstract_syntax_tree": [],
+  "syntax_parsing_errors": [
+    "Syntax error : Do not know how to parse EOF as an expression.",
+    "Syntax error : No right hand expression to prefix NOT."
+  ]
+}

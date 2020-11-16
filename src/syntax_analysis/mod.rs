@@ -7,9 +7,9 @@ use crate::syntax_analysis::syntax_analysis_context::SyntaxAnalysisContext;
 mod macros;
 
 pub mod abstract_syntax_tree;
+mod expression;
 mod expression_precedence;
-mod expressions;
-mod statements;
+mod statement;
 mod syntax_analysis_context;
 
 pub fn get_abstract_syntax_tree(tokens: Vec<Token>) -> AbstractSyntaxTree {
@@ -42,9 +42,9 @@ fn get_next_syntax_tree_node(
     debug!("Parsing next SyntaxTreeNode.");
     match syntax_analysis_context.tokens.peek() {
         Some(token) => match token {
-            Token::LET => statements::parse_let_statement(syntax_analysis_context),
-            Token::RETURN => statements::parse_return_statement(syntax_analysis_context),
-            _ => expressions::get_expression_node(syntax_analysis_context),
+            Token::LET => statement::parse_let_statement(syntax_analysis_context),
+            Token::RETURN => statement::parse_return_statement(syntax_analysis_context),
+            _ => expression::get_expression_node(syntax_analysis_context),
         },
         None => (syntax_analysis_context, None),
     }
