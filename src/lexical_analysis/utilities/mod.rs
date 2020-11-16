@@ -1,6 +1,6 @@
 use crate::lexical_analysis::token::Token;
 
-pub fn get_keyword_token(keyword: String) -> Token {
+pub fn get_keyword_token(keyword: &str) -> Token {
     match keyword.to_lowercase().as_str() {
         "fn" => Token::FUNCTION,
         "let" => Token::LET,
@@ -9,7 +9,9 @@ pub fn get_keyword_token(keyword: String) -> Token {
         "if" => Token::IF,
         "else" => Token::ELSE,
         "return" => Token::RETURN,
-        _ => Token::IDENTIFIER { literal: keyword },
+        _ => Token::IDENTIFIER {
+            literal: keyword.to_string(),
+        },
     }
 }
 

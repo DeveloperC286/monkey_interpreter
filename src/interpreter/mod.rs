@@ -35,7 +35,7 @@ fn read() -> String {
     let _ = stdout().flush();
 
     match stdin().read_line(&mut buffer) {
-        Ok(_n) => {}
+        Ok(_) => {}
         Err(error) => error!("Error reading user input: {}", error),
     }
 

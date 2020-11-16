@@ -59,7 +59,7 @@ fn get_next_token(mut iterator: Peekable<Chars>) -> (Peekable<Chars>, Token) {
                         debug!("Parsing word from characters.");
                         let (returned_iterator, word) = get_word(iterator, character);
 
-                        return (returned_iterator, get_keyword_token(word));
+                        return (returned_iterator, get_keyword_token(&word));
                     }
 
                     if is_digit(character) {
