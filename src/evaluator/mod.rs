@@ -1,7 +1,7 @@
 use crate::evaluator::evaluator_context::EvaluatorContext;
 use crate::evaluator::object::Object;
-use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
 use crate::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
+use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
 
 pub mod evaluator_context;
 mod expression;
@@ -22,16 +22,15 @@ pub fn evaluate(
         let (returned_evaluator_context, returned_object) =
             evaluate_node(evaluator_context, syntax_tree_node);
         evaluator_context = returned_evaluator_context;
+        object = returned_object;
 
-        match returned_object.clone() {
+        match object.clone() {
             Object::RETURN { value } => {
                 object = *value;
                 break;
             }
             Object::TYPE_MISMATCH | Object::UNKNOWN_OPERATOR => break,
-            _ => {
-                object = returned_object;
-            }
+            _ => {}
         }
     }
 
