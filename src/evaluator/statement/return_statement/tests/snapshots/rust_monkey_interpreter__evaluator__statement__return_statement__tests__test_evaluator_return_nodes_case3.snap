@@ -1,9 +1,12 @@
 ---
 source: src/evaluator/statement/return_statement/tests/mod.rs
-expression: "crate::evaluator::evaluate(crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens(code.to_string())))"
+expression: "crate::evaluator::evaluate(crate::evaluator::evaluator_context::EvaluatorContext::new(),\n                           crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens(code)))"
 ---
-{
-  "INTEGER": {
-    "value": 12
+[
+  {},
+  {
+    "INTEGER": {
+      "value": 12
+    }
   }
-}
+]
