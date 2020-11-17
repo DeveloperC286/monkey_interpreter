@@ -1,3 +1,4 @@
+use crate::evaluator::evaluator_context::EvaluatorContext;
 use crate::evaluator::object::Object;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
 
@@ -7,24 +8,31 @@ mod infix;
 mod integer;
 mod prefix;
 
-pub fn evaluate(expression: Expression) -> Object {
+pub fn evaluate(
+    evaluator_context: EvaluatorContext,
+    expression: Expression,
+) -> (EvaluatorContext, Object) {
     match expression {
-        Expression::INTEGER { integer_token } => integer::evaluate(integer_token),
-        Expression::BOOLEAN { boolean_token } => boolean::evaluate(boolean_token),
+        Expression::INTEGER { integer_token } => {
+            (evaluator_context, integer::evaluate(integer_token))
+        }
+        Expression::BOOLEAN { boolean_token } => {
+            (evaluator_context, boolean::evaluate(boolean_token))
+        }
         Expression::PREFIX {
             prefix_token,
             right_hand,
-        } => prefix::evaluate(prefix_token, *right_hand),
+        } => prefix::evaluate(evaluator_context, prefix_token, *right_hand),
         Expression::INFIX {
             left_hand,
             operator_token,
             right_hand,
-        } => infix::evaluate(*left_hand, operator_token, *right_hand),
+        } => infix::evaluate(evaluator_context, *left_hand, operator_token, *right_hand),
         Expression::IF {
             condition,
             consequence,
             alternative,
-        } => if_expression::evaluate(*condition, *consequence, *alternative),
-        _ => Object::NULL,
+        } => if_expression::evaluate(evaluator_context, *condition, *consequence, *alternative),
+        _ => (evaluator_context, Object::NULL),
     }
 }

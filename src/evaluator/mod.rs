@@ -9,7 +9,7 @@ mod object;
 mod statement;
 
 pub fn evaluate(
-    evaluator_context: EvaluatorContext,
+    mut evaluator_context: EvaluatorContext,
     abstract_syntax_tree: AbstractSyntaxTree,
 ) -> (EvaluatorContext, Object) {
     let mut object = Object::NULL;
@@ -19,26 +19,36 @@ pub fn evaluate(
     }
 
     for syntax_tree_node in abstract_syntax_tree.abstract_syntax_tree {
-        object = evaluate_node(syntax_tree_node);
+        let (returned_evaluator_context, returned_object) =
+            evaluate_node(evaluator_context, syntax_tree_node);
+        evaluator_context = returned_evaluator_context;
 
-        match object.clone() {
+        match returned_object.clone() {
             Object::RETURN { value } => {
                 object = *value;
                 break;
             }
             Object::TYPE_MISMATCH | Object::UNKNOWN_OPERATOR => break,
-            _ => {}
+            _ => {
+                object = returned_object;
+            }
         }
     }
 
     (evaluator_context, object)
 }
 
-fn evaluate_block(block: Block) -> Object {
+fn evaluate_block(
+    mut evaluator_context: EvaluatorContext,
+    block: Block,
+) -> (EvaluatorContext, Object) {
     let mut object = Object::NULL;
 
     for syntax_tree_node in block.nodes {
-        object = evaluate_node(syntax_tree_node);
+        let (returned_evaluator_context, returned_object) =
+            evaluate_node(evaluator_context, syntax_tree_node);
+        evaluator_context = returned_evaluator_context;
+        object = returned_object;
 
         match object.clone() {
             Object::RETURN { value: _ } | Object::TYPE_MISMATCH | Object::UNKNOWN_OPERATOR => break,
@@ -46,15 +56,20 @@ fn evaluate_block(block: Block) -> Object {
         }
     }
 
-    object
+    (evaluator_context, object)
 }
 
-fn evaluate_node(syntax_tree_node: SyntaxTreeNode) -> Object {
+fn evaluate_node(
+    evaluator_context: EvaluatorContext,
+    syntax_tree_node: SyntaxTreeNode,
+) -> (EvaluatorContext, Object) {
     match syntax_tree_node {
         SyntaxTreeNode::EXPRESSION { expression } => {
-            crate::evaluator::expression::evaluate(expression)
+            crate::evaluator::expression::evaluate(evaluator_context, expression)
         }
-        SyntaxTreeNode::STATEMENT { statement } => crate::evaluator::statement::evaluate(statement),
+        SyntaxTreeNode::STATEMENT { statement } => {
+            crate::evaluator::statement::evaluate(evaluator_context, statement)
+        }
     }
 }
 

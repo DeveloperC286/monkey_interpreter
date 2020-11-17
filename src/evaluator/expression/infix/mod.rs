@@ -1,56 +1,98 @@
+use crate::evaluator::evaluator_context::EvaluatorContext;
 use crate::evaluator::object::Object;
 use crate::lexical_analysis::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::Expression;
 
-pub fn evaluate(left_hand: Expression, operator_token: Token, right_hand: Expression) -> Object {
-    match crate::evaluator::expression::evaluate(left_hand) {
-        Object::INTEGER { value: left_value } => {
-            match crate::evaluator::expression::evaluate(right_hand) {
-                Object::INTEGER { value: right_value } => match operator_token {
-                    Token::PLUS => Object::INTEGER {
-                        value: left_value + right_value,
-                    },
-                    Token::MINUS => Object::INTEGER {
-                        value: left_value - right_value,
-                    },
-                    Token::MULTIPLY => Object::INTEGER {
-                        value: left_value * right_value,
-                    },
-                    Token::DIVIDE => Object::INTEGER {
-                        value: left_value / right_value,
-                    },
-                    Token::GREATER_THAN => match left_value > right_value {
-                        true => Object::TRUE,
-                        false => Object::FALSE,
-                    },
-                    Token::LESSER_THAN => match left_value < right_value {
-                        true => Object::TRUE,
-                        false => Object::FALSE,
-                    },
-                    Token::EQUALS => match left_value == right_value {
-                        true => Object::TRUE,
-                        false => Object::FALSE,
-                    },
-                    Token::NOT_EQUALS => match left_value != right_value {
-                        true => Object::TRUE,
-                        false => Object::FALSE,
-                    },
-                    _ => panic!("Operator token is not operator token."),
-                },
-                _ => Object::TYPE_MISMATCH,
+pub fn evaluate(
+    evaluator_context: EvaluatorContext,
+    left_hand: Expression,
+    operator_token: Token,
+    right_hand: Expression,
+) -> (EvaluatorContext, Object) {
+    match crate::evaluator::expression::evaluate(evaluator_context, left_hand) {
+        (returned_evaluator_context, Object::INTEGER { value: left_value }) => {
+            match crate::evaluator::expression::evaluate(returned_evaluator_context, right_hand) {
+                (returned_evaluator_context, Object::INTEGER { value: right_value }) => {
+                    match operator_token {
+                        Token::PLUS => (
+                            returned_evaluator_context,
+                            Object::INTEGER {
+                                value: left_value + right_value,
+                            },
+                        ),
+                        Token::MINUS => (
+                            returned_evaluator_context,
+                            Object::INTEGER {
+                                value: left_value - right_value,
+                            },
+                        ),
+                        Token::MULTIPLY => (
+                            returned_evaluator_context,
+                            Object::INTEGER {
+                                value: left_value * right_value,
+                            },
+                        ),
+                        Token::DIVIDE => (
+                            returned_evaluator_context,
+                            Object::INTEGER {
+                                value: left_value / right_value,
+                            },
+                        ),
+                        Token::GREATER_THAN => match left_value > right_value {
+                            true => (returned_evaluator_context, Object::TRUE),
+                            false => (returned_evaluator_context, Object::FALSE),
+                        },
+                        Token::LESSER_THAN => match left_value < right_value {
+                            true => (returned_evaluator_context, Object::TRUE),
+                            false => (returned_evaluator_context, Object::FALSE),
+                        },
+                        Token::EQUALS => match left_value == right_value {
+                            true => (returned_evaluator_context, Object::TRUE),
+                            false => (returned_evaluator_context, Object::FALSE),
+                        },
+                        Token::NOT_EQUALS => match left_value != right_value {
+                            true => (returned_evaluator_context, Object::TRUE),
+                            false => (returned_evaluator_context, Object::FALSE),
+                        },
+                        _ => panic!("Operator token is not operator token."),
+                    }
+                }
+                (returned_evaluator_context, _) => {
+                    (returned_evaluator_context, Object::TYPE_MISMATCH)
+                }
             }
         }
-        Object::TRUE => match crate::evaluator::expression::evaluate(right_hand) {
-            Object::TRUE => evaluate_same_boolean(operator_token),
-            Object::FALSE => evaluate_opposite_boolean(operator_token),
-            _ => Object::TYPE_MISMATCH,
-        },
-        Object::FALSE => match crate::evaluator::expression::evaluate(right_hand) {
-            Object::FALSE => evaluate_same_boolean(operator_token),
-            Object::TRUE => evaluate_opposite_boolean(operator_token),
-            _ => Object::TYPE_MISMATCH,
-        },
-        _ => Object::NULL,
+        (returned_evaluator_context, Object::TRUE) => {
+            match crate::evaluator::expression::evaluate(returned_evaluator_context, right_hand) {
+                (returned_evaluator_context, Object::TRUE) => (
+                    returned_evaluator_context,
+                    evaluate_same_boolean(operator_token),
+                ),
+                (returned_evaluator_context, Object::FALSE) => (
+                    returned_evaluator_context,
+                    evaluate_opposite_boolean(operator_token),
+                ),
+                (returned_evaluator_context, _) => {
+                    (returned_evaluator_context, Object::TYPE_MISMATCH)
+                }
+            }
+        }
+        (returned_evaluator_context, Object::FALSE) => {
+            match crate::evaluator::expression::evaluate(returned_evaluator_context, right_hand) {
+                (returned_evaluator_context, Object::FALSE) => (
+                    returned_evaluator_context,
+                    evaluate_same_boolean(operator_token),
+                ),
+                (returned_evaluator_context, Object::TRUE) => (
+                    returned_evaluator_context,
+                    evaluate_opposite_boolean(operator_token),
+                ),
+                (returned_evaluator_context, _) => {
+                    (returned_evaluator_context, Object::TYPE_MISMATCH)
+                }
+            }
+        }
+        (returned_evaluator_context, _) => (returned_evaluator_context, Object::NULL),
     }
 }
 
