@@ -9,6 +9,8 @@ pub fn repl() {
         NAME.unwrap_or("unknown"),
         VERSION.unwrap_or("unknown")
     );
+    let mut evaluator_context = crate::evaluator::evaluator_context::EvaluatorContext::new();
+
     loop {
         let tokens = crate::lexical_analysis::get_tokens(&read());
         let abstract_syntax_tree = crate::syntax_analysis::get_abstract_syntax_tree(tokens);
@@ -22,7 +24,9 @@ pub fn repl() {
                 error!("{:?}", error);
             }
         } else {
-            let object = crate::evaluator::evaluate(abstract_syntax_tree);
+            let (returned_evaluator_context, object) =
+                crate::evaluator::evaluate(evaluator_context, abstract_syntax_tree);
+            evaluator_context = returned_evaluator_context;
             println!("{:?}", object);
         }
     }

@@ -1,12 +1,17 @@
+use crate::evaluator::evaluator_context::EvaluatorContext;
 use crate::evaluator::object::Object;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
 use crate::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
 
+pub mod evaluator_context;
 mod expression;
 mod object;
 mod statement;
 
-pub fn evaluate(abstract_syntax_tree: AbstractSyntaxTree) -> Object {
+pub fn evaluate(
+    evaluator_context: EvaluatorContext,
+    abstract_syntax_tree: AbstractSyntaxTree,
+) -> (EvaluatorContext, Object) {
     let mut object = Object::NULL;
 
     if !abstract_syntax_tree.syntax_parsing_errors.is_empty() {
@@ -26,7 +31,7 @@ pub fn evaluate(abstract_syntax_tree: AbstractSyntaxTree) -> Object {
         }
     }
 
-    object
+    (evaluator_context, object)
 }
 
 fn evaluate_block(block: Block) -> Object {
