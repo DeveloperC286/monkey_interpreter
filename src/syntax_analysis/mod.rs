@@ -1,6 +1,6 @@
 use crate::lexical_analysis::token::Token;
-use crate::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::SyntaxTreeNode;
+use crate::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
 use crate::syntax_analysis::syntax_analysis_context::SyntaxAnalysisContext;
 
 #[macro_use]

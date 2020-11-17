@@ -1,7 +1,7 @@
 use crate::evaluator::evaluator_context::EvaluatorContext;
 use crate::evaluator::object::Object;
-use crate::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::*;
+use crate::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
 
 pub mod evaluator_context;
 mod expression;
