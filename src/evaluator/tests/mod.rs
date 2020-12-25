@@ -1,4 +1,3 @@
-use insta::assert_json_snapshot;
 use rstest::rstest;
 
 #[rstest(code, snapshot_name, case("", "test_evaluator_input_edgecases_case1"))]
