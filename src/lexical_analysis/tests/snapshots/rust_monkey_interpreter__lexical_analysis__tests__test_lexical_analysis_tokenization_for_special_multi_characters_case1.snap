@@ -3,16 +3,12 @@ source: src/lexical_analysis/tests/mod.rs
 expression: "crate::lexical_analysis::get_tokens(code)"
 ---
 [
-  {
-    "INTEGER": {
-      "literal": "2"
-    }
-  },
-  "EQUALS",
-  {
-    "INTEGER": {
-      "literal": "4"
-    }
-  },
-  "EOF"
+    INTEGER {
+        literal: "2",
+    },
+    EQUALS,
+    INTEGER {
+        literal: "4",
+    },
+    EOF,
 ]

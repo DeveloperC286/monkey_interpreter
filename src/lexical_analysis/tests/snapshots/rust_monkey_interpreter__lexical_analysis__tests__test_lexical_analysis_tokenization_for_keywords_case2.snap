@@ -3,14 +3,12 @@ source: src/lexical_analysis/tests/mod.rs
 expression: "crate::lexical_analysis::get_tokens(code)"
 ---
 [
-  "IF",
-  "FALSE",
-  "RETURN",
-  {
-    "INTEGER": {
-      "literal": "3"
-    }
-  },
-  "SEMI_COLON",
-  "EOF"
+    IF,
+    FALSE,
+    RETURN,
+    INTEGER {
+        literal: "3",
+    },
+    SEMI_COLON,
+    EOF,
 ]

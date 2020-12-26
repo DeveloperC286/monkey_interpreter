@@ -3,9 +3,9 @@ source: src/lexical_analysis/tests/mod.rs
 expression: "crate::lexical_analysis::get_tokens(code)"
 ---
 [
-  "ASSIGN",
-  "PLUS",
-  "OPENING_ROUND_BRACKET",
-  "CLOSING_ROUND_BRACKET",
-  "EOF"
+    ASSIGN,
+    PLUS,
+    OPENING_ROUND_BRACKET,
+    CLOSING_ROUND_BRACKET,
+    EOF,
 ]

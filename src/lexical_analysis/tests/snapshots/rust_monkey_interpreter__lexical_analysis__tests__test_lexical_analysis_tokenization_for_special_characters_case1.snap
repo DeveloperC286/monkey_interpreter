@@ -3,8 +3,8 @@ source: src/lexical_analysis/tests/mod.rs
 expression: "crate::lexical_analysis::get_tokens(code)"
 ---
 [
-  "NOT",
-  "MULTIPLY",
-  "ASSIGN",
-  "EOF"
+    NOT,
+    MULTIPLY,
+    ASSIGN,
+    EOF,
 ]

@@ -3,8 +3,8 @@ source: src/lexical_analysis/tests/mod.rs
 expression: "crate::lexical_analysis::get_tokens(code)"
 ---
 [
-  "MINUS",
-  "DIVIDE",
-  "MULTIPLY",
-  "EOF"
+    MINUS,
+    DIVIDE,
+    MULTIPLY,
+    EOF,
 ]
