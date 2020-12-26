@@ -1,4 +1,3 @@
-use insta::assert_json_snapshot;
 use rstest::rstest;
 
 #[rstest(

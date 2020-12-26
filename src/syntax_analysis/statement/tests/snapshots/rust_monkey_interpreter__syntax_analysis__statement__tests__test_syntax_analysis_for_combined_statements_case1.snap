@@ -2,47 +2,29 @@
 source: src/syntax_analysis/statement/tests/mod.rs
 expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens(code))"
 ---
-{
-  "abstract_syntax_tree": [
-    {
-      "STATEMENT": {
-        "statement": {
-          "LET": {
-            "identifier_token": {
-              "IDENTIFIER": {
-                "literal": "x"
-              }
+AbstractSyntaxTree {
+    abstract_syntax_tree: [
+        STATEMENT {
+            statement: LET {
+                identifier_token: IDENTIFIER {
+                    literal: "x",
+                },
+                expression: INTEGER {
+                    integer_token: INTEGER {
+                        literal: "5",
+                    },
+                },
             },
-            "expression": {
-              "INTEGER": {
-                "integer_token": {
-                  "INTEGER": {
-                    "literal": "5"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    {
-      "STATEMENT": {
-        "statement": {
-          "RETURN": {
-            "expression": {
-              "INTEGER": {
-                "integer_token": {
-                  "INTEGER": {
-                    "literal": "5"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  ],
-  "syntax_parsing_errors": []
+        },
+        STATEMENT {
+            statement: RETURN {
+                expression: INTEGER {
+                    integer_token: INTEGER {
+                        literal: "5",
+                    },
+                },
+            },
+        },
+    ],
+    syntax_parsing_errors: [],
 }

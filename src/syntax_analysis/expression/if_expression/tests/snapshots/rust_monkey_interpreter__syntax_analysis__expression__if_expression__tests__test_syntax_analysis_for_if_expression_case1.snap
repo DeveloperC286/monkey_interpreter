@@ -2,57 +2,37 @@
 source: src/syntax_analysis/expression/if_expression/tests/mod.rs
 expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens(code))"
 ---
-{
-  "abstract_syntax_tree": [
-    {
-      "EXPRESSION": {
-        "expression": {
-          "IF": {
-            "condition": {
-              "INFIX": {
-                "left_hand": {
-                  "IDENTIFIER": {
-                    "identifier_token": {
-                      "IDENTIFIER": {
-                        "literal": "x"
-                      }
-                    }
-                  }
+AbstractSyntaxTree {
+    abstract_syntax_tree: [
+        EXPRESSION {
+            expression: IF {
+                condition: INFIX {
+                    left_hand: IDENTIFIER {
+                        identifier_token: IDENTIFIER {
+                            literal: "x",
+                        },
+                    },
+                    operator_token: LESSER_THAN,
+                    right_hand: IDENTIFIER {
+                        identifier_token: IDENTIFIER {
+                            literal: "y",
+                        },
+                    },
                 },
-                "operator_token": "LESSER_THAN",
-                "right_hand": {
-                  "IDENTIFIER": {
-                    "identifier_token": {
-                      "IDENTIFIER": {
-                        "literal": "y"
-                      }
-                    }
-                  }
-                }
-              }
+                consequence: Block {
+                    nodes: [
+                        EXPRESSION {
+                            expression: IDENTIFIER {
+                                identifier_token: IDENTIFIER {
+                                    literal: "x",
+                                },
+                            },
+                        },
+                    ],
+                },
+                alternative: None,
             },
-            "consequence": {
-              "nodes": [
-                {
-                  "EXPRESSION": {
-                    "expression": {
-                      "IDENTIFIER": {
-                        "identifier_token": {
-                          "IDENTIFIER": {
-                            "literal": "x"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "alternative": null
-          }
-        }
-      }
-    }
-  ],
-  "syntax_parsing_errors": []
+        },
+    ],
+    syntax_parsing_errors: [],
 }

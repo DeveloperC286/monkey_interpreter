@@ -2,9 +2,9 @@
 source: src/syntax_analysis/tests/mod.rs
 expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens(code))"
 ---
-{
-  "abstract_syntax_tree": [],
-  "syntax_parsing_errors": [
-    "Syntax error : Do not know how to parse SEMI_COLON as an expression."
-  ]
+AbstractSyntaxTree {
+    abstract_syntax_tree: [],
+    syntax_parsing_errors: [
+        "Syntax error : Do not know how to parse SEMI_COLON as an expression.",
+    ],
 }

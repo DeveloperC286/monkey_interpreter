@@ -1,19 +1,17 @@
-use serde::{Deserialize, Serialize};
-
 use crate::lexical_analysis::token::Token;
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct Block {
     pub nodes: Vec<SyntaxTreeNode>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum SyntaxTreeNode {
     STATEMENT { statement: Statement },
     EXPRESSION { expression: Expression },
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum Statement {
     LET {
         identifier_token: Token,
@@ -24,7 +22,7 @@ pub enum Statement {
     },
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum Expression {
     IDENTIFIER {
         identifier_token: Token,
@@ -59,7 +57,7 @@ pub enum Expression {
     },
 }
 
-#[derive(Serialize, Deserialize, Debug, Copy, Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 #[allow(non_camel_case_types)]
 pub enum ExpressionPrecedence {
     LOWEST,

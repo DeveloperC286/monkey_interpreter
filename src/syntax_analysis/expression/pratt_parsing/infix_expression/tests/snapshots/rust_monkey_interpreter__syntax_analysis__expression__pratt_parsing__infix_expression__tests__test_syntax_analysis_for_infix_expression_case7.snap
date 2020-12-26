@@ -2,49 +2,31 @@
 source: src/syntax_analysis/expression/pratt_parsing/infix_expression/tests/mod.rs
 expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens(code))"
 ---
-{
-  "abstract_syntax_tree": [
-    {
-      "EXPRESSION": {
-        "expression": {
-          "INFIX": {
-            "left_hand": {
-              "INFIX": {
-                "left_hand": {
-                  "INTEGER": {
-                    "integer_token": {
-                      "INTEGER": {
-                        "literal": "10"
-                      }
-                    }
-                  }
+AbstractSyntaxTree {
+    abstract_syntax_tree: [
+        EXPRESSION {
+            expression: INFIX {
+                left_hand: INFIX {
+                    left_hand: INTEGER {
+                        integer_token: INTEGER {
+                            literal: "10",
+                        },
+                    },
+                    operator_token: DIVIDE,
+                    right_hand: INTEGER {
+                        integer_token: INTEGER {
+                            literal: "5",
+                        },
+                    },
                 },
-                "operator_token": "DIVIDE",
-                "right_hand": {
-                  "INTEGER": {
-                    "integer_token": {
-                      "INTEGER": {
-                        "literal": "5"
-                      }
-                    }
-                  }
-                }
-              }
+                operator_token: PLUS,
+                right_hand: INTEGER {
+                    integer_token: INTEGER {
+                        literal: "1",
+                    },
+                },
             },
-            "operator_token": "PLUS",
-            "right_hand": {
-              "INTEGER": {
-                "integer_token": {
-                  "INTEGER": {
-                    "literal": "1"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  ],
-  "syntax_parsing_errors": []
+        },
+    ],
+    syntax_parsing_errors: [],
 }
