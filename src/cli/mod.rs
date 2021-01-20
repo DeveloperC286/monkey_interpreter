@@ -2,7 +2,7 @@ use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 #[structopt(
-    name = "rust_monkey_interpreter",
-    about = "Monkey interpreter written in Rust."
+    name = "monkey_interpreter",
+    about = "Implementation of an interpreter for the Monkey language written in Rust, currently under active development."
 )]
 pub struct Arguments {}
