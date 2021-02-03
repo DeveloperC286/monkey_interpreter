@@ -1,4 +1,4 @@
-use crate::lexical_analysis::token::Token;
+use crate::lexical_analysis::model::token::Token;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Block {

@@ -1,13 +1,13 @@
 use std::iter::{FromIterator, Peekable};
 use std::str::Chars;
 
-use crate::lexical_analysis::token::Token;
+use crate::lexical_analysis::model::token::Token;
 use crate::lexical_analysis::utilities::*;
 
 #[macro_use]
 mod macros;
 
-pub mod token;
+pub mod model;
 mod utilities;
 
 pub fn get_tokens(code: &str) -> Vec<Token> {

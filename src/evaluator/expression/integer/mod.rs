@@ -1,5 +1,5 @@
 use crate::evaluator::object::Object;
-use crate::lexical_analysis::token::Token;
+use crate::lexical_analysis::model::token::Token;
 
 pub fn evaluate(integer_token: Token) -> Object {
     match integer_token {

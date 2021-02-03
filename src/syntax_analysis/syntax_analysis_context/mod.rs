@@ -1,7 +1,7 @@
 use std::iter::Peekable;
 use std::slice::Iter;
 
-use crate::lexical_analysis::token::Token;
+use crate::lexical_analysis::model::token::Token;
 
 pub struct SyntaxAnalysisContext<'a> {
     pub tokens: Peekable<Iter<'a, Token>>,

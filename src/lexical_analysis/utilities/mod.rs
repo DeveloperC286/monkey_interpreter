@@ -1,4 +1,4 @@
-use crate::lexical_analysis::token::Token;
+use crate::lexical_analysis::model::token::Token;
 
 pub fn get_keyword_token(keyword: &str) -> Token {
     match keyword.to_lowercase().as_str() {
