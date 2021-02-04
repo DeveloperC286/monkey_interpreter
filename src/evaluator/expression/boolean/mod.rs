@@ -1,4 +1,4 @@
-use crate::evaluator::object::Object;
+use crate::evaluator::model::object::Object;
 use crate::lexical_analysis::model::token::Token;
 
 pub fn evaluate(boolean_token: Token) -> Object {
