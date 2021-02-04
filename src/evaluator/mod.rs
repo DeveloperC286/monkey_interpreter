@@ -1,11 +1,11 @@
 use model::evaluator_context::EvaluatorContext;
 use model::object::Object;
 
-use crate::syntax_analysis::model::abstract_syntax_tree::AbstractSyntaxTree;
 use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::*;
+use crate::syntax_analysis::model::abstract_syntax_tree::AbstractSyntaxTree;
 
-pub mod model;
 mod expression;
+pub mod model;
 mod statement;
 
 pub fn evaluate(

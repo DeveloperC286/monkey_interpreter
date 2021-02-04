@@ -1,5 +1,5 @@
-use model::abstract_syntax_tree::AbstractSyntaxTree;
 use model::abstract_syntax_tree::syntax_tree_node::SyntaxTreeNode;
+use model::abstract_syntax_tree::AbstractSyntaxTree;
 use model::syntax_analysis_context::SyntaxAnalysisContext;
 
 use crate::lexical_analysis::model::token::Token;
