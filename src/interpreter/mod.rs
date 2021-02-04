@@ -9,7 +9,7 @@ pub fn repl() {
         NAME.unwrap_or("unknown"),
         VERSION.unwrap_or("unknown")
     );
-    let mut evaluator_context = crate::evaluator::evaluator_context::EvaluatorContext::new();
+    let mut evaluator_context = crate::evaluator::model::evaluator_context::EvaluatorContext::new();
 
     loop {
         let tokens = crate::lexical_analysis::get_tokens(&read());

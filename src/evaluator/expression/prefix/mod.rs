@@ -1,4 +1,4 @@
-use crate::evaluator::evaluator_context::EvaluatorContext;
+use crate::evaluator::model::evaluator_context::EvaluatorContext;
 use crate::evaluator::model::object::Object;
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::Expression;
