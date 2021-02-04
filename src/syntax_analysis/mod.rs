@@ -1,7 +1,8 @@
+use model::syntax_analysis_context::SyntaxAnalysisContext;
+
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::SyntaxTreeNode;
-use crate::syntax_analysis::syntax_analysis_context::SyntaxAnalysisContext;
 
 #[macro_use]
 mod macros;
@@ -11,7 +12,6 @@ mod model;
 pub mod abstract_syntax_tree;
 mod expression;
 mod statement;
-mod syntax_analysis_context;
 
 pub fn get_abstract_syntax_tree(tokens: Vec<Token>) -> AbstractSyntaxTree {
     let mut abstract_syntax_tree: Vec<SyntaxTreeNode> = vec![];
