@@ -2,7 +2,7 @@ use std::cmp::Ordering;
 
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::Expression;
-use crate::syntax_analysis::expression_precedence::ExpressionPrecedence;
+use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
 use crate::syntax_analysis::syntax_analysis_context::SyntaxAnalysisContext;
 
 mod call_expression;
@@ -20,7 +20,7 @@ pub fn pratt_parsing(
 
         //if expression_precedence.
         let expression_precedence_comparison = expression_precedence.partial_cmp(
-            &crate::syntax_analysis::expression_precedence::get_current_expression_precedence(
+            &crate::syntax_analysis::model::expression_precedence::get_current_expression_precedence(
                 &token,
             ),
         );
