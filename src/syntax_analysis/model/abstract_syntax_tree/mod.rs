@@ -1,4 +1,4 @@
-use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::SyntaxTreeNode;
+use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::SyntaxTreeNode;
 
 pub mod syntax_tree_node;
 

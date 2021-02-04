@@ -1,6 +1,6 @@
 use crate::evaluator::evaluator_context::EvaluatorContext;
 use crate::evaluator::object::Object;
-use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{Block, Expression};
+use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::{Block, Expression};
 
 pub fn evaluate(
     evaluator_context: EvaluatorContext,

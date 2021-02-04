@@ -1,15 +1,14 @@
+use model::abstract_syntax_tree::AbstractSyntaxTree;
+use model::abstract_syntax_tree::syntax_tree_node::SyntaxTreeNode;
 use model::syntax_analysis_context::SyntaxAnalysisContext;
 
 use crate::lexical_analysis::model::token::Token;
-use crate::syntax_analysis::abstract_syntax_tree::AbstractSyntaxTree;
-use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::SyntaxTreeNode;
 
 #[macro_use]
 mod macros;
 
-mod model;
+pub(crate) mod model;
 
-pub mod abstract_syntax_tree;
 mod expression;
 mod statement;
 
