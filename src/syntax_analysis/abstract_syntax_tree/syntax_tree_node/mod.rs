@@ -56,15 +56,3 @@ pub enum Expression {
         arguments: Vec<Expression>,
     },
 }
-
-#[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
-#[allow(non_camel_case_types)]
-pub enum ExpressionPrecedence {
-    LOWEST,
-    EQUALS,
-    LESSER_OR_GREATER,
-    PLUS,
-    MULTIPLY,
-    PREFIX,
-    CALL,
-}

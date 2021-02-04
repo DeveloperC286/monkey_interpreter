@@ -1,7 +1,8 @@
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::{
-    Expression, ExpressionPrecedence, SyntaxTreeNode,
+    Expression, SyntaxTreeNode,
 };
+use crate::syntax_analysis::expression_precedence::ExpressionPrecedence;
 use crate::syntax_analysis::syntax_analysis_context::SyntaxAnalysisContext;
 
 mod function_expression;

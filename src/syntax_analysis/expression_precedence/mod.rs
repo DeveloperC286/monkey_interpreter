@@ -1,5 +1,16 @@
 use crate::lexical_analysis::model::token::Token;
-use crate::syntax_analysis::abstract_syntax_tree::syntax_tree_node::ExpressionPrecedence;
+
+#[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
+#[allow(non_camel_case_types)]
+pub enum ExpressionPrecedence {
+    LOWEST,
+    EQUALS,
+    LESSER_OR_GREATER,
+    PLUS,
+    MULTIPLY,
+    PREFIX,
+    CALL,
+}
 
 pub fn get_current_expression_precedence(token: &Token) -> ExpressionPrecedence {
     match token {
