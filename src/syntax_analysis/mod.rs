@@ -9,6 +9,10 @@ mod macros;
 
 pub(crate) mod model;
 
+#[cfg(test)]
+#[macro_use]
+mod tests;
+
 mod expression;
 mod statement;
 
@@ -49,6 +53,3 @@ fn get_next_syntax_tree_node(
         None => (syntax_analysis_context, None),
     }
 }
-
-#[cfg(test)]
-mod tests;

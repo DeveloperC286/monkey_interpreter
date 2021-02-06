@@ -1,5 +1,8 @@
 use rstest::rstest;
 
+#[macro_use]
+pub(super) mod macros;
+
 #[rstest(
     code,
     snapshot_name,
