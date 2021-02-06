@@ -9,7 +9,7 @@ Implementation of an interpreter for the Monkey language written in Rust, curren
 
 
 ## What is Monkey?
-The Monkey language was devised by Thorsten Ball for use in his book [Writing An Interpreter In Go](https://interpreterbook.com/#the-monkey-programming-language).
+The [Monkey](https://monkeylang.org/) programming language was devised by Thorsten Ball for use in his follow along books [Writing An Interpreter In Go](https://interpreterbook.com) and [Writing A Compiler In Go](https://compilerbook.com/).
 
 Monkey has a C-like syntax, supports **variable bindings**, **prefix** and **infix operators**, has **first-class** and **higher-order functions**, can handle **closures** with ease and has **integers**, **booleans**, **arrays** and **hashes** built-in.
 
