@@ -14,12 +14,6 @@ The Monkey language was devised by Thorsten Ball for use in his book [Writing An
 Monkey has a C-like syntax, supports **variable bindings**, **prefix** and **infix operators**, has **first-class** and **higher-order functions**, can handle **closures** with ease and has **integers**, **booleans**, **arrays** and **hashes** built-in.
 
 
-## Why?
-I am developing this implementation of an interpreter to have a large complex project to pratice real world Rust and also learn more about compilers/interpreter.
-
-I choose to follow along with the book and use Rust instead of Go so it would be a challange rather than copy and pasting or slightly refactoring the code. Along with the added benefits of Rust not have a garabage collector and no run time cost for abstraction and better performance metrics; which is important in an interpreter.
-
-
 ## Building
 ```
 cargo build --release
