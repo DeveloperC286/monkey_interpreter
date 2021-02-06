@@ -4,10 +4,6 @@ extern crate pretty_env_logger;
 
 use structopt::StructOpt;
 
-#[cfg(test)]
-#[macro_use]
-mod tests;
-
 mod cli;
 mod evaluator;
 mod interpreter;

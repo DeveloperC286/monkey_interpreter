@@ -4,8 +4,13 @@ use model::object::Object;
 use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::*;
 use crate::syntax_analysis::model::abstract_syntax_tree::AbstractSyntaxTree;
 
+pub(crate) mod model;
+
+#[cfg(test)]
+#[macro_use]
+mod tests;
+
 mod expression;
-pub mod model;
 mod statement;
 
 pub fn evaluate(
@@ -71,6 +76,3 @@ fn evaluate_node(
         }
     }
 }
-
-#[cfg(test)]
-mod tests;
