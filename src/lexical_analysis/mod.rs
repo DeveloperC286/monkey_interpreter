@@ -7,7 +7,7 @@ use crate::lexical_analysis::utilities::*;
 #[macro_use]
 mod macros;
 
-pub mod model;
+pub(crate) mod model;
 mod utilities;
 
 pub fn get_tokens(code: &str) -> Vec<Token> {
