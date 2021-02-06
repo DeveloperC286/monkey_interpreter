@@ -14,27 +14,36 @@ The [Monkey](https://monkeylang.org/) programming language was devised by Thorst
 Monkey has a C-like syntax, supports **variable bindings**, **prefix** and **infix operators**, has **first-class** and **higher-order functions**, can handle **closures** with ease and has **integers**, **booleans**, **arrays** and **hashes** built-in.
 
 
-## Building
+## Content
+ * [Usage](#usage)
+   + [Usage - Logging](#usage-logging)
+ * [Compiling](#compiling)
+ * [Unit Testing](#unit-testing)
+ * [Issues/Feature Requests](#issuesfeature-requests)
+
+
+## Usage
+```
+target/release/monkey_interpreter
+```
+
+## Usage - Logging
+The crates `pretty_env_logger` and `log` are used to provide logging.
+The environment variable `RUST_LOG` can be used to set the logging level.
+See [https://crates.io/crates/pretty_env_logger](https://crates.io/crates/pretty_env_logger) for more detailed documentation.
+
+
+## Compiling
 ```
 cargo build --release
 ```
 
 
-## Testing
+## Unit Testing
 ```
 cargo test
 ```
 
 
-## Running the Interactive Interpreter
-```
-target/release/monkey_interpreter
-```
-
-
-## Running with Logging
-You can increase or decrease the level of the logs by altering the enviroment variable 'RUST_LOG'.
-
-```
-RUST_LOG=trace target/release/monkey_interpreter
-```
+## Issues/Feature Requests
+To report a bug/issue or request a new feature use [https://gitlab.com/DeveloperC/monkey_interpreter/-/issues](https://gitlab.com/DeveloperC/monkey_interpreter/-/issues).
