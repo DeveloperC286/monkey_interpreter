@@ -1,8 +1,14 @@
 [package]
 name = "monkey_interpreter"
 version = "0.13.0"
+description = "Implementation of an interpreter for the Monkey language written in Rust, currently under active development."
 authors = ["C <DeveloperC@protonmail.com>"]
 edition = "2018"
+license = "AGPL-3.0"
+repository = "https://gitlab.com/DeveloperC/monkey_interpreter"
+readme = "README.md"
+keywords = ["monkey", "interpreter", "compiler", "programming", "language"]
+categories = ["command-line-utilities", "development-tools"]
 
 
 [dependencies]
