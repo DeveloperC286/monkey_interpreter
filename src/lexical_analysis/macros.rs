@@ -29,8 +29,7 @@ macro_rules! check_next_character {
                 $iterator.next();
                 return ($iterator, $token_type);
             }
-            Some(_) => {}
-            None => {}
+            _ => {}
         }
     };
 }
