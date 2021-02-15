@@ -25,13 +25,11 @@ macro_rules! parse_characters {
 macro_rules! check_next_character {
     ($iterator:expr, $expected_next_character:expr, $token_type:expr) => {
         match $iterator.peek() {
-            Some(next_character) => match next_character {
-                $expected_next_character => {
-                    $iterator.next();
-                    return ($iterator, $token_type);
-                }
-                _ => {}
-            },
+            Some($expected_next_character) => {
+                $iterator.next();
+                return ($iterator, $token_type);
+            }
+            Some(_) => {}
             None => {}
         }
     };
