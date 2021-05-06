@@ -3,7 +3,7 @@ use crate::lexical_analysis::model::token::Token;
 
 pub fn evaluate(integer_token: Token) -> Object {
     match integer_token {
-        Token::Integer { literal } => Object::INTEGER {
+        Token::Integer { literal } => Object::Integer {
             value: literal.parse().unwrap(),
         },
         _ => panic!("Integer token not a integer token."),

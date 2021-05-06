@@ -17,7 +17,7 @@ pub fn evaluate(
     mut evaluator_context: EvaluatorContext,
     abstract_syntax_tree: AbstractSyntaxTree,
 ) -> (EvaluatorContext, Object) {
-    let mut object = Object::NULL;
+    let mut object = Object::Null;
 
     if !abstract_syntax_tree.syntax_parsing_errors.is_empty() {
         panic!("Syntax errors unable to evaluate.");
@@ -30,11 +30,11 @@ pub fn evaluate(
         object = returned_object;
 
         match object.clone() {
-            Object::RETURN { value } => {
+            Object::Return { value } => {
                 object = *value;
                 break;
             }
-            Object::TYPE_MISMATCH | Object::UNKNOWN_OPERATOR => break,
+            Object::TypeMismatch | Object::UnknownOperator => break,
             _ => {}
         }
     }
@@ -46,7 +46,7 @@ fn evaluate_block(
     mut evaluator_context: EvaluatorContext,
     block: Block,
 ) -> (EvaluatorContext, Object) {
-    let mut object = Object::NULL;
+    let mut object = Object::Null;
 
     for syntax_tree_node in block.nodes {
         let (returned_evaluator_context, returned_object) =
@@ -55,7 +55,7 @@ fn evaluate_block(
         object = returned_object;
 
         match object.clone() {
-            Object::RETURN { value: _ } | Object::TYPE_MISMATCH | Object::UNKNOWN_OPERATOR => break,
+            Object::Return { value: _ } | Object::TypeMismatch | Object::UnknownOperator => break,
             _ => {}
         }
     }

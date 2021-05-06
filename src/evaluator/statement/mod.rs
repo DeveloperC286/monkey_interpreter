@@ -12,6 +12,6 @@ pub fn evaluate(
         Statement::Return { expression } => {
             crate::evaluator::statement::return_statement::evaluate(evaluator_context, *expression)
         }
-        _ => (evaluator_context, Object::NULL),
+        _ => (evaluator_context, Object::Null),
     }
 }

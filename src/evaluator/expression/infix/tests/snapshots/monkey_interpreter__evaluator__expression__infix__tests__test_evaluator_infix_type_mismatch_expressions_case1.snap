@@ -4,5 +4,5 @@ expression: "crate::evaluator::evaluate(crate::evaluator::model::evaluator_conte
 ---
 (
     EvaluatorContext,
-    TYPE_MISMATCH,
+    TypeMismatch,
 )

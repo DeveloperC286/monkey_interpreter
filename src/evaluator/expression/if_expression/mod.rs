@@ -9,10 +9,10 @@ pub fn evaluate(
     alternative: Option<Block>,
 ) -> (EvaluatorContext, Object) {
     match crate::evaluator::expression::evaluate(evaluator_context, condition) {
-        (evaluator_context, Object::NULL) | (evaluator_context, Object::FALSE) => match alternative
+        (evaluator_context, Object::Null) | (evaluator_context, Object::False) => match alternative
         {
             Some(block) => crate::evaluator::evaluate_block(evaluator_context, block),
-            None => (evaluator_context, Object::NULL),
+            None => (evaluator_context, Object::Null),
         },
         (evaluator_context, _) => crate::evaluator::evaluate_block(evaluator_context, consequence),
     }

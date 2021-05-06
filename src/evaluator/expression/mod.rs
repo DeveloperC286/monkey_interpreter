@@ -33,6 +33,6 @@ pub fn evaluate(
             consequence,
             alternative,
         } => if_expression::evaluate(evaluator_context, *condition, *consequence, *alternative),
-        _ => (evaluator_context, Object::NULL),
+        _ => (evaluator_context, Object::Null),
     }
 }

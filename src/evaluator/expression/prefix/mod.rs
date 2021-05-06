@@ -12,16 +12,16 @@ pub fn evaluate(
         crate::evaluator::expression::evaluate(evaluator_context, right_hand_expression);
     match prefix_token {
         Token::Not => match object {
-            Object::TRUE => (returned_evaluator_context, Object::FALSE),
-            Object::FALSE => (returned_evaluator_context, Object::TRUE),
-            _ => (returned_evaluator_context, Object::UNKNOWN_OPERATOR),
+            Object::True => (returned_evaluator_context, Object::False),
+            Object::False => (returned_evaluator_context, Object::True),
+            _ => (returned_evaluator_context, Object::UnknownOperator),
         },
         Token::Minus => match object {
-            Object::INTEGER { value } => (
+            Object::Integer { value } => (
                 returned_evaluator_context,
-                Object::INTEGER { value: -value },
+                Object::Integer { value: -value },
             ),
-            _ => (returned_evaluator_context, Object::UNKNOWN_OPERATOR),
+            _ => (returned_evaluator_context, Object::UnknownOperator),
         },
         _ => panic!("Prefix token not a prefix token."),
     }

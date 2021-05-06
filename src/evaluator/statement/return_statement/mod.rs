@@ -11,7 +11,7 @@ pub fn evaluate(
 
     (
         returned_evaluator_context,
-        Object::RETURN {
+        Object::Return {
             value: Box::new(value),
         },
     )
