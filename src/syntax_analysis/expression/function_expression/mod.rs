@@ -48,7 +48,7 @@ fn parse_parameters(
             loop {
                 match crate::syntax_analysis::expression::get_expression(
                     syntax_analysis_context,
-                    ExpressionPrecedence::LOWEST,
+                    ExpressionPrecedence::Lowest,
                 ) {
                     (returned_syntax_analysis_context, Some(expression)) => {
                         match expression.clone() {

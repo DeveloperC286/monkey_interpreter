@@ -12,7 +12,7 @@ pub fn parse_grouped_expression(
     let (returned_syntax_analysis_context, grouped_expression) =
         crate::syntax_analysis::expression::get_expression(
             syntax_analysis_context,
-            ExpressionPrecedence::LOWEST,
+            ExpressionPrecedence::Lowest,
         );
     syntax_analysis_context = returned_syntax_analysis_context;
     assert_token!(syntax_analysis_context, Token::ClosingRoundBracket, None);

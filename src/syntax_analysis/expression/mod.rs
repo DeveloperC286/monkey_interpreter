@@ -15,7 +15,7 @@ pub fn get_expression_node(
     mut syntax_analysis_context: SyntaxAnalysisContext,
 ) -> (SyntaxAnalysisContext, Option<SyntaxTreeNode>) {
     let (returned_syntax_analysis_context, expression_option) =
-        get_expression(syntax_analysis_context, ExpressionPrecedence::LOWEST);
+        get_expression(syntax_analysis_context, ExpressionPrecedence::Lowest);
     syntax_analysis_context = returned_syntax_analysis_context;
 
     semicolon!(syntax_analysis_context);
@@ -55,7 +55,7 @@ pub fn get_expression(
                 debug!("Found a prefix expression.");
                 let token = syntax_analysis_context.tokens.next().unwrap().clone();
 
-                match get_expression(syntax_analysis_context, ExpressionPrecedence::PREFIX) {
+                match get_expression(syntax_analysis_context, ExpressionPrecedence::Prefix) {
                     (returned_syntax_analysis_context, Some(right_hand)) => {
                         syntax_analysis_context = returned_syntax_analysis_context;
                         expression = Some(Expression::PREFIX {

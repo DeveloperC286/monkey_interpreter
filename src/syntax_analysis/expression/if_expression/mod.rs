@@ -15,7 +15,7 @@ pub fn parse_if_expression(
     let (returned_syntax_analysis_context, condition_option) =
         crate::syntax_analysis::expression::get_expression(
             syntax_analysis_context,
-            ExpressionPrecedence::LOWEST,
+            ExpressionPrecedence::Lowest,
         );
     syntax_analysis_context = returned_syntax_analysis_context;
     assert_token!(syntax_analysis_context, Token::ClosingRoundBracket, None);
