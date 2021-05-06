@@ -7,7 +7,7 @@ AbstractSyntaxTree {
         STATEMENT {
             statement: RETURN {
                 expression: INTEGER {
-                    integer_token: INTEGER {
+                    integer_token: Integer {
                         literal: "5",
                     },
                 },
@@ -16,7 +16,7 @@ AbstractSyntaxTree {
         STATEMENT {
             statement: RETURN {
                 expression: IDENTIFIER {
-                    identifier_token: IDENTIFIER {
+                    identifier_token: Identifier {
                         literal: "x",
                     },
                 },

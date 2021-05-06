@@ -10,23 +10,23 @@ pub fn parse_if_expression(
     debug!("Parsing a if expression.");
 
     // parse if expression
-    assert_token!(syntax_analysis_context, Token::IF, None);
-    assert_token!(syntax_analysis_context, Token::OPENING_ROUND_BRACKET, None);
+    assert_token!(syntax_analysis_context, Token::If, None);
+    assert_token!(syntax_analysis_context, Token::OpeningRoundBracket, None);
     let (returned_syntax_analysis_context, condition_option) =
         crate::syntax_analysis::expression::get_expression(
             syntax_analysis_context,
             ExpressionPrecedence::LOWEST,
         );
     syntax_analysis_context = returned_syntax_analysis_context;
-    assert_token!(syntax_analysis_context, Token::CLOSING_ROUND_BRACKET, None);
+    assert_token!(syntax_analysis_context, Token::ClosingRoundBracket, None);
     let (returned_syntax_analysis_context, consequence_option) =
         parse_block(syntax_analysis_context);
     syntax_analysis_context = returned_syntax_analysis_context;
     let mut alternative = None;
 
     if let Some(token) = syntax_analysis_context.tokens.peek() {
-        if **token == Token::ELSE {
-            assert_token!(syntax_analysis_context, Token::ELSE, None);
+        if **token == Token::Else {
+            assert_token!(syntax_analysis_context, Token::Else, None);
             let (returned_syntax_analysis_context, returned_alternative) =
                 parse_block(syntax_analysis_context);
             alternative = returned_alternative;

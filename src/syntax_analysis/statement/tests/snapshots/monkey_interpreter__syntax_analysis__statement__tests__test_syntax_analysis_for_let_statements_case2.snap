@@ -6,11 +6,11 @@ AbstractSyntaxTree {
     abstract_syntax_tree: [
         STATEMENT {
             statement: LET {
-                identifier_token: IDENTIFIER {
+                identifier_token: Identifier {
                     literal: "x",
                 },
                 expression: INTEGER {
-                    integer_token: INTEGER {
+                    integer_token: Integer {
                         literal: "5",
                     },
                 },
@@ -18,18 +18,18 @@ AbstractSyntaxTree {
         },
         STATEMENT {
             statement: LET {
-                identifier_token: IDENTIFIER {
+                identifier_token: Identifier {
                     literal: "z",
                 },
                 expression: INFIX {
                     left_hand: INTEGER {
-                        integer_token: INTEGER {
+                        integer_token: Integer {
                             literal: "7",
                         },
                     },
-                    operator_token: PLUS,
+                    operator_token: Plus,
                     right_hand: INTEGER {
-                        integer_token: INTEGER {
+                        integer_token: Integer {
                             literal: "10",
                         },
                     },

@@ -3,8 +3,8 @@ source: src/lexical_analysis/tests/mod.rs
 expression: "crate::lexical_analysis::get_tokens(code)"
 ---
 [
-    GREATER_THAN,
-    LESSER_THAN,
-    MULTIPLY,
-    EOF,
+    GreaterThan,
+    LesserThan,
+    Multiply,
+    EndOfFile,
 ]

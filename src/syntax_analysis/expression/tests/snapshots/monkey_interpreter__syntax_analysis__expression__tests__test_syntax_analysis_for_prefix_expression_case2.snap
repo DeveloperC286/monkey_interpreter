@@ -6,9 +6,9 @@ AbstractSyntaxTree {
     abstract_syntax_tree: [
         EXPRESSION {
             expression: PREFIX {
-                prefix_token: MINUS,
+                prefix_token: Minus,
                 right_hand: INTEGER {
-                    integer_token: INTEGER {
+                    integer_token: Integer {
                         literal: "3",
                     },
                 },

@@ -8,14 +8,14 @@ pub fn parse_grouped_expression(
 ) -> (SyntaxAnalysisContext, Option<Expression>) {
     debug!("Parsing a grouped expression.");
 
-    assert_token!(syntax_analysis_context, Token::OPENING_ROUND_BRACKET, None);
+    assert_token!(syntax_analysis_context, Token::OpeningRoundBracket, None);
     let (returned_syntax_analysis_context, grouped_expression) =
         crate::syntax_analysis::expression::get_expression(
             syntax_analysis_context,
             ExpressionPrecedence::LOWEST,
         );
     syntax_analysis_context = returned_syntax_analysis_context;
-    assert_token!(syntax_analysis_context, Token::CLOSING_ROUND_BRACKET, None);
+    assert_token!(syntax_analysis_context, Token::ClosingRoundBracket, None);
 
     (syntax_analysis_context, grouped_expression)
 }

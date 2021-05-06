@@ -7,16 +7,16 @@ AbstractSyntaxTree {
         EXPRESSION {
             expression: INFIX {
                 left_hand: PREFIX {
-                    prefix_token: MINUS,
+                    prefix_token: Minus,
                     right_hand: INTEGER {
-                        integer_token: INTEGER {
+                        integer_token: Integer {
                             literal: "5",
                         },
                     },
                 },
-                operator_token: MULTIPLY,
+                operator_token: Multiply,
                 right_hand: INTEGER {
-                    integer_token: INTEGER {
+                    integer_token: Integer {
                         literal: "10",
                     },
                 },

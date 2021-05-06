@@ -11,12 +11,12 @@ pub fn evaluate(
     let (returned_evaluator_context, object) =
         crate::evaluator::expression::evaluate(evaluator_context, right_hand_expression);
     match prefix_token {
-        Token::NOT => match object {
+        Token::Not => match object {
             Object::TRUE => (returned_evaluator_context, Object::FALSE),
             Object::FALSE => (returned_evaluator_context, Object::TRUE),
             _ => (returned_evaluator_context, Object::UNKNOWN_OPERATOR),
         },
-        Token::MINUS => match object {
+        Token::Minus => match object {
             Object::INTEGER { value } => (
                 returned_evaluator_context,
                 Object::INTEGER { value: -value },

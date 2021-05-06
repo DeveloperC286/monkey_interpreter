@@ -9,7 +9,7 @@ pub fn parse_function_expression(
     debug!("Parsing a function expression.");
 
     // parse function expression
-    assert_token!(syntax_analysis_context, Token::FUNCTION, None);
+    assert_token!(syntax_analysis_context, Token::Function, None);
     let (returned_syntax_analysis_context, parameters) = parse_parameters(syntax_analysis_context);
     syntax_analysis_context = returned_syntax_analysis_context;
 
@@ -40,15 +40,11 @@ fn parse_parameters(
 ) -> (SyntaxAnalysisContext, Vec<Expression>) {
     debug!("Parsing parameters.");
 
-    assert_token!(
-        syntax_analysis_context,
-        Token::OPENING_ROUND_BRACKET,
-        vec![]
-    );
+    assert_token!(syntax_analysis_context, Token::OpeningRoundBracket, vec![]);
     let mut parameters = vec![];
 
     if let Some(token) = syntax_analysis_context.tokens.peek() {
-        if **token != Token::CLOSING_ROUND_BRACKET {
+        if **token != Token::ClosingRoundBracket {
             loop {
                 match crate::syntax_analysis::expression::get_expression(
                     syntax_analysis_context,
@@ -81,8 +77,8 @@ fn parse_parameters(
 
                 match syntax_analysis_context.tokens.peek() {
                     Some(token) => match token {
-                        Token::CLOSING_ROUND_BRACKET => break,
-                        Token::COMMA => {
+                        Token::ClosingRoundBracket => break,
+                        Token::Comma => {
                             syntax_analysis_context.tokens.next();
                         }
                         _ => {
@@ -100,11 +96,7 @@ fn parse_parameters(
         }
     }
 
-    assert_token!(
-        syntax_analysis_context,
-        Token::CLOSING_ROUND_BRACKET,
-        vec![]
-    );
+    assert_token!(syntax_analysis_context, Token::ClosingRoundBracket, vec![]);
     (syntax_analysis_context, parameters)
 }
 

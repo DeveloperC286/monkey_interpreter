@@ -13,7 +13,7 @@ pub fn parse_return_statement(
 ) -> (SyntaxAnalysisContext, Option<SyntaxTreeNode>) {
     debug!("Parsing a return statement.");
 
-    assert_token!(syntax_analysis_context, Token::RETURN, None);
+    assert_token!(syntax_analysis_context, Token::Return, None);
     let expression = consume_expression!(syntax_analysis_context);
     semicolon!(syntax_analysis_context);
 
@@ -32,10 +32,10 @@ pub fn parse_let_statement(
 ) -> (SyntaxAnalysisContext, Option<SyntaxTreeNode>) {
     debug!("Parsing a let statement.");
 
-    assert_token!(syntax_analysis_context, Token::LET, None);
+    assert_token!(syntax_analysis_context, Token::Let, None);
     let identifier_token = match syntax_analysis_context.tokens.next() {
         Some(token) => match token {
-            Token::IDENTIFIER { literal: _ } => token,
+            Token::Identifier { literal: _ } => token,
             _ => {
                 syntax_analysis_context
                     .syntax_parsing_errors
@@ -47,7 +47,7 @@ pub fn parse_let_statement(
             return (syntax_analysis_context, None);
         }
     };
-    assert_token!(syntax_analysis_context, Token::ASSIGN, None);
+    assert_token!(syntax_analysis_context, Token::Assign, None);
     let expression = consume_expression!(syntax_analysis_context);
 
     semicolon!(syntax_analysis_context);

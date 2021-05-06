@@ -6,14 +6,14 @@ AbstractSyntaxTree {
     abstract_syntax_tree: [
         EXPRESSION {
             expression: PREFIX {
-                prefix_token: NOT,
+                prefix_token: Not,
                 right_hand: INFIX {
                     left_hand: BOOLEAN {
-                        boolean_token: TRUE,
+                        boolean_token: True,
                     },
-                    operator_token: EQUALS,
+                    operator_token: Equals,
                     right_hand: BOOLEAN {
-                        boolean_token: TRUE,
+                        boolean_token: True,
                     },
                 },
             },

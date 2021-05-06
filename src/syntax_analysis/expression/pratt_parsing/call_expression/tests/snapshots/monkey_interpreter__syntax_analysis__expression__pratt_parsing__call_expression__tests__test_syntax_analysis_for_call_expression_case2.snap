@@ -7,25 +7,25 @@ AbstractSyntaxTree {
         EXPRESSION {
             expression: CALL {
                 function: IDENTIFIER {
-                    identifier_token: IDENTIFIER {
+                    identifier_token: Identifier {
                         literal: "add",
                     },
                 },
                 arguments: [
                     INTEGER {
-                        integer_token: INTEGER {
+                        integer_token: Integer {
                             literal: "3",
                         },
                     },
                     INFIX {
                         left_hand: INTEGER {
-                            integer_token: INTEGER {
+                            integer_token: Integer {
                                 literal: "7",
                             },
                         },
-                        operator_token: MULTIPLY,
+                        operator_token: Multiply,
                         right_hand: INTEGER {
-                            integer_token: INTEGER {
+                            integer_token: Integer {
                                 literal: "2",
                             },
                         },

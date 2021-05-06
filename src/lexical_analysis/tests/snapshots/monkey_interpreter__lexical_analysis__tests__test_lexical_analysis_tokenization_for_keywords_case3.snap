@@ -3,18 +3,18 @@ source: src/lexical_analysis/tests/mod.rs
 expression: "crate::lexical_analysis::get_tokens(code)"
 ---
 [
-    IF,
-    TRUE,
-    RETURN,
-    INTEGER {
+    If,
+    True,
+    Return,
+    Integer {
         literal: "3",
     },
-    SEMI_COLON,
-    ELSE,
-    RETURN,
-    INTEGER {
+    SemiColon,
+    Else,
+    Return,
+    Integer {
         literal: "45",
     },
-    SEMI_COLON,
-    EOF,
+    SemiColon,
+    EndOfFile,
 ]

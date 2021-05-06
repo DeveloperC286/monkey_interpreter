@@ -1,42 +1,41 @@
 #[derive(Debug, Clone, PartialEq)]
-#[allow(non_camel_case_types)]
 pub enum Token {
-    ILLEGAL { literal: String },
-    EOF,
+    Illegal { literal: String },
+    EndOfFile,
 
     // Identifiers
-    IDENTIFIER { literal: String },
-    INTEGER { literal: String },
+    Identifier { literal: String },
+    Integer { literal: String },
 
     // Operators
-    ASSIGN,
-    PLUS,
-    MINUS,
-    DIVIDE,
-    MULTIPLY,
-    GREATER_THAN,
-    LESSER_THAN,
-    NOT,
-    EQUALS,
-    NOT_EQUALS,
+    Assign,
+    Plus,
+    Minus,
+    Divide,
+    Multiply,
+    GreaterThan,
+    LesserThan,
+    Not,
+    Equals,
+    NotEquals,
 
     // Delimiters
-    COMMA,
-    SEMI_COLON,
+    Comma,
+    SemiColon,
 
     // Brackets
-    OPENING_ROUND_BRACKET,
-    CLOSING_ROUND_BRACKET,
+    OpeningRoundBracket,
+    ClosingRoundBracket,
 
-    OPENING_CURLY_BRACKET,
-    CLOSING_CURLY_BRACKET,
+    OpeningCurlyBracket,
+    ClosingCurlyBracket,
 
     //Keywords
-    FUNCTION,
-    LET,
-    TRUE,
-    FALSE,
-    IF,
-    ELSE,
-    RETURN,
+    Function,
+    Let,
+    True,
+    False,
+    If,
+    Else,
+    Return,
 }

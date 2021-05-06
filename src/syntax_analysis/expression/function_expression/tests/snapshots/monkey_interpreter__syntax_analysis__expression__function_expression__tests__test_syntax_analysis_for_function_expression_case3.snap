@@ -8,7 +8,7 @@ AbstractSyntaxTree {
             expression: FUNCTION {
                 parameters: [
                     IDENTIFIER {
-                        identifier_token: IDENTIFIER {
+                        identifier_token: Identifier {
                             literal: "x",
                         },
                     },

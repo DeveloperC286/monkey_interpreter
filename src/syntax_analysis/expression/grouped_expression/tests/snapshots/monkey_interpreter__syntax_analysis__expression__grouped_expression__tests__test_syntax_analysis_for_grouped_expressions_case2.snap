@@ -8,20 +8,20 @@ AbstractSyntaxTree {
             expression: INFIX {
                 left_hand: INFIX {
                     left_hand: INTEGER {
-                        integer_token: INTEGER {
+                        integer_token: Integer {
                             literal: "5",
                         },
                     },
-                    operator_token: MINUS,
+                    operator_token: Minus,
                     right_hand: INTEGER {
-                        integer_token: INTEGER {
+                        integer_token: Integer {
                             literal: "10",
                         },
                     },
                 },
-                operator_token: MULTIPLY,
+                operator_token: Multiply,
                 right_hand: INTEGER {
-                    integer_token: INTEGER {
+                    integer_token: Integer {
                         literal: "10",
                     },
                 },

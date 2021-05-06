@@ -3,9 +3,9 @@ source: src/lexical_analysis/tests/mod.rs
 expression: "crate::lexical_analysis::get_tokens(code)"
 ---
 [
-    NOT_EQUALS,
-    INTEGER {
+    NotEquals,
+    Integer {
         literal: "4",
     },
-    EOF,
+    EndOfFile,
 ]

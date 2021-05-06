@@ -3,5 +3,5 @@ source: src/lexical_analysis/tests/mod.rs
 expression: "crate::lexical_analysis::get_tokens(\"\")"
 ---
 [
-    EOF,
+    EndOfFile,
 ]

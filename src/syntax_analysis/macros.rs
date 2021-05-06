@@ -2,7 +2,7 @@ macro_rules! semicolon {
     ($syntax_analysis_context:expr) => {
         match $syntax_analysis_context.tokens.peek() {
             Some(token) => {
-                if **token == Token::SEMI_COLON {
+                if **token == Token::SemiColon {
                     trace!("Ignoring expression's semi colon.");
                     $syntax_analysis_context.tokens.next();
                 }

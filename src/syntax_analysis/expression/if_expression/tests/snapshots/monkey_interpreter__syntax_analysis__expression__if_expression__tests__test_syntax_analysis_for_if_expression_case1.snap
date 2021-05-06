@@ -8,13 +8,13 @@ AbstractSyntaxTree {
             expression: IF {
                 condition: INFIX {
                     left_hand: IDENTIFIER {
-                        identifier_token: IDENTIFIER {
+                        identifier_token: Identifier {
                             literal: "x",
                         },
                     },
-                    operator_token: LESSER_THAN,
+                    operator_token: LesserThan,
                     right_hand: IDENTIFIER {
-                        identifier_token: IDENTIFIER {
+                        identifier_token: Identifier {
                             literal: "y",
                         },
                     },
@@ -23,7 +23,7 @@ AbstractSyntaxTree {
                     nodes: [
                         EXPRESSION {
                             expression: IDENTIFIER {
-                                identifier_token: IDENTIFIER {
+                                identifier_token: Identifier {
                                     literal: "x",
                                 },
                             },

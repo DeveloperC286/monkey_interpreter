@@ -3,18 +3,18 @@ source: src/lexical_analysis/tests/mod.rs
 expression: "crate::lexical_analysis::get_tokens(code)"
 ---
 [
-    LET,
-    IDENTIFIER {
+    Let,
+    Identifier {
         literal: "varX",
     },
-    ASSIGN,
-    INTEGER {
+    Assign,
+    Integer {
         literal: "5",
     },
-    PLUS,
-    INTEGER {
+    Plus,
+    Integer {
         literal: "5",
     },
-    SEMI_COLON,
-    EOF,
+    SemiColon,
+    EndOfFile,
 ]

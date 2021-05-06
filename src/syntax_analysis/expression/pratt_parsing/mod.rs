@@ -14,7 +14,7 @@ pub fn pratt_parsing(
     expression_precedence: ExpressionPrecedence,
 ) -> (SyntaxAnalysisContext, Option<Expression>) {
     while let Some(token) = syntax_analysis_context.tokens.peek() {
-        if **token == Token::SEMI_COLON {
+        if **token == Token::SemiColon {
             break;
         }
 
@@ -29,14 +29,14 @@ pub fn pratt_parsing(
         }
 
         match token {
-            Token::PLUS
-            | Token::MINUS
-            | Token::DIVIDE
-            | Token::MULTIPLY
-            | Token::EQUALS
-            | Token::NOT_EQUALS
-            | Token::LESSER_THAN
-            | Token::GREATER_THAN => {
+            Token::Plus
+            | Token::Minus
+            | Token::Divide
+            | Token::Multiply
+            | Token::Equals
+            | Token::NotEquals
+            | Token::LesserThan
+            | Token::GreaterThan => {
                 let (returned_syntax_analysis_context, returned_expression) =
                     infix_expression::parse_infix_expression(
                         syntax_analysis_context,
@@ -45,7 +45,7 @@ pub fn pratt_parsing(
                 syntax_analysis_context = returned_syntax_analysis_context;
                 expression = returned_expression;
             }
-            Token::OPENING_ROUND_BRACKET => {
+            Token::OpeningRoundBracket => {
                 let (returned_syntax_analysis_context, returned_expression) =
                     call_expression::parse_call_expression(
                         syntax_analysis_context,

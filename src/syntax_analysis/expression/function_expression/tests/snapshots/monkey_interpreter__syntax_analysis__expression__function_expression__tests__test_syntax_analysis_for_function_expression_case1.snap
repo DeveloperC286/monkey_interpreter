@@ -8,12 +8,12 @@ AbstractSyntaxTree {
             expression: FUNCTION {
                 parameters: [
                     IDENTIFIER {
-                        identifier_token: IDENTIFIER {
+                        identifier_token: Identifier {
                             literal: "x",
                         },
                     },
                     IDENTIFIER {
-                        identifier_token: IDENTIFIER {
+                        identifier_token: Identifier {
                             literal: "y",
                         },
                     },
@@ -23,13 +23,13 @@ AbstractSyntaxTree {
                         EXPRESSION {
                             expression: INFIX {
                                 left_hand: IDENTIFIER {
-                                    identifier_token: IDENTIFIER {
+                                    identifier_token: Identifier {
                                         literal: "x",
                                     },
                                 },
-                                operator_token: PLUS,
+                                operator_token: Plus,
                                 right_hand: IDENTIFIER {
-                                    identifier_token: IDENTIFIER {
+                                    identifier_token: Identifier {
                                         literal: "y",
                                     },
                                 },

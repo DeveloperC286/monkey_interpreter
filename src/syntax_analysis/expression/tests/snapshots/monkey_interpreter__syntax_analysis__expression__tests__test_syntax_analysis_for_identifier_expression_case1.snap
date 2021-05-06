@@ -6,7 +6,7 @@ AbstractSyntaxTree {
     abstract_syntax_tree: [
         EXPRESSION {
             expression: IDENTIFIER {
-                identifier_token: IDENTIFIER {
+                identifier_token: Identifier {
                     literal: "temp",
                 },
             },

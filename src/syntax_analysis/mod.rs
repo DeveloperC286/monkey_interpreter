@@ -22,7 +22,7 @@ pub fn get_abstract_syntax_tree(tokens: Vec<Token>) -> AbstractSyntaxTree {
 
     while let Some(token) = syntax_analysis_context.tokens.peek() {
         match token {
-            Token::EOF => break,
+            Token::EndOfFile => break,
             _ => {
                 let (returned_syntax_analysis_context, syntax_tree_node) =
                     get_next_syntax_tree_node(syntax_analysis_context);
@@ -46,8 +46,8 @@ fn get_next_syntax_tree_node(
     debug!("Parsing next SyntaxTreeNode.");
     match syntax_analysis_context.tokens.peek() {
         Some(token) => match token {
-            Token::LET => statement::parse_let_statement(syntax_analysis_context),
-            Token::RETURN => statement::parse_return_statement(syntax_analysis_context),
+            Token::Let => statement::parse_let_statement(syntax_analysis_context),
+            Token::Return => statement::parse_return_statement(syntax_analysis_context),
             _ => expression::get_expression_node(syntax_analysis_context),
         },
         None => (syntax_analysis_context, None),

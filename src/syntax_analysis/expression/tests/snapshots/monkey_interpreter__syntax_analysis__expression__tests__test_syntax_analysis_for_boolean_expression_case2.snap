@@ -6,7 +6,7 @@ AbstractSyntaxTree {
     abstract_syntax_tree: [
         EXPRESSION {
             expression: BOOLEAN {
-                boolean_token: FALSE,
+                boolean_token: False,
             },
         },
     ],

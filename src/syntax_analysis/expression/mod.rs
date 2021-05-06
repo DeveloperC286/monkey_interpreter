@@ -39,19 +39,19 @@ pub fn get_expression(
 
     match syntax_analysis_context.tokens.peek() {
         Some(token) => match token {
-            Token::IDENTIFIER { literal: _ } => {
+            Token::Identifier { literal: _ } => {
                 debug!("Found an identifier expression.");
                 expression = Some(Expression::IDENTIFIER {
                     identifier_token: syntax_analysis_context.tokens.next().unwrap().clone(),
                 });
             }
-            Token::INTEGER { literal: _ } => {
+            Token::Integer { literal: _ } => {
                 debug!("Found an integer expression.");
                 expression = Some(Expression::INTEGER {
                     integer_token: syntax_analysis_context.tokens.next().unwrap().clone(),
                 });
             }
-            Token::NOT | Token::MINUS => {
+            Token::Not | Token::Minus => {
                 debug!("Found a prefix expression.");
                 let token = syntax_analysis_context.tokens.next().unwrap().clone();
 
@@ -74,13 +74,13 @@ pub fn get_expression(
                     }
                 }
             }
-            Token::TRUE | Token::FALSE => {
+            Token::True | Token::False => {
                 debug!("Found an boolean expression.");
                 expression = Some(Expression::BOOLEAN {
                     boolean_token: syntax_analysis_context.tokens.next().unwrap().clone(),
                 });
             }
-            Token::OPENING_ROUND_BRACKET => {
+            Token::OpeningRoundBracket => {
                 debug!("Found a grouped expression.");
                 match grouped_expression::parse_grouped_expression(syntax_analysis_context) {
                     (returned_syntax_analysis_context, Some(grouped_expression)) => {
@@ -93,7 +93,7 @@ pub fn get_expression(
                     }
                 }
             }
-            Token::IF => {
+            Token::If => {
                 debug!("Found an if expression.");
                 match if_expression::parse_if_expression(syntax_analysis_context) {
                     (returned_syntax_analysis_context, Some(if_expression)) => {
@@ -106,7 +106,7 @@ pub fn get_expression(
                     }
                 }
             }
-            Token::FUNCTION => {
+            Token::Function => {
                 debug!("Found a function expression.");
                 match function_expression::parse_function_expression(syntax_analysis_context) {
                     (returned_syntax_analysis_context, Some(function_expression)) => {

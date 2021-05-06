@@ -14,15 +14,15 @@ pub enum ExpressionPrecedence {
 
 pub fn get_current_expression_precedence(token: &Token) -> ExpressionPrecedence {
     match token {
-        Token::EQUALS => ExpressionPrecedence::EQUALS,
-        Token::NOT_EQUALS => ExpressionPrecedence::EQUALS,
-        Token::LESSER_THAN => ExpressionPrecedence::LESSER_OR_GREATER,
-        Token::GREATER_THAN => ExpressionPrecedence::LESSER_OR_GREATER,
-        Token::PLUS => ExpressionPrecedence::PLUS,
-        Token::MINUS => ExpressionPrecedence::PLUS,
-        Token::MULTIPLY => ExpressionPrecedence::MULTIPLY,
-        Token::DIVIDE => ExpressionPrecedence::MULTIPLY,
-        Token::OPENING_ROUND_BRACKET => ExpressionPrecedence::CALL,
+        Token::Equals => ExpressionPrecedence::EQUALS,
+        Token::NotEquals => ExpressionPrecedence::EQUALS,
+        Token::LesserThan => ExpressionPrecedence::LESSER_OR_GREATER,
+        Token::GreaterThan => ExpressionPrecedence::LESSER_OR_GREATER,
+        Token::Plus => ExpressionPrecedence::PLUS,
+        Token::Minus => ExpressionPrecedence::PLUS,
+        Token::Multiply => ExpressionPrecedence::MULTIPLY,
+        Token::Divide => ExpressionPrecedence::MULTIPLY,
+        Token::OpeningRoundBracket => ExpressionPrecedence::CALL,
         _ => {
             trace!(
                 "Could not find precedence for Token::{:?} so returning LOWEST.",

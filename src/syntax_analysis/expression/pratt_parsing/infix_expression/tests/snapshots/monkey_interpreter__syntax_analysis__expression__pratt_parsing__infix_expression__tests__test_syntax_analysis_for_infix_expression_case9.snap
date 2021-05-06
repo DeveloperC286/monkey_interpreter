@@ -8,20 +8,20 @@ AbstractSyntaxTree {
             expression: INFIX {
                 left_hand: INFIX {
                     left_hand: INTEGER {
-                        integer_token: INTEGER {
+                        integer_token: Integer {
                             literal: "10",
                         },
                     },
-                    operator_token: LESSER_THAN,
+                    operator_token: LesserThan,
                     right_hand: INTEGER {
-                        integer_token: INTEGER {
+                        integer_token: Integer {
                             literal: "5",
                         },
                     },
                 },
-                operator_token: NOT_EQUALS,
+                operator_token: NotEquals,
                 right_hand: BOOLEAN {
-                    boolean_token: FALSE,
+                    boolean_token: False,
                 },
             },
         },

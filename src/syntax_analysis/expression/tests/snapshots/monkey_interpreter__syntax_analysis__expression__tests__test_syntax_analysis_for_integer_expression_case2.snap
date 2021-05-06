@@ -6,7 +6,7 @@ AbstractSyntaxTree {
     abstract_syntax_tree: [
         EXPRESSION {
             expression: INTEGER {
-                integer_token: INTEGER {
+                integer_token: Integer {
                     literal: "12",
                 },
             },
