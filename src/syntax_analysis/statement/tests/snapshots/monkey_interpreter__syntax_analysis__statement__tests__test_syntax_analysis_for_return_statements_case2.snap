@@ -4,18 +4,18 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
 ---
 AbstractSyntaxTree {
     abstract_syntax_tree: [
-        STATEMENT {
-            statement: RETURN {
-                expression: INTEGER {
+        Statement {
+            statement: Return {
+                expression: Integer {
                     integer_token: Integer {
                         literal: "5",
                     },
                 },
             },
         },
-        STATEMENT {
-            statement: RETURN {
-                expression: IDENTIFIER {
+        Statement {
+            statement: Return {
+                expression: Identifier {
                     identifier_token: Identifier {
                         literal: "x",
                     },

@@ -19,8 +19,8 @@ pub fn parse_return_statement(
 
     (
         syntax_analysis_context,
-        Some(SyntaxTreeNode::STATEMENT {
-            statement: Statement::RETURN {
+        Some(SyntaxTreeNode::Statement {
+            statement: Statement::Return {
                 expression: Box::new(expression),
             },
         }),
@@ -54,8 +54,8 @@ pub fn parse_let_statement(
 
     (
         syntax_analysis_context,
-        Some(SyntaxTreeNode::STATEMENT {
-            statement: Statement::LET {
+        Some(SyntaxTreeNode::Statement {
+            statement: Statement::Let {
                 identifier_token: identifier_token.clone(),
                 expression: Box::new(expression),
             },

@@ -68,10 +68,10 @@ fn evaluate_node(
     syntax_tree_node: SyntaxTreeNode,
 ) -> (EvaluatorContext, Object) {
     match syntax_tree_node {
-        SyntaxTreeNode::EXPRESSION { expression } => {
+        SyntaxTreeNode::Expression { expression } => {
             crate::evaluator::expression::evaluate(evaluator_context, expression)
         }
-        SyntaxTreeNode::STATEMENT { statement } => {
+        SyntaxTreeNode::Statement { statement } => {
             crate::evaluator::statement::evaluate(evaluator_context, statement)
         }
     }

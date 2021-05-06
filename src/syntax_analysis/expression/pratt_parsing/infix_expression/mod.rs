@@ -19,7 +19,7 @@ pub fn parse_infix_expression(
     match crate::syntax_analysis::expression::get_expression(syntax_analysis_context, precedence) {
         (returned_syntax_analysis_context, Some(right_hand)) => (
             returned_syntax_analysis_context,
-            Some(Expression::INFIX {
+            Some(Expression::Infix {
                 left_hand: Box::new(left_hand),
                 operator_token: operator_token.clone(),
                 right_hand: Box::new(right_hand),

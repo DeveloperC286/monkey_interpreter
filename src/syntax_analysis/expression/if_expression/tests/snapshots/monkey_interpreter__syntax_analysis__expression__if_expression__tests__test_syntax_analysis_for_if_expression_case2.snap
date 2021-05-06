@@ -4,16 +4,16 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
 ---
 AbstractSyntaxTree {
     abstract_syntax_tree: [
-        EXPRESSION {
-            expression: IF {
-                condition: INFIX {
-                    left_hand: IDENTIFIER {
+        Expression {
+            expression: If {
+                condition: Infix {
+                    left_hand: Identifier {
                         identifier_token: Identifier {
                             literal: "x",
                         },
                     },
                     operator_token: LesserThan,
-                    right_hand: IDENTIFIER {
+                    right_hand: Identifier {
                         identifier_token: Identifier {
                             literal: "y",
                         },
@@ -21,8 +21,8 @@ AbstractSyntaxTree {
                 },
                 consequence: Block {
                     nodes: [
-                        EXPRESSION {
-                            expression: IDENTIFIER {
+                        Expression {
+                            expression: Identifier {
                                 identifier_token: Identifier {
                                     literal: "x",
                                 },
@@ -33,8 +33,8 @@ AbstractSyntaxTree {
                 alternative: Some(
                     Block {
                         nodes: [
-                            EXPRESSION {
-                                expression: IDENTIFIER {
+                            Expression {
+                                expression: Identifier {
                                     identifier_token: Identifier {
                                         literal: "y",
                                     },

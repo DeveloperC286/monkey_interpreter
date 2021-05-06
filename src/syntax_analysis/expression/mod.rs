@@ -23,7 +23,7 @@ pub fn get_expression_node(
     match expression_option {
         Some(expression) => (
             syntax_analysis_context,
-            Some(SyntaxTreeNode::EXPRESSION { expression }),
+            Some(SyntaxTreeNode::Expression { expression }),
         ),
         None => (syntax_analysis_context, None),
     }
@@ -41,13 +41,13 @@ pub fn get_expression(
         Some(token) => match token {
             Token::Identifier { literal: _ } => {
                 debug!("Found an identifier expression.");
-                expression = Some(Expression::IDENTIFIER {
+                expression = Some(Expression::Identifier {
                     identifier_token: syntax_analysis_context.tokens.next().unwrap().clone(),
                 });
             }
             Token::Integer { literal: _ } => {
                 debug!("Found an integer expression.");
-                expression = Some(Expression::INTEGER {
+                expression = Some(Expression::Integer {
                     integer_token: syntax_analysis_context.tokens.next().unwrap().clone(),
                 });
             }
@@ -58,7 +58,7 @@ pub fn get_expression(
                 match get_expression(syntax_analysis_context, ExpressionPrecedence::Prefix) {
                     (returned_syntax_analysis_context, Some(right_hand)) => {
                         syntax_analysis_context = returned_syntax_analysis_context;
-                        expression = Some(Expression::PREFIX {
+                        expression = Some(Expression::Prefix {
                             prefix_token: token,
                             right_hand: Box::new(right_hand),
                         });
@@ -76,7 +76,7 @@ pub fn get_expression(
             }
             Token::True | Token::False => {
                 debug!("Found an boolean expression.");
-                expression = Some(Expression::BOOLEAN {
+                expression = Some(Expression::Boolean {
                     boolean_token: syntax_analysis_context.tokens.next().unwrap().clone(),
                 });
             }

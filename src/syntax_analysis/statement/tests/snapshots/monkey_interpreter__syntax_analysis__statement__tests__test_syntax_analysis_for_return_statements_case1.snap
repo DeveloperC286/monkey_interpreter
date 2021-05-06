@@ -4,9 +4,9 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
 ---
 AbstractSyntaxTree {
     abstract_syntax_tree: [
-        STATEMENT {
-            statement: RETURN {
-                expression: INTEGER {
+        Statement {
+            statement: Return {
+                expression: Integer {
                     integer_token: Integer {
                         literal: "5",
                     },

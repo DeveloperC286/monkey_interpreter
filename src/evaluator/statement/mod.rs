@@ -9,7 +9,7 @@ pub fn evaluate(
     statement: Statement,
 ) -> (EvaluatorContext, Object) {
     match statement {
-        Statement::RETURN { expression } => {
+        Statement::Return { expression } => {
             crate::evaluator::statement::return_statement::evaluate(evaluator_context, *expression)
         }
         _ => (evaluator_context, Object::NULL),

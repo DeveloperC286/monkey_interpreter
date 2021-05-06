@@ -4,20 +4,20 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
 ---
 AbstractSyntaxTree {
     abstract_syntax_tree: [
-        EXPRESSION {
-            expression: CALL {
-                function: IDENTIFIER {
+        Expression {
+            expression: Call {
+                function: Identifier {
                     identifier_token: Identifier {
                         literal: "add",
                     },
                 },
                 arguments: [
-                    INTEGER {
+                    Integer {
                         integer_token: Integer {
                             literal: "5",
                         },
                     },
-                    INTEGER {
+                    Integer {
                         integer_token: Integer {
                             literal: "12",
                         },

@@ -13,22 +13,22 @@ pub fn evaluate(
     expression: Expression,
 ) -> (EvaluatorContext, Object) {
     match expression {
-        Expression::INTEGER { integer_token } => {
+        Expression::Integer { integer_token } => {
             (evaluator_context, integer::evaluate(integer_token))
         }
-        Expression::BOOLEAN { boolean_token } => {
+        Expression::Boolean { boolean_token } => {
             (evaluator_context, boolean::evaluate(boolean_token))
         }
-        Expression::PREFIX {
+        Expression::Prefix {
             prefix_token,
             right_hand,
         } => prefix::evaluate(evaluator_context, prefix_token, *right_hand),
-        Expression::INFIX {
+        Expression::Infix {
             left_hand,
             operator_token,
             right_hand,
         } => infix::evaluate(evaluator_context, *left_hand, operator_token, *right_hand),
-        Expression::IF {
+        Expression::If {
             condition,
             consequence,
             alternative,

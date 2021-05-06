@@ -7,51 +7,51 @@ pub struct Block {
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum SyntaxTreeNode {
-    STATEMENT { statement: Statement },
-    EXPRESSION { expression: Expression },
+    Statement { statement: Statement },
+    Expression { expression: Expression },
 }
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Statement {
-    LET {
+    Let {
         identifier_token: Token,
         expression: Box<Expression>,
     },
-    RETURN {
+    Return {
         expression: Box<Expression>,
     },
 }
 
 #[derive(Debug, Clone, PartialEq)]
 pub enum Expression {
-    IDENTIFIER {
+    Identifier {
         identifier_token: Token,
     },
-    INTEGER {
+    Integer {
         integer_token: Token,
     },
-    PREFIX {
+    Prefix {
         prefix_token: Token,
         right_hand: Box<Expression>,
     },
-    INFIX {
+    Infix {
         left_hand: Box<Expression>,
         operator_token: Token,
         right_hand: Box<Expression>,
     },
-    BOOLEAN {
+    Boolean {
         boolean_token: Token,
     },
-    IF {
+    If {
         condition: Box<Expression>,
         consequence: Box<Block>,
         alternative: Box<Option<Block>>,
     },
-    FUNCTION {
+    Function {
         parameters: Vec<Expression>,
         block: Box<Block>,
     },
-    CALL {
+    Call {
         function: Box<Expression>,
         arguments: Vec<Expression>,
     },

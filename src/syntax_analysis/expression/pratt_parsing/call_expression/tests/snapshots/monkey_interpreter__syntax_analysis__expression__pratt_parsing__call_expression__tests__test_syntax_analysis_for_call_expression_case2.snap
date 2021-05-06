@@ -4,27 +4,27 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
 ---
 AbstractSyntaxTree {
     abstract_syntax_tree: [
-        EXPRESSION {
-            expression: CALL {
-                function: IDENTIFIER {
+        Expression {
+            expression: Call {
+                function: Identifier {
                     identifier_token: Identifier {
                         literal: "add",
                     },
                 },
                 arguments: [
-                    INTEGER {
+                    Integer {
                         integer_token: Integer {
                             literal: "3",
                         },
                     },
-                    INFIX {
-                        left_hand: INTEGER {
+                    Infix {
+                        left_hand: Integer {
                             integer_token: Integer {
                                 literal: "7",
                             },
                         },
                         operator_token: Multiply,
-                        right_hand: INTEGER {
+                        right_hand: Integer {
                             integer_token: Integer {
                                 literal: "2",
                             },

@@ -4,23 +4,23 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
 ---
 AbstractSyntaxTree {
     abstract_syntax_tree: [
-        EXPRESSION {
-            expression: INFIX {
-                left_hand: INFIX {
-                    left_hand: INTEGER {
+        Expression {
+            expression: Infix {
+                left_hand: Infix {
+                    left_hand: Integer {
                         integer_token: Integer {
                             literal: "10",
                         },
                     },
                     operator_token: LesserThan,
-                    right_hand: INTEGER {
+                    right_hand: Integer {
                         integer_token: Integer {
                             literal: "5",
                         },
                     },
                 },
                 operator_token: NotEquals,
-                right_hand: BOOLEAN {
+                right_hand: Boolean {
                     boolean_token: False,
                 },
             },

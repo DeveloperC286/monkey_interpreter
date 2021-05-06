@@ -28,7 +28,7 @@ pub fn parse_function_expression(
 
     (
         syntax_analysis_context,
-        Some(Expression::FUNCTION {
+        Some(Expression::Function {
             parameters,
             block: Box::new(block),
         }),
@@ -52,7 +52,7 @@ fn parse_parameters(
                 ) {
                     (returned_syntax_analysis_context, Some(expression)) => {
                         match expression.clone() {
-                            Expression::IDENTIFIER {
+                            Expression::Identifier {
                                 identifier_token: _,
                             } => {
                                 parameters.push(expression);

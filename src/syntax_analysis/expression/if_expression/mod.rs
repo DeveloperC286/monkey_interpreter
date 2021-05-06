@@ -51,7 +51,7 @@ pub fn parse_if_expression(
 
     (
         syntax_analysis_context,
-        Some(Expression::IF {
+        Some(Expression::If {
             condition: Box::new(condition),
             consequence: Box::new(consequence),
             alternative: Box::new(alternative),

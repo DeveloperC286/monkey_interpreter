@@ -4,10 +4,10 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
 ---
 AbstractSyntaxTree {
     abstract_syntax_tree: [
-        EXPRESSION {
-            expression: PREFIX {
+        Expression {
+            expression: Prefix {
                 prefix_token: Not,
-                right_hand: BOOLEAN {
+                right_hand: Boolean {
                     boolean_token: False,
                 },
             },

@@ -15,7 +15,7 @@ pub fn parse_call_expression(
 
     // check call expression was correctly called
     match &function {
-        Expression::IDENTIFIER {
+        Expression::Identifier {
             identifier_token: _,
         } => {}
         _ => {
@@ -26,7 +26,7 @@ pub fn parse_call_expression(
 
     (
         syntax_analysis_context,
-        Some(Expression::CALL {
+        Some(Expression::Call {
             function: Box::new(function),
             arguments,
         }),

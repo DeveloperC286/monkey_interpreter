@@ -4,15 +4,15 @@ expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_ana
 ---
 AbstractSyntaxTree {
     abstract_syntax_tree: [
-        EXPRESSION {
-            expression: FUNCTION {
+        Expression {
+            expression: Function {
                 parameters: [
-                    IDENTIFIER {
+                    Identifier {
                         identifier_token: Identifier {
                             literal: "x",
                         },
                     },
-                    IDENTIFIER {
+                    Identifier {
                         identifier_token: Identifier {
                             literal: "y",
                         },
@@ -20,15 +20,15 @@ AbstractSyntaxTree {
                 ],
                 block: Block {
                     nodes: [
-                        EXPRESSION {
-                            expression: INFIX {
-                                left_hand: IDENTIFIER {
+                        Expression {
+                            expression: Infix {
+                                left_hand: Identifier {
                                     identifier_token: Identifier {
                                         literal: "x",
                                     },
                                 },
                                 operator_token: Plus,
-                                right_hand: IDENTIFIER {
+                                right_hand: Identifier {
                                     identifier_token: Identifier {
                                         literal: "y",
                                     },
