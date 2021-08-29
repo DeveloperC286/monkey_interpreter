@@ -13,7 +13,7 @@ pub fn parse_infix_expression(
     };
     let precedence =
         crate::syntax_analysis::model::expression_precedence::get_current_expression_precedence(
-            &operator_token,
+            operator_token,
         );
 
     match crate::syntax_analysis::expression::get_expression(syntax_analysis_context, precedence) {

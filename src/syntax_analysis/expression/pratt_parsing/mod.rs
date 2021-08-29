@@ -21,7 +21,7 @@ pub fn pratt_parsing(
         //if expression_precedence.
         let expression_precedence_comparison = expression_precedence.partial_cmp(
             &crate::syntax_analysis::model::expression_precedence::get_current_expression_precedence(
-                &token,
+                token,
             ),
         );
         if expression_precedence_comparison != Some(Ordering::Less) {
