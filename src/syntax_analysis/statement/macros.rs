@@ -11,6 +11,6 @@ macro_rules! consume_expression {
             (returned_syntax_analysis_context, None) => {
                 return (returned_syntax_analysis_context, None);
             }
-        };
+        }
     };
 }

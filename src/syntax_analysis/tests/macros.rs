@@ -5,6 +5,6 @@ macro_rules! assert_expected_returned_abstract_syntax_tree {
             crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens(
                 $code
             ))
-        );
+        )
     };
 }
