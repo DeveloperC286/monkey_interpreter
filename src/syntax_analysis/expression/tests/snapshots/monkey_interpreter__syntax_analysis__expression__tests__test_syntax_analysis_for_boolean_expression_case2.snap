@@ -1,6 +1,7 @@
 ---
 source: src/syntax_analysis/expression/tests/mod.rs
-expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens(code))"
+expression: "crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::LexicalAnalysis::from(code))"
+
 ---
 AbstractSyntaxTree {
     abstract_syntax_tree: [

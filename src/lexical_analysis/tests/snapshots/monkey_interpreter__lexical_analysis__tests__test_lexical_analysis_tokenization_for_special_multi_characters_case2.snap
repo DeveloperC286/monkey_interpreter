@@ -1,6 +1,7 @@
 ---
 source: src/lexical_analysis/tests/mod.rs
-expression: "crate::lexical_analysis::get_tokens(code)"
+expression: "crate::lexical_analysis::LexicalAnalysis::from(code)"
+
 ---
 [
     NotEquals,

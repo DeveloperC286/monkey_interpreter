@@ -3,6 +3,8 @@ use std::io::{stdin, stdout, Write};
 const NAME: Option<&'static str> = option_env!("CARGO_PKG_NAME");
 const VERSION: Option<&'static str> = option_env!("CARGO_PKG_VERSION");
 
+use crate::lexical_analysis::LexicalAnalysis;
+
 pub fn repl() {
     println!(
         "{} {}",
@@ -12,7 +14,7 @@ pub fn repl() {
     let mut evaluator_context = crate::evaluator::model::evaluator_context::EvaluatorContext::new();
 
     loop {
-        let tokens = crate::lexical_analysis::get_tokens(&read());
+        let tokens = LexicalAnalysis::from(&read());
         let abstract_syntax_tree = crate::syntax_analysis::get_abstract_syntax_tree(tokens);
 
         if !abstract_syntax_tree.syntax_parsing_errors.is_empty() {

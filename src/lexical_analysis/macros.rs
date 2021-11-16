@@ -17,8 +17,7 @@ macro_rules! parse_characters {
             }
         }
 
-        let string = String::from_iter(characters.iter());
-        return ($iterator, string);
+        return String::from_iter(characters.iter());
     };
 }
 
@@ -27,7 +26,7 @@ macro_rules! check_next_character {
         match $iterator.peek() {
             Some($expected_next_character) => {
                 $iterator.next();
-                return ($iterator, $token_type);
+                return $token_type;
             }
             _ => {}
         }

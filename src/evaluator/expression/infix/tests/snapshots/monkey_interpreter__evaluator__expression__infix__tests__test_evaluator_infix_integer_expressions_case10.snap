@@ -1,6 +1,7 @@
 ---
 source: src/evaluator/expression/infix/tests/mod.rs
-expression: "crate::evaluator::evaluate(crate::evaluator::model::evaluator_context::EvaluatorContext::new(),\n                           crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::get_tokens(code)))"
+expression: "crate::evaluator::evaluate(crate::evaluator::model::evaluator_context::EvaluatorContext::new(),\n                           crate::syntax_analysis::get_abstract_syntax_tree(crate::lexical_analysis::LexicalAnalysis::from(code)))"
+
 ---
 (
     EvaluatorContext,
