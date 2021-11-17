@@ -1,18 +1,18 @@
 use crate::lexical_analysis::model::token::Token;
 
 #[derive(Debug, Clone, PartialEq)]
-pub struct Block {
-    pub nodes: Vec<SyntaxTreeNode>,
+pub(crate) struct Block {
+    pub(crate) nodes: Vec<SyntaxTreeNode>,
 }
 
 #[derive(Debug, Clone, PartialEq)]
-pub enum SyntaxTreeNode {
+pub(crate) enum SyntaxTreeNode {
     Statement { statement: Statement },
     Expression { expression: Expression },
 }
 
 #[derive(Debug, Clone, PartialEq)]
-pub enum Statement {
+pub(crate) enum Statement {
     Let {
         identifier_token: Token,
         expression: Box<Expression>,
@@ -23,7 +23,7 @@ pub enum Statement {
 }
 
 #[derive(Debug, Clone, PartialEq)]
-pub enum Expression {
+pub(crate) enum Expression {
     Identifier {
         identifier_token: Token,
     },

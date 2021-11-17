@@ -8,7 +8,7 @@ use crate::syntax_analysis::model::syntax_analysis_context::SyntaxAnalysisContex
 mod call_expression;
 mod infix_expression;
 
-pub fn pratt_parsing(
+pub(crate) fn pratt_parsing(
     mut syntax_analysis_context: SyntaxAnalysisContext,
     mut expression: Option<Expression>,
     expression_precedence: ExpressionPrecedence,

@@ -1,6 +1,6 @@
 use crate::lexical_analysis::model::token::Token;
 
-pub fn get_keyword_token(keyword: &str) -> Token {
+pub(crate) fn get_keyword_token(keyword: &str) -> Token {
     match keyword.to_lowercase().as_str() {
         "fn" => Token::Function,
         "let" => Token::Let,
@@ -15,10 +15,10 @@ pub fn get_keyword_token(keyword: &str) -> Token {
     }
 }
 
-pub fn is_digit(character: char) -> bool {
+pub(crate) fn is_digit(character: char) -> bool {
     character.is_digit(10)
 }
 
-pub fn is_valid_identifier_character(character: char) -> bool {
+pub(crate) fn is_valid_identifier_character(character: char) -> bool {
     character.is_alphabetic() || character == '_'
 }

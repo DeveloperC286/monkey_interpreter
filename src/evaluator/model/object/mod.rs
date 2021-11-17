@@ -1,5 +1,5 @@
 #[derive(Debug, Clone, PartialEq)]
-pub enum Object {
+pub(crate) enum Object {
     Return { value: Box<Object> },
     Integer { value: i32 },
     True,

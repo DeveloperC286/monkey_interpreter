@@ -1,3 +1,3 @@
-pub mod abstract_syntax_tree;
+pub(crate) mod abstract_syntax_tree;
 pub(super) mod expression_precedence;
-pub mod syntax_analysis_context;
+pub(crate) mod syntax_analysis_context;

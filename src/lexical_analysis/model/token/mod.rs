@@ -1,5 +1,5 @@
 #[derive(Debug, Clone, PartialEq)]
-pub enum Token {
+pub(crate) enum Token {
     Illegal { literal: String },
     EndOfFile,
 

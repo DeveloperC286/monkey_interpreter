@@ -11,7 +11,7 @@ mod if_expression;
 mod pratt_parsing;
 mod utilities;
 
-pub fn get_expression_node(
+pub(crate) fn get_expression_node(
     mut syntax_analysis_context: SyntaxAnalysisContext,
 ) -> (SyntaxAnalysisContext, Option<SyntaxTreeNode>) {
     let (returned_syntax_analysis_context, expression_option) =
@@ -29,7 +29,7 @@ pub fn get_expression_node(
     }
 }
 
-pub fn get_expression(
+pub(crate) fn get_expression(
     mut syntax_analysis_context: SyntaxAnalysisContext,
     expression_precedence: ExpressionPrecedence,
 ) -> (SyntaxAnalysisContext, Option<Expression>) {

@@ -7,15 +7,15 @@ use crate::lexical_analysis::utilities::*;
 #[macro_use]
 mod macros;
 
-pub mod model;
+pub(crate) mod model;
 mod utilities;
 
-pub struct LexicalAnalysis<'a> {
+pub(crate) struct LexicalAnalysis<'a> {
     source_code: Peekable<Chars<'a>>,
 }
 
 impl<'a> LexicalAnalysis<'a> {
-    pub fn from(code: &str) -> Vec<Token> {
+    pub(crate) fn from(code: &str) -> Vec<Token> {
         let mut lexical_analysis = LexicalAnalysis {
             source_code: code.chars().peekable(),
         };

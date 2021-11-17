@@ -2,7 +2,7 @@ use crate::evaluator::model::evaluator_context::EvaluatorContext;
 use crate::evaluator::model::object::Object;
 use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::{Block, Expression};
 
-pub fn evaluate(
+pub(crate) fn evaluate(
     evaluator_context: EvaluatorContext,
     condition: Expression,
     consequence: Block,

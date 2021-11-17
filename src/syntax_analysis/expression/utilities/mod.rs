@@ -2,7 +2,7 @@ use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::Block;
 use crate::syntax_analysis::model::syntax_analysis_context::SyntaxAnalysisContext;
 
-pub fn parse_block(
+pub(crate) fn parse_block(
     mut syntax_analysis_context: SyntaxAnalysisContext,
 ) -> (SyntaxAnalysisContext, Option<Block>) {
     debug!("Parsing a block.");

@@ -5,4 +5,4 @@ use structopt::StructOpt;
     name = "Monkey Interpreter",
     about = "Implementation of an interpreter for the Monkey language written in Rust, currently under active development."
 )]
-pub struct Arguments {}
+pub(crate) struct Arguments {}

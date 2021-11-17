@@ -1,7 +1,7 @@
 use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::Expression;
 use crate::syntax_analysis::model::syntax_analysis_context::SyntaxAnalysisContext;
 
-pub fn parse_infix_expression(
+pub(crate) fn parse_infix_expression(
     mut syntax_analysis_context: SyntaxAnalysisContext,
     left_hand: Expression,
 ) -> (SyntaxAnalysisContext, Option<Expression>) {

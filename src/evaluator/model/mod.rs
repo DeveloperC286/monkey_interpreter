@@ -1,2 +1,2 @@
-pub mod evaluator_context;
+pub(crate) mod evaluator_context;
 pub(super) mod object;

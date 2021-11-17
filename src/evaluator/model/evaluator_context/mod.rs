@@ -1,8 +1,8 @@
 #[derive(Debug)]
-pub struct EvaluatorContext {}
+pub(crate) struct EvaluatorContext {}
 
 impl EvaluatorContext {
-    pub fn new() -> EvaluatorContext {
+    pub(crate) fn new() -> EvaluatorContext {
         EvaluatorContext {}
     }
 }

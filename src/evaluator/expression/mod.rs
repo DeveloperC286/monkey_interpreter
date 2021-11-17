@@ -8,7 +8,7 @@ mod infix;
 mod integer;
 mod prefix;
 
-pub fn evaluate(
+pub(crate) fn evaluate(
     evaluator_context: EvaluatorContext,
     expression: Expression,
 ) -> (EvaluatorContext, Object) {

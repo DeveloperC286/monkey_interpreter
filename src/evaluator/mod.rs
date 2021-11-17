@@ -13,7 +13,7 @@ mod tests;
 mod expression;
 mod statement;
 
-pub fn evaluate(
+pub(crate) fn evaluate(
     mut evaluator_context: EvaluatorContext,
     abstract_syntax_tree: AbstractSyntaxTree,
 ) -> (EvaluatorContext, Object) {

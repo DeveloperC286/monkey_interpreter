@@ -4,7 +4,7 @@ use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::*;
 
 mod return_statement;
 
-pub fn evaluate(
+pub(crate) fn evaluate(
     evaluator_context: EvaluatorContext,
     statement: Statement,
 ) -> (EvaluatorContext, Object) {

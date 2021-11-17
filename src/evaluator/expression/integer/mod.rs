@@ -1,7 +1,7 @@
 use crate::evaluator::model::object::Object;
 use crate::lexical_analysis::model::token::Token;
 
-pub fn evaluate(integer_token: Token) -> Object {
+pub(crate) fn evaluate(integer_token: Token) -> Object {
     match integer_token {
         Token::Integer { literal } => Object::Integer {
             value: literal.parse().unwrap(),

@@ -8,7 +8,7 @@ use crate::syntax_analysis::model::syntax_analysis_context::SyntaxAnalysisContex
 #[macro_use]
 mod macros;
 
-pub fn parse_return_statement(
+pub(crate) fn parse_return_statement(
     mut syntax_analysis_context: SyntaxAnalysisContext,
 ) -> (SyntaxAnalysisContext, Option<SyntaxTreeNode>) {
     debug!("Parsing a return statement.");
@@ -27,7 +27,7 @@ pub fn parse_return_statement(
     )
 }
 
-pub fn parse_let_statement(
+pub(crate) fn parse_let_statement(
     mut syntax_analysis_context: SyntaxAnalysisContext,
 ) -> (SyntaxAnalysisContext, Option<SyntaxTreeNode>) {
     debug!("Parsing a let statement.");

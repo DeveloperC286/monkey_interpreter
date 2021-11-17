@@ -1,7 +1,7 @@
 use crate::lexical_analysis::model::token::Token;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
-pub enum ExpressionPrecedence {
+pub(crate) enum ExpressionPrecedence {
     Lowest,
     Equals,
     LesserOrGreater,
@@ -11,7 +11,7 @@ pub enum ExpressionPrecedence {
     Call,
 }
 
-pub fn get_current_expression_precedence(token: &Token) -> ExpressionPrecedence {
+pub(crate) fn get_current_expression_precedence(token: &Token) -> ExpressionPrecedence {
     match token {
         Token::Equals => ExpressionPrecedence::Equals,
         Token::NotEquals => ExpressionPrecedence::Equals,

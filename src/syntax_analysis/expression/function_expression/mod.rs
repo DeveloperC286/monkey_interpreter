@@ -3,7 +3,7 @@ use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::Expre
 use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
 use crate::syntax_analysis::model::syntax_analysis_context::SyntaxAnalysisContext;
 
-pub fn parse_function_expression(
+pub(crate) fn parse_function_expression(
     mut syntax_analysis_context: SyntaxAnalysisContext,
 ) -> (SyntaxAnalysisContext, Option<Expression>) {
     debug!("Parsing a function expression.");

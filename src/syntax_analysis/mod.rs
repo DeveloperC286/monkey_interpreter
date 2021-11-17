@@ -16,7 +16,7 @@ mod tests;
 mod expression;
 mod statement;
 
-pub fn get_abstract_syntax_tree(tokens: Vec<Token>) -> AbstractSyntaxTree {
+pub(crate) fn get_abstract_syntax_tree(tokens: Vec<Token>) -> AbstractSyntaxTree {
     let mut abstract_syntax_tree: Vec<SyntaxTreeNode> = vec![];
     let mut syntax_analysis_context = SyntaxAnalysisContext::new(&tokens);
 

@@ -5,7 +5,7 @@ const VERSION: Option<&'static str> = option_env!("CARGO_PKG_VERSION");
 
 use crate::lexical_analysis::LexicalAnalysis;
 
-pub fn repl() {
+pub(crate) fn repl() {
     println!(
         "{} {}",
         NAME.unwrap_or("unknown"),
