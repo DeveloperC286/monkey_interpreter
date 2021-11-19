@@ -1,103 +1,85 @@
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::Expression;
 use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
-use crate::syntax_analysis::model::syntax_analysis_context::SyntaxAnalysisContext;
+use crate::syntax_analysis::SyntaxAnalysis;
 
-pub(crate) fn parse_function_expression(
-    mut syntax_analysis_context: SyntaxAnalysisContext,
-) -> (SyntaxAnalysisContext, Option<Expression>) {
-    debug!("Parsing a function expression.");
+impl<'a> SyntaxAnalysis<'a> {
+    pub(crate) fn parse_function_expression(&mut self) -> Option<Expression> {
+        debug!("Parsing a function expression.");
 
-    // parse function expression
-    assert_token!(syntax_analysis_context, Token::Function, None);
-    let (returned_syntax_analysis_context, parameters) = parse_parameters(syntax_analysis_context);
-    syntax_analysis_context = returned_syntax_analysis_context;
+        // parse function expression
+        assert_token!(self, Token::Function, None);
+        let parameters = self.parse_parameters();
 
-    // check function expression was parsed correctly
-    let block =
-        match crate::syntax_analysis::expression::utilities::parse_block(syntax_analysis_context) {
-            (returned_syntax_analysis_context, Some(block)) => {
-                syntax_analysis_context = returned_syntax_analysis_context;
-                block
-            }
-            (returned_syntax_analysis_context, None) => {
+        // check function expression was parsed correctly
+        let block = match self.parse_block() {
+            Some(block) => block,
+            None => {
                 error!("parse_function_expression could not parse the functions block.");
-                return (returned_syntax_analysis_context, None);
+                return None;
             }
         };
 
-    (
-        syntax_analysis_context,
         Some(Expression::Function {
             parameters,
             block: Box::new(block),
-        }),
-    )
-}
+        })
+    }
 
-fn parse_parameters(
-    mut syntax_analysis_context: SyntaxAnalysisContext,
-) -> (SyntaxAnalysisContext, Vec<Expression>) {
-    debug!("Parsing parameters.");
+    fn parse_parameters(&mut self) -> Vec<Expression> {
+        debug!("Parsing parameters.");
 
-    assert_token!(syntax_analysis_context, Token::OpeningRoundBracket, vec![]);
-    let mut parameters = vec![];
+        assert_token!(self, Token::OpeningRoundBracket, vec![]);
+        let mut parameters = vec![];
 
-    if let Some(token) = syntax_analysis_context.tokens.peek() {
-        if **token != Token::ClosingRoundBracket {
-            loop {
-                match crate::syntax_analysis::expression::get_expression(
-                    syntax_analysis_context,
-                    ExpressionPrecedence::Lowest,
-                ) {
-                    (returned_syntax_analysis_context, Some(expression)) => {
-                        match expression.clone() {
+        if let Some(token) = self.tokens.peek() {
+            if **token != Token::ClosingRoundBracket {
+                loop {
+                    match self.get_expression(ExpressionPrecedence::Lowest) {
+                        Some(expression) => match expression.clone() {
                             Expression::Identifier {
                                 identifier_token: _,
                             } => {
                                 parameters.push(expression);
-                                syntax_analysis_context = returned_syntax_analysis_context;
                             }
                             _ => {
-                                syntax_analysis_context = returned_syntax_analysis_context;
-                                syntax_analysis_context.syntax_parsing_errors.push(
+                                self.syntax_parsing_errors.push(
                                     "Only allowed Expression::IDENTIFIER in parameters."
                                         .to_string(),
                                 );
                             }
+                        },
+                        None => {
+                            self.syntax_parsing_errors
+                                .push("Unable to parse expression in parameters.".to_string());
+                            return vec![];
                         }
                     }
-                    (mut returned_syntax_analysis_context, None) => {
-                        returned_syntax_analysis_context
-                            .syntax_parsing_errors
-                            .push("Unable to parse expression in parameters.".to_string());
-                        return (returned_syntax_analysis_context, vec![]);
-                    }
-                }
 
-                match syntax_analysis_context.tokens.peek() {
-                    Some(token) => match token {
-                        Token::ClosingRoundBracket => break,
-                        Token::Comma => {
-                            syntax_analysis_context.tokens.next();
+                    match self.tokens.peek() {
+                        Some(token) => match token {
+                            Token::ClosingRoundBracket => break,
+                            Token::Comma => {
+                                self.tokens.next();
+                            }
+                            _ => {
+                                self.syntax_parsing_errors.push(
+                                    "Parameters must be comma seperated identifiers.".to_string(),
+                                );
+                                return vec![];
+                            }
+                        },
+                        None => {
+                            return vec![];
                         }
-                        _ => {
-                            syntax_analysis_context.syntax_parsing_errors.push(
-                                "Parameters must be comma seperated identifiers.".to_string(),
-                            );
-                            return (syntax_analysis_context, vec![]);
-                        }
-                    },
-                    None => {
-                        return (syntax_analysis_context, vec![]);
                     }
                 }
             }
         }
-    }
 
-    assert_token!(syntax_analysis_context, Token::ClosingRoundBracket, vec![]);
-    (syntax_analysis_context, parameters)
+        assert_token!(self, Token::ClosingRoundBracket, vec![]);
+        parameters
+    }
 }
 
 #[cfg(test)]

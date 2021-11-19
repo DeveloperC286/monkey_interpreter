@@ -4,6 +4,7 @@ const NAME: Option<&'static str> = option_env!("CARGO_PKG_NAME");
 const VERSION: Option<&'static str> = option_env!("CARGO_PKG_VERSION");
 
 use crate::lexical_analysis::LexicalAnalysis;
+use crate::syntax_analysis::SyntaxAnalysis;
 
 pub(crate) fn repl() {
     println!(
@@ -15,7 +16,7 @@ pub(crate) fn repl() {
 
     loop {
         let tokens = LexicalAnalysis::from(&read());
-        let abstract_syntax_tree = crate::syntax_analysis::get_abstract_syntax_tree(tokens);
+        let abstract_syntax_tree = SyntaxAnalysis::from(tokens);
 
         if !abstract_syntax_tree.syntax_parsing_errors.is_empty() {
             for error in abstract_syntax_tree

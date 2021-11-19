@@ -4,7 +4,7 @@ macro_rules! assert_expected_returned_object {
             $snapshot_name,
             crate::evaluator::evaluate(
                 crate::evaluator::model::evaluator_context::EvaluatorContext::new(),
-                crate::syntax_analysis::get_abstract_syntax_tree(
+                crate::syntax_analysis::SyntaxAnalysis::from(
                     crate::lexical_analysis::LexicalAnalysis::from($code)
                 )
             )
