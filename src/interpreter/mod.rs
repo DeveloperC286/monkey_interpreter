@@ -12,7 +12,7 @@ pub(crate) fn repl() {
         NAME.unwrap_or("unknown"),
         VERSION.unwrap_or("unknown")
     );
-    let mut evaluator_context = crate::evaluator::model::evaluator_context::EvaluatorContext::new();
+    let evaluator = crate::evaluator::Evaluator::new();
 
     loop {
         let tokens = LexicalAnalysis::from(&read());
@@ -27,9 +27,7 @@ pub(crate) fn repl() {
                 error!("{:?}", error);
             }
         } else {
-            let (returned_evaluator_context, object) =
-                crate::evaluator::evaluate(evaluator_context, abstract_syntax_tree);
-            evaluator_context = returned_evaluator_context;
+            let object = evaluator.evaluate(abstract_syntax_tree);
             println!("{:?}", object);
         }
     }

@@ -1,5 +1,5 @@
-use crate::evaluator::model::evaluator_context::EvaluatorContext;
 use crate::evaluator::model::object::Object;
+use crate::evaluator::Evaluator;
 use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::*;
 
 mod boolean;
@@ -8,31 +8,26 @@ mod infix;
 mod integer;
 mod prefix;
 
-pub(crate) fn evaluate(
-    evaluator_context: EvaluatorContext,
-    expression: Expression,
-) -> (EvaluatorContext, Object) {
-    match expression {
-        Expression::Integer { integer_token } => {
-            (evaluator_context, integer::evaluate(integer_token))
+impl Evaluator {
+    pub(crate) fn evaluate_expression(&self, expression: Expression) -> Object {
+        match expression {
+            Expression::Integer { integer_token } => self.evaluate_integer(integer_token),
+            Expression::Boolean { boolean_token } => self.evaluate_boolean(boolean_token),
+            Expression::Prefix {
+                prefix_token,
+                right_hand,
+            } => self.evaluate_prefix_expression(prefix_token, *right_hand),
+            Expression::Infix {
+                left_hand,
+                operator_token,
+                right_hand,
+            } => self.evaluate_infix_expression(*left_hand, operator_token, *right_hand),
+            Expression::If {
+                condition,
+                consequence,
+                alternative,
+            } => self.evaluate_if_expression(*condition, *consequence, *alternative),
+            _ => Object::Null,
         }
-        Expression::Boolean { boolean_token } => {
-            (evaluator_context, boolean::evaluate(boolean_token))
-        }
-        Expression::Prefix {
-            prefix_token,
-            right_hand,
-        } => prefix::evaluate(evaluator_context, prefix_token, *right_hand),
-        Expression::Infix {
-            left_hand,
-            operator_token,
-            right_hand,
-        } => infix::evaluate(evaluator_context, *left_hand, operator_token, *right_hand),
-        Expression::If {
-            condition,
-            consequence,
-            alternative,
-        } => if_expression::evaluate(evaluator_context, *condition, *consequence, *alternative),
-        _ => (evaluator_context, Object::Null),
     }
 }

@@ -1,20 +1,21 @@
-use crate::evaluator::model::evaluator_context::EvaluatorContext;
 use crate::evaluator::model::object::Object;
+use crate::evaluator::Evaluator;
 use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::{Block, Expression};
 
-pub(crate) fn evaluate(
-    evaluator_context: EvaluatorContext,
-    condition: Expression,
-    consequence: Block,
-    alternative: Option<Block>,
-) -> (EvaluatorContext, Object) {
-    match crate::evaluator::expression::evaluate(evaluator_context, condition) {
-        (evaluator_context, Object::Null) | (evaluator_context, Object::False) => match alternative
-        {
-            Some(block) => crate::evaluator::evaluate_block(evaluator_context, block),
-            None => (evaluator_context, Object::Null),
-        },
-        (evaluator_context, _) => crate::evaluator::evaluate_block(evaluator_context, consequence),
+impl Evaluator {
+    pub(super) fn evaluate_if_expression(
+        &self,
+        condition: Expression,
+        consequence: Block,
+        alternative: Option<Block>,
+    ) -> Object {
+        match self.evaluate_expression(condition) {
+            Object::Null | Object::False => match alternative {
+                Some(block) => self.evaluate_block(block),
+                None => Object::Null,
+            },
+            _ => self.evaluate_block(consequence),
+        }
     }
 }
 

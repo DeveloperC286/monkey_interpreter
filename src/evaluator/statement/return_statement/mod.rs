@@ -1,20 +1,13 @@
-use crate::evaluator::model::evaluator_context::EvaluatorContext;
 use crate::evaluator::model::object::Object;
+use crate::evaluator::Evaluator;
 use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::*;
 
-pub(crate) fn evaluate(
-    evaluator_context: EvaluatorContext,
-    expression: Expression,
-) -> (EvaluatorContext, Object) {
-    let (returned_evaluator_context, value) =
-        crate::evaluator::expression::evaluate(evaluator_context, expression);
-
-    (
-        returned_evaluator_context,
+impl Evaluator {
+    pub(super) fn evaluate_return_statement(&self, expression: Expression) -> Object {
         Object::Return {
-            value: Box::new(value),
-        },
-    )
+            value: Box::new(self.evaluate_expression(expression)),
+        }
+    }
 }
 
 #[cfg(test)]

@@ -9,19 +9,18 @@ impl<'a> SyntaxAnalysis<'a> {
             Some(token) => token,
             None => return None,
         };
+
         let precedence =
             crate::syntax_analysis::model::expression_precedence::get_current_expression_precedence(
                 operator_token,
             );
 
-        match self.get_expression(precedence) {
-            Some(right_hand) => Some(Expression::Infix {
+        self.get_expression(precedence)
+            .map(|right_hand| Expression::Infix {
                 left_hand: Box::new(left_hand),
                 operator_token: operator_token.clone(),
                 right_hand: Box::new(right_hand),
-            }),
-            None => None,
-        }
+            })
     }
 }
 

@@ -1,98 +1,62 @@
-use crate::evaluator::model::evaluator_context::EvaluatorContext;
 use crate::evaluator::model::object::Object;
+use crate::evaluator::Evaluator;
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::Expression;
 
-pub(crate) fn evaluate(
-    evaluator_context: EvaluatorContext,
-    left_hand: Expression,
-    operator_token: Token,
-    right_hand: Expression,
-) -> (EvaluatorContext, Object) {
-    match crate::evaluator::expression::evaluate(evaluator_context, left_hand) {
-        (returned_evaluator_context, Object::Integer { value: left_value }) => {
-            match crate::evaluator::expression::evaluate(returned_evaluator_context, right_hand) {
-                (returned_evaluator_context, Object::Integer { value: right_value }) => {
-                    match operator_token {
-                        Token::Plus => (
-                            returned_evaluator_context,
-                            Object::Integer {
-                                value: left_value + right_value,
-                            },
-                        ),
-                        Token::Minus => (
-                            returned_evaluator_context,
-                            Object::Integer {
-                                value: left_value - right_value,
-                            },
-                        ),
-                        Token::Multiply => (
-                            returned_evaluator_context,
-                            Object::Integer {
-                                value: left_value * right_value,
-                            },
-                        ),
-                        Token::Divide => (
-                            returned_evaluator_context,
-                            Object::Integer {
-                                value: left_value / right_value,
-                            },
-                        ),
-                        Token::GreaterThan => match left_value > right_value {
-                            true => (returned_evaluator_context, Object::True),
-                            false => (returned_evaluator_context, Object::False),
-                        },
-                        Token::LesserThan => match left_value < right_value {
-                            true => (returned_evaluator_context, Object::True),
-                            false => (returned_evaluator_context, Object::False),
-                        },
-                        Token::Equals => match left_value == right_value {
-                            true => (returned_evaluator_context, Object::True),
-                            false => (returned_evaluator_context, Object::False),
-                        },
-                        Token::NotEquals => match left_value != right_value {
-                            true => (returned_evaluator_context, Object::True),
-                            false => (returned_evaluator_context, Object::False),
-                        },
-                        _ => panic!("Operator token is not operator token."),
-                    }
-                }
-                (returned_evaluator_context, _) => {
-                    (returned_evaluator_context, Object::TypeMismatch)
-                }
-            }
+impl Evaluator {
+    pub(super) fn evaluate_infix_expression(
+        &self,
+        left_hand: Expression,
+        operator_token: Token,
+        right_hand: Expression,
+    ) -> Object {
+        match self.evaluate_expression(left_hand) {
+            Object::Integer { value: left_value } => match self.evaluate_expression(right_hand) {
+                Object::Integer { value: right_value } => match operator_token {
+                    Token::Plus => Object::Integer {
+                        value: left_value + right_value,
+                    },
+                    Token::Minus => Object::Integer {
+                        value: left_value - right_value,
+                    },
+                    Token::Multiply => Object::Integer {
+                        value: left_value * right_value,
+                    },
+                    Token::Divide => Object::Integer {
+                        value: left_value / right_value,
+                    },
+                    Token::GreaterThan => match left_value > right_value {
+                        true => Object::True,
+                        false => Object::False,
+                    },
+                    Token::LesserThan => match left_value < right_value {
+                        true => Object::True,
+                        false => Object::False,
+                    },
+                    Token::Equals => match left_value == right_value {
+                        true => Object::True,
+                        false => Object::False,
+                    },
+                    Token::NotEquals => match left_value != right_value {
+                        true => Object::True,
+                        false => Object::False,
+                    },
+                    _ => panic!("Operator token is not operator token."),
+                },
+                _ => Object::TypeMismatch,
+            },
+            Object::True => match self.evaluate_expression(right_hand) {
+                Object::True => evaluate_same_boolean(operator_token),
+                Object::False => evaluate_opposite_boolean(operator_token),
+                _ => Object::TypeMismatch,
+            },
+            Object::False => match self.evaluate_expression(right_hand) {
+                Object::False => evaluate_same_boolean(operator_token),
+                Object::True => evaluate_opposite_boolean(operator_token),
+                _ => Object::TypeMismatch,
+            },
+            _ => Object::Null,
         }
-        (returned_evaluator_context, Object::True) => {
-            match crate::evaluator::expression::evaluate(returned_evaluator_context, right_hand) {
-                (returned_evaluator_context, Object::True) => (
-                    returned_evaluator_context,
-                    evaluate_same_boolean(operator_token),
-                ),
-                (returned_evaluator_context, Object::False) => (
-                    returned_evaluator_context,
-                    evaluate_opposite_boolean(operator_token),
-                ),
-                (returned_evaluator_context, _) => {
-                    (returned_evaluator_context, Object::TypeMismatch)
-                }
-            }
-        }
-        (returned_evaluator_context, Object::False) => {
-            match crate::evaluator::expression::evaluate(returned_evaluator_context, right_hand) {
-                (returned_evaluator_context, Object::False) => (
-                    returned_evaluator_context,
-                    evaluate_same_boolean(operator_token),
-                ),
-                (returned_evaluator_context, Object::True) => (
-                    returned_evaluator_context,
-                    evaluate_opposite_boolean(operator_token),
-                ),
-                (returned_evaluator_context, _) => {
-                    (returned_evaluator_context, Object::TypeMismatch)
-                }
-            }
-        }
-        (returned_evaluator_context, _) => (returned_evaluator_context, Object::Null),
     }
 }
 

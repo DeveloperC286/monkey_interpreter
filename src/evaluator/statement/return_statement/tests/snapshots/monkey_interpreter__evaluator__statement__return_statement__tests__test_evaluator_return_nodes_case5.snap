@@ -1,9 +1,6 @@
 ---
 source: src/evaluator/statement/return_statement/tests/mod.rs
-expression: "crate::evaluator::evaluate(crate::evaluator::model::evaluator_context::EvaluatorContext::new(),\n                           crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code)))"
+expression: "evaluator.evaluate(crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code)))"
 
 ---
-(
-    EvaluatorContext,
-    True,
-)
+True

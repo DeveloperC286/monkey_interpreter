@@ -17,10 +17,7 @@ impl<'a> SyntaxAnalysis<'a> {
 
         semicolon!(self);
 
-        match expression_option {
-            Some(expression) => Some(SyntaxTreeNode::Expression { expression }),
-            None => None,
-        }
+        expression_option.map(|expression| SyntaxTreeNode::Expression { expression })
     }
 
     pub(crate) fn get_expression(
