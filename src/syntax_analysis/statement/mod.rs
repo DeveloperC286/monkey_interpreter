@@ -27,9 +27,9 @@ impl<'a> SyntaxAnalysis<'a> {
         debug!("Parsing a let statement.");
 
         assert_token!(self, Token::Let, None);
-        let identifier_token = match self.tokens.next() {
+        let identifier = match self.tokens.next() {
             Some(token) => match token {
-                Token::Identifier { literal: _ } => token,
+                Token::Identifier { literal } => literal,
                 _ => {
                     self.syntax_parsing_errors
                         .push("Syntax error : Expected a IDENTIFIER.".to_string());
@@ -47,7 +47,7 @@ impl<'a> SyntaxAnalysis<'a> {
 
         Some(SyntaxTreeNode::Statement {
             statement: Statement::Let {
-                identifier_token: identifier_token.clone(),
+                identifier: identifier.to_string(),
                 expression: Box::new(expression),
             },
         })

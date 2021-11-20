@@ -9,7 +9,7 @@ mod integer;
 mod prefix;
 
 impl Evaluator {
-    pub(crate) fn evaluate_expression(&self, expression: Expression) -> Object {
+    pub(crate) fn evaluate_expression(&mut self, expression: Expression) -> Object {
         match expression {
             Expression::Integer { integer_token } => self.evaluate_integer(integer_token),
             Expression::Boolean { boolean_token } => self.evaluate_boolean(boolean_token),
@@ -27,6 +27,11 @@ impl Evaluator {
                 consequence,
                 alternative,
             } => self.evaluate_if_expression(*condition, *consequence, *alternative),
+            Expression::Identifier { identifier } => self
+                .variables
+                .get(&identifier)
+                .unwrap_or(&Object::Null)
+                .clone(),
             _ => Object::Null,
         }
     }

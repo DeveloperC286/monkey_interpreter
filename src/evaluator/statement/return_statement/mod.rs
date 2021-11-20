@@ -3,7 +3,7 @@ use crate::evaluator::Evaluator;
 use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::*;
 
 impl Evaluator {
-    pub(super) fn evaluate_return_statement(&self, expression: Expression) -> Object {
+    pub(super) fn evaluate_return_statement(&mut self, expression: Expression) -> Object {
         Object::Return {
             value: Box::new(self.evaluate_expression(expression)),
         }

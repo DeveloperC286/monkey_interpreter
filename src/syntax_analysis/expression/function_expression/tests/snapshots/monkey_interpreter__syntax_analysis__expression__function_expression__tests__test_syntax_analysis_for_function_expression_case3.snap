@@ -9,9 +9,7 @@ AbstractSyntaxTree {
             expression: Function {
                 parameters: [
                     Identifier {
-                        identifier_token: Identifier {
-                            literal: "x",
-                        },
+                        identifier: "x",
                     },
                 ],
                 block: Block {

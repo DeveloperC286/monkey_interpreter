@@ -9,24 +9,18 @@ AbstractSyntaxTree {
             expression: If {
                 condition: Infix {
                     left_hand: Identifier {
-                        identifier_token: Identifier {
-                            literal: "x",
-                        },
+                        identifier: "x",
                     },
                     operator_token: LesserThan,
                     right_hand: Identifier {
-                        identifier_token: Identifier {
-                            literal: "y",
-                        },
+                        identifier: "y",
                     },
                 },
                 consequence: Block {
                     nodes: [
                         Expression {
                             expression: Identifier {
-                                identifier_token: Identifier {
-                                    literal: "x",
-                                },
+                                identifier: "x",
                             },
                         },
                     ],

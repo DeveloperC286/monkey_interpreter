@@ -12,7 +12,7 @@ pub(crate) fn repl() {
         NAME.unwrap_or("unknown"),
         VERSION.unwrap_or("unknown")
     );
-    let evaluator = crate::evaluator::Evaluator::new();
+    let mut evaluator = crate::evaluator::Evaluator::new();
 
     loop {
         let tokens = LexicalAnalysis::from(&read());

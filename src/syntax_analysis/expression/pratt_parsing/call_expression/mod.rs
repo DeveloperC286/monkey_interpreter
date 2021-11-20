@@ -12,9 +12,7 @@ impl<'a> SyntaxAnalysis<'a> {
 
         // check call expression was correctly called
         match &function {
-            Expression::Identifier {
-                identifier_token: _,
-            } => {}
+            Expression::Identifier { identifier: _ } => {}
             _ => {
                 error!("parse_call_expression called with the function not being an Expression::IDENTIFIER.");
                 return None;

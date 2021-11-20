@@ -30,11 +30,12 @@ impl<'a> SyntaxAnalysis<'a> {
 
         match self.tokens.peek() {
             Some(token) => match token {
-                Token::Identifier { literal: _ } => {
+                Token::Identifier { literal } => {
                     debug!("Found an identifier expression.");
                     expression = Some(Expression::Identifier {
-                        identifier_token: self.tokens.next().unwrap().clone(),
+                        identifier: literal.clone(),
                     });
+                    self.tokens.next();
                 }
                 Token::Integer { literal: _ } => {
                     debug!("Found an integer expression.");

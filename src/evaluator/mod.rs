@@ -1,7 +1,8 @@
 use crate::evaluator::model::object::Object;
-
 use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::*;
 use crate::syntax_analysis::model::abstract_syntax_tree::AbstractSyntaxTree;
+
+use std::collections::HashMap;
 
 pub(crate) mod model;
 
@@ -12,14 +13,19 @@ mod tests;
 mod expression;
 mod statement;
 
-pub(crate) struct Evaluator {}
+#[derive(Debug)]
+pub(crate) struct Evaluator {
+    variables: HashMap<String, Object>,
+}
 
 impl Evaluator {
     pub(crate) fn new() -> Evaluator {
-        Evaluator {}
+        Evaluator {
+            variables: HashMap::new(),
+        }
     }
 
-    pub(crate) fn evaluate(&self, abstract_syntax_tree: AbstractSyntaxTree) -> Object {
+    pub(crate) fn evaluate(&mut self, abstract_syntax_tree: AbstractSyntaxTree) -> Object {
         if !abstract_syntax_tree.syntax_parsing_errors.is_empty() {
             panic!("Syntax errors unable to evaluate.");
         }
@@ -42,7 +48,7 @@ impl Evaluator {
         object
     }
 
-    fn evaluate_block(&self, block: Block) -> Object {
+    fn evaluate_block(&mut self, block: Block) -> Object {
         let mut object = Object::Null;
 
         for syntax_tree_node in block.nodes {
@@ -57,7 +63,7 @@ impl Evaluator {
         object
     }
 
-    fn evaluate_node(&self, syntax_tree_node: SyntaxTreeNode) -> Object {
+    fn evaluate_node(&mut self, syntax_tree_node: SyntaxTreeNode) -> Object {
         match syntax_tree_node {
             SyntaxTreeNode::Expression { expression } => self.evaluate_expression(expression),
             SyntaxTreeNode::Statement { statement } => self.evaluate_statement(statement),

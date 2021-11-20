@@ -12,4 +12,5 @@ pub(crate) enum Object {
 pub(crate) enum ErrorType {
     TypeMismatch,
     UnknownOperator,
+    UnassignableObject,
 }

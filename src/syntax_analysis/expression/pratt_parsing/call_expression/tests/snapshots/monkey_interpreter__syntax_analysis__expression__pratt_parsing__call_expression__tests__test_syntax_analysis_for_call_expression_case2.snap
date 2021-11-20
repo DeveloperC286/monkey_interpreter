@@ -8,9 +8,7 @@ AbstractSyntaxTree {
         Expression {
             expression: Call {
                 function: Identifier {
-                    identifier_token: Identifier {
-                        literal: "add",
-                    },
+                    identifier: "add",
                 },
                 arguments: [
                     Integer {

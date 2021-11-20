@@ -7,9 +7,7 @@ AbstractSyntaxTree {
     abstract_syntax_tree: [
         Expression {
             expression: Identifier {
-                identifier_token: Identifier {
-                    literal: "temp",
-                },
+                identifier: "temp",
             },
         },
     ],

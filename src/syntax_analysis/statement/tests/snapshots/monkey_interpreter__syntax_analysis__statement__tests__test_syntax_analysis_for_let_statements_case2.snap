@@ -7,9 +7,7 @@ AbstractSyntaxTree {
     abstract_syntax_tree: [
         Statement {
             statement: Let {
-                identifier_token: Identifier {
-                    literal: "x",
-                },
+                identifier: "x",
                 expression: Integer {
                     integer_token: Integer {
                         literal: "5",
@@ -19,9 +17,7 @@ AbstractSyntaxTree {
         },
         Statement {
             statement: Let {
-                identifier_token: Identifier {
-                    literal: "z",
-                },
+                identifier: "z",
                 expression: Infix {
                     left_hand: Integer {
                         integer_token: Integer {

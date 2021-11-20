@@ -9,14 +9,10 @@ AbstractSyntaxTree {
             expression: Function {
                 parameters: [
                     Identifier {
-                        identifier_token: Identifier {
-                            literal: "x",
-                        },
+                        identifier: "x",
                     },
                     Identifier {
-                        identifier_token: Identifier {
-                            literal: "y",
-                        },
+                        identifier: "y",
                     },
                 ],
                 block: Block {
@@ -24,15 +20,11 @@ AbstractSyntaxTree {
                         Expression {
                             expression: Infix {
                                 left_hand: Identifier {
-                                    identifier_token: Identifier {
-                                        literal: "x",
-                                    },
+                                    identifier: "x",
                                 },
                                 operator_token: Plus,
                                 right_hand: Identifier {
-                                    identifier_token: Identifier {
-                                        literal: "y",
-                                    },
+                                    identifier: "y",
                                 },
                             },
                         },

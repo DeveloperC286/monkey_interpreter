@@ -1,6 +1,6 @@
 macro_rules! assert_expected_returned_object {
     ($code:expr, $snapshot_name:expr) => {
-        let evaluator = crate::evaluator::Evaluator::new();
+        let mut evaluator = crate::evaluator::Evaluator::new();
 
         insta::assert_debug_snapshot!(
             $snapshot_name,

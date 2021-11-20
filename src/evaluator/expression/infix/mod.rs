@@ -5,7 +5,7 @@ use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::Expre
 
 impl Evaluator {
     pub(super) fn evaluate_infix_expression(
-        &self,
+        &mut self,
         left_hand: Expression,
         operator_token: Token,
         right_hand: Expression,

@@ -17,9 +17,7 @@ AbstractSyntaxTree {
         Statement {
             statement: Return {
                 expression: Identifier {
-                    identifier_token: Identifier {
-                        literal: "x",
-                    },
+                    identifier: "x",
                 },
             },
         },

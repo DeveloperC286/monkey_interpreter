@@ -14,7 +14,7 @@ pub(crate) enum SyntaxTreeNode {
 #[derive(Debug, Clone, PartialEq)]
 pub(crate) enum Statement {
     Let {
-        identifier_token: Token,
+        identifier: String,
         expression: Box<Expression>,
     },
     Return {
@@ -25,7 +25,7 @@ pub(crate) enum Statement {
 #[derive(Debug, Clone, PartialEq)]
 pub(crate) enum Expression {
     Identifier {
-        identifier_token: Token,
+        identifier: String,
     },
     Integer {
         integer_token: Token,

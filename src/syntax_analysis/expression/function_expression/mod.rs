@@ -37,9 +37,7 @@ impl<'a> SyntaxAnalysis<'a> {
                 loop {
                     match self.get_expression(ExpressionPrecedence::Lowest) {
                         Some(expression) => match expression.clone() {
-                            Expression::Identifier {
-                                identifier_token: _,
-                            } => {
+                            Expression::Identifier { identifier: _ } => {
                                 parameters.push(expression);
                             }
                             _ => {

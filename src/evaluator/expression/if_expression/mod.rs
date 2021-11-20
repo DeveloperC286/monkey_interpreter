@@ -4,7 +4,7 @@ use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::{Bloc
 
 impl Evaluator {
     pub(super) fn evaluate_if_expression(
-        &self,
+        &mut self,
         condition: Expression,
         consequence: Block,
         alternative: Option<Block>,
