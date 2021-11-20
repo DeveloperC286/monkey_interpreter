@@ -5,6 +5,11 @@ pub(crate) enum Object {
     True,
     False,
     Null,
+    Error { error_type: ErrorType },
+}
+
+#[derive(Debug, Clone, PartialEq)]
+pub(crate) enum ErrorType {
     TypeMismatch,
     UnknownOperator,
 }

@@ -3,4 +3,6 @@ source: src/evaluator/expression/prefix/tests/mod.rs
 expression: "evaluator.evaluate(crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code)))"
 
 ---
-UnknownOperator
+Error {
+    error_type: UnknownOperator,
+}

@@ -1,4 +1,4 @@
-use crate::evaluator::model::object::Object;
+use crate::evaluator::model::object::{ErrorType, Object};
 use crate::evaluator::Evaluator;
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::Expression;
@@ -43,17 +43,23 @@ impl Evaluator {
                     },
                     _ => panic!("Operator token is not operator token."),
                 },
-                _ => Object::TypeMismatch,
+                _ => Object::Error {
+                    error_type: ErrorType::TypeMismatch,
+                },
             },
             Object::True => match self.evaluate_expression(right_hand) {
                 Object::True => evaluate_same_boolean(operator_token),
                 Object::False => evaluate_opposite_boolean(operator_token),
-                _ => Object::TypeMismatch,
+                _ => Object::Error {
+                    error_type: ErrorType::TypeMismatch,
+                },
             },
             Object::False => match self.evaluate_expression(right_hand) {
                 Object::False => evaluate_same_boolean(operator_token),
                 Object::True => evaluate_opposite_boolean(operator_token),
-                _ => Object::TypeMismatch,
+                _ => Object::Error {
+                    error_type: ErrorType::TypeMismatch,
+                },
             },
             _ => Object::Null,
         }
@@ -64,7 +70,9 @@ fn evaluate_same_boolean(operator_token: Token) -> Object {
     match operator_token {
         Token::Equals => Object::True,
         Token::NotEquals => Object::False,
-        _ => Object::UnknownOperator,
+        _ => Object::Error {
+            error_type: ErrorType::UnknownOperator,
+        },
     }
 }
 
@@ -72,7 +80,9 @@ fn evaluate_opposite_boolean(operator_token: Token) -> Object {
     match operator_token {
         Token::Equals => Object::False,
         Token::NotEquals => Object::True,
-        _ => Object::UnknownOperator,
+        _ => Object::Error {
+            error_type: ErrorType::UnknownOperator,
+        },
     }
 }
 

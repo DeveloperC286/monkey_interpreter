@@ -34,7 +34,7 @@ impl Evaluator {
                     object = *value;
                     break;
                 }
-                Object::TypeMismatch | Object::UnknownOperator => break,
+                Object::Error { error_type: _ } => break,
                 _ => {}
             }
         }
@@ -49,9 +49,7 @@ impl Evaluator {
             object = self.evaluate_node(syntax_tree_node);
 
             match object.clone() {
-                Object::Return { value: _ } | Object::TypeMismatch | Object::UnknownOperator => {
-                    break
-                }
+                Object::Return { value: _ } | Object::Error { error_type: _ } => break,
                 _ => {}
             }
         }
