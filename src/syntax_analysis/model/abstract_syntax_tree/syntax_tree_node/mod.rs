@@ -48,7 +48,7 @@ pub(crate) enum Expression {
         alternative: Box<Option<Block>>,
     },
     Function {
-        parameters: Vec<Expression>,
+        parameters: Vec<String>,
         block: Box<Block>,
     },
     Call {

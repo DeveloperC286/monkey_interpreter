@@ -26,7 +26,7 @@ impl<'a> SyntaxAnalysis<'a> {
         })
     }
 
-    fn parse_parameters(&mut self) -> Vec<Expression> {
+    fn parse_parameters(&mut self) -> Vec<String> {
         debug!("Parsing parameters.");
 
         assert_token!(self, Token::OpeningRoundBracket, vec![]);
@@ -36,9 +36,9 @@ impl<'a> SyntaxAnalysis<'a> {
             if **token != Token::ClosingRoundBracket {
                 loop {
                     match self.get_expression(ExpressionPrecedence::Lowest) {
-                        Some(expression) => match expression.clone() {
-                            Expression::Identifier { identifier: _ } => {
-                                parameters.push(expression);
+                        Some(expression) => match expression {
+                            Expression::Identifier { identifier } => {
+                                parameters.push(identifier);
                             }
                             _ => {
                                 self.syntax_parsing_errors.push(

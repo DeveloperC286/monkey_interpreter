@@ -3,6 +3,8 @@ use crate::evaluator::Evaluator;
 use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::*;
 
 mod boolean;
+mod call;
+mod function;
 mod if_expression;
 mod infix;
 mod integer;
@@ -27,12 +29,14 @@ impl Evaluator {
                 consequence,
                 alternative,
             } => self.evaluate_if_expression(*condition, *consequence, *alternative),
-            Expression::Identifier { identifier } => self
-                .variables
-                .get(&identifier)
-                .unwrap_or(&Object::Null)
-                .clone(),
-            _ => Object::Null,
+            Expression::Identifier { identifier } => self.environment.get(&identifier),
+            Expression::Function { parameters, block } => {
+                self.evaluate_function_expression(parameters, *block)
+            }
+            Expression::Call {
+                function,
+                arguments,
+            } => self.evaluate_call_expression(*function, arguments),
         }
     }
 }

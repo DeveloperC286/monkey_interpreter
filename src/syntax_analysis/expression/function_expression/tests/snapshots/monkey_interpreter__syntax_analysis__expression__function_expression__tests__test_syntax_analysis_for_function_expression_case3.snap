@@ -8,9 +8,7 @@ AbstractSyntaxTree {
         Expression {
             expression: Function {
                 parameters: [
-                    Identifier {
-                        identifier: "x",
-                    },
+                    "x",
                 ],
                 block: Block {
                     nodes: [],

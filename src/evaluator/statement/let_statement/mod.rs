@@ -22,7 +22,7 @@ impl Evaluator {
             _ => {}
         }
 
-        self.variables.insert(identifier, expression);
+        self.environment.set(identifier, expression);
 
         Object::Null
     }

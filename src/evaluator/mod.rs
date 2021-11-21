@@ -1,10 +1,9 @@
+use crate::evaluator::model::environment::Environment;
 use crate::evaluator::model::object::Object;
 use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::*;
 use crate::syntax_analysis::model::abstract_syntax_tree::AbstractSyntaxTree;
 
-use std::collections::HashMap;
-
-pub(crate) mod model;
+mod model;
 
 #[cfg(test)]
 #[macro_use]
@@ -13,15 +12,14 @@ mod tests;
 mod expression;
 mod statement;
 
-#[derive(Debug)]
 pub(crate) struct Evaluator {
-    variables: HashMap<String, Object>,
+    environment: Environment,
 }
 
 impl Evaluator {
     pub(crate) fn new() -> Evaluator {
         Evaluator {
-            variables: HashMap::new(),
+            environment: Environment::new(),
         }
     }
 
