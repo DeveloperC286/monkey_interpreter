@@ -1,6 +1,6 @@
-use crate::evaluator::model::object::Object;
-
 use std::collections::HashMap;
+
+use crate::evaluator::model::object::Object;
 
 #[derive(Clone)]
 pub(crate) struct Environment {
