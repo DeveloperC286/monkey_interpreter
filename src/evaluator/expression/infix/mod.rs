@@ -11,6 +11,22 @@ impl Evaluator {
         operator_token: Token,
         right_hand: Expression,
     ) -> Result<Object, EvaluationError> {
+        fn evaluate_same_boolean(operator_token: Token) -> Result<Object, EvaluationError> {
+            match operator_token {
+                Token::Equals => Ok(Object::True),
+                Token::NotEquals => Ok(Object::False),
+                _ => Err(EvaluationError::UnknownOperator),
+            }
+        }
+
+        fn evaluate_opposite_boolean(operator_token: Token) -> Result<Object, EvaluationError> {
+            match operator_token {
+                Token::Equals => Ok(Object::False),
+                Token::NotEquals => Ok(Object::True),
+                _ => Err(EvaluationError::UnknownOperator),
+            }
+        }
+
         match self.evaluate_expression(left_hand)? {
             Object::Integer { value: left_value } => match self.evaluate_expression(right_hand)? {
                 Object::Integer { value: right_value } => match operator_token {
@@ -56,24 +72,22 @@ impl Evaluator {
                 Object::True => evaluate_opposite_boolean(operator_token),
                 _ => Err(EvaluationError::TypeMismatch),
             },
-            _ => Ok(Object::Null),
+            Object::String { value: left_value } => match self.evaluate_expression(right_hand)? {
+                Object::String { value: right_value } => match operator_token {
+                    Token::Equals => match left_value.eq(&right_value) {
+                        true => Ok(Object::True),
+                        false => Ok(Object::False),
+                    },
+                    Token::NotEquals => match left_value.ne(&right_value) {
+                        true => Ok(Object::True),
+                        false => Ok(Object::False),
+                    },
+                    _ => Err(EvaluationError::UnknownOperator),
+                },
+                _ => Err(EvaluationError::TypeMismatch),
+            },
+            _ => Err(EvaluationError::UnknownOperator),
         }
-    }
-}
-
-fn evaluate_same_boolean(operator_token: Token) -> Result<Object, EvaluationError> {
-    match operator_token {
-        Token::Equals => Ok(Object::True),
-        Token::NotEquals => Ok(Object::False),
-        _ => Err(EvaluationError::UnknownOperator),
-    }
-}
-
-fn evaluate_opposite_boolean(operator_token: Token) -> Result<Object, EvaluationError> {
-    match operator_token {
-        Token::Equals => Ok(Object::False),
-        Token::NotEquals => Ok(Object::True),
-        _ => Err(EvaluationError::UnknownOperator),
     }
 }
 
