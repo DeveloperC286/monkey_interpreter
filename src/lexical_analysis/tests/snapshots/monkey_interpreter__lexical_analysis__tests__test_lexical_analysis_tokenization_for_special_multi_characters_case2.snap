@@ -7,7 +7,7 @@ Ok(
     [
         NotEquals,
         Integer {
-            literal: "4",
+            literal: 4,
         },
         EndOfFile,
     ],

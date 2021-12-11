@@ -74,7 +74,7 @@ impl<'a> LexicalAnalysis<'a> {
                         if is_digit(character) {
                             debug!("Parsing integer from characters.");
                             return Ok(Token::Integer {
-                                literal: self.get_integer(character),
+                                literal: self.get_integer(character)?,
                             });
                         }
 
@@ -86,8 +86,17 @@ impl<'a> LexicalAnalysis<'a> {
         }
     }
 
-    fn get_integer(&mut self, character: char) -> String {
+    fn get_integer_string(&mut self, character: char) -> String {
         parse_characters!(self.source_code, character, is_digit);
+    }
+
+    fn get_integer(&mut self, character: char) -> Result<i64, LexicalError> {
+        let integer_string = self.get_integer_string(character);
+
+        match integer_string.parse() {
+            Ok(integer) => Ok(integer),
+            Err(_) => Err(LexicalError::NonNumericIntegerString(integer_string)),
+        }
     }
 
     fn get_word(&mut self, character: char) -> String {

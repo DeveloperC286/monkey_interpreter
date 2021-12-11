@@ -9,13 +9,13 @@ Ok(
         True,
         Return,
         Integer {
-            literal: "3",
+            literal: 3,
         },
         SemiColon,
         Else,
         Return,
         Integer {
-            literal: "45",
+            literal: 45,
         },
         SemiColon,
         EndOfFile,

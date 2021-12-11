@@ -9,20 +9,20 @@ Ok(
             expression: Infix {
                 left_hand: Integer {
                     integer_token: Integer {
-                        literal: "5",
+                        literal: 5,
                     },
                 },
                 operator_token: Minus,
                 right_hand: Infix {
                     left_hand: Integer {
                         integer_token: Integer {
-                            literal: "10",
+                            literal: 10,
                         },
                     },
                     operator_token: Multiply,
                     right_hand: Integer {
                         integer_token: Integer {
-                            literal: "10",
+                            literal: 10,
                         },
                     },
                 },

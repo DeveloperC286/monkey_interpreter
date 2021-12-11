@@ -10,20 +10,20 @@ Ok(
                 left_hand: Infix {
                     left_hand: Integer {
                         integer_token: Integer {
-                            literal: "1",
+                            literal: 1,
                         },
                     },
                     operator_token: Plus,
                     right_hand: Infix {
                         left_hand: Integer {
                             integer_token: Integer {
-                                literal: "2",
+                                literal: 2,
                             },
                         },
                         operator_token: Plus,
                         right_hand: Integer {
                             integer_token: Integer {
-                                literal: "3",
+                                literal: 3,
                             },
                         },
                     },
@@ -31,7 +31,7 @@ Ok(
                 operator_token: Plus,
                 right_hand: Integer {
                     integer_token: Integer {
-                        literal: "4",
+                        literal: 4,
                     },
                 },
             },

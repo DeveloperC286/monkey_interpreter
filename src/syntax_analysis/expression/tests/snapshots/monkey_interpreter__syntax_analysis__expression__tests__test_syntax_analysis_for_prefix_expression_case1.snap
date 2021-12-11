@@ -10,7 +10,7 @@ Ok(
                 prefix_token: Not,
                 right_hand: Integer {
                     integer_token: Integer {
-                        literal: "15",
+                        literal: 15,
                     },
                 },
             },

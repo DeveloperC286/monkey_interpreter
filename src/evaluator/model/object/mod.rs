@@ -6,7 +6,7 @@ pub(crate) enum Object {
         value: Box<Object>,
     },
     Integer {
-        value: i32,
+        value: i64,
     },
     True,
     False,

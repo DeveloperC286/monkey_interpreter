@@ -9,13 +9,13 @@ Ok(
             expression: Infix {
                 left_hand: Integer {
                     integer_token: Integer {
-                        literal: "3",
+                        literal: 3,
                     },
                 },
                 operator_token: Multiply,
                 right_hand: Integer {
                     integer_token: Integer {
-                        literal: "4",
+                        literal: 4,
                     },
                 },
             },

@@ -10,7 +10,7 @@ Ok(
                 identifier: "x",
                 expression: Integer {
                     integer_token: Integer {
-                        literal: "5",
+                        literal: 5,
                     },
                 },
             },
@@ -19,7 +19,7 @@ Ok(
             statement: Return {
                 expression: Integer {
                     integer_token: Integer {
-                        literal: "5",
+                        literal: 5,
                     },
                 },
             },

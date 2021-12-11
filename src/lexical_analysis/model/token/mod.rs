@@ -4,7 +4,11 @@ pub(crate) enum Token {
 
     // Identifiers
     Identifier { literal: String },
-    Integer { literal: String },
+
+    //Values
+    Integer { literal: i64 },
+    True,
+    False,
 
     // Operators
     Assign,
@@ -32,8 +36,6 @@ pub(crate) enum Token {
     //Keywords
     Function,
     Let,
-    True,
-    False,
     If,
     Else,
     Return,

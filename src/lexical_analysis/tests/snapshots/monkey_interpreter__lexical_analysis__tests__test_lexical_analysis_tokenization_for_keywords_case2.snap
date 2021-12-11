@@ -9,7 +9,7 @@ Ok(
         False,
         Return,
         Integer {
-            literal: "3",
+            literal: 3,
         },
         SemiColon,
         EndOfFile,

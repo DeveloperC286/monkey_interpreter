@@ -18,7 +18,7 @@ Ok(
                         operator_token: Plus,
                         right_hand: Integer {
                             integer_token: Integer {
-                                literal: "3",
+                                literal: 3,
                             },
                         },
                     },

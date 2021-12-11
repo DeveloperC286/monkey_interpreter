@@ -6,11 +6,11 @@ expression: "crate::lexical_analysis::LexicalAnalysis::from(code)"
 Ok(
     [
         Integer {
-            literal: "2",
+            literal: 2,
         },
         Equals,
         Integer {
-            literal: "4",
+            literal: 4,
         },
         EndOfFile,
     ],

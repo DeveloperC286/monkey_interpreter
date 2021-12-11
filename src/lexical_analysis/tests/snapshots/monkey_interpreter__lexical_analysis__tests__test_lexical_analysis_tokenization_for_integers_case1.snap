@@ -6,7 +6,7 @@ expression: "crate::lexical_analysis::LexicalAnalysis::from(code)"
 Ok(
     [
         Integer {
-            literal: "123",
+            literal: 123,
         },
         EndOfFile,
     ],

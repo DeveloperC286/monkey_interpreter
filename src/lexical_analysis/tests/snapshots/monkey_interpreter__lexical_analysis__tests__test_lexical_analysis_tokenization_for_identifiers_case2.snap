@@ -11,11 +11,11 @@ Ok(
         },
         Assign,
         Integer {
-            literal: "5",
+            literal: 5,
         },
         Plus,
         Integer {
-            literal: "5",
+            literal: 5,
         },
         SemiColon,
         EndOfFile,

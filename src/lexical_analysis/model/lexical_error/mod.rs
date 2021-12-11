@@ -4,4 +4,6 @@ use thiserror::Error;
 pub(crate) enum LexicalError {
     #[error("Illegal character provided for lexical analysis {0:?}.")]
     IllegalCharacter(char),
+    #[error("Non numeric characters are within the integer {0:?}.")]
+    NonNumericIntegerString(String),
 }
