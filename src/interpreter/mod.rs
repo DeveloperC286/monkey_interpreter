@@ -16,22 +16,15 @@ pub(crate) fn repl() {
 
     loop {
         match LexicalAnalysis::from(&read()) {
-            Ok(tokens) => {
-                let abstract_syntax_tree = SyntaxAnalysis::from(tokens);
-
-                if !abstract_syntax_tree.syntax_parsing_errors.is_empty() {
-                    for error in abstract_syntax_tree
-                        .syntax_parsing_errors
-                        .iter()
-                        .enumerate()
-                    {
-                        error!("{:?}", error);
-                    }
-                } else {
+            Ok(tokens) => match SyntaxAnalysis::from(tokens) {
+                Ok(abstract_syntax_tree) => {
                     let object = evaluator.evaluate(abstract_syntax_tree);
                     println!("{:?}", object);
                 }
-            }
+                Err(error) => {
+                    error!("{}", error);
+                }
+            },
             Err(error) => {
                 error!("{}", error);
             }

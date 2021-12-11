@@ -1,7 +1,6 @@
 use crate::evaluator::model::environment::Environment;
 use crate::evaluator::model::object::Object;
-use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::*;
-use crate::syntax_analysis::model::abstract_syntax_tree::AbstractSyntaxTree;
+use crate::syntax_analysis::model::syntax_tree_node::*;
 
 mod model;
 
@@ -23,14 +22,10 @@ impl Evaluator {
         }
     }
 
-    pub(crate) fn evaluate(&mut self, abstract_syntax_tree: AbstractSyntaxTree) -> Object {
-        if !abstract_syntax_tree.syntax_parsing_errors.is_empty() {
-            panic!("Syntax errors unable to evaluate.");
-        }
-
+    pub(crate) fn evaluate(&mut self, abstract_syntax_tree: Vec<SyntaxTreeNode>) -> Object {
         let mut object = Object::Null;
 
-        for syntax_tree_node in abstract_syntax_tree.abstract_syntax_tree {
+        for syntax_tree_node in abstract_syntax_tree {
             object = self.evaluate_node(syntax_tree_node);
 
             match object.clone() {

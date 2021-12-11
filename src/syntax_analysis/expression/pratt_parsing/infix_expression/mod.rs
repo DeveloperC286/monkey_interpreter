@@ -1,13 +1,17 @@
-use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::Expression;
+use crate::syntax_analysis::model::syntax_error::SyntaxError;
+use crate::syntax_analysis::model::syntax_tree_node::Expression;
 use crate::syntax_analysis::SyntaxAnalysis;
 
 impl<'a> SyntaxAnalysis<'a> {
-    pub(crate) fn parse_infix_expression(&mut self, left_hand: Expression) -> Option<Expression> {
+    pub(crate) fn parse_infix_expression(
+        &mut self,
+        left_hand: Expression,
+    ) -> Result<Expression, SyntaxError> {
         debug!("Parsing a infix expression.");
 
         let operator_token = match self.tokens.next() {
             Some(token) => token,
-            None => return None,
+            None => return Err(SyntaxError::NoTokenToParse),
         };
 
         let precedence =

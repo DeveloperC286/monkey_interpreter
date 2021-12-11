@@ -1,4 +1,4 @@
-use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::Block;
+use crate::syntax_analysis::model::syntax_tree_node::Block;
 
 #[derive(Debug, Clone, PartialEq)]
 pub(crate) enum Object {

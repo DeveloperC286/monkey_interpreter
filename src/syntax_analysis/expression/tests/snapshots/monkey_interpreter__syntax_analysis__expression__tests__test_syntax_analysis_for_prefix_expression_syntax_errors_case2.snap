@@ -1,12 +1,8 @@
 ---
 source: src/syntax_analysis/expression/tests/mod.rs
-expression: "crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code))"
+expression: "crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code).unwrap())"
 
 ---
-AbstractSyntaxTree {
-    abstract_syntax_tree: [],
-    syntax_parsing_errors: [
-        "Syntax error : Do not know how to parse SemiColon as an expression.",
-        "Syntax error : No right hand expression to prefix Minus.",
-    ],
-}
+Err(
+    MissingRightHandToPrefixExpression,
+)

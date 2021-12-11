@@ -1,10 +1,10 @@
 ---
 source: src/syntax_analysis/statement/tests/mod.rs
-expression: "crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code))"
+expression: "crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code).unwrap())"
 
 ---
-AbstractSyntaxTree {
-    abstract_syntax_tree: [
+Ok(
+    [
         Statement {
             statement: Let {
                 identifier: "x",
@@ -25,5 +25,4 @@ AbstractSyntaxTree {
             },
         },
     ],
-    syntax_parsing_errors: [],
-}
+)

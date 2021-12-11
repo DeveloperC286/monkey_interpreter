@@ -1,6 +1,6 @@
 use crate::evaluator::model::object::{ErrorType, Object};
 use crate::evaluator::Evaluator;
-use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::Expression;
+use crate::syntax_analysis::model::syntax_tree_node::Expression;
 
 impl Evaluator {
     pub(super) fn evaluate_call_expression(

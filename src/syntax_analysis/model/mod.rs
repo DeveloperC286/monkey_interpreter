@@ -1,2 +1,3 @@
-pub(crate) mod abstract_syntax_tree;
-pub(super) mod expression_precedence;
+pub(crate) mod expression_precedence;
+pub(crate) mod syntax_error;
+pub(crate) mod syntax_tree_node;

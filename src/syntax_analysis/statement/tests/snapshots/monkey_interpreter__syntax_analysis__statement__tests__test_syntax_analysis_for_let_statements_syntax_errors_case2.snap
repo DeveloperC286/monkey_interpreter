@@ -1,11 +1,8 @@
 ---
 source: src/syntax_analysis/statement/tests/mod.rs
-expression: "crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code))"
+expression: "crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code).unwrap())"
 
 ---
-AbstractSyntaxTree {
-    abstract_syntax_tree: [],
-    syntax_parsing_errors: [
-        "Syntax error : Expected a IDENTIFIER.",
-    ],
-}
+Err(
+    MissingLetIdentifier,
+)

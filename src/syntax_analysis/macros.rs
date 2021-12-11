@@ -17,9 +17,6 @@ macro_rules! assert_token {
         match $self.tokens.next() {
             Some(token) => {
                 if *token != $expect_token {
-                    $self
-                        .syntax_parsing_errors
-                        .push(format!("Syntax error : Expected a {:?}.", $expect_token));
                     return $failure_returning;
                 }
             }

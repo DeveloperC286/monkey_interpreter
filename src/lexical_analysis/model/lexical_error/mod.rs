@@ -1,7 +1,7 @@
 use thiserror::Error;
 
 #[derive(Error, Debug)]
-pub enum LexicalError {
+pub(crate) enum LexicalError {
     #[error("Illegal character provided for lexical analysis {0:?}.")]
     IllegalCharacter(char),
 }

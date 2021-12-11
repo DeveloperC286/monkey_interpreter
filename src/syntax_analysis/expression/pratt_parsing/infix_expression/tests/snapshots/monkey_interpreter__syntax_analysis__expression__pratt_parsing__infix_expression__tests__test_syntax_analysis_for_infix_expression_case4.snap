@@ -1,10 +1,10 @@
 ---
 source: src/syntax_analysis/expression/pratt_parsing/infix_expression/tests/mod.rs
-expression: "crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code))"
+expression: "crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code).unwrap())"
 
 ---
-AbstractSyntaxTree {
-    abstract_syntax_tree: [
+Ok(
+    [
         Expression {
             expression: Infix {
                 left_hand: Integer {
@@ -21,5 +21,4 @@ AbstractSyntaxTree {
             },
         },
     ],
-    syntax_parsing_errors: [],
-}
+)

@@ -1,26 +1,33 @@
 use crate::lexical_analysis::model::token::Token;
-use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::Block;
+use crate::syntax_analysis::model::syntax_error::SyntaxError;
+use crate::syntax_analysis::model::syntax_tree_node::Block;
 use crate::syntax_analysis::SyntaxAnalysis;
 
 impl<'a> SyntaxAnalysis<'a> {
-    pub(crate) fn parse_block(&mut self) -> Option<Block> {
+    pub(crate) fn parse_block(&mut self) -> Result<Block, SyntaxError> {
         debug!("Parsing a block.");
-        assert_token!(self, Token::OpeningCurlyBracket, None);
+        assert_token!(
+            self,
+            Token::OpeningCurlyBracket,
+            Err(SyntaxError::MissingBlockOpeningCurlyBracket)
+        );
         let mut blocks = vec![];
 
         while let Some(token) = self.tokens.peek() {
             match token {
                 Token::ClosingCurlyBracket | Token::EndOfFile => break,
                 _ => {
-                    if let Some(token) = self.get_next_syntax_tree_node() {
-                        blocks.push(token)
-                    }
+                    blocks.push(self.get_next_syntax_tree_node()?);
                 }
             }
         }
 
-        assert_token!(self, Token::ClosingCurlyBracket, None);
+        assert_token!(
+            self,
+            Token::ClosingCurlyBracket,
+            Err(SyntaxError::MissingBlockClosingCurlyBracket)
+        );
 
-        Some(Block { nodes: blocks })
+        Ok(Block { nodes: blocks })
     }
 }

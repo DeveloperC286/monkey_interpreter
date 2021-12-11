@@ -4,9 +4,12 @@ macro_rules! assert_expected_returned_object {
 
         insta::assert_debug_snapshot!(
             $snapshot_name,
-            evaluator.evaluate(crate::syntax_analysis::SyntaxAnalysis::from(
-                crate::lexical_analysis::LexicalAnalysis::from($code).unwrap()
-            ))
+            evaluator.evaluate(
+                crate::syntax_analysis::SyntaxAnalysis::from(
+                    crate::lexical_analysis::LexicalAnalysis::from($code).unwrap()
+                )
+                .unwrap()
+            )
         );
     };
 }

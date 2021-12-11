@@ -1,15 +1,14 @@
 ---
 source: src/syntax_analysis/expression/tests/mod.rs
-expression: "crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code))"
+expression: "crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code).unwrap())"
 
 ---
-AbstractSyntaxTree {
-    abstract_syntax_tree: [
+Ok(
+    [
         Expression {
             expression: Identifier {
                 identifier: "temp",
             },
         },
     ],
-    syntax_parsing_errors: [],
-}
+)

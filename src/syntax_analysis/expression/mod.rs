@@ -1,8 +1,7 @@
 use crate::lexical_analysis::model::token::Token;
-use crate::syntax_analysis::model::abstract_syntax_tree::syntax_tree_node::{
-    Expression, SyntaxTreeNode,
-};
 use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
+use crate::syntax_analysis::model::syntax_error::SyntaxError;
+use crate::syntax_analysis::model::syntax_tree_node::{Expression, SyntaxTreeNode};
 use crate::syntax_analysis::SyntaxAnalysis;
 
 mod function_expression;
@@ -12,114 +11,80 @@ mod pratt_parsing;
 mod utilities;
 
 impl<'a> SyntaxAnalysis<'a> {
-    pub(crate) fn get_expression_node(&mut self) -> Option<SyntaxTreeNode> {
-        let expression_option = self.get_expression(ExpressionPrecedence::Lowest);
-
+    pub(crate) fn get_expression_node(&mut self) -> Result<SyntaxTreeNode, SyntaxError> {
+        let expression = self.get_expression(ExpressionPrecedence::Lowest)?;
         semicolon!(self);
-
-        expression_option.map(|expression| SyntaxTreeNode::Expression { expression })
+        Ok(SyntaxTreeNode::Expression { expression })
     }
 
     pub(crate) fn get_expression(
         &mut self,
         expression_precedence: ExpressionPrecedence,
-    ) -> Option<Expression> {
+    ) -> Result<Expression, SyntaxError> {
         debug!("Parsing an expression.");
-
-        let expression: Option<Expression>;
 
         match self.tokens.peek() {
             Some(token) => match token {
                 Token::Identifier { literal } => {
                     debug!("Found an identifier expression.");
-                    expression = Some(Expression::Identifier {
-                        identifier: literal.clone(),
-                    });
                     self.tokens.next();
+                    self.pratt_parsing(
+                        Expression::Identifier {
+                            identifier: literal.clone(),
+                        },
+                        expression_precedence,
+                    )
                 }
                 Token::Integer { literal: _ } => {
                     debug!("Found an integer expression.");
-                    expression = Some(Expression::Integer {
-                        integer_token: self.tokens.next().unwrap().clone(),
-                    });
+                    let integer_token = self.tokens.next().unwrap().clone();
+                    self.pratt_parsing(Expression::Integer { integer_token }, expression_precedence)
                 }
                 Token::Not | Token::Minus => {
                     debug!("Found a prefix expression.");
                     let token = self.tokens.next().unwrap().clone();
 
                     match self.get_expression(ExpressionPrecedence::Prefix) {
-                        Some(right_hand) => {
-                            expression = Some(Expression::Prefix {
+                        Ok(right_hand) => self.pratt_parsing(
+                            Expression::Prefix {
                                 prefix_token: token,
                                 right_hand: Box::new(right_hand),
-                            });
-                        }
-                        None => {
-                            self.syntax_parsing_errors.push(format!(
-                                "Syntax error : No right hand expression to prefix {:?}.",
-                                token
-                            ));
-                            return None;
+                            },
+                            expression_precedence,
+                        ),
+                        Err(_) => {
+                            // TODO what with other error?
+                            Err(SyntaxError::MissingRightHandToPrefixExpression)
                         }
                     }
                 }
                 Token::True | Token::False => {
                     debug!("Found an boolean expression.");
-                    expression = Some(Expression::Boolean {
-                        boolean_token: self.tokens.next().unwrap().clone(),
-                    });
+                    let boolean_token = self.tokens.next().unwrap().clone();
+                    self.pratt_parsing(Expression::Boolean { boolean_token }, expression_precedence)
                 }
                 Token::OpeningRoundBracket => {
                     debug!("Found a grouped expression.");
-                    match self.parse_grouped_expression() {
-                        Some(grouped_expression) => {
-                            expression = Some(grouped_expression);
-                        }
-                        None => {
-                            error!("Error parsing grouped expression, returning None.");
-                            return None;
-                        }
-                    }
+                    let grouped_expression = self.parse_grouped_expression()?;
+                    self.pratt_parsing(grouped_expression, expression_precedence)
                 }
                 Token::If => {
                     debug!("Found an if expression.");
-                    match self.parse_if_expression() {
-                        Some(if_expression) => {
-                            expression = Some(if_expression);
-                        }
-                        None => {
-                            error!("Error parsing if expression, returning None.");
-                            return None;
-                        }
-                    }
+                    let if_expression = self.parse_if_expression()?;
+                    self.pratt_parsing(if_expression, expression_precedence)
                 }
                 Token::Function => {
                     debug!("Found a function expression.");
-                    match self.parse_function_expression() {
-                        Some(function_expression) => {
-                            expression = Some(function_expression);
-                        }
-                        None => {
-                            error!("Error parsing function expression, returning None.");
-                            return None;
-                        }
-                    }
+                    let function_expression = self.parse_function_expression()?;
+                    self.pratt_parsing(function_expression, expression_precedence)
                 }
                 _ => {
-                    self.syntax_parsing_errors.push(format!(
-                        "Syntax error : Do not know how to parse {:?} as an expression.",
-                        token
-                    ));
-                    self.tokens.next();
-                    return None;
+                    let token = self.tokens.next().unwrap().clone();
+                    Err(SyntaxError::UnparsableAsExpression(token))
                 }
             },
-            None => {
-                return None;
-            }
+            None => Err(SyntaxError::NoTokenToParse),
         }
-
-        self.pratt_parsing(expression, expression_precedence)
     }
 }
 
