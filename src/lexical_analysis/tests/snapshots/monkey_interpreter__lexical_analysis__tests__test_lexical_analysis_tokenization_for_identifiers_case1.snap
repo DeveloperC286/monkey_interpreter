@@ -3,11 +3,13 @@ source: src/lexical_analysis/tests/mod.rs
 expression: "crate::lexical_analysis::LexicalAnalysis::from(code)"
 
 ---
-[
-    Let,
-    Identifier {
-        literal: "x",
-    },
-    SemiColon,
-    EndOfFile,
-]
+Ok(
+    [
+        Let,
+        Identifier {
+            literal: "x",
+        },
+        SemiColon,
+        EndOfFile,
+    ],
+)

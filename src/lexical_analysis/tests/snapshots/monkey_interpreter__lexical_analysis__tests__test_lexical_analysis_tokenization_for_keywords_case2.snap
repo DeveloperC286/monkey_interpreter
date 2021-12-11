@@ -3,13 +3,15 @@ source: src/lexical_analysis/tests/mod.rs
 expression: "crate::lexical_analysis::LexicalAnalysis::from(code)"
 
 ---
-[
-    If,
-    False,
-    Return,
-    Integer {
-        literal: "3",
-    },
-    SemiColon,
-    EndOfFile,
-]
+Ok(
+    [
+        If,
+        False,
+        Return,
+        Integer {
+            literal: "3",
+        },
+        SemiColon,
+        EndOfFile,
+    ],
+)

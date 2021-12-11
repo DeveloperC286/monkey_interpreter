@@ -3,6 +3,8 @@ source: src/lexical_analysis/tests/mod.rs
 expression: "crate::lexical_analysis::LexicalAnalysis::from(\"\")"
 
 ---
-[
-    EndOfFile,
-]
+Ok(
+    [
+        EndOfFile,
+    ],
+)

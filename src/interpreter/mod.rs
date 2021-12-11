@@ -15,20 +15,26 @@ pub(crate) fn repl() {
     let mut evaluator = crate::evaluator::Evaluator::new();
 
     loop {
-        let tokens = LexicalAnalysis::from(&read());
-        let abstract_syntax_tree = SyntaxAnalysis::from(tokens);
+        match LexicalAnalysis::from(&read()) {
+            Ok(tokens) => {
+                let abstract_syntax_tree = SyntaxAnalysis::from(tokens);
 
-        if !abstract_syntax_tree.syntax_parsing_errors.is_empty() {
-            for error in abstract_syntax_tree
-                .syntax_parsing_errors
-                .iter()
-                .enumerate()
-            {
-                error!("{:?}", error);
+                if !abstract_syntax_tree.syntax_parsing_errors.is_empty() {
+                    for error in abstract_syntax_tree
+                        .syntax_parsing_errors
+                        .iter()
+                        .enumerate()
+                    {
+                        error!("{:?}", error);
+                    }
+                } else {
+                    let object = evaluator.evaluate(abstract_syntax_tree);
+                    println!("{:?}", object);
+                }
             }
-        } else {
-            let object = evaluator.evaluate(abstract_syntax_tree);
-            println!("{:?}", object);
+            Err(error) => {
+                error!("{}", error);
+            }
         }
     }
 }
@@ -41,7 +47,7 @@ fn read() -> String {
 
     match stdin().read_line(&mut buffer) {
         Ok(_) => {}
-        Err(error) => error!("Error reading user input: {}", error),
+        Err(_) => error!("Unable to read user input from standard input."),
     }
 
     buffer

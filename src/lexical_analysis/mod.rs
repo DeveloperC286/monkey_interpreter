@@ -1,6 +1,7 @@
 use std::iter::{FromIterator, Peekable};
 use std::str::Chars;
 
+use crate::lexical_analysis::model::lexical_error::LexicalError;
 use crate::lexical_analysis::model::token::Token;
 use crate::lexical_analysis::utilities::*;
 
@@ -15,7 +16,7 @@ pub(crate) struct LexicalAnalysis<'a> {
 }
 
 impl<'a> LexicalAnalysis<'a> {
-    pub(crate) fn from(code: &str) -> Vec<Token> {
+    pub(crate) fn from(code: &str) -> Result<Vec<Token>, LexicalError> {
         let mut lexical_analysis = LexicalAnalysis {
             source_code: code.chars().peekable(),
         };
@@ -23,11 +24,11 @@ impl<'a> LexicalAnalysis<'a> {
         lexical_analysis.get_tokens()
     }
 
-    fn get_tokens(&mut self) -> Vec<Token> {
+    fn get_tokens(&mut self) -> Result<Vec<Token>, LexicalError> {
         let mut tokens = Vec::new();
 
         loop {
-            let token = self.get_next_token();
+            let token = self.get_next_token()?;
             let end_of_file = token == Token::EndOfFile;
             tokens.push(token);
 
@@ -36,54 +37,52 @@ impl<'a> LexicalAnalysis<'a> {
             }
         }
 
-        tokens
+        Ok(tokens)
     }
 
-    fn get_next_token(&mut self) -> Token {
+    fn get_next_token(&mut self) -> Result<Token, LexicalError> {
         match self.get_next_character() {
             Some(character) => {
                 debug!("Matching the character '{}'.", character);
                 match character {
                     '!' => {
-                        check_next_character!(self.source_code, '=', Token::NotEquals);
-                        Token::Not
+                        check_next_character!(self.source_code, '=', Ok(Token::NotEquals));
+                        Ok(Token::Not)
                     }
-                    '-' => Token::Minus,
-                    '/' => Token::Divide,
-                    '*' => Token::Multiply,
-                    '>' => Token::GreaterThan,
-                    '<' => Token::LesserThan,
+                    '-' => Ok(Token::Minus),
+                    '/' => Ok(Token::Divide),
+                    '*' => Ok(Token::Multiply),
+                    '>' => Ok(Token::GreaterThan),
+                    '<' => Ok(Token::LesserThan),
                     '=' => {
-                        check_next_character!(self.source_code, '=', Token::Equals);
-                        Token::Assign
+                        check_next_character!(self.source_code, '=', Ok(Token::Equals));
+                        Ok(Token::Assign)
                     }
-                    '+' => Token::Plus,
-                    '(' => Token::OpeningRoundBracket,
-                    ')' => Token::ClosingRoundBracket,
-                    '{' => Token::OpeningCurlyBracket,
-                    '}' => Token::ClosingCurlyBracket,
-                    ',' => Token::Comma,
-                    ';' => Token::SemiColon,
+                    '+' => Ok(Token::Plus),
+                    '(' => Ok(Token::OpeningRoundBracket),
+                    ')' => Ok(Token::ClosingRoundBracket),
+                    '{' => Ok(Token::OpeningCurlyBracket),
+                    '}' => Ok(Token::ClosingCurlyBracket),
+                    ',' => Ok(Token::Comma),
+                    ';' => Ok(Token::SemiColon),
                     _ => {
                         if is_valid_identifier_character(character) {
                             debug!("Parsing word from characters.");
-                            return get_keyword_token(&self.get_word(character));
+                            return Ok(get_keyword_token(&self.get_word(character)));
                         }
 
                         if is_digit(character) {
                             debug!("Parsing integer from characters.");
-                            return Token::Integer {
+                            return Ok(Token::Integer {
                                 literal: self.get_integer(character),
-                            };
+                            });
                         }
 
-                        Token::Illegal {
-                            literal: character.to_string(),
-                        }
+                        Err(LexicalError::IllegalCharacter(character))
                     }
                 }
             }
-            None => Token::EndOfFile,
+            None => Ok(Token::EndOfFile),
         }
     }
 

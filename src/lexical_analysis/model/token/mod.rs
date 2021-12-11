@@ -1,6 +1,5 @@
 #[derive(Debug, Clone, PartialEq)]
 pub(crate) enum Token {
-    Illegal { literal: String },
     EndOfFile,
 
     // Identifiers

@@ -3,13 +3,15 @@ source: src/lexical_analysis/tests/mod.rs
 expression: "crate::lexical_analysis::LexicalAnalysis::from(code)"
 
 ---
-[
-    Integer {
-        literal: "2",
-    },
-    Equals,
-    Integer {
-        literal: "4",
-    },
-    EndOfFile,
-]
+Ok(
+    [
+        Integer {
+            literal: "2",
+        },
+        Equals,
+        Integer {
+            literal: "4",
+        },
+        EndOfFile,
+    ],
+)

@@ -1,6 +1,6 @@
 [package]
 name = "monkey_interpreter"
-version = "0.15.0"
+version = "0.15.1"
 description = "Implementation of an interpreter for the Monkey language written in Rust, currently under active development."
 authors = ["C <DeveloperC@protonmail.com>"]
 edition = "2021"
@@ -18,6 +18,9 @@ structopt = "0.3.25"
 # Logging
 log = "0.4.14"
 pretty_env_logger = "0.4.0"
+
+# For custom errors.
+thiserror = "1.0.30"
 
 
 [dev-dependencies]

@@ -3,10 +3,12 @@ source: src/lexical_analysis/tests/mod.rs
 expression: "crate::lexical_analysis::LexicalAnalysis::from(code)"
 
 ---
-[
-    NotEquals,
-    Integer {
-        literal: "4",
-    },
-    EndOfFile,
-]
+Ok(
+    [
+        NotEquals,
+        Integer {
+            literal: "4",
+        },
+        EndOfFile,
+    ],
+)
