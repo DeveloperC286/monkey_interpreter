@@ -1,4 +1,5 @@
-use crate::evaluator::model::object::{ErrorType, Object};
+use crate::evaluator::model::evaluation_error::EvaluationError;
+use crate::evaluator::model::object::Object;
 use crate::evaluator::Evaluator;
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::model::syntax_tree_node::Expression;
@@ -8,23 +9,20 @@ impl Evaluator {
         &mut self,
         prefix_token: Token,
         right_hand_expression: Expression,
-    ) -> Object {
-        let object = self.evaluate_expression(right_hand_expression);
+    ) -> Result<Object, EvaluationError> {
+        let object = self.evaluate_expression(right_hand_expression)?;
+
         match prefix_token {
             Token::Not => match object {
-                Object::True => Object::False,
-                Object::False => Object::True,
-                _ => Object::Error {
-                    error_type: ErrorType::UnknownOperator,
-                },
+                Object::True => Ok(Object::False),
+                Object::False => Ok(Object::True),
+                _ => Err(EvaluationError::UnknownOperator),
             },
             Token::Minus => match object {
-                Object::Integer { value } => Object::Integer { value: -value },
-                _ => Object::Error {
-                    error_type: ErrorType::UnknownOperator,
-                },
+                Object::Integer { value } => Ok(Object::Integer { value: -value }),
+                _ => Err(EvaluationError::UnknownOperator),
             },
-            _ => panic!("Prefix token not a prefix token."),
+            _ => Err(EvaluationError::NotPrefixToken),
         }
     }
 }

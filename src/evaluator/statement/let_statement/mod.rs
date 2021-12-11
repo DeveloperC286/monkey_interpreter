@@ -1,4 +1,5 @@
-use crate::evaluator::model::object::{ErrorType, Object};
+use crate::evaluator::model::evaluation_error::EvaluationError;
+use crate::evaluator::model::object::Object;
 use crate::evaluator::Evaluator;
 use crate::syntax_analysis::model::syntax_tree_node::*;
 
@@ -7,24 +8,16 @@ impl Evaluator {
         &mut self,
         identifier: String,
         expression: Expression,
-    ) -> Object {
-        let expression = self.evaluate_expression(expression);
+    ) -> Result<Object, EvaluationError> {
+        let expression = self.evaluate_expression(expression)?;
 
-        match expression.clone() {
-            Object::Return { value: _ } => {
-                return Object::Error {
-                    error_type: ErrorType::UnassignableObject,
-                };
-            }
-            Object::Error { error_type } => {
-                return Object::Error { error_type };
-            }
-            _ => {}
+        if let Object::Return { value: _ } = expression {
+            return Err(EvaluationError::UnassignableObject);
         }
 
         self.environment.set(identifier, expression);
 
-        Object::Null
+        Ok(Object::Null)
     }
 }
 

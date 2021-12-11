@@ -17,10 +17,13 @@ pub(crate) fn repl() {
     loop {
         match LexicalAnalysis::from(&read()) {
             Ok(tokens) => match SyntaxAnalysis::from(tokens) {
-                Ok(abstract_syntax_tree) => {
-                    let object = evaluator.evaluate(abstract_syntax_tree);
-                    println!("{:?}", object);
-                }
+                Ok(abstract_syntax_tree) => match evaluator.evaluate(abstract_syntax_tree) {
+                    Ok(object) => println!("{:?}", object),
+
+                    Err(error) => {
+                        error!("{}", error);
+                    }
+                },
                 Err(error) => {
                     error!("{}", error);
                 }

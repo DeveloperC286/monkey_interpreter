@@ -1,8 +1,8 @@
 ---
 source: src/evaluator/expression/infix/tests/mod.rs
-expression: "evaluator.evaluate(crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code)))"
+expression: "evaluator.evaluate(crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code).unwrap()).unwrap())"
 
 ---
-Error {
-    error_type: TypeMismatch,
-}
+Err(
+    TypeMismatch,
+)

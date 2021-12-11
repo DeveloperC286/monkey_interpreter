@@ -1,3 +1,4 @@
+use crate::evaluator::model::evaluation_error::EvaluationError;
 use crate::evaluator::model::object::Object;
 use crate::evaluator::Evaluator;
 use crate::syntax_analysis::model::syntax_tree_node::Block;
@@ -7,8 +8,8 @@ impl Evaluator {
         &self,
         parameters: Vec<String>,
         block: Block,
-    ) -> Object {
-        Object::Function { parameters, block }
+    ) -> Result<Object, EvaluationError> {
+        Ok(Object::Function { parameters, block })
     }
 }
 

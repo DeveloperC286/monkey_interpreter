@@ -11,19 +11,8 @@ pub(crate) enum Object {
     True,
     False,
     Null,
-    Error {
-        error_type: ErrorType,
-    },
     Function {
         parameters: Vec<String>,
         block: Block,
     },
-}
-
-#[derive(Debug, Clone, PartialEq)]
-pub(crate) enum ErrorType {
-    TypeMismatch,
-    UnknownOperator,
-    UnassignableObject,
-    UncallableObject,
 }

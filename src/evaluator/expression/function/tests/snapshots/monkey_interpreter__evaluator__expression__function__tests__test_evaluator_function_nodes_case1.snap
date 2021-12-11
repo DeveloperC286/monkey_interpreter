@@ -1,27 +1,29 @@
 ---
 source: src/evaluator/expression/function/tests/mod.rs
-expression: "evaluator.evaluate(crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code)))"
+expression: "evaluator.evaluate(crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code).unwrap()).unwrap())"
 
 ---
-Function {
-    parameters: [
-        "x",
-    ],
-    block: Block {
-        nodes: [
-            Expression {
-                expression: Infix {
-                    left_hand: Identifier {
-                        identifier: "x",
-                    },
-                    operator_token: Plus,
-                    right_hand: Integer {
-                        integer_token: Integer {
-                            literal: "3",
+Ok(
+    Function {
+        parameters: [
+            "x",
+        ],
+        block: Block {
+            nodes: [
+                Expression {
+                    expression: Infix {
+                        left_hand: Identifier {
+                            identifier: "x",
+                        },
+                        operator_token: Plus,
+                        right_hand: Integer {
+                            integer_token: Integer {
+                                literal: "3",
+                            },
                         },
                     },
                 },
-            },
-        ],
+            ],
+        },
     },
-}
+)
