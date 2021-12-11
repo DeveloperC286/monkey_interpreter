@@ -12,14 +12,10 @@ Ok(
                 },
                 arguments: [
                     Integer {
-                        integer_token: Integer {
-                            literal: 5,
-                        },
+                        literal: 5,
                     },
                     Integer {
-                        integer_token: Integer {
-                            literal: 12,
-                        },
+                        literal: 12,
                     },
                 ],
             },

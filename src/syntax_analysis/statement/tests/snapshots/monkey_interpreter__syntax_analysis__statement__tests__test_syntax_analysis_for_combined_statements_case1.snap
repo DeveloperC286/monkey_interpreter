@@ -9,18 +9,14 @@ Ok(
             statement: Let {
                 identifier: "x",
                 expression: Integer {
-                    integer_token: Integer {
-                        literal: 5,
-                    },
+                    literal: 5,
                 },
             },
         },
         Statement {
             statement: Return {
                 expression: Integer {
-                    integer_token: Integer {
-                        literal: 5,
-                    },
+                    literal: 5,
                 },
             },
         },

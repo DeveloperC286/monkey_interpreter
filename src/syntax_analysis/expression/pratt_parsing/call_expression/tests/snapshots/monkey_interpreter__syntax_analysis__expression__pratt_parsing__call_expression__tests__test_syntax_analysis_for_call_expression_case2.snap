@@ -12,21 +12,15 @@ Ok(
                 },
                 arguments: [
                     Integer {
-                        integer_token: Integer {
-                            literal: 3,
-                        },
+                        literal: 3,
                     },
                     Infix {
                         left_hand: Integer {
-                            integer_token: Integer {
-                                literal: 7,
-                            },
+                            literal: 7,
                         },
-                        operator_token: Multiply,
+                        operator: Multiply,
                         right_hand: Integer {
-                            integer_token: Integer {
-                                literal: 2,
-                            },
+                            literal: 2,
                         },
                     },
                 ],

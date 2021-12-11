@@ -12,8 +12,6 @@ pub(crate) enum EvaluationError {
     UncallableObject,
     #[error("NotBooleanToken")]
     NotBooleanToken,
-    #[error("NotIntegerToken")]
-    NotIntegerToken,
     #[error("NotPrefixToken")]
     NotPrefixToken,
 }

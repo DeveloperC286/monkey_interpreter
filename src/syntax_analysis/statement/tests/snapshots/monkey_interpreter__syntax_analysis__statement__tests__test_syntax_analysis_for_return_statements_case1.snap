@@ -8,9 +8,7 @@ Ok(
         Statement {
             statement: Return {
                 expression: Integer {
-                    integer_token: Integer {
-                        literal: 5,
-                    },
+                    literal: 5,
                 },
             },
         },

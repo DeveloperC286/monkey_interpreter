@@ -9,9 +9,7 @@ Ok(
             statement: Let {
                 identifier: "x",
                 expression: Integer {
-                    integer_token: Integer {
-                        literal: 5,
-                    },
+                    literal: 5,
                 },
             },
         },
@@ -20,15 +18,11 @@ Ok(
                 identifier: "z",
                 expression: Infix {
                     left_hand: Integer {
-                        integer_token: Integer {
-                            literal: 7,
-                        },
+                        literal: 7,
                     },
-                    operator_token: Plus,
+                    operator: Plus,
                     right_hand: Integer {
-                        integer_token: Integer {
-                            literal: 10,
-                        },
+                        literal: 10,
                     },
                 },
             },

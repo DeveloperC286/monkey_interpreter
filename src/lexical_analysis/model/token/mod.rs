@@ -9,6 +9,7 @@ pub(crate) enum Token {
     Integer { literal: i64 },
     True,
     False,
+    String { literal: String },
 
     // Operators
     Assign,

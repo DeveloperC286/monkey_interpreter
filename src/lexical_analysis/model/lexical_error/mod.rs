@@ -6,4 +6,6 @@ pub(crate) enum LexicalError {
     IllegalCharacter(char),
     #[error("Non numeric characters are within the integer {0:?}.")]
     NonNumericIntegerString(String),
+    #[error("String not closed before the end of the code.")]
+    StringNotClosed,
 }

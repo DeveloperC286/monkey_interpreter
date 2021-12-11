@@ -9,20 +9,16 @@ Ok(
             expression: Infix {
                 left_hand: Infix {
                     left_hand: Integer {
-                        integer_token: Integer {
-                            literal: 10,
-                        },
+                        literal: 10,
                     },
-                    operator_token: GreaterThan,
+                    operator: GreaterThan,
                     right_hand: Integer {
-                        integer_token: Integer {
-                            literal: 5,
-                        },
+                        literal: 5,
                     },
                 },
-                operator_token: Equals,
+                operator: Equals,
                 right_hand: Boolean {
-                    boolean_token: True,
+                    boolean: True,
                 },
             },
         },

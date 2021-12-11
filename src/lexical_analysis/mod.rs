@@ -65,6 +65,9 @@ impl<'a> LexicalAnalysis<'a> {
                     '}' => Ok(Token::ClosingCurlyBracket),
                     ',' => Ok(Token::Comma),
                     ';' => Ok(Token::SemiColon),
+                    '"' => Ok(Token::String {
+                        literal: self.get_string()?,
+                    }),
                     _ => {
                         if is_valid_identifier_character(character) {
                             debug!("Parsing word from characters.");
@@ -84,6 +87,20 @@ impl<'a> LexicalAnalysis<'a> {
             }
             None => Ok(Token::EndOfFile),
         }
+    }
+
+    fn get_string(&mut self) -> Result<String, LexicalError> {
+        let mut characters = vec![];
+
+        loop {
+            match self.source_code.next() {
+                Some('"') => break,
+                Some(character) => characters.push(character),
+                None => return Err(LexicalError::StringNotClosed),
+            }
+        }
+
+        Ok(String::from_iter(characters.iter()))
     }
 
     fn get_integer_string(&mut self, character: char) -> String {

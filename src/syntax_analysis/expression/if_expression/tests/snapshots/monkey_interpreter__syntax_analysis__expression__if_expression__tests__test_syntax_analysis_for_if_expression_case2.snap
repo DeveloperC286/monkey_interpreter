@@ -11,7 +11,7 @@ Ok(
                     left_hand: Identifier {
                         identifier: "x",
                     },
-                    operator_token: LesserThan,
+                    operator: LesserThan,
                     right_hand: Identifier {
                         identifier: "y",
                     },

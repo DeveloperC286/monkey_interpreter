@@ -6,11 +6,8 @@ expression: "crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysi
 Ok(
     [
         Expression {
-            expression: Prefix {
-                prefix: Not,
-                right_hand: Integer {
-                    literal: 15,
-                },
+            expression: Identifier {
+                identifier: "varX",
             },
         },
     ],

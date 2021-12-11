@@ -9,30 +9,22 @@ Ok(
             expression: Infix {
                 left_hand: Infix {
                     left_hand: Integer {
-                        integer_token: Integer {
-                            literal: 1,
-                        },
+                        literal: 1,
                     },
-                    operator_token: Plus,
+                    operator: Plus,
                     right_hand: Infix {
                         left_hand: Integer {
-                            integer_token: Integer {
-                                literal: 2,
-                            },
+                            literal: 2,
                         },
-                        operator_token: Plus,
+                        operator: Plus,
                         right_hand: Integer {
-                            integer_token: Integer {
-                                literal: 3,
-                            },
+                            literal: 3,
                         },
                     },
                 },
-                operator_token: Plus,
+                operator: Plus,
                 right_hand: Integer {
-                    integer_token: Integer {
-                        literal: 4,
-                    },
+                    literal: 4,
                 },
             },
         },

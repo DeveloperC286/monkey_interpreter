@@ -8,6 +8,9 @@ pub(crate) enum Object {
     Integer {
         value: i64,
     },
+    String {
+        value: String,
+    },
     True,
     False,
     Null,

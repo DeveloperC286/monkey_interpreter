@@ -9,20 +9,20 @@ impl<'a> SyntaxAnalysis<'a> {
     ) -> Result<Expression, SyntaxError> {
         debug!("Parsing a infix expression.");
 
-        let operator_token = match self.tokens.next() {
+        let operator = match self.tokens.next() {
             Some(token) => token,
             None => return Err(SyntaxError::NoTokenToParse),
         };
 
         let precedence =
             crate::syntax_analysis::model::expression_precedence::get_current_expression_precedence(
-                operator_token,
+                operator,
             );
 
         self.get_expression(precedence)
             .map(|right_hand| Expression::Infix {
                 left_hand: Box::new(left_hand),
-                operator_token: operator_token.clone(),
+                operator: operator.clone(),
                 right_hand: Box::new(right_hand),
             })
     }

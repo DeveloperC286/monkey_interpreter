@@ -10,6 +10,7 @@ mod if_expression;
 mod infix;
 mod integer;
 mod prefix;
+mod string;
 
 impl Evaluator {
     pub(crate) fn evaluate_expression(
@@ -17,17 +18,17 @@ impl Evaluator {
         expression: Expression,
     ) -> Result<Object, EvaluationError> {
         match expression {
-            Expression::Integer { integer_token } => self.evaluate_integer(integer_token),
-            Expression::Boolean { boolean_token } => self.evaluate_boolean(boolean_token),
-            Expression::Prefix {
-                prefix_token,
-                right_hand,
-            } => self.evaluate_prefix_expression(prefix_token, *right_hand),
+            Expression::Integer { literal } => self.evaluate_integer(literal),
+            Expression::String { literal } => self.evaluate_string(literal),
+            Expression::Boolean { boolean } => self.evaluate_boolean(boolean),
+            Expression::Prefix { prefix, right_hand } => {
+                self.evaluate_prefix_expression(prefix, *right_hand)
+            }
             Expression::Infix {
                 left_hand,
-                operator_token,
+                operator,
                 right_hand,
-            } => self.evaluate_infix_expression(*left_hand, operator_token, *right_hand),
+            } => self.evaluate_infix_expression(*left_hand, operator, *right_hand),
             Expression::If {
                 condition,
                 consequence,

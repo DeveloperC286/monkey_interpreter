@@ -1,0 +1,23 @@
+---
+source: src/lexical_analysis/tests/mod.rs
+expression: "crate::lexical_analysis::LexicalAnalysis::from(code)"
+
+---
+Ok(
+    [
+        Let,
+        Identifier {
+            literal: "name",
+        },
+        Assign,
+        String {
+            literal: "firstName",
+        },
+        Plus,
+        String {
+            literal: "lastName",
+        },
+        SemiColon,
+        EndOfFile,
+    ],
+)

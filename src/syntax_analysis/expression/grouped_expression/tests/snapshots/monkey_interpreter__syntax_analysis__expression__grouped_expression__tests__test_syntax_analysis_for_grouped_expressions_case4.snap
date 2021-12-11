@@ -7,14 +7,14 @@ Ok(
     [
         Expression {
             expression: Prefix {
-                prefix_token: Not,
+                prefix: Not,
                 right_hand: Infix {
                     left_hand: Boolean {
-                        boolean_token: True,
+                        boolean: True,
                     },
-                    operator_token: Equals,
+                    operator: Equals,
                     right_hand: Boolean {
-                        boolean_token: True,
+                        boolean: True,
                     },
                 },
             },

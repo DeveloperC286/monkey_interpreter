@@ -26,7 +26,7 @@ impl<'a> SyntaxAnalysis<'a> {
         match self.tokens.peek() {
             Some(token) => match token {
                 Token::Identifier { literal } => {
-                    debug!("Found an identifier expression.");
+                    debug!("Found a identifier expression.");
                     self.tokens.next();
                     self.pratt_parsing(
                         Expression::Identifier {
@@ -35,10 +35,23 @@ impl<'a> SyntaxAnalysis<'a> {
                         expression_precedence,
                     )
                 }
-                Token::Integer { literal: _ } => {
-                    debug!("Found an integer expression.");
-                    let integer_token = self.tokens.next().unwrap().clone();
-                    self.pratt_parsing(Expression::Integer { integer_token }, expression_precedence)
+                Token::String { literal } => {
+                    debug!("Found a string expression.");
+                    self.tokens.next();
+                    self.pratt_parsing(
+                        Expression::String {
+                            literal: literal.clone(),
+                        },
+                        expression_precedence,
+                    )
+                }
+                Token::Integer { literal } => {
+                    debug!("Found a integer expression.");
+                    self.tokens.next();
+                    self.pratt_parsing(
+                        Expression::Integer { literal: *literal },
+                        expression_precedence,
+                    )
                 }
                 Token::Not | Token::Minus => {
                     debug!("Found a prefix expression.");
@@ -47,7 +60,7 @@ impl<'a> SyntaxAnalysis<'a> {
                     match self.get_expression(ExpressionPrecedence::Prefix) {
                         Ok(right_hand) => self.pratt_parsing(
                             Expression::Prefix {
-                                prefix_token: token,
+                                prefix: token,
                                 right_hand: Box::new(right_hand),
                             },
                             expression_precedence,
@@ -59,9 +72,9 @@ impl<'a> SyntaxAnalysis<'a> {
                     }
                 }
                 Token::True | Token::False => {
-                    debug!("Found an boolean expression.");
-                    let boolean_token = self.tokens.next().unwrap().clone();
-                    self.pratt_parsing(Expression::Boolean { boolean_token }, expression_precedence)
+                    debug!("Found a boolean expression.");
+                    let boolean = self.tokens.next().unwrap().clone();
+                    self.pratt_parsing(Expression::Boolean { boolean }, expression_precedence)
                 }
                 Token::OpeningRoundBracket => {
                     debug!("Found a grouped expression.");
@@ -69,7 +82,7 @@ impl<'a> SyntaxAnalysis<'a> {
                     self.pratt_parsing(grouped_expression, expression_precedence)
                 }
                 Token::If => {
-                    debug!("Found an if expression.");
+                    debug!("Found a if expression.");
                     let if_expression = self.parse_if_expression()?;
                     self.pratt_parsing(if_expression, expression_precedence)
                 }
@@ -78,10 +91,7 @@ impl<'a> SyntaxAnalysis<'a> {
                     let function_expression = self.parse_function_expression()?;
                     self.pratt_parsing(function_expression, expression_precedence)
                 }
-                _ => {
-                    let token = self.tokens.next().unwrap().clone();
-                    Err(SyntaxError::UnparsableAsExpression(token))
-                }
+                _ => Err(SyntaxError::UnparsableAsExpression((*token).clone())),
             },
             None => Err(SyntaxError::NoTokenToParse),
         }

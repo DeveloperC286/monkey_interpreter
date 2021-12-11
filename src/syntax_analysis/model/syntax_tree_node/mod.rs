@@ -28,19 +28,22 @@ pub(crate) enum Expression {
         identifier: String,
     },
     Integer {
-        integer_token: Token,
+        literal: i64,
+    },
+    String {
+        literal: String,
     },
     Prefix {
-        prefix_token: Token,
+        prefix: Token,
         right_hand: Box<Expression>,
     },
     Infix {
         left_hand: Box<Expression>,
-        operator_token: Token,
+        operator: Token,
         right_hand: Box<Expression>,
     },
     Boolean {
-        boolean_token: Token,
+        boolean: Token,
     },
     If {
         condition: Box<Expression>,

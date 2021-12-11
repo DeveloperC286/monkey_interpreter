@@ -16,7 +16,7 @@ Ok(
                         left_hand: Identifier {
                             identifier: "x",
                         },
-                        operator_token: Plus,
+                        operator: Plus,
                         right_hand: Identifier {
                             identifier: "y",
                         },

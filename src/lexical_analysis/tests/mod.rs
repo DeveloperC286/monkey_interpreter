@@ -125,3 +125,27 @@ fn test_empty_code() {
 fn test_lexical_analysis_producing_lexical_errors(code: &str, snapshot_name: &str) {
     assert_expected_returned_tokens!(code, snapshot_name);
 }
+
+#[rstest(
+    code,
+    snapshot_name,
+    case(
+        "let firstName = \"this is a string\";",
+        "test_lexical_analysis_tokenization_for_strings_case1"
+    ),
+    case(
+        "let lastName = \"this is a string\";",
+        "test_lexical_analysis_tokenization_for_strings_case2"
+    ),
+    case(
+        "let name = \"firstName\" + \"lastName\";",
+        "test_lexical_analysis_tokenization_for_strings_case3"
+    ),
+    case(
+        "\"firstName\"",
+        "test_lexical_analysis_tokenization_for_strings_case4"
+    )
+)]
+fn test_lexical_analysis_tokenization_for_strings(code: &str, snapshot_name: &str) {
+    assert_expected_returned_tokens!(code, snapshot_name);
+}
