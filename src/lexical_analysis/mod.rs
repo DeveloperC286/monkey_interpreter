@@ -95,6 +95,16 @@ impl<'a> LexicalAnalysis<'a> {
         loop {
             match self.source_code.next() {
                 Some('"') => break,
+                Some('\\') => match self.source_code.next() {
+                    Some('\\') => characters.push('\\'),
+                    Some('\'') => characters.push('\''),
+                    Some('"') => characters.push('"'),
+                    Some('t') => characters.push('\t'),
+                    Some('n') => characters.push('\n'),
+                    Some('r') => characters.push('\r'),
+                    Some(character) => return Err(LexicalError::IllegalEscaping(character)),
+                    None => return Err(LexicalError::StringNotClosed),
+                },
                 Some(character) => characters.push(character),
                 None => return Err(LexicalError::StringNotClosed),
             }

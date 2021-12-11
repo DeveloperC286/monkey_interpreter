@@ -1,0 +1,10 @@
+---
+source: src/evaluator/statement/let_statement/tests/mod.rs
+expression: "evaluator.evaluate(crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code).unwrap()).unwrap())"
+
+---
+Ok(
+    String {
+        value: "line1\nline2 line22\n",
+    },
+)

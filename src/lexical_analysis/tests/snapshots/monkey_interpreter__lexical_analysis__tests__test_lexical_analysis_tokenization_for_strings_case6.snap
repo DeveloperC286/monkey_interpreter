@@ -1,0 +1,18 @@
+---
+source: src/lexical_analysis/tests/mod.rs
+expression: "crate::lexical_analysis::LexicalAnalysis::from(code)"
+
+---
+Ok(
+    [
+        Let,
+        Identifier {
+            literal: "file",
+        },
+        Assign,
+        String {
+            literal: "\\tmp\\file.txt\n",
+        },
+        EndOfFile,
+    ],
+)

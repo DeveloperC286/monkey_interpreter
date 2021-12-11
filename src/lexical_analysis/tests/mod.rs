@@ -144,8 +144,48 @@ fn test_lexical_analysis_producing_lexical_errors(code: &str, snapshot_name: &st
     case(
         "\"firstName\"",
         "test_lexical_analysis_tokenization_for_strings_case4"
+    ),
+    case(
+        "let lines = \"line1\\nline2\\n\"",
+        "test_lexical_analysis_tokenization_for_strings_case5"
+    ),
+    case(
+        "let file = \"\\\\tmp\\\\file.txt\\n\"",
+        "test_lexical_analysis_tokenization_for_strings_case6"
+    ),
+    case(
+        "let quotedFile = \"\\\"file.txt\\\"\"",
+        "test_lexical_analysis_tokenization_for_strings_case7"
+    ),
+    case(
+        "let tabbed_file_content = \"column-1\\tcolumn-2\\n\"",
+        "test_lexical_analysis_tokenization_for_strings_case8"
+    ),
+    case(
+        "\"extenion\'s\"",
+        "test_lexical_analysis_tokenization_for_strings_case9"
     )
 )]
 fn test_lexical_analysis_tokenization_for_strings(code: &str, snapshot_name: &str) {
+    assert_expected_returned_tokens!(code, snapshot_name);
+}
+
+#[rstest(
+    code,
+    snapshot_name,
+    case(
+        "let string = \"this is a string",
+        "test_lexical_analysis_tokenization_for_string_lexical_errors_case1"
+    ),
+    case(
+        "let sentence = \"this is a string\\x\";",
+        "test_lexical_analysis_tokenization_for_string_lexical_errors_case2"
+    ),
+    case(
+        "\"this string is not quoted\\",
+        "test_lexical_analysis_tokenization_for_string_lexical_errors_case3"
+    )
+)]
+fn test_lexical_analysis_tokenization_for_string_lexical_errors(code: &str, snapshot_name: &str) {
     assert_expected_returned_tokens!(code, snapshot_name);
 }

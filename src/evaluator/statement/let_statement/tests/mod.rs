@@ -10,6 +10,10 @@ use rstest::rstest;
     case(
         "let b = true; if (b) { 10 } else { 1 }",
         "test_evaluator_let_nodes_case5"
+    ),
+    case(
+        "let sentence = \"line1\\nline2 line22\\n\"; sentence;",
+        "test_evaluator_let_nodes_case6"
     )
 )]
 fn test_evaluator_let_nodes(code: &str, snapshot_name: &str) {

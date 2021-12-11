@@ -66,7 +66,15 @@ fn test_syntax_analysis_for_integer_expressions(code: &str, snapshot_name: &str)
         "let name = \"firstName\" + \"lastName\";",
         "test_syntax_analysis_for_string_expressions_case3"
     ),
-    case("\"firstName\"", "test_syntax_analysis_for_string_expressions_case4")
+    case("\"firstName\"", "test_syntax_analysis_for_string_expressions_case4"),
+    case(
+        "let lines = \"line1\\nline2\\n\"",
+        "test_syntax_analysis_for_string_expressions_case5"
+    ),
+    case(
+        "\"column-1\\tcolumn-2\\n\"",
+        "test_syntax_analysis_for_string_expressions_case6"
+    )
 )]
 fn test_syntax_analysis_for_string_expressions(code: &str, snapshot_name: &str) {
     assert_expected_returned_abstract_syntax_tree!(code, snapshot_name)

@@ -8,4 +8,6 @@ pub(crate) enum LexicalError {
     NonNumericIntegerString(String),
     #[error("String not closed before the end of the code.")]
     StringNotClosed,
+    #[error("Illegal escaping of the character {0:?}.")]
+    IllegalEscaping(char),
 }
