@@ -82,6 +82,13 @@ impl Evaluator {
                         true => Ok(Object::True),
                         false => Ok(Object::False),
                     },
+                    Token::Plus => {
+                        let mut concatenated = left_value;
+                        concatenated.push_str(&right_value);
+                        Ok(Object::String {
+                            value: concatenated,
+                        })
+                    }
                     _ => Err(EvaluationError::UnknownOperator),
                 },
                 _ => Err(EvaluationError::TypeMismatch),
