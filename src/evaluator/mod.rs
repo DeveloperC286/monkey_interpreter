@@ -12,6 +12,7 @@ mod tests;
 mod expression;
 mod statement;
 
+#[derive(Debug)]
 pub(crate) struct Evaluator {
     environment: Environment,
 }

@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use crate::evaluator::model::object::Object;
 
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub(crate) struct Environment {
     variables: HashMap<String, Object>,
     sub_environment: Option<Box<Environment>>,
