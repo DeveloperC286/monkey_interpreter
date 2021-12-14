@@ -1,0 +1,33 @@
+---
+source: src/tests/let_statements/mod.rs
+expression: abstract_syntax_tree
+
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "add",
+            expression: Function {
+                parameters: [
+                    "x",
+                    "y",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: Infix {
+                                left_hand: Identifier {
+                                    identifier: "x",
+                                },
+                                operator: Plus,
+                                right_hand: Identifier {
+                                    identifier: "y",
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+]

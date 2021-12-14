@@ -1,0 +1,18 @@
+---
+source: src/tests/let_statements/mod.rs
+expression: evaluator
+
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "a": Integer {
+                value: 25,
+            },
+            "b": Integer {
+                value: 91,
+            },
+        },
+        sub_environment: None,
+    },
+}

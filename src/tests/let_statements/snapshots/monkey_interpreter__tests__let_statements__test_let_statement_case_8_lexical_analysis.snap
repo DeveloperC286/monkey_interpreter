@@ -1,0 +1,15 @@
+---
+source: src/tests/let_statements/mod.rs
+expression: tokens
+
+---
+[
+    Let,
+    Identifier {
+        literal: "is_directory",
+    },
+    Assign,
+    False,
+    SemiColon,
+    EndOfFile,
+]

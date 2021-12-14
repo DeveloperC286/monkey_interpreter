@@ -1,0 +1,18 @@
+---
+source: src/tests/let_statements/mod.rs
+expression: evaluator
+
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "timeout_ms": Integer {
+                value: 5,
+            },
+            "timeout_ms_copy": Integer {
+                value: 5,
+            },
+        },
+        sub_environment: None,
+    },
+}

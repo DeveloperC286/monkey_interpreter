@@ -1,0 +1,26 @@
+---
+source: src/tests/let_statements/mod.rs
+expression: abstract_syntax_tree
+
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "is_file",
+            expression: Boolean {
+                boolean: False,
+            },
+        },
+    },
+    Statement {
+        statement: Let {
+            identifier: "is_directory",
+            expression: Prefix {
+                prefix: Not,
+                right_hand: Identifier {
+                    identifier: "is_file",
+                },
+            },
+        },
+    },
+]

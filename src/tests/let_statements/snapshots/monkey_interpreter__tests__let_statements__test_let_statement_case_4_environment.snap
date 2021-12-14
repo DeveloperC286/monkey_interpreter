@@ -1,0 +1,33 @@
+---
+source: src/tests/let_statements/mod.rs
+expression: evaluator
+
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "add": Function {
+                parameters: [
+                    "x",
+                    "y",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: Infix {
+                                left_hand: Identifier {
+                                    identifier: "x",
+                                },
+                                operator: Plus,
+                                right_hand: Identifier {
+                                    identifier: "y",
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+        sub_environment: None,
+    },
+}

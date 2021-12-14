@@ -1,0 +1,17 @@
+---
+source: src/tests/let_statements/mod.rs
+expression: tokens
+
+---
+[
+    Let,
+    Identifier {
+        literal: "file",
+    },
+    Assign,
+    String {
+        literal: "/tmp/temp.txt",
+    },
+    SemiColon,
+    EndOfFile,
+]

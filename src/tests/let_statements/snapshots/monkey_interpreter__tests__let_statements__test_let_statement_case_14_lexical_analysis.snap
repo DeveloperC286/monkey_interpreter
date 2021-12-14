@@ -1,0 +1,26 @@
+---
+source: src/tests/let_statements/mod.rs
+expression: tokens
+
+---
+[
+    Let,
+    Identifier {
+        literal: "timeout_ms",
+    },
+    Assign,
+    Integer {
+        literal: 5,
+    },
+    SemiColon,
+    Let,
+    Identifier {
+        literal: "timeout_ms_copy",
+    },
+    Assign,
+    Identifier {
+        literal: "timeout_ms",
+    },
+    SemiColon,
+    EndOfFile,
+]
