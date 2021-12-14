@@ -20,6 +20,3 @@ impl Evaluator {
         Ok(Object::Null)
     }
 }
-
-#[cfg(test)]
-mod tests;

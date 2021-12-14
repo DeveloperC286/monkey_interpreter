@@ -1,0 +1,15 @@
+---
+source: src/tests/mod.rs
+expression: abstract_syntax_tree
+
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "camelCase",
+            expression: Boolean {
+                boolean: False,
+            },
+        },
+    },
+]

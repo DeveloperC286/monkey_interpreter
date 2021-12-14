@@ -1,0 +1,15 @@
+---
+source: src/tests/mod.rs
+expression: tokens
+
+---
+[
+    Let,
+    Identifier {
+        literal: "UPPER_CASE_SNAKE_CASE",
+    },
+    Assign,
+    False,
+    SemiColon,
+    EndOfFile,
+]

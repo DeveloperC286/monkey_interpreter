@@ -1,0 +1,17 @@
+---
+source: src/tests/mod.rs
+expression: tokens
+
+---
+[
+    Let,
+    Identifier {
+        literal: "csv_content",
+    },
+    Assign,
+    String {
+        literal: "col_1\tcol_2\tcol_3\n",
+    },
+    SemiColon,
+    EndOfFile,
+]

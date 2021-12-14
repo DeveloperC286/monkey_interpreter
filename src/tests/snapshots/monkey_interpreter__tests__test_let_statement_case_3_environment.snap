@@ -1,0 +1,32 @@
+---
+source: src/tests/mod.rs
+expression: evaluator
+
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "double": Function {
+                parameters: [
+                    "x",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: Infix {
+                                left_hand: Identifier {
+                                    identifier: "x",
+                                },
+                                operator: Multiply,
+                                right_hand: Integer {
+                                    literal: 2,
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+        sub_environment: None,
+    },
+}

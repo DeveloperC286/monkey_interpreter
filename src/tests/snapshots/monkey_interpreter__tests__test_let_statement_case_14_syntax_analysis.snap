@@ -1,0 +1,23 @@
+---
+source: src/tests/mod.rs
+expression: abstract_syntax_tree
+
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "timeout_ms",
+            expression: Integer {
+                literal: 5,
+            },
+        },
+    },
+    Statement {
+        statement: Let {
+            identifier: "timeout_ms_copy",
+            expression: Identifier {
+                identifier: "timeout_ms",
+            },
+        },
+    },
+]

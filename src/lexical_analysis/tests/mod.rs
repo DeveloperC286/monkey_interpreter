@@ -15,30 +15,6 @@ fn test_lexical_analysis_tokenization_for_integers(code: &str, snapshot_name: &s
 #[rstest(
     code,
     snapshot_name,
-    case(
-        "\tlet x;\n",
-        "test_lexical_analysis_tokenization_for_identifiers_case1"
-    ),
-    case(
-        "let varX\t=  5 +5;",
-        "test_lexical_analysis_tokenization_for_identifiers_case2"
-    ),
-    case(
-        "\tlet camel_case;\n",
-        "test_lexical_analysis_tokenization_for_identifiers_case3"
-    ),
-    case(
-        "\tlet _unused_var;\n",
-        "test_lexical_analysis_tokenization_for_identifiers_case4"
-    )
-)]
-fn test_lexical_analysis_tokenization_for_identifiers(code: &str, snapshot_name: &str) {
-    assert_expected_returned_tokens!(code, snapshot_name);
-}
-
-#[rstest(
-    code,
-    snapshot_name,
     case("TRUE\tfalse", "test_lexical_analysis_tokenization_for_keywords_case1"),
     case(
         "if\tfalse\n return 3;",
@@ -123,50 +99,6 @@ fn test_empty_code() {
     )
 )]
 fn test_lexical_analysis_producing_lexical_errors(code: &str, snapshot_name: &str) {
-    assert_expected_returned_tokens!(code, snapshot_name);
-}
-
-#[rstest(
-    code,
-    snapshot_name,
-    case(
-        "let firstName = \"this is a string\";",
-        "test_lexical_analysis_tokenization_for_strings_case1"
-    ),
-    case(
-        "let lastName = \"this is a string\";",
-        "test_lexical_analysis_tokenization_for_strings_case2"
-    ),
-    case(
-        "let name = \"firstName\" + \"lastName\";",
-        "test_lexical_analysis_tokenization_for_strings_case3"
-    ),
-    case(
-        "\"firstName\"",
-        "test_lexical_analysis_tokenization_for_strings_case4"
-    ),
-    case(
-        "let lines = \"line1\\nline2\\n\"",
-        "test_lexical_analysis_tokenization_for_strings_case5"
-    ),
-    case(
-        "let file = \"\\\\tmp\\\\file.txt\\n\"",
-        "test_lexical_analysis_tokenization_for_strings_case6"
-    ),
-    case(
-        "let quotedFile = \"\\\"file.txt\\\"\"",
-        "test_lexical_analysis_tokenization_for_strings_case7"
-    ),
-    case(
-        "let tabbed_file_content = \"column-1\\tcolumn-2\\n\"",
-        "test_lexical_analysis_tokenization_for_strings_case8"
-    ),
-    case(
-        "\"extenion\'s\"",
-        "test_lexical_analysis_tokenization_for_strings_case9"
-    )
-)]
-fn test_lexical_analysis_tokenization_for_strings(code: &str, snapshot_name: &str) {
     assert_expected_returned_tokens!(code, snapshot_name);
 }
 

@@ -1,14 +1,26 @@
+#[cfg(test)]
+use std::collections::BTreeMap;
+#[cfg(not(test))]
 use std::collections::HashMap;
 
 use crate::evaluator::model::object::Object;
 
+#[cfg(not(test))]
 #[derive(Debug, Clone)]
 pub(crate) struct Environment {
     variables: HashMap<String, Object>,
     sub_environment: Option<Box<Environment>>,
 }
 
+#[cfg(test)]
+#[derive(Debug, Clone)]
+pub(crate) struct Environment {
+    variables: BTreeMap<String, Object>,
+    sub_environment: Option<Box<Environment>>,
+}
+
 impl Environment {
+    #[cfg(not(test))]
     pub(crate) fn new() -> Environment {
         Environment {
             variables: HashMap::new(),
@@ -16,9 +28,24 @@ impl Environment {
         }
     }
 
+    #[cfg(test)]
+    pub(crate) fn new() -> Environment {
+        Environment {
+            variables: BTreeMap::new(),
+            sub_environment: None,
+        }
+    }
+
+    #[cfg(not(test))]
     pub(crate) fn push(&mut self) {
         self.sub_environment = Some(Box::new(self.clone()));
         self.variables = HashMap::new();
+    }
+
+    #[cfg(test)]
+    pub(crate) fn push(&mut self) {
+        self.sub_environment = Some(Box::new(self.clone()));
+        self.variables = BTreeMap::new();
     }
 
     pub(crate) fn pop(&mut self) {
