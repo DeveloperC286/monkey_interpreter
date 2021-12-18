@@ -12,10 +12,10 @@ categories = ["command-line-utilities", "development-tools"]
 
 
 [dependencies]
-# CLI parsing
+# For CLI parsing.
 structopt = "0.3.25"
 
-# Logging
+# For logging.
 log = "0.4.14"
 pretty_env_logger = "0.4.0"
 
@@ -24,7 +24,7 @@ thiserror = "1.0.30"
 
 
 [dev-dependencies]
-# For parameterised tests.
+# For parameterised testing.
 rstest = "0.12.0"
 rstest_reuse = "0.1.3"
 
