@@ -1,5 +1,8 @@
 # Monkey Interpreter
-[![pipeline status](https://img.shields.io/badge/Version-0.16.0-blue)](https://gitlab.com/DeveloperC/monkey_interpreter/commits/master) [![pipeline status](https://gitlab.com/DeveloperC/monkey_interpreter/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/monkey_interpreter/commits/master) [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org) [![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![pipeline status](https://img.shields.io/badge/Version-0.16.0-blue)](https://gitlab.com/DeveloperC/monkey_interpreter/commits/master)
+[![pipeline status](https://gitlab.com/DeveloperC/monkey_interpreter/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/monkey_interpreter/commits/master)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
 
 ![The Monkey Programming Language Logo](https://cloud.githubusercontent.com/assets/1013641/22617482/9c60c27c-eb09-11e6-9dfa-b04c7fe498ea.png)
