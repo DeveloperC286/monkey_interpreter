@@ -20,7 +20,8 @@ Monkey has a C-like syntax, supports **variable bindings**, **prefix** and **inf
 ## Content
  * [Usage](#usage)
    + [Usage - Logging](#usage-logging)
- * [Compiling](#compiling)
+ * [Downloading Binary](#downloading-binary)
+ * [Compiling via Local Repository](#compiling-via-local-repository)
  * [Unit Testing](#unit-testing)
  * [Issues/Feature Requests](#issuesfeature-requests)
 
@@ -36,7 +37,14 @@ The environment variable `RUST_LOG` can be used to set the logging level.
 See [https://crates.io/crates/pretty_env_logger](https://crates.io/crates/pretty_env_logger) for more detailed documentation.
 
 
-## Compiling
+## Downloading Binary
+Statically linked compiled binaries are available for download.
+Visit the releases page at [https://gitlab.com/DeveloperC/monkey_interpreter/-/releases](https://gitlab.com/DeveloperC/monkey_interpreter/-/releases) to see all the releases, the release notes contains links to binary downloads for various architectures.
+
+If you do not trust the provided binaries another option is to compile your own and then make it available for remote download, so your CICD etc can then download it.
+
+
+## Compiling via Local Repository
 Checkout the code repository locally, change into the repository's directory and then build via Cargo.
 Using the `--release` flag produces an optimised binary but takes longer to compile.
 
@@ -50,8 +58,7 @@ The compiled binary is present in `target/release/monkey_interpreter`.
 
 
 ## Unit Testing
-The unit test suite has tests for every component of the interpreter for every feature, ensuring correctness.
-Cargo is used to set up and run all the unit tests.
+The unit test suite has several parameterised tests, Cargo is used to set up and run all the unit tests.
 
 ```
 cargo test
