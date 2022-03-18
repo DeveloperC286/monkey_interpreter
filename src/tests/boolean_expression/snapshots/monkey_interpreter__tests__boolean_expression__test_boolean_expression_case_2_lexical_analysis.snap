@@ -1,0 +1,8 @@
+---
+source: src/tests/boolean_expression/mod.rs
+expression: tokens
+---
+[
+    False,
+    EndOfFile,
+]

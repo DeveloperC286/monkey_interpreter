@@ -1,0 +1,11 @@
+---
+source: src/tests/boolean_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Boolean {
+            boolean: False,
+        },
+    },
+]

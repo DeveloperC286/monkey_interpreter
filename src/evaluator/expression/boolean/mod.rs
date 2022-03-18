@@ -12,6 +12,3 @@ impl Evaluator {
         }
     }
 }
-
-#[cfg(test)]
-mod tests;

@@ -1,0 +1,10 @@
+---
+source: src/tests/integer_expression/mod.rs
+expression: tokens
+---
+[
+    Integer {
+        literal: 5,
+    },
+    EndOfFile,
+]
