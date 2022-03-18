@@ -1,0 +1,15 @@
+---
+source: src/tests/fn_expression/mod.rs
+expression: tokens
+---
+[
+    Function,
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Integer {
+        literal: 3,
+    },
+    ClosingCurlyBracket,
+    EndOfFile,
+]

@@ -1,0 +1,16 @@
+---
+source: src/tests/fn_expression/mod.rs
+expression: evaluation
+---
+Function {
+    parameters: [],
+    block: Block {
+        nodes: [
+            Expression {
+                expression: Integer {
+                    literal: 3,
+                },
+            },
+        ],
+    },
+}

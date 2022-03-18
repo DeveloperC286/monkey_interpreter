@@ -70,6 +70,3 @@ impl<'a> SyntaxAnalysis<'a> {
         Ok(parameters)
     }
 }
-
-#[cfg(test)]
-mod tests;

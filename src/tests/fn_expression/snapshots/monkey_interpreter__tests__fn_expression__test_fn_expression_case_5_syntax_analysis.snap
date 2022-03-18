@@ -1,0 +1,14 @@
+---
+source: src/tests/fn_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Function {
+            parameters: [],
+            block: Block {
+                nodes: [],
+            },
+        },
+    },
+]

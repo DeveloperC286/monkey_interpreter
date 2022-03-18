@@ -1,0 +1,28 @@
+---
+source: src/tests/fn_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Function {
+            parameters: [
+                "x",
+            ],
+            block: Block {
+                nodes: [
+                    Expression {
+                        expression: Infix {
+                            left_hand: Identifier {
+                                identifier: "x",
+                            },
+                            operator: Plus,
+                            right_hand: Integer {
+                                literal: 3,
+                            },
+                        },
+                    },
+                ],
+            },
+        },
+    },
+]

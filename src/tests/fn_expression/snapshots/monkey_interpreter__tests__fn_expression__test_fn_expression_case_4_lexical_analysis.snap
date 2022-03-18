@@ -1,0 +1,28 @@
+---
+source: src/tests/fn_expression/mod.rs
+expression: tokens
+---
+[
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    Comma,
+    Identifier {
+        literal: "y",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Return,
+    Identifier {
+        literal: "x",
+    },
+    Plus,
+    Identifier {
+        literal: "y",
+    },
+    SemiColon,
+    ClosingCurlyBracket,
+    EndOfFile,
+]

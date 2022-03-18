@@ -1,0 +1,27 @@
+---
+source: src/tests/fn_expression/mod.rs
+expression: evaluation
+---
+Function {
+    parameters: [
+        "x",
+        "y",
+    ],
+    block: Block {
+        nodes: [
+            Statement {
+                statement: Return {
+                    expression: Infix {
+                        left_hand: Identifier {
+                            identifier: "x",
+                        },
+                        operator: Plus,
+                        right_hand: Identifier {
+                            identifier: "y",
+                        },
+                    },
+                },
+            },
+        ],
+    },
+}

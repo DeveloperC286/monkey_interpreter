@@ -12,6 +12,3 @@ impl Evaluator {
         Ok(Object::Function { parameters, block })
     }
 }
-
-#[cfg(test)]
-mod tests;

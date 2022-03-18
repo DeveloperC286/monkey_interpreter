@@ -16,9 +16,7 @@ fn test_lexical_analysis_tokenization_for_integers(code: &str, snapshot_name: &s
     code,
     snapshot_name,
     case("TRUE\tfalse", "test_lexical_analysis_tokenization_for_keywords_case1"),
-    case("\n\rfn", "test_lexical_analysis_tokenization_for_keywords_case4"),
     case("\t  let\n\r", "test_lexical_analysis_tokenization_for_keywords_case5"),
-    case(" Fn", "test_lexical_analysis_tokenization_for_keywords_case6"),
     case("\t  LET\n\r", "test_lexical_analysis_tokenization_for_keywords_case7")
 )]
 fn test_lexical_analysis_tokenization_for_keywords(code: &str, snapshot_name: &str) {
