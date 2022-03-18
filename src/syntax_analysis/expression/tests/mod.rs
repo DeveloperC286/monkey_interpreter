@@ -34,16 +34,6 @@ fn test_syntax_analysis_for_identifier_expressions(code: &str, snapshot_name: &s
 #[rstest(
     code,
     snapshot_name,
-    case("5;", "test_syntax_analysis_for_integer_expressions_case1"),
-    case("12", "test_syntax_analysis_for_integer_expressions_case2")
-)]
-fn test_syntax_analysis_for_integer_expressions(code: &str, snapshot_name: &str) {
-    assert_expected_returned_abstract_syntax_tree!(code, snapshot_name)
-}
-
-#[rstest(
-    code,
-    snapshot_name,
     case(
         "let firstName = \"this is a string\";",
         "test_syntax_analysis_for_string_expressions_case1"
