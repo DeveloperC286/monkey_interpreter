@@ -1,0 +1,22 @@
+---
+source: src/tests/if_expression/mod.rs
+expression: tokens
+---
+[
+    If,
+    OpeningRoundBracket,
+    False,
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Integer {
+        literal: 85,
+    },
+    ClosingCurlyBracket,
+    Else,
+    OpeningCurlyBracket,
+    Integer {
+        literal: 58,
+    },
+    ClosingCurlyBracket,
+    EndOfFile,
+]

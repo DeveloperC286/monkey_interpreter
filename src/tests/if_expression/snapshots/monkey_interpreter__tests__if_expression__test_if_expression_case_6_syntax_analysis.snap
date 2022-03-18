@@ -1,0 +1,23 @@
+---
+source: src/tests/if_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: If {
+            condition: Boolean {
+                boolean: False,
+            },
+            consequence: Block {
+                nodes: [
+                    Expression {
+                        expression: Integer {
+                            literal: 10,
+                        },
+                    },
+                ],
+            },
+            alternative: None,
+        },
+    },
+]

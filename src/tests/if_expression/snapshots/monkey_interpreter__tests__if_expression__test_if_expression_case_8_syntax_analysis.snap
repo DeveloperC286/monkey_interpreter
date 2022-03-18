@@ -1,0 +1,39 @@
+---
+source: src/tests/if_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: If {
+            condition: Infix {
+                left_hand: Integer {
+                    literal: 4,
+                },
+                operator: GreaterThan,
+                right_hand: Integer {
+                    literal: 6,
+                },
+            },
+            consequence: Block {
+                nodes: [
+                    Expression {
+                        expression: Boolean {
+                            boolean: True,
+                        },
+                    },
+                ],
+            },
+            alternative: Some(
+                Block {
+                    nodes: [
+                        Expression {
+                            expression: Boolean {
+                                boolean: False,
+                            },
+                        },
+                    ],
+                },
+            ),
+        },
+    },
+]

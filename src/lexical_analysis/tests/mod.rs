@@ -16,14 +16,6 @@ fn test_lexical_analysis_tokenization_for_integers(code: &str, snapshot_name: &s
     code,
     snapshot_name,
     case("TRUE\tfalse", "test_lexical_analysis_tokenization_for_keywords_case1"),
-    case(
-        "if\tfalse\n return 3;",
-        "test_lexical_analysis_tokenization_for_keywords_case2"
-    ),
-    case(
-        "\tIF TRUE\n\t\treturn 3;\n\telse\n\t\treturn 45;",
-        "test_lexical_analysis_tokenization_for_keywords_case3"
-    ),
     case("\n\rfn", "test_lexical_analysis_tokenization_for_keywords_case4"),
     case("\t  let\n\r", "test_lexical_analysis_tokenization_for_keywords_case5"),
     case(" Fn", "test_lexical_analysis_tokenization_for_keywords_case6"),

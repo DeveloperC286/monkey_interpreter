@@ -1,0 +1,18 @@
+---
+source: src/tests/if_expression/mod.rs
+expression: tokens
+---
+[
+    If,
+    OpeningRoundBracket,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Integer {
+        literal: 1,
+    },
+    ClosingCurlyBracket,
+    EndOfFile,
+]

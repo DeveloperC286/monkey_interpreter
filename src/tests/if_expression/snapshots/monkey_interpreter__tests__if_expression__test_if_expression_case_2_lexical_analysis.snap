@@ -1,0 +1,33 @@
+---
+source: src/tests/if_expression/mod.rs
+expression: tokens
+---
+[
+    If,
+    OpeningRoundBracket,
+    Integer {
+        literal: 10,
+    },
+    GreaterThan,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Return,
+    Integer {
+        literal: 1,
+    },
+    Plus,
+    Integer {
+        literal: 5,
+    },
+    SemiColon,
+    ClosingCurlyBracket,
+    Return,
+    Integer {
+        literal: 1,
+    },
+    SemiColon,
+    EndOfFile,
+]
