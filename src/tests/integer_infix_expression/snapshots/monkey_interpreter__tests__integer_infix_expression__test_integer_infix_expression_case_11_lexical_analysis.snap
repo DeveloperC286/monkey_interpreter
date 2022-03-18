@@ -1,0 +1,15 @@
+---
+source: src/tests/integer_infix_expression/mod.rs
+expression: tokens
+---
+[
+    Integer {
+        literal: 37,
+    },
+    Multiply,
+    Minus,
+    Integer {
+        literal: 1,
+    },
+    EndOfFile,
+]

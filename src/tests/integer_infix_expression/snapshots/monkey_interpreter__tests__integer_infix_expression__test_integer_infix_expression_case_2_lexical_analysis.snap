@@ -1,0 +1,21 @@
+---
+source: src/tests/integer_infix_expression/mod.rs
+expression: tokens
+---
+[
+    OpeningRoundBracket,
+    Integer {
+        literal: 5,
+    },
+    Minus,
+    Integer {
+        literal: 10,
+    },
+    ClosingRoundBracket,
+    Multiply,
+    Integer {
+        literal: 10,
+    },
+    SemiColon,
+    EndOfFile,
+]

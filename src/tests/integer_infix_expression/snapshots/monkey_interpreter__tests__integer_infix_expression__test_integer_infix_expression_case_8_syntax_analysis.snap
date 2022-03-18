@@ -1,0 +1,23 @@
+---
+source: src/tests/integer_infix_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Infix {
+            left_hand: Integer {
+                literal: 5,
+            },
+            operator: Minus,
+            right_hand: Infix {
+                left_hand: Integer {
+                    literal: 10,
+                },
+                operator: Multiply,
+                right_hand: Integer {
+                    literal: 10,
+                },
+            },
+        },
+    },
+]

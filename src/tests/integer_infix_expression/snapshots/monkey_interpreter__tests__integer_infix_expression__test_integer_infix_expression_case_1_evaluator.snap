@@ -1,0 +1,7 @@
+---
+source: src/tests/integer_infix_expression/mod.rs
+expression: evaluation
+---
+Integer {
+    value: -50,
+}

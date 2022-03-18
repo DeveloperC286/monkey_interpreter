@@ -1,0 +1,14 @@
+---
+source: src/tests/integer_infix_expression/mod.rs
+expression: tokens
+---
+[
+    Integer {
+        literal: 5,
+    },
+    Divide,
+    Integer {
+        literal: 10,
+    },
+    EndOfFile,
+]
