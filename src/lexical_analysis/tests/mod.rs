@@ -17,25 +17,6 @@ fn test_lexical_analysis_tokenization_for_keywords(code: &str, snapshot_name: &s
     code,
     snapshot_name,
     case(
-        "\t2 == 4\n",
-        "test_lexical_analysis_tokenization_for_special_multi_characters_case1"
-    ),
-    case(
-        "\t !=   4",
-        "test_lexical_analysis_tokenization_for_special_multi_characters_case2"
-    )
-)]
-fn test_lexical_analysis_tokenization_for_special_multi_characters(
-    code: &str,
-    snapshot_name: &str,
-) {
-    assert_expected_returned_tokens!(code, snapshot_name);
-}
-
-#[rstest(
-    code,
-    snapshot_name,
-    case(
         "\r! *\t=",
         "test_lexical_analysis_tokenization_for_special_characters_case1"
     ),

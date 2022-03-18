@@ -1,0 +1,10 @@
+---
+source: src/tests/boolean_infix_expression/mod.rs
+expression: tokens
+---
+[
+    False,
+    Equals,
+    True,
+    EndOfFile,
+]

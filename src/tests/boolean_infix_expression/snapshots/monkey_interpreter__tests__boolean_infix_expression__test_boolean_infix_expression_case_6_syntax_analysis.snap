@@ -1,0 +1,17 @@
+---
+source: src/tests/boolean_infix_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Infix {
+            left_hand: Boolean {
+                boolean: False,
+            },
+            operator: NotEquals,
+            right_hand: Boolean {
+                boolean: True,
+            },
+        },
+    },
+]

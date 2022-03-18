@@ -5,6 +5,7 @@ use rstest_reuse::{self, *};
 mod macros;
 
 mod boolean_expression;
+mod boolean_infix_expression;
 mod boolean_prefix_expression;
 mod fn_expression;
 mod if_expression;
