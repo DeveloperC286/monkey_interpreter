@@ -1,0 +1,14 @@
+---
+source: src/tests/integer_prefix_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Prefix {
+            prefix: Minus,
+            right_hand: Integer {
+                literal: 5,
+            },
+        },
+    },
+]

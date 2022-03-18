@@ -13,9 +13,7 @@ fn test_syntax_analysis_for_prefix_expression_syntax_errors(code: &str, snapshot
 #[rstest(
     code,
     snapshot_name,
-    case("!15", "test_syntax_analysis_for_prefix_expressions_case1"),
-    case("-3;", "test_syntax_analysis_for_prefix_expressions_case2"),
-    case("!FALSE", "test_syntax_analysis_for_prefix_expressions_case3")
+    case("!15", "test_syntax_analysis_for_prefix_expressions_case1")
 )]
 fn test_syntax_analysis_for_prefix_expressions(code: &str, snapshot_name: &str) {
     assert_expected_returned_abstract_syntax_tree!(code, snapshot_name)

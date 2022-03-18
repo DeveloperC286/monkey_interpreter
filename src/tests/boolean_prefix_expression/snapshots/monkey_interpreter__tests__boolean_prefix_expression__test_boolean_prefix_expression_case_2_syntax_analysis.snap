@@ -1,0 +1,14 @@
+---
+source: src/tests/boolean_prefix_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Prefix {
+            prefix: Not,
+            right_hand: Boolean {
+                boolean: True,
+            },
+        },
+    },
+]

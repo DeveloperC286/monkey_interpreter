@@ -1,0 +1,5 @@
+---
+source: src/tests/boolean_prefix_expression/mod.rs
+expression: evaluation
+---
+False

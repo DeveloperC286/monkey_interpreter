@@ -1,0 +1,10 @@
+---
+source: src/tests/boolean_prefix_expression/mod.rs
+expression: tokens
+---
+[
+    Not,
+    Not,
+    True,
+    EndOfFile,
+]
