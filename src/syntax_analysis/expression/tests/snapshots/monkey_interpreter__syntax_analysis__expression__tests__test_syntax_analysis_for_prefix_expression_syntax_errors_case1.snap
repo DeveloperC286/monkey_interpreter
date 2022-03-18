@@ -1,7 +1,6 @@
 ---
 source: src/syntax_analysis/expression/tests/mod.rs
 expression: "crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code).unwrap())"
-
 ---
 Err(
     MissingRightHandToPrefixExpression,

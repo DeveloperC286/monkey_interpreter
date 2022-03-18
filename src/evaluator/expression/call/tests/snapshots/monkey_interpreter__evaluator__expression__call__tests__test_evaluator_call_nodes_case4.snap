@@ -1,7 +1,6 @@
 ---
 source: src/evaluator/expression/call/tests/mod.rs
 expression: "evaluator.evaluate(crate::syntax_analysis::SyntaxAnalysis::from(crate::lexical_analysis::LexicalAnalysis::from(code).unwrap()).unwrap())"
-
 ---
 Ok(
     Integer {
