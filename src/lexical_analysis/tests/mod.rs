@@ -3,44 +3,6 @@ use rstest::rstest;
 #[macro_use]
 mod macros;
 
-#[rstest(
-    code,
-    snapshot_name,
-    case("\t  let\n\r", "test_lexical_analysis_tokenization_for_keywords_case5"),
-    case("\t  LET\n\r", "test_lexical_analysis_tokenization_for_keywords_case7")
-)]
-fn test_lexical_analysis_tokenization_for_keywords(code: &str, snapshot_name: &str) {
-    assert_expected_returned_tokens!(code, snapshot_name);
-}
-
-#[rstest(
-    code,
-    snapshot_name,
-    case(
-        "\r! *\t=",
-        "test_lexical_analysis_tokenization_for_special_characters_case1"
-    ),
-    case(
-        "\t-/ * ",
-        "test_lexical_analysis_tokenization_for_special_characters_case2"
-    ),
-    case(
-        "> < \n * ",
-        "test_lexical_analysis_tokenization_for_special_characters_case3"
-    ),
-    case(
-        "=+(){},;",
-        "test_lexical_analysis_tokenization_for_special_characters_case4"
-    ),
-    case(
-        " =\n\r+\t    ( )\t\n",
-        "test_lexical_analysis_tokenization_for_special_characters_case5"
-    )
-)]
-fn test_lexical_analysis_tokenization_for_special_characters(code: &str, snapshot_name: &str) {
-    assert_expected_returned_tokens!(code, snapshot_name);
-}
-
 #[test]
 fn test_empty_code() {
     assert_expected_returned_tokens!("", "test_empty_code");
