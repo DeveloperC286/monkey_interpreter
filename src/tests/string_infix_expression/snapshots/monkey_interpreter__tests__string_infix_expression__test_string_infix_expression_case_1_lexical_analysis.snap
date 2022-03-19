@@ -1,0 +1,14 @@
+---
+source: src/tests/string_infix_expression/mod.rs
+expression: tokens
+---
+[
+    String {
+        literal: "123",
+    },
+    Plus,
+    String {
+        literal: "456",
+    },
+    EndOfFile,
+]

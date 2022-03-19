@@ -35,15 +35,6 @@ fn test_evaluator_infix_boolean_expressions(code: &str, snapshot_name: &str) {
 #[rstest(
     code,
     snapshot_name,
-    case("\"123\" + \"456\"", "test_evaluator_infix_string_expressions_case1")
-)]
-fn test_evaluator_infix_string_expressions(code: &str, snapshot_name: &str) {
-    assert_expected_returned_object!(code, snapshot_name);
-}
-
-#[rstest(
-    code,
-    snapshot_name,
     case("(1 > 2) == 5", "test_evaluator_infix_type_mismatch_expressions_case1"),
     case(
         "5 + TRUE; 5 + 10;",

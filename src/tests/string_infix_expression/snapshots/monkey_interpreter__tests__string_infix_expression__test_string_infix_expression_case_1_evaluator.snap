@@ -1,0 +1,7 @@
+---
+source: src/tests/string_infix_expression/mod.rs
+expression: evaluation
+---
+String {
+    value: "123456",
+}

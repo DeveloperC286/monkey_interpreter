@@ -28,15 +28,3 @@ fn test_syntax_analysis_for_prefix_expressions(code: &str, snapshot_name: &str) 
 fn test_syntax_analysis_for_identifier_expressions(code: &str, snapshot_name: &str) {
     assert_expected_returned_abstract_syntax_tree!(code, snapshot_name)
 }
-
-#[rstest(
-    code,
-    snapshot_name,
-    case(
-        "let name = \"firstName\" + \"lastName\";",
-        "test_syntax_analysis_for_string_expressions_case3"
-    )
-)]
-fn test_syntax_analysis_for_string_expressions(code: &str, snapshot_name: &str) {
-    assert_expected_returned_abstract_syntax_tree!(code, snapshot_name)
-}

@@ -1,0 +1,17 @@
+---
+source: src/tests/string_infix_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Infix {
+            left_hand: String {
+                literal: "123",
+            },
+            operator: Plus,
+            right_hand: String {
+                literal: "456",
+            },
+        },
+    },
+]
