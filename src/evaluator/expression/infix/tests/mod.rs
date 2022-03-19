@@ -3,18 +3,6 @@ use rstest::rstest;
 #[rstest(
     code,
     snapshot_name,
-    case("2 < 3", "test_evaluator_infix_boolean_expressions_case1"),
-    case("5 > 2", "test_evaluator_infix_boolean_expressions_case2"),
-    case("3 > 3", "test_evaluator_infix_boolean_expressions_case3"),
-    case("7 < 7", "test_evaluator_infix_boolean_expressions_case4"),
-    case("13 == 13 ", "test_evaluator_infix_boolean_expressions_case5"),
-    case("11 == 19 ", "test_evaluator_infix_boolean_expressions_case6"),
-    case("9 != 15", "test_evaluator_infix_boolean_expressions_case7"),
-    case("7 != 7", "test_evaluator_infix_boolean_expressions_case8"),
-    case("(1 < 2) == true", "test_evaluator_infix_boolean_expressions_case17"),
-    case("(1 < 2) == false", "test_evaluator_infix_boolean_expressions_case18"),
-    case("(1 > 2) == true", "test_evaluator_infix_boolean_expressions_case19"),
-    case("(1 > 2) == false", "test_evaluator_infix_boolean_expressions_case20"),
     case(
         "\"name\" == \"name\"",
         "test_evaluator_infix_boolean_expressions_case21"

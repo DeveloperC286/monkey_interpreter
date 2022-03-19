@@ -1,0 +1,16 @@
+---
+source: src/tests/integer_infix_boolean_expression/mod.rs
+expression: tokens
+---
+[
+    Integer {
+        literal: 1,
+    },
+    LesserThan,
+    Integer {
+        literal: 2,
+    },
+    Equals,
+    False,
+    EndOfFile,
+]
