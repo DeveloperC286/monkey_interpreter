@@ -1,0 +1,7 @@
+---
+source: src/tests/string_expression/mod.rs
+expression: evaluation
+---
+String {
+    value: "column-1\tcolumn-2\n",
+}

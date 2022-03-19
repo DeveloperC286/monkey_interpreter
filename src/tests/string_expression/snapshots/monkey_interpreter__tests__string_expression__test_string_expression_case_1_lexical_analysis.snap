@@ -1,0 +1,10 @@
+---
+source: src/tests/string_expression/mod.rs
+expression: tokens
+---
+[
+    String {
+        literal: "this is a string",
+    },
+    EndOfFile,
+]

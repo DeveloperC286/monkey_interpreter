@@ -7,6 +7,3 @@ impl Evaluator {
         Ok(Object::String { value: string })
     }
 }
-
-#[cfg(test)]
-mod tests;

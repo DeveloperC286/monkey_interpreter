@@ -1,0 +1,10 @@
+---
+source: src/tests/string_expression/mod.rs
+expression: tokens
+---
+[
+    String {
+        literal: "column-1\tcolumn-2\n",
+    },
+    EndOfFile,
+]

@@ -33,25 +33,8 @@ fn test_syntax_analysis_for_identifier_expressions(code: &str, snapshot_name: &s
     code,
     snapshot_name,
     case(
-        "let firstName = \"this is a string\";",
-        "test_syntax_analysis_for_string_expressions_case1"
-    ),
-    case(
-        "let lastName = \"this is a string\";",
-        "test_syntax_analysis_for_string_expressions_case2"
-    ),
-    case(
         "let name = \"firstName\" + \"lastName\";",
         "test_syntax_analysis_for_string_expressions_case3"
-    ),
-    case("\"firstName\"", "test_syntax_analysis_for_string_expressions_case4"),
-    case(
-        "let lines = \"line1\\nline2\\n\"",
-        "test_syntax_analysis_for_string_expressions_case5"
-    ),
-    case(
-        "\"column-1\\tcolumn-2\\n\"",
-        "test_syntax_analysis_for_string_expressions_case6"
     )
 )]
 fn test_syntax_analysis_for_string_expressions(code: &str, snapshot_name: &str) {

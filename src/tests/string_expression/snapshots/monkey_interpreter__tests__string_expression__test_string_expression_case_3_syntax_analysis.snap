@@ -1,0 +1,11 @@
+---
+source: src/tests/string_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: String {
+            literal: "column-1\tcolumn-2\n",
+        },
+    },
+]
