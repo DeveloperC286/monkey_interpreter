@@ -1,0 +1,10 @@
+---
+source: src/tests/string_infix_boolean_expression/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        variables: {},
+        sub_environment: None,
+    },
+}

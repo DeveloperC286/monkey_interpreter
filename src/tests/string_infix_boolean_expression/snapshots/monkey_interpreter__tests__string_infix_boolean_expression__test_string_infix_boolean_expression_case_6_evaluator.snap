@@ -1,0 +1,5 @@
+---
+source: src/tests/string_infix_boolean_expression/mod.rs
+expression: evaluation
+---
+False

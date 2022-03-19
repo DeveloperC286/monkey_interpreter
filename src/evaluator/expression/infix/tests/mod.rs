@@ -3,38 +3,6 @@ use rstest::rstest;
 #[rstest(
     code,
     snapshot_name,
-    case(
-        "\"name\" == \"name\"",
-        "test_evaluator_infix_boolean_expressions_case21"
-    ),
-    case(
-        "\"this is a string\" == \"this is a string\"",
-        "test_evaluator_infix_boolean_expressions_case22"
-    ),
-    case(
-        "\"first\" != \"last\"",
-        "test_evaluator_infix_boolean_expressions_case23"
-    ),
-    case(
-        "\"string123\" != \"\\tstring123\"",
-        "test_evaluator_infix_boolean_expressions_case24"
-    ),
-    case(
-        "\"string123\" != \"string123\"",
-        "test_evaluator_infix_boolean_expressions_case25"
-    ),
-    case(
-        "\"name\" == \"name123\"",
-        "test_evaluator_infix_boolean_expressions_case26"
-    )
-)]
-fn test_evaluator_infix_boolean_expressions(code: &str, snapshot_name: &str) {
-    assert_expected_returned_object!(code, snapshot_name);
-}
-
-#[rstest(
-    code,
-    snapshot_name,
     case("(1 > 2) == 5", "test_evaluator_infix_type_mismatch_expressions_case1"),
     case(
         "5 + TRUE; 5 + 10;",

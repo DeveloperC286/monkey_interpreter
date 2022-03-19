@@ -1,0 +1,17 @@
+---
+source: src/tests/string_infix_boolean_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Infix {
+            left_hand: String {
+                literal: "name",
+            },
+            operator: Equals,
+            right_hand: String {
+                literal: "name",
+            },
+        },
+    },
+]

@@ -1,0 +1,14 @@
+---
+source: src/tests/string_infix_boolean_expression/mod.rs
+expression: tokens
+---
+[
+    String {
+        literal: "this is a string",
+    },
+    Equals,
+    String {
+        literal: "this is a string",
+    },
+    EndOfFile,
+]
