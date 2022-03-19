@@ -1,0 +1,10 @@
+---
+source: src/tests/return_statement/mod.rs
+expression: tokens
+---
+[
+    Return,
+    True,
+    SemiColon,
+    EndOfFile,
+]

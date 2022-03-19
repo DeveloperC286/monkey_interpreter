@@ -1,0 +1,13 @@
+---
+source: src/tests/return_statement/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Return {
+            expression: Integer {
+                literal: 10,
+            },
+        },
+    },
+]

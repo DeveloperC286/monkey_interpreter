@@ -1,0 +1,12 @@
+---
+source: src/tests/return_statement/mod.rs
+expression: tokens
+---
+[
+    Return,
+    String {
+        literal: "string123",
+    },
+    SemiColon,
+    EndOfFile,
+]

@@ -1,0 +1,7 @@
+---
+source: src/tests/return_statement/mod.rs
+expression: evaluation
+---
+Integer {
+    value: 10,
+}

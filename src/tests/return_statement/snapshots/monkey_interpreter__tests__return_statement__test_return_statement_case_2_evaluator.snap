@@ -1,0 +1,5 @@
+---
+source: src/tests/return_statement/mod.rs
+expression: evaluation
+---
+True

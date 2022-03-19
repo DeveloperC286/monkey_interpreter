@@ -15,6 +15,7 @@ mod integer_infix_boolean_expression;
 mod integer_infix_expression;
 mod integer_prefix_expression;
 mod let_statement;
+mod return_statement;
 mod string_expression;
 mod string_infix_boolean_expression;
 mod string_infix_expression;
