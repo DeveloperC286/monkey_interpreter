@@ -3,11 +3,6 @@ use rstest::rstest;
 #[macro_use]
 mod macros;
 
-#[test]
-fn test_empty_code() {
-    assert_expected_returned_tokens!("", "test_empty_code");
-}
-
 #[rstest(
     code,
     snapshot_name,
