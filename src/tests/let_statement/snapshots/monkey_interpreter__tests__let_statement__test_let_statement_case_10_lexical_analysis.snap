@@ -1,0 +1,16 @@
+---
+source: src/tests/let_statement/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "flatcase",
+    },
+    Assign,
+    Integer {
+        literal: 3,
+    },
+    SemiColon,
+    EndOfFile,
+]

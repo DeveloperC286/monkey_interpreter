@@ -1,0 +1,16 @@
+---
+source: src/tests/let_statement/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "PascalCase",
+    },
+    Assign,
+    String {
+        literal: "terrible format",
+    },
+    SemiColon,
+    EndOfFile,
+]

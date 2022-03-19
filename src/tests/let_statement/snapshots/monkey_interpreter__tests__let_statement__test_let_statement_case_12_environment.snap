@@ -1,0 +1,14 @@
+---
+source: src/tests/let_statement/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "PascalCase": String {
+                value: "terrible format",
+            },
+        },
+        sub_environment: None,
+    },
+}

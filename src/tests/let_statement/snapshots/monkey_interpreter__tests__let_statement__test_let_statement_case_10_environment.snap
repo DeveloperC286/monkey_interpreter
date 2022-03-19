@@ -1,0 +1,14 @@
+---
+source: src/tests/let_statement/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "flatcase": Integer {
+                value: 3,
+            },
+        },
+        sub_environment: None,
+    },
+}

@@ -1,0 +1,16 @@
+---
+source: src/tests/let_statement/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "a",
+    },
+    Assign,
+    Integer {
+        literal: 5,
+    },
+    SemiColon,
+    EndOfFile,
+]

@@ -1,0 +1,14 @@
+---
+source: src/tests/let_statement/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "file": String {
+                value: "/tmp/temp.txt",
+            },
+        },
+        sub_environment: None,
+    },
+}

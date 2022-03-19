@@ -1,0 +1,16 @@
+---
+source: src/tests/let_statement/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "sentence",
+    },
+    Assign,
+    String {
+        literal: "this is a multiple words...\n",
+    },
+    SemiColon,
+    EndOfFile,
+]

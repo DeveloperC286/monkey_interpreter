@@ -1,0 +1,24 @@
+---
+source: src/tests/let_statement/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "is_file",
+    },
+    Assign,
+    False,
+    SemiColon,
+    Let,
+    Identifier {
+        literal: "is_directory",
+    },
+    Assign,
+    Not,
+    Identifier {
+        literal: "is_file",
+    },
+    SemiColon,
+    EndOfFile,
+]

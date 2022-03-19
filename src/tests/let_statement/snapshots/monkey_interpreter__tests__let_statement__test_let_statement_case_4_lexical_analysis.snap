@@ -1,0 +1,31 @@
+---
+source: src/tests/let_statement/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "add",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    Comma,
+    Identifier {
+        literal: "y",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "x",
+    },
+    Plus,
+    Identifier {
+        literal: "y",
+    },
+    ClosingCurlyBracket,
+    EndOfFile,
+]

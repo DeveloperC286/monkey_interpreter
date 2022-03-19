@@ -1,0 +1,13 @@
+---
+source: src/tests/let_statement/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "camelCase",
+    },
+    Assign,
+    False,
+    EndOfFile,
+]
