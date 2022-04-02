@@ -1,0 +1,7 @@
+---
+source: src/tests/invalid_string_expression/mod.rs
+expression: error
+---
+Err(
+    StringNotClosed,
+)
