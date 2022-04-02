@@ -1,0 +1,57 @@
+---
+source: src/tests/call_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "add",
+            expression: Function {
+                parameters: [
+                    "x",
+                    "y",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: Infix {
+                                left_hand: Identifier {
+                                    identifier: "x",
+                                },
+                                operator: Plus,
+                                right_hand: Identifier {
+                                    identifier: "y",
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    Expression {
+        expression: Call {
+            function: Identifier {
+                identifier: "add",
+            },
+            arguments: [
+                Integer {
+                    literal: 1,
+                },
+                Call {
+                    function: Identifier {
+                        identifier: "add",
+                    },
+                    arguments: [
+                        Integer {
+                            literal: 2,
+                        },
+                        Integer {
+                            literal: 3,
+                        },
+                    ],
+                },
+            ],
+        },
+    },
+]

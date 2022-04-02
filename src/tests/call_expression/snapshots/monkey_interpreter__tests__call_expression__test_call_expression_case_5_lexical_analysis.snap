@@ -1,0 +1,54 @@
+---
+source: src/tests/call_expression/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "add",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    Comma,
+    Identifier {
+        literal: "y",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "x",
+    },
+    Plus,
+    Identifier {
+        literal: "y",
+    },
+    ClosingCurlyBracket,
+    SemiColon,
+    Identifier {
+        literal: "add",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 1,
+    },
+    Comma,
+    Identifier {
+        literal: "add",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 2,
+    },
+    Comma,
+    Integer {
+        literal: 3,
+    },
+    ClosingRoundBracket,
+    ClosingRoundBracket,
+    SemiColon,
+    EndOfFile,
+]

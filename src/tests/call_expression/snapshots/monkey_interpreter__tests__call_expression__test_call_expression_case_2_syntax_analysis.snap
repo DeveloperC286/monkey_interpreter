@@ -1,0 +1,31 @@
+---
+source: src/tests/call_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Call {
+            function: Function {
+                parameters: [
+                    "x",
+                ],
+                block: Block {
+                    nodes: [
+                        Statement {
+                            statement: Return {
+                                expression: Identifier {
+                                    identifier: "x",
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+            arguments: [
+                Integer {
+                    literal: 5,
+                },
+            ],
+        },
+    },
+]
