@@ -39,6 +39,3 @@ impl<'a> SyntaxAnalysis<'a> {
         })
     }
 }
-
-#[cfg(test)]
-mod tests;
