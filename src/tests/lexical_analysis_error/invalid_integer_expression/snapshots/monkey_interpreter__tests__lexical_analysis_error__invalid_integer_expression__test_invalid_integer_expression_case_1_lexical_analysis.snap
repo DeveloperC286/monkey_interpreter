@@ -1,0 +1,9 @@
+---
+source: src/tests/lexical_analysis_error/invalid_integer_expression/mod.rs
+expression: error
+---
+Err(
+    UnparsableContext(
+        "51a23",
+    ),
+)

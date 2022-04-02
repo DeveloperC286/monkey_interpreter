@@ -25,67 +25,83 @@ impl<'a> LexicalAnalysis<'a> {
     }
 
     fn get_tokens(&mut self) -> Result<Vec<Token>, LexicalError> {
+        fn get_token_from(from: &str) -> Result<Token, LexicalError> {
+            match (parse_to_keyword_or_identifier(from), parse_to_integer(from)) {
+                (Some(token), None) => Ok(token),
+                (None, Some(token)) => Ok(token),
+
+                (_, _) => Err(LexicalError::UnparsableContext(from.to_string())),
+            }
+        }
+
         let mut tokens = Vec::new();
+        let mut current_non_token_stream: String = String::new();
 
         loop {
-            let token = self.get_next_token()?;
-            let end_of_file = token == Token::EndOfFile;
-            tokens.push(token);
+            match self.source_code.next() {
+                Some(next_character) => match next_character {
+                    ' ' | '\t' | '\n' | '\r' => {
+                        trace!("Consuming formatting character.");
 
-            if end_of_file {
-                break;
+                        if !current_non_token_stream.is_empty() {
+                            tokens.push(get_token_from(&current_non_token_stream)?);
+                            current_non_token_stream.clear();
+                        }
+                    }
+                    _ => match self.get_next_token(&next_character)? {
+                        Some(next_token) => {
+                            if !current_non_token_stream.is_empty() {
+                                tokens.push(get_token_from(&current_non_token_stream)?);
+                                current_non_token_stream.clear();
+                            }
+                            tokens.push(next_token);
+                        }
+                        None => {
+                            current_non_token_stream.push(next_character);
+                        }
+                    },
+                },
+                None => {
+                    if !current_non_token_stream.is_empty() {
+                        tokens.push(get_token_from(&current_non_token_stream)?);
+                        current_non_token_stream.clear();
+                    }
+                    tokens.push(Token::EndOfFile);
+                    break;
+                }
             }
         }
 
         Ok(tokens)
     }
 
-    fn get_next_token(&mut self) -> Result<Token, LexicalError> {
-        match self.get_next_character() {
-            Some(character) => {
-                debug!("Matching the character '{}'.", character);
-                match character {
-                    '!' => {
-                        check_next_character!(self.source_code, '=', Ok(Token::NotEquals));
-                        Ok(Token::Not)
-                    }
-                    '-' => Ok(Token::Minus),
-                    '/' => Ok(Token::Divide),
-                    '*' => Ok(Token::Multiply),
-                    '>' => Ok(Token::GreaterThan),
-                    '<' => Ok(Token::LesserThan),
-                    '=' => {
-                        check_next_character!(self.source_code, '=', Ok(Token::Equals));
-                        Ok(Token::Assign)
-                    }
-                    '+' => Ok(Token::Plus),
-                    '(' => Ok(Token::OpeningRoundBracket),
-                    ')' => Ok(Token::ClosingRoundBracket),
-                    '{' => Ok(Token::OpeningCurlyBracket),
-                    '}' => Ok(Token::ClosingCurlyBracket),
-                    ',' => Ok(Token::Comma),
-                    ';' => Ok(Token::SemiColon),
-                    '"' => Ok(Token::String {
-                        literal: self.get_string()?,
-                    }),
-                    _ => {
-                        if is_valid_identifier_character(character) {
-                            debug!("Parsing word from characters.");
-                            return Ok(get_keyword_token(&self.get_word(character)));
-                        }
-
-                        if is_digit(character) {
-                            debug!("Parsing integer from characters.");
-                            return Ok(Token::Integer {
-                                literal: self.get_integer(character)?,
-                            });
-                        }
-
-                        Err(LexicalError::IllegalCharacter(character))
-                    }
-                }
+    fn get_next_token(&mut self, character: &char) -> Result<Option<Token>, LexicalError> {
+        debug!("Matching the character '{}'.", character);
+        match character {
+            '!' => {
+                check_next_character!(self.source_code, '=', Ok(Some(Token::NotEquals)));
+                Ok(Some(Token::Not))
             }
-            None => Ok(Token::EndOfFile),
+            '-' => Ok(Some(Token::Minus)),
+            '/' => Ok(Some(Token::Divide)),
+            '*' => Ok(Some(Token::Multiply)),
+            '>' => Ok(Some(Token::GreaterThan)),
+            '<' => Ok(Some(Token::LesserThan)),
+            '=' => {
+                check_next_character!(self.source_code, '=', Ok(Some(Token::Equals)));
+                Ok(Some(Token::Assign))
+            }
+            '+' => Ok(Some(Token::Plus)),
+            '(' => Ok(Some(Token::OpeningRoundBracket)),
+            ')' => Ok(Some(Token::ClosingRoundBracket)),
+            '{' => Ok(Some(Token::OpeningCurlyBracket)),
+            '}' => Ok(Some(Token::ClosingCurlyBracket)),
+            ',' => Ok(Some(Token::Comma)),
+            ';' => Ok(Some(Token::SemiColon)),
+            '"' => Ok(Some(Token::String {
+                literal: self.get_string()?,
+            })),
+            _ => Ok(None),
         }
     }
 
@@ -111,39 +127,5 @@ impl<'a> LexicalAnalysis<'a> {
         }
 
         Ok(String::from_iter(characters.iter()))
-    }
-
-    fn get_integer_string(&mut self, character: char) -> String {
-        parse_characters!(self.source_code, character, is_digit);
-    }
-
-    fn get_integer(&mut self, character: char) -> Result<i64, LexicalError> {
-        let integer_string = self.get_integer_string(character);
-
-        match integer_string.parse() {
-            Ok(integer) => Ok(integer),
-            Err(_) => Err(LexicalError::NonNumericIntegerString(integer_string)),
-        }
-    }
-
-    fn get_word(&mut self, character: char) -> String {
-        parse_characters!(self.source_code, character, is_valid_identifier_character);
-    }
-
-    fn get_next_character(&mut self) -> Option<char> {
-        trace!("Getting next character.");
-        let mut next_character = self.source_code.next();
-
-        if let Some(character) = next_character {
-            match character {
-                ' ' | '\t' | '\n' | '\r' => {
-                    trace!("Consuming formatting character.");
-                    next_character = self.get_next_character();
-                }
-                _ => {}
-            }
-        }
-
-        next_character
     }
 }
