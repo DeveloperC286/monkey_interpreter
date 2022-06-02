@@ -1,0 +1,31 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "double",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "x",
+    },
+    Multiply,
+    Integer {
+        literal: 2,
+    },
+    ClosingCurlyBracket,
+    SemiColon,
+    Identifier {
+        literal: "double",
+    },
+    EndOfFile,
+]

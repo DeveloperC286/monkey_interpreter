@@ -1,0 +1,19 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "flatcase",
+            expression: Integer {
+                literal: 3,
+            },
+        },
+    },
+    Expression {
+        expression: Identifier {
+            identifier: "flatcase",
+        },
+    },
+]

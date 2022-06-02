@@ -1,0 +1,19 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "PascalCase",
+    },
+    Assign,
+    String {
+        literal: "terrible format",
+    },
+    SemiColon,
+    Identifier {
+        literal: "PascalCase",
+    },
+    EndOfFile,
+]

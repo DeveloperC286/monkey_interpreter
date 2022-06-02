@@ -1,0 +1,12 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "is_file": True,
+        },
+        sub_environment: None,
+    },
+}

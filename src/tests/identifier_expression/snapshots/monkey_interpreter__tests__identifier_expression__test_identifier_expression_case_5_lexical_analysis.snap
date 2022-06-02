@@ -1,0 +1,19 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "a",
+    },
+    Assign,
+    Integer {
+        literal: 5,
+    },
+    SemiColon,
+    Identifier {
+        literal: "a",
+    },
+    EndOfFile,
+]

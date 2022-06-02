@@ -1,0 +1,19 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "flatcase",
+    },
+    Assign,
+    Integer {
+        literal: 3,
+    },
+    SemiColon,
+    Identifier {
+        literal: "flatcase",
+    },
+    EndOfFile,
+]

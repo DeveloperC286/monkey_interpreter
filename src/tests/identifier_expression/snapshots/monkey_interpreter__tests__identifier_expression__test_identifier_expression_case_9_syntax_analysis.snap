@@ -1,0 +1,19 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "file",
+            expression: String {
+                literal: "/tmp/temp.txt",
+            },
+        },
+    },
+    Expression {
+        expression: Identifier {
+            identifier: "file",
+        },
+    },
+]

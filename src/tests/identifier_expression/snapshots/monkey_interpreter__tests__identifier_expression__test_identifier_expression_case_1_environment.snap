@@ -1,0 +1,14 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "sentence": String {
+                value: "this is a multiple words...\n",
+            },
+        },
+        sub_environment: None,
+    },
+}

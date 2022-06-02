@@ -1,0 +1,12 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "UPPER_CASE_SNAKE_CASE": False,
+        },
+        sub_environment: None,
+    },
+}

@@ -1,0 +1,17 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "is_directory",
+    },
+    Assign,
+    False,
+    SemiColon,
+    Identifier {
+        literal: "is_file",
+    },
+    EndOfFile,
+]

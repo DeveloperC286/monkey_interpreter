@@ -1,0 +1,19 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "sentence",
+            expression: String {
+                literal: "this is a multiple words...\n",
+            },
+        },
+    },
+    Expression {
+        expression: Identifier {
+            identifier: "sentence",
+        },
+    },
+]

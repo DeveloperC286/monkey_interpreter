@@ -1,0 +1,27 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "a",
+            expression: Integer {
+                literal: 25,
+            },
+        },
+    },
+    Statement {
+        statement: Let {
+            identifier: "b",
+            expression: Integer {
+                literal: 91,
+            },
+        },
+    },
+    Expression {
+        expression: Identifier {
+            identifier: "b",
+        },
+    },
+]

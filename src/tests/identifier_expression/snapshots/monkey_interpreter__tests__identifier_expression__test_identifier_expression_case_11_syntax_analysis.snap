@@ -1,0 +1,19 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "camelCase",
+            expression: Boolean {
+                boolean: False,
+            },
+        },
+    },
+    Expression {
+        expression: Identifier {
+            identifier: "camelCase",
+        },
+    },
+]

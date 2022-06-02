@@ -1,0 +1,17 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "UPPER_CASE_SNAKE_CASE",
+    },
+    Assign,
+    False,
+    SemiColon,
+    Identifier {
+        literal: "UPPER_CASE_SNAKE_CASE",
+    },
+    EndOfFile,
+]

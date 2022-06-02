@@ -1,0 +1,7 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: evaluation
+---
+Integer {
+    value: 91,
+}

@@ -1,0 +1,16 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "camelCase",
+    },
+    Assign,
+    False,
+    Identifier {
+        literal: "camelCase",
+    },
+    EndOfFile,
+]

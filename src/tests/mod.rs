@@ -10,6 +10,7 @@ mod boolean_prefix_expression;
 mod call_expression;
 mod edge_cases;
 mod fn_expression;
+mod identifier_expression;
 mod if_expression;
 mod integer_expression;
 mod integer_infix_boolean_expression;

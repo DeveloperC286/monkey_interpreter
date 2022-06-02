@@ -1,0 +1,24 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: evaluation
+---
+Function {
+    parameters: [
+        "x",
+    ],
+    block: Block {
+        nodes: [
+            Expression {
+                expression: Infix {
+                    left_hand: Identifier {
+                        identifier: "x",
+                    },
+                    operator: Multiply,
+                    right_hand: Integer {
+                        literal: 2,
+                    },
+                },
+            },
+        ],
+    },
+}
