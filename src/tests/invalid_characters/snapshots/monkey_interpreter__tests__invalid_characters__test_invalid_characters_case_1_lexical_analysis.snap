@@ -1,0 +1,9 @@
+---
+source: src/tests/invalid_characters/mod.rs
+expression: error
+---
+Err(
+    IllegalCharacter(
+        '`',
+    ),
+)

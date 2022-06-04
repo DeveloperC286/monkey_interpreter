@@ -16,6 +16,7 @@ mod integer_expression;
 mod integer_infix_boolean_expression;
 mod integer_infix_expression;
 mod integer_prefix_expression;
+mod invalid_characters;
 mod invalid_escaping_in_string_expression;
 mod invalid_string_expression;
 mod let_statement;

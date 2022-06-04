@@ -147,6 +147,3 @@ impl<'a> LexicalAnalysis<'a> {
         next_character
     }
 }
-
-#[cfg(test)]
-mod tests;
