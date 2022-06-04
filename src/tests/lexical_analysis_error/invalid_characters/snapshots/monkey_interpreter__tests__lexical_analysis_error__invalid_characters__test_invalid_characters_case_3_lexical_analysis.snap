@@ -1,5 +1,5 @@
 ---
-source: src/tests/invalid_characters/mod.rs
+source: src/tests/lexical_analysis_error/invalid_characters/mod.rs
 expression: error
 ---
 Err(

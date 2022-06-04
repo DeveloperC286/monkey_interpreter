@@ -1,0 +1,9 @@
+---
+source: src/tests/lexical_analysis_error/invalid_escaping_in_string_expression/mod.rs
+expression: error
+---
+Err(
+    IllegalEscaping(
+        'x',
+    ),
+)

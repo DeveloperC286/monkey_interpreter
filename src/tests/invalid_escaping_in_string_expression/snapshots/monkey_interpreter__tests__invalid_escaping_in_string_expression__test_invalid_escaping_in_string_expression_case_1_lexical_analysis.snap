@@ -1,9 +1,0 @@
----
-source: src/tests/invalid_escaping_in_string_expression/mod.rs
-expression: error
----
-Err(
-    IllegalEscaping(
-        'x',
-    ),
-)
