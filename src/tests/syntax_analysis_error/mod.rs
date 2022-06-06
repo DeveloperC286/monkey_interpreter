@@ -4,4 +4,5 @@ use super::*;
 mod macros;
 
 mod invalid_boolean_prefix_expression;
+mod invalid_integer_prefix_expression;
 mod invalid_let_statement;

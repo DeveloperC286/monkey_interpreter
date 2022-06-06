@@ -1,0 +1,8 @@
+---
+source: src/tests/syntax_analysis_error/invalid_integer_prefix_expression/mod.rs
+expression: tokens
+---
+[
+    Minus,
+    EndOfFile,
+]
