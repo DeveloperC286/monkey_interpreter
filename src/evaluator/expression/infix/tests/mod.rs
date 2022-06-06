@@ -5,15 +5,6 @@ use rstest::rstest;
     snapshot_name,
     case("(1 > 2) == 5", "test_evaluator_infix_type_mismatch_expressions_case1"),
     case(
-        "5 + TRUE; 5 + 10;",
-        "test_evaluator_infix_type_mismatch_expressions_case2"
-    ),
-    case("FALSE - 10;", "test_evaluator_infix_type_mismatch_expressions_case3"),
-    case(
-        "if (10 > 1) { return TRUE + 5; } return 1;",
-        "test_evaluator_infix_type_mismatch_expressions_case4"
-    ),
-    case(
         "\"this is a string\" == 3",
         "test_evaluator_infix_type_mismatch_expressions_case5"
     ),
@@ -23,25 +14,5 @@ use rstest::rstest;
     )
 )]
 fn test_evaluator_infix_type_mismatch_expressions(code: &str, snapshot_name: &str) {
-    assert_expected_returned_object!(code, snapshot_name);
-}
-
-#[rstest(
-    code,
-    snapshot_name,
-    case(
-        "true + TRUE",
-        "test_evaluator_infix_unknown_operator_expressions_case1"
-    ),
-    case(
-        "5 + 10; FALSE * FALSE; 7",
-        "test_evaluator_infix_unknown_operator_expressions_case2"
-    ),
-    case(
-        "if (5 < 10) { FALSE + FALSE }",
-        "test_evaluator_infix_unknown_operator_expressions_case3"
-    )
-)]
-fn test_evaluator_infix_unknown_operator_expressions(code: &str, snapshot_name: &str) {
     assert_expected_returned_object!(code, snapshot_name);
 }

@@ -1,0 +1,14 @@
+---
+source: src/tests/evaluator_error/type_mismatch_integer_infix_expression/mod.rs
+expression: tokens
+---
+[
+    String {
+        literal: " 123",
+    },
+    Minus,
+    Integer {
+        literal: 10,
+    },
+    EndOfFile,
+]

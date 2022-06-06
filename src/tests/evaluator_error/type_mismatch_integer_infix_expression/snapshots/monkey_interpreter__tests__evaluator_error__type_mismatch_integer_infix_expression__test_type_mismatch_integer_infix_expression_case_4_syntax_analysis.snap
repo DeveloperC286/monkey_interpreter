@@ -1,0 +1,17 @@
+---
+source: src/tests/evaluator_error/type_mismatch_integer_infix_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Infix {
+            left_hand: Integer {
+                literal: 10,
+            },
+            operator: Divide,
+            right_hand: Boolean {
+                boolean: False,
+            },
+        },
+    },
+]

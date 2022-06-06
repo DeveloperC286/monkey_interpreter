@@ -1,0 +1,17 @@
+---
+source: src/tests/evaluator_error/unknown_operator_integer_infix_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Infix {
+            left_hand: Boolean {
+                boolean: True,
+            },
+            operator: Multiply,
+            right_hand: Boolean {
+                boolean: True,
+            },
+        },
+    },
+]
