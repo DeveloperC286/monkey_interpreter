@@ -7,10 +7,6 @@ mod macros;
 
 pub(crate) mod model;
 
-#[cfg(test)]
-#[macro_use]
-mod tests;
-
 mod expression;
 mod statement;
 

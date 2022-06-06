@@ -23,6 +23,3 @@ impl<'a> SyntaxAnalysis<'a> {
         Ok(grouped_expression)
     }
 }
-
-#[cfg(test)]
-mod tests;
