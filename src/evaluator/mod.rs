@@ -5,10 +5,6 @@ use crate::syntax_analysis::model::syntax_tree_node::*;
 
 mod model;
 
-#[cfg(test)]
-#[macro_use]
-mod tests;
-
 mod expression;
 mod statement;
 
