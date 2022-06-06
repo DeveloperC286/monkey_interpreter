@@ -3,7 +3,6 @@ use rstest::rstest;
 #[rstest(
     code,
     snapshot_name,
-    case("!", "test_syntax_analysis_for_prefix_expression_syntax_errors_case1"),
     case("-;", "test_syntax_analysis_for_prefix_expression_syntax_errors_case2")
 )]
 fn test_syntax_analysis_for_prefix_expression_syntax_errors(code: &str, snapshot_name: &str) {

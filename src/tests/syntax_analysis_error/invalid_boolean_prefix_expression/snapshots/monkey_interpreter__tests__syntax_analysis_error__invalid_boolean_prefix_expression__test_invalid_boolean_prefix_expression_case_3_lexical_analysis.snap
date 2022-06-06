@@ -1,0 +1,14 @@
+---
+source: src/tests/syntax_analysis_error/invalid_boolean_prefix_expression/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "file",
+    },
+    Assign,
+    Not,
+    SemiColon,
+    EndOfFile,
+]
