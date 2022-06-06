@@ -1,0 +1,13 @@
+---
+source: src/tests/syntax_analysis_error/invalid_let_statement/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "UPPER_CASE_SNAKE_CASE",
+    },
+    Assign,
+    SemiColon,
+    EndOfFile,
+]

@@ -1,0 +1,7 @@
+---
+source: src/tests/syntax_analysis_error/invalid_let_statement/mod.rs
+expression: error
+---
+Err(
+    MissingLetIdentifier,
+)

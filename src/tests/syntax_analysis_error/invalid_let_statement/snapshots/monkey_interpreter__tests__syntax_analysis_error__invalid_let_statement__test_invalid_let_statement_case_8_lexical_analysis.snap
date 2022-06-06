@@ -1,0 +1,21 @@
+---
+source: src/tests/syntax_analysis_error/invalid_let_statement/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "timeout_ms",
+    },
+    Assign,
+    Integer {
+        literal: 5,
+    },
+    SemiColon,
+    Let,
+    Identifier {
+        literal: "timeout_ms_copy",
+    },
+    SemiColon,
+    EndOfFile,
+]
