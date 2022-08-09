@@ -1,5 +1,5 @@
 # Monkey Interpreter
-[![Version](https://img.shields.io/badge/Version-0.16.0-blue)](https://gitlab.com/DeveloperC/monkey_interpreter/-/releases)
+[![Latest Release](https://gitlab.com/DeveloperC/monkey_interpreter/-/badges/release.svg)](https://gitlab.com/DeveloperC/monkey_interpreter/-/releases)
 [![Pipeline Status](https://gitlab.com/DeveloperC/monkey_interpreter/badges/master/pipeline.svg)](https://gitlab.com/DeveloperC/monkey_interpreter/-/pipelines)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![License](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
