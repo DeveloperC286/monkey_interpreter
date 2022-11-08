@@ -9,6 +9,7 @@ mod boolean_infix_expression;
 mod boolean_prefix_expression;
 mod call_expression;
 mod edge_cases;
+mod environment;
 mod evaluator_error;
 mod fn_expression;
 mod identifier_expression;

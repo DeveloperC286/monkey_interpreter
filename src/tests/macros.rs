@@ -59,3 +59,21 @@ macro_rules! assert_environment {
         insta::assert_debug_snapshot!(format!("test_{}_environment", $snapshot_name), evaluator);
     };
 }
+
+macro_rules! assert_successive_environment {
+    ($evaluator:expr, $code:expr, $snapshot_name:expr) => {
+        // When
+        let evaluation = $evaluator
+            .evaluate(
+                crate::syntax_analysis::SyntaxAnalysis::from(
+                    crate::lexical_analysis::LexicalAnalysis::from($code).unwrap(),
+                )
+                .unwrap(),
+            )
+            .unwrap();
+
+        // Then
+        insta::assert_debug_snapshot!(format!("test_{}_evaluator", $snapshot_name), evaluation);
+        insta::assert_debug_snapshot!(format!("test_{}_environment", $snapshot_name), $evaluator);
+    };
+}
