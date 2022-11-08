@@ -44,8 +44,8 @@ impl Evaluator {
         for syntax_tree_node in block.nodes {
             object = self.evaluate_node(syntax_tree_node)?;
 
-            if let Object::Return { value: _ } = object.clone() {
-                break;
+            if let Object::Return { value: _ } = &object {
+                return Ok(object);
             }
         }
 
