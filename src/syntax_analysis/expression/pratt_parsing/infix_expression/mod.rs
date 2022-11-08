@@ -9,10 +9,7 @@ impl<'a> SyntaxAnalysis<'a> {
     ) -> Result<Expression, SyntaxError> {
         debug!("Parsing a infix expression.");
 
-        let operator = match self.tokens.next() {
-            Some(token) => token,
-            None => return Err(SyntaxError::NoTokenToParse),
-        };
+        let operator = self.tokens.next().ok_or(SyntaxError::NoTokenToParse)?;
 
         let precedence =
             crate::syntax_analysis::model::expression_precedence::get_current_expression_precedence(
