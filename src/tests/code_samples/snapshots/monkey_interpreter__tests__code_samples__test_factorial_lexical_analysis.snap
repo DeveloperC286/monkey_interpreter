@@ -1,0 +1,89 @@
+---
+source: src/tests/code_samples/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "fibonacci",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    If,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    Equals,
+    Integer {
+        literal: 0,
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Integer {
+        literal: 0,
+    },
+    ClosingCurlyBracket,
+    Else,
+    OpeningCurlyBracket,
+    If,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    Equals,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Integer {
+        literal: 1,
+    },
+    ClosingCurlyBracket,
+    Else,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "fibonacci",
+    },
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    Minus,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    Plus,
+    Identifier {
+        literal: "fibonacci",
+    },
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    Minus,
+    Integer {
+        literal: 2,
+    },
+    ClosingRoundBracket,
+    ClosingCurlyBracket,
+    ClosingCurlyBracket,
+    ClosingCurlyBracket,
+    Identifier {
+        literal: "fibonacci",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 9,
+    },
+    ClosingRoundBracket,
+    EndOfFile,
+]

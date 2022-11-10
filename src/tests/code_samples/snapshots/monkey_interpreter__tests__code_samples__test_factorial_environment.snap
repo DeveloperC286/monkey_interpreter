@@ -1,0 +1,113 @@
+---
+source: src/tests/code_samples/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "fibonacci": Function {
+                parameters: [
+                    "x",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: If {
+                                condition: Infix {
+                                    left_hand: Identifier {
+                                        identifier: "x",
+                                    },
+                                    operator: Equals,
+                                    right_hand: Integer {
+                                        literal: 0,
+                                    },
+                                },
+                                consequence: Block {
+                                    nodes: [
+                                        Expression {
+                                            expression: Integer {
+                                                literal: 0,
+                                            },
+                                        },
+                                    ],
+                                },
+                                alternative: Some(
+                                    Block {
+                                        nodes: [
+                                            Expression {
+                                                expression: If {
+                                                    condition: Infix {
+                                                        left_hand: Identifier {
+                                                            identifier: "x",
+                                                        },
+                                                        operator: Equals,
+                                                        right_hand: Integer {
+                                                            literal: 1,
+                                                        },
+                                                    },
+                                                    consequence: Block {
+                                                        nodes: [
+                                                            Expression {
+                                                                expression: Integer {
+                                                                    literal: 1,
+                                                                },
+                                                            },
+                                                        ],
+                                                    },
+                                                    alternative: Some(
+                                                        Block {
+                                                            nodes: [
+                                                                Expression {
+                                                                    expression: Infix {
+                                                                        left_hand: Call {
+                                                                            function: Identifier {
+                                                                                identifier: "fibonacci",
+                                                                            },
+                                                                            arguments: [
+                                                                                Infix {
+                                                                                    left_hand: Identifier {
+                                                                                        identifier: "x",
+                                                                                    },
+                                                                                    operator: Minus,
+                                                                                    right_hand: Integer {
+                                                                                        literal: 1,
+                                                                                    },
+                                                                                },
+                                                                            ],
+                                                                        },
+                                                                        operator: Plus,
+                                                                        right_hand: Call {
+                                                                            function: Identifier {
+                                                                                identifier: "fibonacci",
+                                                                            },
+                                                                            arguments: [
+                                                                                Infix {
+                                                                                    left_hand: Identifier {
+                                                                                        identifier: "x",
+                                                                                    },
+                                                                                    operator: Minus,
+                                                                                    right_hand: Integer {
+                                                                                        literal: 2,
+                                                                                    },
+                                                                                },
+                                                                            ],
+                                                                        },
+                                                                    },
+                                                                },
+                                                            ],
+                                                        },
+                                                    ),
+                                                },
+                                            },
+                                        ],
+                                    },
+                                ),
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+        sub_environment: None,
+    },
+}

@@ -8,6 +8,7 @@ mod boolean_expression;
 mod boolean_infix_expression;
 mod boolean_prefix_expression;
 mod call_expression;
+mod code_samples;
 mod edge_cases;
 mod environment;
 mod evaluator_error;

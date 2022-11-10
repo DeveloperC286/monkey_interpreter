@@ -1,0 +1,7 @@
+---
+source: src/tests/code_samples/mod.rs
+expression: evaluation
+---
+Integer {
+    value: 34,
+}
