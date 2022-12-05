@@ -22,11 +22,11 @@ thiserror = "1.0.37"
 
 [dev-dependencies]
 # For parameterised testing.
-rstest = "0.15.0"
+rstest = "0.16.0"
 rstest_reuse = "0.4.0"
 
 # For snapshot testing.
-insta = "1.21.0"
+insta = "1.22.0"
 
 
 [profile.release]
