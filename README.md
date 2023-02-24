@@ -46,7 +46,7 @@ If you do not trust the provided binaries another option is to compile your own 
 Checkout the code repository locally, change into the repository's directory and then build via Cargo.
 Using the `--release` flag produces an optimised binary but takes longer to compile.
 
-```
+```sh
 git clone git@gitlab.com:DeveloperC/monkey_interpreter.git
 cd monkey_interpreter/
 cargo build --release
@@ -58,7 +58,7 @@ The compiled binary is present in `target/release/monkey_interpreter`.
 ## Unit Testing
 The unit test suite has several parameterised tests, Cargo is used to set up and run all the unit tests.
 
-```
+```sh
 cargo test
 ```
 
