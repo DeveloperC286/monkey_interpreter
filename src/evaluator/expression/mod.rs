@@ -34,7 +34,7 @@ impl Evaluator {
                 consequence,
                 alternative,
             } => self.evaluate_if_expression(*condition, *consequence, *alternative),
-            Expression::Identifier { identifier } => Ok(self.environment.get(&identifier)),
+            Expression::Identifier { identifier } => Ok(self.environment.get(identifier)),
             Expression::Function { parameters, block } => {
                 self.evaluate_function_expression(parameters, *block)
             }
