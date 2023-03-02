@@ -4,6 +4,8 @@ use rstest_reuse::{self, *};
 #[macro_use]
 mod macros;
 
+use crate::tests::macros::INIT;
+
 mod boolean_expression;
 mod boolean_infix_expression;
 mod boolean_prefix_expression;
