@@ -24,6 +24,6 @@ fn test_invalid_let_statement_lexical_analysis(code: &str, snapshot_name: &str) 
 }
 
 #[apply(invalid_let_statement_cases)]
-fn test_invalid_let_statement_syntax_analysis(code: &str, snapshot_name: &str) {
+fn test_invalid_let_statement_syntax_analysis_error(code: &str, snapshot_name: &str) {
     assert_syntax_analysis_error!(code, snapshot_name);
 }

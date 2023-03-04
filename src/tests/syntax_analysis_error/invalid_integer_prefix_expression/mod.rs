@@ -16,6 +16,6 @@ fn test_invalid_integer_prefix_expression_lexical_analysis(code: &str, snapshot_
 }
 
 #[apply(invalid_integer_prefix_expression_cases)]
-fn test_invalid_integer_prefix_expression_syntax_analysis(code: &str, snapshot_name: &str) {
+fn test_invalid_integer_prefix_expression_syntax_analysis_error(code: &str, snapshot_name: &str) {
     assert_syntax_analysis_error!(code, snapshot_name);
 }
