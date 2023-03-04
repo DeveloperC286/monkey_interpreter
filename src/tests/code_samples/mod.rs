@@ -19,8 +19,8 @@ fn test_code_samples_syntax_analysis(name: &str) {
 }
 
 #[apply(code_samples)]
-fn test_code_samples_evaluator(name: &str) {
-    assert_evaluator!(&get_code(name), name);
+fn test_code_samples_evaluation(name: &str) {
+    assert_evaluation!(&get_code(name), name);
 }
 
 #[apply(code_samples)]

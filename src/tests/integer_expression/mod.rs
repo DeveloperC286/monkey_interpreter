@@ -20,8 +20,8 @@ fn test_integer_expression_syntax_analysis(code: &str, snapshot_name: &str) {
 }
 
 #[apply(integer_expression_cases)]
-fn test_integer_expression_evaluator(code: &str, snapshot_name: &str) {
-    assert_evaluator!(code, snapshot_name);
+fn test_integer_expression_evaluation(code: &str, snapshot_name: &str) {
+    assert_evaluation!(code, snapshot_name);
 }
 
 #[apply(integer_expression_cases)]

@@ -30,8 +30,8 @@ fn test_if_expression_syntax_analysis(code: &str, snapshot_name: &str) {
 }
 
 #[apply(if_expression_cases)]
-fn test_if_expression_evaluator(code: &str, snapshot_name: &str) {
-    assert_evaluator!(code, snapshot_name);
+fn test_if_expression_evaluation(code: &str, snapshot_name: &str) {
+    assert_evaluation!(code, snapshot_name);
 }
 
 #[apply(if_expression_cases)]

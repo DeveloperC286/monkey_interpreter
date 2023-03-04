@@ -15,8 +15,8 @@ fn test_edge_cases_syntax_analysis(code: &str, snapshot_name: &str) {
 }
 
 #[apply(edge_cases)]
-fn test_edge_cases_evaluator(code: &str, snapshot_name: &str) {
-    assert_evaluator!(code, snapshot_name);
+fn test_edge_cases_evaluation(code: &str, snapshot_name: &str) {
+    assert_evaluation!(code, snapshot_name);
 }
 
 #[apply(edge_cases)]

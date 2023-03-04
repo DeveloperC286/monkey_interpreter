@@ -25,6 +25,9 @@ fn test_unknown_operator_integer_infix_expression_syntax_analysis(code: &str, sn
 }
 
 #[apply(unknown_operator_integer_infix_expression_cases)]
-fn test_unknown_operator_integer_infix_expression_evaluator(code: &str, snapshot_name: &str) {
-    assert_evaluator_error!(code, snapshot_name);
+fn test_unknown_operator_integer_infix_expression_evaluation_error(
+    code: &str,
+    snapshot_name: &str,
+) {
+    assert_evaluation_error!(code, snapshot_name);
 }

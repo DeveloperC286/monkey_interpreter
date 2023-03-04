@@ -36,7 +36,7 @@ macro_rules! assert_syntax_analysis {
     };
 }
 
-macro_rules! assert_evaluator {
+macro_rules! assert_evaluation {
     ($code:expr, $snapshot_name:expr) => {
         INIT.call_once(|| {
             pretty_env_logger::init();
@@ -54,7 +54,7 @@ macro_rules! assert_evaluator {
             .unwrap();
 
         // Then
-        insta::assert_debug_snapshot!(format!("test_{}_evaluator", $snapshot_name), evaluation);
+        insta::assert_debug_snapshot!(format!("test_{}_evaluation", $snapshot_name), evaluation);
     };
 }
 
@@ -97,7 +97,7 @@ macro_rules! assert_successive_environment {
             .unwrap();
 
         // Then
-        insta::assert_debug_snapshot!(format!("test_{}_evaluator", $snapshot_name), evaluation);
+        insta::assert_debug_snapshot!(format!("test_{}_evaluation", $snapshot_name), evaluation);
         insta::assert_debug_snapshot!(format!("test_{}_environment", $snapshot_name), $evaluator);
     };
 }

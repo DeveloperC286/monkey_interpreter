@@ -1,4 +1,4 @@
-macro_rules! assert_evaluator_error {
+macro_rules! assert_evaluation_error {
     ($code:expr, $snapshot_name:expr) => {
         // When
         let mut evaluator = crate::evaluator::Evaluator::new();
@@ -11,6 +11,6 @@ macro_rules! assert_evaluator_error {
 
         // Then
         assert!(error.is_err());
-        insta::assert_debug_snapshot!(format!("test_{}_evaluator", $snapshot_name), error);
+        insta::assert_debug_snapshot!(format!("test_{}_evaluation", $snapshot_name), error);
     };
 }

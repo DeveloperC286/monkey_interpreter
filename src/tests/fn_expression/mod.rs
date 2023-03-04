@@ -23,8 +23,8 @@ fn test_fn_expression_syntax_analysis(code: &str, snapshot_name: &str) {
 }
 
 #[apply(fn_expression_cases)]
-fn test_fn_expression_evaluator(code: &str, snapshot_name: &str) {
-    assert_evaluator!(code, snapshot_name);
+fn test_fn_expression_evaluation(code: &str, snapshot_name: &str) {
+    assert_evaluation!(code, snapshot_name);
 }
 
 #[apply(fn_expression_cases)]
