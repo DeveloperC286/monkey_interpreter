@@ -5,6 +5,9 @@ macro_rules! assert_lexical_analysis_error {
 
         // Then
         assert!(error.is_err());
-        insta::assert_debug_snapshot!(format!("test_{}_lexical_analysis", $snapshot_name), error);
+        insta::assert_debug_snapshot!(
+            format!("test_{}_lexical_analysis_error", $snapshot_name),
+            error
+        );
     };
 }

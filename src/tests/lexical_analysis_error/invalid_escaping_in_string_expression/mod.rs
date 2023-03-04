@@ -12,6 +12,9 @@ use super::*;
 fn invalid_escaping_in_string_expression_cases(code: &str, snapshot_name: &str) {}
 
 #[apply(invalid_escaping_in_string_expression_cases)]
-fn test_invalid_escaping_in_string_expression_lexical_analysis(code: &str, snapshot_name: &str) {
+fn test_invalid_escaping_in_string_expression_lexical_analysis_error(
+    code: &str,
+    snapshot_name: &str,
+) {
     assert_lexical_analysis_error!(code, snapshot_name);
 }
