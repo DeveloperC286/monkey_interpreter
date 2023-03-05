@@ -9,7 +9,7 @@ macro_rules! assert_lexical_analysis {
         });
 
         // When
-        let tokens = crate::lexical_analysis::LexicalAnalysis::from($code).unwrap();
+        let tokens = assert_ok!(crate::lexical_analysis::LexicalAnalysis::from($code));
 
         // Then
         insta::assert_debug_snapshot!(format!("test_{}_lexical_analysis", $snapshot_name), tokens);
@@ -23,10 +23,9 @@ macro_rules! assert_syntax_analysis {
         });
 
         // When
-        let abstract_syntax_tree = crate::syntax_analysis::SyntaxAnalysis::from(
+        let abstract_syntax_tree = assert_ok!(crate::syntax_analysis::SyntaxAnalysis::from(
             crate::lexical_analysis::LexicalAnalysis::from($code).unwrap(),
-        )
-        .unwrap();
+        ));
 
         // Then
         insta::assert_debug_snapshot!(
@@ -44,14 +43,12 @@ macro_rules! assert_evaluation {
 
         // When
         let mut evaluator = crate::evaluator::Evaluator::new();
-        let evaluation = evaluator
-            .evaluate(
-                crate::syntax_analysis::SyntaxAnalysis::from(
-                    crate::lexical_analysis::LexicalAnalysis::from($code).unwrap(),
-                )
-                .unwrap(),
+        let evaluation = assert_ok!(evaluator.evaluate(
+            crate::syntax_analysis::SyntaxAnalysis::from(
+                crate::lexical_analysis::LexicalAnalysis::from($code).unwrap(),
             )
-            .unwrap();
+            .unwrap(),
+        ));
 
         // Then
         insta::assert_debug_snapshot!(format!("test_{}_evaluation", $snapshot_name), evaluation);
@@ -66,14 +63,12 @@ macro_rules! assert_environment {
 
         // When
         let mut evaluator = crate::evaluator::Evaluator::new();
-        let _evaluation = evaluator
-            .evaluate(
-                crate::syntax_analysis::SyntaxAnalysis::from(
-                    crate::lexical_analysis::LexicalAnalysis::from($code).unwrap(),
-                )
-                .unwrap(),
+        let _evaluation = assert_ok!(evaluator.evaluate(
+            crate::syntax_analysis::SyntaxAnalysis::from(
+                crate::lexical_analysis::LexicalAnalysis::from($code).unwrap(),
             )
-            .unwrap();
+            .unwrap(),
+        ));
 
         // Then
         insta::assert_debug_snapshot!(format!("test_{}_environment", $snapshot_name), evaluator);
@@ -87,17 +82,26 @@ macro_rules! assert_successive_environment {
         });
 
         // When
-        let evaluation = $evaluator
-            .evaluate(
-                crate::syntax_analysis::SyntaxAnalysis::from(
-                    crate::lexical_analysis::LexicalAnalysis::from($code).unwrap(),
-                )
-                .unwrap(),
+        let evaluation = assert_ok!($evaluator.evaluate(
+            crate::syntax_analysis::SyntaxAnalysis::from(
+                crate::lexical_analysis::LexicalAnalysis::from($code).unwrap(),
             )
-            .unwrap();
+            .unwrap(),
+        ));
 
         // Then
         insta::assert_debug_snapshot!(format!("test_{}_evaluation", $snapshot_name), evaluation);
         insta::assert_debug_snapshot!(format!("test_{}_environment", $snapshot_name), $evaluator);
+    };
+}
+
+macro_rules! assert_ok {
+    ($result:expr) => {
+        match $result {
+            Ok(value) => value,
+            Err(error) => {
+                panic!("Got the unexpected error {error:?}.");
+            }
+        }
     };
 }
