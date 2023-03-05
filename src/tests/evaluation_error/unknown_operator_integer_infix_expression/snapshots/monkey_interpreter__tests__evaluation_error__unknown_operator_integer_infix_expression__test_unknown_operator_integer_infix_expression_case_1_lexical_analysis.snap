@@ -1,0 +1,10 @@
+---
+source: src/tests/evaluation_error/unknown_operator_integer_infix_expression/mod.rs
+expression: tokens
+---
+[
+    False,
+    Plus,
+    True,
+    EndOfFile,
+]

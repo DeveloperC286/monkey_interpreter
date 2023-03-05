@@ -1,0 +1,7 @@
+---
+source: src/tests/evaluation_error/type_mismatch_boolean_infix_expression/mod.rs
+expression: error
+---
+Err(
+    TypeMismatch,
+)

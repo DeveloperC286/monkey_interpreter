@@ -1,0 +1,17 @@
+---
+source: src/tests/evaluation_error/type_mismatch_boolean_infix_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Infix {
+            left_hand: Integer {
+                literal: 82,
+            },
+            operator: NotEquals,
+            right_hand: String {
+                literal: "this is a string",
+            },
+        },
+    },
+]

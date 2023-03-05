@@ -1,0 +1,14 @@
+---
+source: src/tests/evaluation_error/type_mismatch_integer_prefix_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Prefix {
+            prefix: Not,
+            right_hand: Integer {
+                literal: 5,
+            },
+        },
+    },
+]

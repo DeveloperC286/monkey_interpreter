@@ -1,0 +1,14 @@
+---
+source: src/tests/evaluation_error/type_mismatch_integer_infix_expression/mod.rs
+expression: tokens
+---
+[
+    Integer {
+        literal: 10,
+    },
+    Plus,
+    String {
+        literal: " cant append",
+    },
+    EndOfFile,
+]

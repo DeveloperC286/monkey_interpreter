@@ -1,0 +1,17 @@
+---
+source: src/tests/evaluation_error/type_mismatch_integer_infix_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Infix {
+            left_hand: String {
+                literal: "456",
+            },
+            operator: Minus,
+            right_hand: Integer {
+                literal: 7,
+            },
+        },
+    },
+]

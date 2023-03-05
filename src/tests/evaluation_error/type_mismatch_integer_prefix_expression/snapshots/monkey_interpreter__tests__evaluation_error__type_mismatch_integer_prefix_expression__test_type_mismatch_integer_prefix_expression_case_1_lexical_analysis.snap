@@ -1,0 +1,11 @@
+---
+source: src/tests/evaluation_error/type_mismatch_integer_prefix_expression/mod.rs
+expression: tokens
+---
+[
+    Not,
+    Integer {
+        literal: 5,
+    },
+    EndOfFile,
+]

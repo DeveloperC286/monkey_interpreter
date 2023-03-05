@@ -13,7 +13,7 @@ mod call_expression;
 mod code_samples;
 mod edge_cases;
 mod environment;
-mod evaluator_error;
+mod evaluation_error;
 mod fn_expression;
 mod identifier_expression;
 mod if_expression;

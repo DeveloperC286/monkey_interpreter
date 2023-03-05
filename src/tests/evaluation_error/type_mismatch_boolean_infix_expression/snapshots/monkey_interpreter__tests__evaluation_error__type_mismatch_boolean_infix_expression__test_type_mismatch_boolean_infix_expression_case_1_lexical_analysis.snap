@@ -1,0 +1,20 @@
+---
+source: src/tests/evaluation_error/type_mismatch_boolean_infix_expression/mod.rs
+expression: tokens
+---
+[
+    OpeningRoundBracket,
+    Integer {
+        literal: 1,
+    },
+    GreaterThan,
+    Integer {
+        literal: 2,
+    },
+    ClosingRoundBracket,
+    Equals,
+    Integer {
+        literal: 5,
+    },
+    EndOfFile,
+]

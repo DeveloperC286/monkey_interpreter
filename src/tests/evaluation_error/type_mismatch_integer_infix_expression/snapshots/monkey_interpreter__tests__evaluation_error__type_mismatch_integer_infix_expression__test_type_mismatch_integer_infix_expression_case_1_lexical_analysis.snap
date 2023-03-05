@@ -1,0 +1,12 @@
+---
+source: src/tests/evaluation_error/type_mismatch_integer_infix_expression/mod.rs
+expression: tokens
+---
+[
+    Integer {
+        literal: 5,
+    },
+    Plus,
+    True,
+    EndOfFile,
+]
