@@ -1,0 +1,20 @@
+---
+source: src/tests/array_expression/mod.rs
+expression: tokens
+---
+[
+    OpeningSquareBracket,
+    Integer {
+        literal: 1,
+    },
+    Comma,
+    Integer {
+        literal: 2,
+    },
+    Comma,
+    Integer {
+        literal: 3,
+    },
+    ClosingSquareBracket,
+    EndOfFile,
+]

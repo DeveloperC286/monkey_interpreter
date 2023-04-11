@@ -6,6 +6,7 @@ mod macros;
 
 use crate::tests::macros::INIT;
 
+mod array_expression;
 mod boolean_expression;
 mod boolean_infix_expression;
 mod boolean_prefix_expression;

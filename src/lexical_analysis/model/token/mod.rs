@@ -32,6 +32,9 @@ pub(crate) enum Token {
     OpeningCurlyBracket,
     ClosingCurlyBracket,
 
+    OpeningSquareBracket,
+    ClosingSquareBracket,
+
     //Keywords
     Function,
     Let,
