@@ -115,6 +115,8 @@ impl<'a> LexicalAnalysis<'a> {
             ')' => Ok(Some(Token::ClosingRoundBracket)),
             '{' => Ok(Some(Token::OpeningCurlyBracket)),
             '}' => Ok(Some(Token::ClosingCurlyBracket)),
+            '[' => Ok(Some(Token::OpeningSquareBracket)),
+            ']' => Ok(Some(Token::ClosingSquareBracket)),
             ',' => Ok(Some(Token::Comma)),
             ';' => Ok(Some(Token::SemiColon)),
             '"' => Ok(Some(Token::String {
