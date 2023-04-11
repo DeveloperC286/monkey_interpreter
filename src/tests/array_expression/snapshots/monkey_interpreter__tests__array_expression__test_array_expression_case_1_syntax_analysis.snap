@@ -1,0 +1,21 @@
+---
+source: src/tests/array_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Array {
+            elements: [
+                Integer {
+                    literal: 1,
+                },
+                Integer {
+                    literal: 2,
+                },
+                Integer {
+                    literal: 3,
+                },
+            ],
+        },
+    },
+]

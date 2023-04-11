@@ -41,6 +41,7 @@ impl Evaluator {
                 function,
                 arguments,
             } => self.evaluate_call_expression(*function, arguments),
+            Expression::Array { elements: _ } => anyhow::bail!("UnknownOperator"),
         }
     }
 }

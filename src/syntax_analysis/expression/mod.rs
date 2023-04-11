@@ -3,6 +3,7 @@ use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
 use crate::syntax_analysis::model::syntax_tree_node::{Expression, SyntaxTreeNode};
 use crate::syntax_analysis::SyntaxAnalysis;
 
+mod array_expression;
 mod function_expression;
 mod grouped_expression;
 mod if_expression;
@@ -113,6 +114,11 @@ impl SyntaxAnalysis<'_> {
                     debug!("Found a function expression.");
                     let function_expression = self.parse_function_expression()?;
                     self.pratt_parsing(function_expression, expression_precedence)
+                }
+                Token::OpeningSquareBracket => {
+                    debug!("Found a array expression.");
+                    let array_expression = self.parse_array_expression()?;
+                    self.pratt_parsing(array_expression, expression_precedence)
                 }
                 _ => anyhow::bail!("Do not know how to parse {:?} as an expression.", *token),
             },
