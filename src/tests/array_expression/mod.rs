@@ -8,3 +8,8 @@ fn array_expression_cases(code: &str, snapshot_name: &str) {}
 fn test_array_expression_lexical_analysis(code: &str, snapshot_name: &str) {
     assert_lexical_analysis!(code, snapshot_name);
 }
+
+#[apply(array_expression_cases)]
+fn test_array_expression_syntax_analysis(code: &str, snapshot_name: &str) {
+    assert_syntax_analysis!(code, snapshot_name);
+}

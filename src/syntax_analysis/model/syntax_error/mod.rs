@@ -68,6 +68,16 @@ pub(crate) enum SyntaxError {
     #[error("CallExpressionParametersEndedAbruptly.")]
     CallExpressionParametersEndedAbruptly,
 
+    // Array expression.
+    #[error("A array expression must start with a OpeningSquareBracket token.")]
+    MissingArrayExpressionOpeningSquareBracket,
+    #[error("A array expression must end with a ClosingSquareBracket token.")]
+    MissingArrayExpressionClosingSquareBracket,
+    #[error("Elements must be comma seperate.")]
+    ArrayExpressionElementsNotCommaSeperated,
+    #[error("ArrayExpressionElementsEndedAbruptly.")]
+    ArrayExpressionElementsEndedAbruptly,
+
     // Expression unparsable.
     #[error("Do not know how to parse {0:?} as an expression.")]
     UnparsableAsExpression(Token),
