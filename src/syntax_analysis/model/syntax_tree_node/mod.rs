@@ -60,4 +60,7 @@ pub(crate) enum Expression {
         function: Box<Expression>,
         arguments: Vec<Expression>,
     },
+    Array {
+        elements: Vec<Expression>,
+    },
 }
