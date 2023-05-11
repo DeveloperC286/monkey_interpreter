@@ -10,8 +10,6 @@ pub(crate) enum EvaluationError {
     UnassignableObject,
     #[error("UncallableObject")]
     UncallableObject,
-    #[error("NotBooleanToken")]
-    NotBooleanToken,
     #[error("NotPrefixToken")]
     NotPrefixToken,
 }

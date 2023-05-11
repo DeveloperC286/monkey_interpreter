@@ -10,7 +10,7 @@ expression: abstract_syntax_tree
             },
             operator: Minus,
             right_hand: Boolean {
-                boolean: True,
+                literal: true,
             },
         },
     },

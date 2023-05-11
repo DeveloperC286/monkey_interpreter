@@ -7,7 +7,7 @@ expression: abstract_syntax_tree
         statement: Let {
             identifier: "is_file",
             expression: Boolean {
-                boolean: False,
+                literal: false,
             },
         },
     },

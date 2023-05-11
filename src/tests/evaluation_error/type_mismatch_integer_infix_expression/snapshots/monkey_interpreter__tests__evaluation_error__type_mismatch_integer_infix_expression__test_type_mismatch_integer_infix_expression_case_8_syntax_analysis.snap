@@ -10,7 +10,7 @@ expression: abstract_syntax_tree
             },
             operator: Divide,
             right_hand: Boolean {
-                boolean: True,
+                literal: true,
             },
         },
     },

@@ -7,7 +7,7 @@ expression: abstract_syntax_tree
         expression: Prefix {
             prefix: Not,
             right_hand: Boolean {
-                boolean: True,
+                literal: true,
             },
         },
     },

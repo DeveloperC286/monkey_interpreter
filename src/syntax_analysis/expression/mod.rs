@@ -71,10 +71,18 @@ impl<'a> SyntaxAnalysis<'a> {
                         }
                     }
                 }
-                Token::True | Token::False => {
-                    debug!("Found a boolean expression.");
-                    let boolean = self.tokens.next().unwrap().clone();
-                    self.pratt_parsing(Expression::Boolean { boolean }, expression_precedence)
+                Token::True => {
+                    debug!("Found a true boolean expression.");
+                    self.tokens.next().unwrap();
+                    self.pratt_parsing(Expression::Boolean { literal: true }, expression_precedence)
+                }
+                Token::False => {
+                    debug!("Found a false boolean expression.");
+                    self.tokens.next().unwrap();
+                    self.pratt_parsing(
+                        Expression::Boolean { literal: false },
+                        expression_precedence,
+                    )
                 }
                 Token::OpeningRoundBracket => {
                     debug!("Found a grouped expression.");

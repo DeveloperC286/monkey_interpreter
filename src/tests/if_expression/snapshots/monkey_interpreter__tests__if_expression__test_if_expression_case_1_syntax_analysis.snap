@@ -32,7 +32,7 @@ expression: abstract_syntax_tree
                                     Statement {
                                         statement: Return {
                                             expression: Boolean {
-                                                boolean: True,
+                                                literal: true,
                                             },
                                         },
                                     },
@@ -44,7 +44,7 @@ expression: abstract_syntax_tree
                     Statement {
                         statement: Return {
                             expression: Boolean {
-                                boolean: False,
+                                literal: false,
                             },
                         },
                     },

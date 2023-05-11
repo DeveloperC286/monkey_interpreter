@@ -7,7 +7,7 @@ expression: abstract_syntax_tree
         statement: Let {
             identifier: "UPPER_CASE_SNAKE_CASE",
             expression: Boolean {
-                boolean: False,
+                literal: false,
             },
         },
     },

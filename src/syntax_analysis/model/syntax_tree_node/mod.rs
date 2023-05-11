@@ -43,7 +43,7 @@ pub(crate) enum Expression {
         right_hand: Box<Expression>,
     },
     Boolean {
-        boolean: Token,
+        literal: bool,
     },
     If {
         condition: Box<Expression>,

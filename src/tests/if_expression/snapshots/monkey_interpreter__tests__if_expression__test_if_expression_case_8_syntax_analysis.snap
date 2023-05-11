@@ -18,7 +18,7 @@ expression: abstract_syntax_tree
                 nodes: [
                     Expression {
                         expression: Boolean {
-                            boolean: True,
+                            literal: true,
                         },
                     },
                 ],
@@ -28,7 +28,7 @@ expression: abstract_syntax_tree
                     nodes: [
                         Expression {
                             expression: Boolean {
-                                boolean: False,
+                                literal: false,
                             },
                         },
                     ],

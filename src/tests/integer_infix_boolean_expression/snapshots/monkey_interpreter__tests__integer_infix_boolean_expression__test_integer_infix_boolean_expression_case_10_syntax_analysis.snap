@@ -16,7 +16,7 @@ expression: abstract_syntax_tree
             },
             operator: Equals,
             right_hand: Boolean {
-                boolean: False,
+                literal: false,
             },
         },
     },

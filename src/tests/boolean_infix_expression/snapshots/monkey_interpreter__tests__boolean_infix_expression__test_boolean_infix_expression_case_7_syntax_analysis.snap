@@ -6,11 +6,11 @@ expression: abstract_syntax_tree
     Expression {
         expression: Infix {
             left_hand: Boolean {
-                boolean: True,
+                literal: true,
             },
             operator: NotEquals,
             right_hand: Boolean {
-                boolean: True,
+                literal: true,
             },
         },
     },

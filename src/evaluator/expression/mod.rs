@@ -20,7 +20,7 @@ impl Evaluator {
         match expression {
             Expression::Integer { literal } => self.evaluate_integer(literal),
             Expression::String { literal } => self.evaluate_string(literal),
-            Expression::Boolean { boolean } => self.evaluate_boolean(boolean),
+            Expression::Boolean { literal } => self.evaluate_boolean(literal),
             Expression::Prefix { prefix, right_hand } => {
                 self.evaluate_prefix_expression(prefix, *right_hand)
             }

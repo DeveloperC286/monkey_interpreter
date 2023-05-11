@@ -6,7 +6,7 @@ expression: abstract_syntax_tree
     Expression {
         expression: If {
             condition: Boolean {
-                boolean: False,
+                literal: false,
             },
             consequence: Block {
                 nodes: [
