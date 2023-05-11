@@ -53,14 +53,30 @@ impl<'a> SyntaxAnalysis<'a> {
                         expression_precedence,
                     )
                 }
-                Token::Not | Token::Minus => {
-                    debug!("Found a prefix expression.");
-                    let token = self.tokens.next().unwrap().clone();
+                Token::Not => {
+                    debug!("Found a not prefix expression.");
+                    self.tokens.next().unwrap();
 
                     match self.get_expression(ExpressionPrecedence::Prefix) {
                         Ok(right_hand) => self.pratt_parsing(
-                            Expression::Prefix {
-                                prefix: token,
+                            Expression::NotPrefix {
+                                right_hand: Box::new(right_hand),
+                            },
+                            expression_precedence,
+                        ),
+                        Err(_) => {
+                            // TODO what with other error?
+                            Err(SyntaxError::MissingRightHandToPrefixExpression)
+                        }
+                    }
+                }
+                Token::Minus => {
+                    debug!("Found a minus prefix expression.");
+                    self.tokens.next().unwrap();
+
+                    match self.get_expression(ExpressionPrecedence::Prefix) {
+                        Ok(right_hand) => self.pratt_parsing(
+                            Expression::MinusPrefix {
                                 right_hand: Box::new(right_hand),
                             },
                             expression_precedence,

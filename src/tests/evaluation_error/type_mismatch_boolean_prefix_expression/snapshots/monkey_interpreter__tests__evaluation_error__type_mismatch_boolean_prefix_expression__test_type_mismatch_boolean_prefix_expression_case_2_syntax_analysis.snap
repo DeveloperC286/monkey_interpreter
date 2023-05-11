@@ -4,8 +4,7 @@ expression: abstract_syntax_tree
 ---
 [
     Expression {
-        expression: Prefix {
-            prefix: Minus,
+        expression: MinusPrefix {
             right_hand: Boolean {
                 literal: true,
             },

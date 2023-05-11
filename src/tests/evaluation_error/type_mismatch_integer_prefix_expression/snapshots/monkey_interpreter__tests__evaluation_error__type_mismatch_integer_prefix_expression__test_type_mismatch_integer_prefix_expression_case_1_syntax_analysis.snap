@@ -4,8 +4,7 @@ expression: abstract_syntax_tree
 ---
 [
     Expression {
-        expression: Prefix {
-            prefix: Not,
+        expression: NotPrefix {
             right_hand: Integer {
                 literal: 5,
             },

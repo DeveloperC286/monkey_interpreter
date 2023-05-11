@@ -33,8 +33,10 @@ pub(crate) enum Expression {
     String {
         literal: String,
     },
-    Prefix {
-        prefix: Token,
+    NotPrefix {
+        right_hand: Box<Expression>,
+    },
+    MinusPrefix {
         right_hand: Box<Expression>,
     },
     Infix {

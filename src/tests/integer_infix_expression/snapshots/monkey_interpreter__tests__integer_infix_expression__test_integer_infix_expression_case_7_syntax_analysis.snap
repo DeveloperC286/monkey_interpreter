@@ -5,8 +5,7 @@ expression: abstract_syntax_tree
 [
     Expression {
         expression: Infix {
-            left_hand: Prefix {
-                prefix: Minus,
+            left_hand: MinusPrefix {
                 right_hand: Integer {
                     literal: 5,
                 },

@@ -14,8 +14,7 @@ expression: abstract_syntax_tree
     Statement {
         statement: Let {
             identifier: "is_directory",
-            expression: Prefix {
-                prefix: Not,
+            expression: NotPrefix {
                 right_hand: Identifier {
                     identifier: "is_file",
                 },

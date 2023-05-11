@@ -21,8 +21,11 @@ impl Evaluator {
             Expression::Integer { literal } => self.evaluate_integer(literal),
             Expression::String { literal } => self.evaluate_string(literal),
             Expression::Boolean { literal } => self.evaluate_boolean(literal),
-            Expression::Prefix { prefix, right_hand } => {
-                self.evaluate_prefix_expression(prefix, *right_hand)
+            Expression::NotPrefix { right_hand } => {
+                self.evaluate_not_prefix_expression(*right_hand)
+            }
+            Expression::MinusPrefix { right_hand } => {
+                self.evaluate_minus_prefix_expression(*right_hand)
             }
             Expression::Infix {
                 left_hand,
