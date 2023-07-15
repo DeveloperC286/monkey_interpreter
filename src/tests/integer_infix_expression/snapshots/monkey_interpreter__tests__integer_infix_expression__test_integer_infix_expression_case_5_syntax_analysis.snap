@@ -4,11 +4,10 @@ expression: abstract_syntax_tree
 ---
 [
     Expression {
-        expression: Infix {
+        expression: MultiplyInfix {
             left_hand: Integer {
                 literal: 3,
             },
-            operator: Multiply,
             right_hand: Integer {
                 literal: 4,
             },

@@ -16,28 +16,26 @@ impl<'a> SyntaxAnalysis<'a> {
             crate::syntax_analysis::model::expression_precedence::get_current_expression_precedence(
                 operator,
             );
-        match operator {
-            Token::Plus => {
-                self.get_expression(precedence)
-                    .map(|right_hand| Expression::PlusInfix {
-                        left_hand: Box::new(left_hand),
-                        right_hand: Box::new(right_hand),
-                    })
-            }
-            Token::Minus => {
-                self.get_expression(precedence)
-                    .map(|right_hand| Expression::MinusInfix {
-                        left_hand: Box::new(left_hand),
-                        right_hand: Box::new(right_hand),
-                    })
-            }
-            _ => self
-                .get_expression(precedence)
-                .map(|right_hand| Expression::Infix {
+
+        self.get_expression(precedence)
+            .map(|right_hand| match operator {
+                Token::Plus => Expression::PlusInfix {
+                    left_hand: Box::new(left_hand),
+                    right_hand: Box::new(right_hand),
+                },
+                Token::Minus => Expression::MinusInfix {
+                    left_hand: Box::new(left_hand),
+                    right_hand: Box::new(right_hand),
+                },
+                Token::Multiply => Expression::MultiplyInfix {
+                    left_hand: Box::new(left_hand),
+                    right_hand: Box::new(right_hand),
+                },
+                _ => Expression::Infix {
                     left_hand: Box::new(left_hand),
                     operator: operator.clone(),
                     right_hand: Box::new(right_hand),
-                }),
-        }
+                },
+            })
     }
 }

@@ -4,7 +4,7 @@ expression: abstract_syntax_tree
 ---
 [
     Expression {
-        expression: Infix {
+        expression: MultiplyInfix {
             left_hand: MinusInfix {
                 left_hand: Integer {
                     literal: 5,
@@ -13,7 +13,6 @@ expression: abstract_syntax_tree
                     literal: 10,
                 },
             },
-            operator: Multiply,
             right_hand: Integer {
                 literal: 10,
             },

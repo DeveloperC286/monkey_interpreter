@@ -47,6 +47,22 @@ impl Evaluator {
         }
     }
 
+    pub(super) fn evaluate_multiply_infix_expression(
+        &mut self,
+        left_hand: Expression,
+        right_hand: Expression,
+    ) -> Result<Object, EvaluationError> {
+        match self.evaluate_expression(left_hand)? {
+            Object::Integer { value: left_value } => match self.evaluate_expression(right_hand)? {
+                Object::Integer { value: right_value } => Ok(Object::Integer {
+                    value: left_value * right_value,
+                }),
+                _ => Err(EvaluationError::TypeMismatch),
+            },
+            _ => Err(EvaluationError::TypeMismatch),
+        }
+    }
+
     pub(super) fn evaluate_infix_expression(
         &mut self,
         left_hand: Expression,
@@ -72,9 +88,6 @@ impl Evaluator {
         match self.evaluate_expression(left_hand)? {
             Object::Integer { value: left_value } => match self.evaluate_expression(right_hand)? {
                 Object::Integer { value: right_value } => match operator_token {
-                    Token::Multiply => Ok(Object::Integer {
-                        value: left_value * right_value,
-                    }),
                     Token::Divide => Ok(Object::Integer {
                         value: left_value / right_value,
                     }),

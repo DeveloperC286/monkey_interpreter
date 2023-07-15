@@ -12,11 +12,10 @@ expression: abstract_syntax_tree
                 block: Block {
                     nodes: [
                         Expression {
-                            expression: Infix {
+                            expression: MultiplyInfix {
                                 left_hand: Identifier {
                                     identifier: "x",
                                 },
-                                operator: Multiply,
                                 right_hand: Integer {
                                     literal: 2,
                                 },

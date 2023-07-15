@@ -4,7 +4,6 @@ use super::*;
 #[rstest(
     code,
     snapshot_name,
-    case("TRUE * TRUE", "unknown_operator_integer_infix_expression_case_3"),
     case("false / false", "unknown_operator_integer_infix_expression_case_4")
 )]
 fn unknown_operator_integer_infix_expression_cases(code: &str, snapshot_name: &str) {}

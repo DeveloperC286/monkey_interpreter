@@ -4,18 +4,11 @@ use super::*;
 #[rstest(
     code,
     snapshot_name,
-    case("TRUE * 9", "type_mismatch_integer_infix_expression_case_3"),
     case("10 / false", "type_mismatch_integer_infix_expression_case_4"),
-    case(
-        "FALSE * \"can't multiply\"",
-        "type_mismatch_integer_infix_expression_case_7"
-    ),
     case(
         "\"divide me \" / TRUE",
         "type_mismatch_integer_infix_expression_case_8"
-    ),
-    case("\"456\" * 4", "type_mismatch_integer_infix_expression_case_13"),
-    case("12 * \"muliply\"", "type_mismatch_integer_infix_expression_case_14")
+    )
 )]
 fn type_mismatch_integer_infix_expression_cases(code: &str, snapshot_name: &str) {}
 

@@ -1,5 +1,5 @@
 ---
-source: src/tests/evaluation_error/type_mismatch_integer_infix_expression/mod.rs
+source: src/tests/evaluation_error/type_mismatch_multiply_infix_expression/mod.rs
 expression: tokens
 ---
 [

@@ -8,11 +8,10 @@ expression: abstract_syntax_tree
             left_hand: Integer {
                 literal: 5,
             },
-            right_hand: Infix {
+            right_hand: MultiplyInfix {
                 left_hand: Integer {
                     literal: 10,
                 },
-                operator: Multiply,
                 right_hand: Integer {
                     literal: 10,
                 },
