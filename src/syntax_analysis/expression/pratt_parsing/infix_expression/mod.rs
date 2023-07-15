@@ -24,7 +24,13 @@ impl<'a> SyntaxAnalysis<'a> {
                         right_hand: Box::new(right_hand),
                     })
             }
-
+            Token::Minus => {
+                self.get_expression(precedence)
+                    .map(|right_hand| Expression::MinusInfix {
+                        left_hand: Box::new(left_hand),
+                        right_hand: Box::new(right_hand),
+                    })
+            }
             _ => self
                 .get_expression(precedence)
                 .map(|right_hand| Expression::Infix {

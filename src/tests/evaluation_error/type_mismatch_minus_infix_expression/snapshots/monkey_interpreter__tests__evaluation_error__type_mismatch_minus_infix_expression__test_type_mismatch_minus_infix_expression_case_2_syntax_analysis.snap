@@ -1,14 +1,13 @@
 ---
-source: src/tests/evaluation_error/type_mismatch_integer_infix_expression/mod.rs
+source: src/tests/evaluation_error/type_mismatch_minus_infix_expression/mod.rs
 expression: abstract_syntax_tree
 ---
 [
     Expression {
-        expression: Infix {
+        expression: MinusInfix {
             left_hand: Integer {
                 literal: 10,
             },
-            operator: Minus,
             right_hand: Boolean {
                 literal: true,
             },

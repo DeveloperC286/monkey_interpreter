@@ -4,13 +4,12 @@ expression: abstract_syntax_tree
 ---
 [
     Expression {
-        expression: Infix {
+        expression: MinusInfix {
             left_hand: MinusPrefix {
                 right_hand: Integer {
                     literal: 3,
                 },
             },
-            operator: Minus,
             right_hand: MinusPrefix {
                 right_hand: Integer {
                     literal: 3,

@@ -4,11 +4,10 @@ expression: abstract_syntax_tree
 ---
 [
     Expression {
-        expression: Infix {
+        expression: MinusInfix {
             left_hand: Integer {
                 literal: 6,
             },
-            operator: Minus,
             right_hand: Integer {
                 literal: 6,
             },

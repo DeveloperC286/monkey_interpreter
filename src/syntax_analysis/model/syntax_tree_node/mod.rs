@@ -43,6 +43,10 @@ pub(crate) enum Expression {
         left_hand: Box<Expression>,
         right_hand: Box<Expression>,
     },
+    MinusInfix {
+        left_hand: Box<Expression>,
+        right_hand: Box<Expression>,
+    },
     Infix {
         left_hand: Box<Expression>,
         operator: Token,

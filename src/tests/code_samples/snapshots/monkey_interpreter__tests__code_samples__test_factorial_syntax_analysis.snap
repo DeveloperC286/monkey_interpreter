@@ -65,11 +65,10 @@ expression: abstract_syntax_tree
                                                                                 identifier: "fibonacci",
                                                                             },
                                                                             arguments: [
-                                                                                Infix {
+                                                                                MinusInfix {
                                                                                     left_hand: Identifier {
                                                                                         identifier: "x",
                                                                                     },
-                                                                                    operator: Minus,
                                                                                     right_hand: Integer {
                                                                                         literal: 1,
                                                                                     },
@@ -81,11 +80,10 @@ expression: abstract_syntax_tree
                                                                                 identifier: "fibonacci",
                                                                             },
                                                                             arguments: [
-                                                                                Infix {
+                                                                                MinusInfix {
                                                                                     left_hand: Identifier {
                                                                                         identifier: "x",
                                                                                     },
-                                                                                    operator: Minus,
                                                                                     right_hand: Integer {
                                                                                         literal: 2,
                                                                                     },
