@@ -25,7 +25,7 @@ impl Evaluator {
 
         match object {
             Object::Integer { value } => Ok(Object::Integer { value: -value }),
-            _ => Err(EvaluationError::UnknownOperator),
+            _ => Err(EvaluationError::TypeMismatch),
         }
     }
 }
