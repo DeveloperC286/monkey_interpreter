@@ -58,7 +58,7 @@ Evaluator {
                                                         Block {
                                                             nodes: [
                                                                 Expression {
-                                                                    expression: Infix {
+                                                                    expression: PlusInfix {
                                                                         left_hand: Call {
                                                                             function: Identifier {
                                                                                 identifier: "fibonacci",
@@ -75,7 +75,6 @@ Evaluator {
                                                                                 },
                                                                             ],
                                                                         },
-                                                                        operator: Plus,
                                                                         right_hand: Call {
                                                                             function: Identifier {
                                                                                 identifier: "fibonacci",

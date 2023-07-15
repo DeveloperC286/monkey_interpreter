@@ -4,11 +4,9 @@ use super::*;
 #[rstest(
     code,
     snapshot_name,
-    case("5 + TRUE", "type_mismatch_integer_infix_expression_case_1"),
     case("10 - TRUE", "type_mismatch_integer_infix_expression_case_2"),
     case("TRUE * 9", "type_mismatch_integer_infix_expression_case_3"),
     case("10 / false", "type_mismatch_integer_infix_expression_case_4"),
-    case("\"123\" + false", "type_mismatch_integer_infix_expression_case_5"),
     case(
         "true - \"this is a string\"",
         "type_mismatch_integer_infix_expression_case_6"
@@ -21,12 +19,7 @@ use super::*;
         "\"divide me \" / TRUE",
         "type_mismatch_integer_infix_expression_case_8"
     ),
-    case(
-        "10 + \" cant append\"",
-        "type_mismatch_integer_infix_expression_case_9"
-    ),
     case("\" 123\" - 10 ", "type_mismatch_integer_infix_expression_case_10"),
-    case("\"456\" + 7", "type_mismatch_integer_infix_expression_case_11"),
     case("\"456\" - 7", "type_mismatch_integer_infix_expression_case_12"),
     case("\"456\" * 4", "type_mismatch_integer_infix_expression_case_13"),
     case("12 * \"muliply\"", "type_mismatch_integer_infix_expression_case_14")

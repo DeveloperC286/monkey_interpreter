@@ -18,11 +18,10 @@ expression: abstract_syntax_tree
                 nodes: [
                     Statement {
                         statement: Return {
-                            expression: Infix {
+                            expression: PlusInfix {
                                 left_hand: Integer {
                                     literal: 1,
                                 },
-                                operator: Plus,
                                 right_hand: Integer {
                                     literal: 5,
                                 },

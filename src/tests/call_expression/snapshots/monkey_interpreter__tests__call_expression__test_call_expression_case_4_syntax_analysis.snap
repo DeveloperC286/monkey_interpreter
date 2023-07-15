@@ -13,11 +13,10 @@ expression: abstract_syntax_tree
                 block: Block {
                     nodes: [
                         Expression {
-                            expression: Infix {
+                            expression: PlusInfix {
                                 left_hand: Identifier {
                                     identifier: "x",
                                 },
-                                operator: Plus,
                                 right_hand: Identifier {
                                     identifier: "y",
                                 },

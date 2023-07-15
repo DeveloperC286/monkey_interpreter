@@ -5,6 +5,32 @@ use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::model::syntax_tree_node::Expression;
 
 impl Evaluator {
+    pub(super) fn evaluate_plus_infix_expression(
+        &mut self,
+        left_hand: Expression,
+        right_hand: Expression,
+    ) -> Result<Object, EvaluationError> {
+        match self.evaluate_expression(left_hand)? {
+            Object::Integer { value: left_value } => match self.evaluate_expression(right_hand)? {
+                Object::Integer { value: right_value } => Ok(Object::Integer {
+                    value: left_value + right_value,
+                }),
+                _ => Err(EvaluationError::TypeMismatch),
+            },
+            Object::String { value: left_value } => match self.evaluate_expression(right_hand)? {
+                Object::String { value: right_value } => {
+                    let mut concatenated = left_value;
+                    concatenated.push_str(&right_value);
+                    Ok(Object::String {
+                        value: concatenated,
+                    })
+                }
+                _ => Err(EvaluationError::TypeMismatch),
+            },
+            _ => Err(EvaluationError::TypeMismatch),
+        }
+    }
+
     pub(super) fn evaluate_infix_expression(
         &mut self,
         left_hand: Expression,
@@ -30,9 +56,6 @@ impl Evaluator {
         match self.evaluate_expression(left_hand)? {
             Object::Integer { value: left_value } => match self.evaluate_expression(right_hand)? {
                 Object::Integer { value: right_value } => match operator_token {
-                    Token::Plus => Ok(Object::Integer {
-                        value: left_value + right_value,
-                    }),
                     Token::Minus => Ok(Object::Integer {
                         value: left_value - right_value,
                     }),
@@ -82,13 +105,6 @@ impl Evaluator {
                         true => Ok(Object::True),
                         false => Ok(Object::False),
                     },
-                    Token::Plus => {
-                        let mut concatenated = left_value;
-                        concatenated.push_str(&right_value);
-                        Ok(Object::String {
-                            value: concatenated,
-                        })
-                    }
                     _ => Err(EvaluationError::UnknownOperator),
                 },
                 _ => Err(EvaluationError::TypeMismatch),

@@ -11,11 +11,10 @@ Function {
         nodes: [
             Statement {
                 statement: Return {
-                    expression: Infix {
+                    expression: PlusInfix {
                         left_hand: Identifier {
                             identifier: "x",
                         },
-                        operator: Plus,
                         right_hand: Identifier {
                             identifier: "y",
                         },

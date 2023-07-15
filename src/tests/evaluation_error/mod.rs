@@ -7,4 +7,5 @@ mod type_mismatch_boolean_infix_expression;
 mod type_mismatch_boolean_prefix_expression;
 mod type_mismatch_integer_infix_expression;
 mod type_mismatch_integer_prefix_expression;
+mod type_mismatch_plus_infix_expression;
 mod unknown_operator_integer_infix_expression;

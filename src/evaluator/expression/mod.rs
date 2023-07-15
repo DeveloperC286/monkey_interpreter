@@ -27,6 +27,10 @@ impl Evaluator {
             Expression::MinusPrefix { right_hand } => {
                 self.evaluate_minus_prefix_expression(*right_hand)
             }
+            Expression::PlusInfix {
+                left_hand,
+                right_hand,
+            } => self.evaluate_plus_infix_expression(*left_hand, *right_hand),
             Expression::Infix {
                 left_hand,
                 operator,
