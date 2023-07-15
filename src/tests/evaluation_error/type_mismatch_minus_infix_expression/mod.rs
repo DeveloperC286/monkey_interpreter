@@ -10,8 +10,8 @@ use super::*;
         "true - \"this is a string\"",
         "type_mismatch_minus_infix_expression_case_3"
     ),
-    case("\" 123\" - 10 ", "type_mismatch_minus_infix_expression_case_4"),
-    case("\"456\" - 7", "type_mismatch_minus_infix_expression_case_5")
+    case("\"123\" - 10", "type_mismatch_minus_infix_expression_case_4"),
+    case("7 - \"456\"", "type_mismatch_minus_infix_expression_case_5")
 )]
 fn type_mismatch_minus_infix_expression_cases(code: &str, snapshot_name: &str) {}
 

@@ -5,11 +5,11 @@ expression: abstract_syntax_tree
 [
     Expression {
         expression: MinusInfix {
-            left_hand: String {
-                literal: "456",
-            },
-            right_hand: Integer {
+            left_hand: Integer {
                 literal: 7,
+            },
+            right_hand: String {
+                literal: "456",
             },
         },
     },

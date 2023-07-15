@@ -3,12 +3,12 @@ source: src/tests/evaluation_error/type_mismatch_minus_infix_expression/mod.rs
 expression: tokens
 ---
 [
-    String {
-        literal: "456",
-    },
-    Minus,
     Integer {
         literal: 7,
+    },
+    Minus,
+    String {
+        literal: "456",
     },
     EndOfFile,
 ]
