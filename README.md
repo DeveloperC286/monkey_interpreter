@@ -64,4 +64,4 @@ cargo test
 
 
 ## Issues/Feature Requests
-To report a bug/issue or request a new feature use [https://gitlab.com/DeveloperC/monkey_interpreter/-/issues](https://gitlab.com/DeveloperC/monkey_interpreter/-/issues).
+To report a bug/issue or request a new feature use [https://github.com/DeveloperC286/monkey_interpreter/issues](https://github.com/DeveloperC286/monkey_interpreter/issues).
