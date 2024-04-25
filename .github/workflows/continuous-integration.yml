@@ -1,0 +1,39 @@
+name: Continuous Integration (CI)
+
+on: pull_request
+
+env:
+  # Forcing Earthly to use colours, to make reading output easier.
+  FORCE_COLOR: 1
+
+jobs:
+  rust-formatting:
+    name: Rust Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Earthly v0.8.6.
+        run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.6/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
+      - name: Checkout code.
+        uses: actions/checkout@v3
+      - name: Check Rust formatting.
+        run: earthly --ci +check-rust-formatting
+  shell-formatting:
+    name: Shell Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Earthly v0.8.6.
+        run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.6/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
+      - name: Checkout code.
+        uses: actions/checkout@v3
+      - name: Check Shell formatting.
+        run: earthly --ci +check-shell-formatting
+  yaml-formatting:
+    name: YAML Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Earthly v0.8.6.
+        run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.6/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
+      - name: Checkout code.
+        uses: actions/checkout@v3
+      - name: Check YAML formatting.
+        run: earthly --ci +check-yaml-formatting
