@@ -130,3 +130,11 @@ check-linting:
     BUILD +check-rust-linting
     BUILD +check-shell-linting
     BUILD +check-github-actions-workflows-linting
+
+
+compile:
+    FROM +rust-base
+    DO +COPY_SOURCECODE
+    RUN ./ci/compile.sh
+    SAVE ARTIFACT "target/" AS LOCAL "./"
+    SAVE ARTIFACT "Cargo.lock" AS LOCAL "./"
