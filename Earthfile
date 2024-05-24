@@ -138,3 +138,9 @@ compile:
     RUN ./ci/compile.sh
     SAVE ARTIFACT "target/" AS LOCAL "./"
     SAVE ARTIFACT "Cargo.lock" AS LOCAL "./"
+
+
+unit-test:
+    FROM +rust-base
+    DO +COPY_SOURCECODE
+    RUN ./ci/unit-test.sh
