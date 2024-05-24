@@ -20,3 +20,16 @@ jobs:
         uses: actions/checkout@v3
       - name: Check formatting.
         run: earthly --ci +check-${{ matrix.language }}-formatting
+  linting:
+    name: Linting
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        language: [rust, shell]
+    steps:
+      - name: Download Earthly v0.8.12.
+        run: "sudo /bin/sh -c 'wget https://github.com/earthly/earthly/releases/download/v0.8.12/earthly-linux-amd64 -O /usr/local/bin/earthly && chmod +x /usr/local/bin/earthly'"
+      - name: Checkout code.
+        uses: actions/checkout@v3
+      - name: Check linting.
+        run: earthly --ci +check-${{ matrix.language }}-linting

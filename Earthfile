@@ -25,6 +25,14 @@ check-clean-git-history:
     RUN ./ci/check-clean-git-history.sh --from-reference "${from_reference}"
 
 
+check-conventional-commits-linting:
+    FROM +rust-base
+    RUN cargo install conventional_commits_linter --version 0.12.3 --locked
+    DO +COPY_METADATA
+    ARG from_reference="origin/HEAD"
+    RUN ./ci/check-conventional-commits-linting.sh --from-reference "${from_reference}"
+
+
 COPY_SOURCECODE:
     COMMAND
     DO +COPY_CI_DATA
@@ -72,13 +80,6 @@ check-formatting:
     BUILD +check-yaml-formatting
 
 
-fix-rust-formatting:
-    FROM +rust-base
-    DO +COPY_SOURCECODE
-    RUN ./ci/fix-rust-formatting.sh
-    SAVE ARTIFACT "src/" AS LOCAL "./"
-
-
 fix-shell-formatting:
     FROM +shell-formatting-base
     RUN ./ci/fix-shell-formatting.sh
@@ -97,12 +98,25 @@ fix-formatting:
     BUILD +fix-yaml-formatting
 
 
-check-conventional-commits-linting:
+check-rust-linting:
     FROM +rust-base
-    RUN cargo install conventional_commits_linter --version 0.12.3 --locked
-    DO +COPY_METADATA
-    ARG from_reference="origin/HEAD"
-    RUN ./ci/check-conventional-commits-linting.sh --from-reference "${from_reference}"
+	RUN rustup component add clippy
+    DO +COPY_SOURCECODE
+    RUN ./ci/check-rust-linting.sh
+
+
+ubuntu-base:
+    FROM ubuntu:22.04
+    # https://askubuntu.com/questions/462690/what-does-apt-get-fix-missing-do-and-when-is-it-useful
+    RUN apt-get update --fix-missing
+    WORKDIR /tmp/starling-bank-technical-challenge
+
+
+check-shell-linting:
+    FROM +ubuntu-base
+    RUN apt-get install shellcheck -y
+    DO +COPY_CI_DATA
+    RUN ./ci/check-shell-linting.sh
 
 
 check-github-actions-workflows-linting:
@@ -110,3 +124,9 @@ check-github-actions-workflows-linting:
     RUN go install github.com/rhysd/actionlint/cmd/actionlint@v1.6.26
     DO +COPY_CI_DATA
     RUN ./ci/check-github-actions-workflows-linting.sh
+
+
+check-linting:
+    BUILD +check-rust-linting
+    BUILD +check-shell-linting
+    BUILD +check-github-actions-workflows-linting
