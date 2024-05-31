@@ -5,9 +5,6 @@ use crate::lexical_analysis::model::lexical_error::LexicalError;
 use crate::lexical_analysis::model::token::Token;
 use crate::lexical_analysis::utilities::*;
 
-#[macro_use]
-mod macros;
-
 pub(crate) mod model;
 mod utilities;
 
@@ -21,76 +18,98 @@ impl<'a> LexicalAnalysis<'a> {
             source_code: code.chars().peekable(),
         };
 
-        lexical_analysis.get_tokens()
+        lexical_analysis.parse_source_code()
     }
 
-    fn get_tokens(&mut self) -> Result<Vec<Token>, LexicalError> {
-        fn get_token_from(from: &str) -> Result<Token, LexicalError> {
-            match (parse_to_keyword_or_identifier(from), parse_to_integer(from)) {
-                (Some(token), None) => Ok(token),
-                (None, Some(token)) => Ok(token),
-
-                (_, _) => Err(LexicalError::UnparsableContext(from.to_string())),
+    fn parse_source_code(&mut self) -> Result<Vec<Token>, LexicalError> {
+        fn parse_context(context: &str) -> Result<Token, LexicalError> {
+            match (
+                parse_integer(context),
+                parse_keyword(context),
+                parse_identifier(context),
+            ) {
+                (Some(integer), None, None) => Ok(integer),
+                // When it is a valid keyword and identifier, then it is a keyword.
+                (None, Some(keyword), _) => Ok(keyword),
+                (None, None, Some(identifier)) => Ok(identifier),
+                (_, _, _) => Err(LexicalError::UnparsableContext(context.to_string())),
             }
         }
 
-        let mut tokens = Vec::new();
-        let mut current_non_token_stream: String = String::new();
+        macro_rules! add_token {
+            ($tokens:expr, $token:expr) => {
+                debug!("Parsed the token '{:?}'.", $token);
+                $tokens.push($token);
+            };
+        }
 
+        macro_rules! parse_context {
+            ($tokens:expr, $context:expr) => {
+                if !$context.is_empty() {
+                    trace!("Attempting to parse the context {:?} to a token.", $context);
+                    add_token!($tokens, parse_context(&$context)?);
+                    $context.clear();
+                }
+            };
+        }
+
+        let mut tokens = Vec::new();
+        let mut context: String = String::new();
+
+        info!("Starting Lexical Analysis.");
         loop {
             match self.source_code.next() {
-                Some(next_character) => match next_character {
+                Some(character) => match character {
                     ' ' | '\t' | '\n' | '\r' => {
-                        trace!("Consuming formatting character.");
-
-                        if !current_non_token_stream.is_empty() {
-                            tokens.push(get_token_from(&current_non_token_stream)?);
-                            current_non_token_stream.clear();
-                        }
+                        trace!("Consuming the formatting character {character:?}.");
+                        parse_context!(tokens, context);
                     }
-                    _ => match self.get_next_token(&next_character)? {
-                        Some(next_token) => {
-                            if !current_non_token_stream.is_empty() {
-                                tokens.push(get_token_from(&current_non_token_stream)?);
-                                current_non_token_stream.clear();
-                            }
-                            tokens.push(next_token);
+                    _ => match self.parse_character(&character)? {
+                        Some(token) => {
+                            parse_context!(tokens, context);
+                            add_token!(tokens, token);
                         }
                         None => {
-                            current_non_token_stream.push(next_character);
+                            context.push(character);
                         }
                     },
                 },
                 None => {
-                    if !current_non_token_stream.is_empty() {
-                        tokens.push(get_token_from(&current_non_token_stream)?);
-                        current_non_token_stream.clear();
-                    }
-                    tokens.push(Token::EndOfFile);
+                    debug!("End of the source code.");
+                    parse_context!(tokens, context);
+                    add_token!(tokens, Token::EndOfFile);
                     break;
                 }
             }
         }
 
+        debug!("Parsed the following tokens from the source code {tokens:?}.");
+        info!("End of Lexical Analysis.");
         Ok(tokens)
     }
 
-    fn get_next_token(&mut self, character: &char) -> Result<Option<Token>, LexicalError> {
-        debug!("Matching the character '{}'.", character);
+    fn parse_character(&mut self, character: &char) -> Result<Option<Token>, LexicalError> {
+        trace!("Attempting to parse the character {character:?} to a token.");
         match character {
-            '!' => {
-                check_next_character!(self.source_code, '=', Ok(Some(Token::NotEquals)));
-                Ok(Some(Token::Not))
-            }
+            '!' => match self.source_code.peek() {
+                Some('=') => {
+                    self.source_code.next();
+                    Ok(Some(Token::NotEquals))
+                }
+                _ => Ok(Some(Token::Not)),
+            },
             '-' => Ok(Some(Token::Minus)),
             '/' => Ok(Some(Token::Divide)),
             '*' => Ok(Some(Token::Multiply)),
             '>' => Ok(Some(Token::GreaterThan)),
             '<' => Ok(Some(Token::LesserThan)),
-            '=' => {
-                check_next_character!(self.source_code, '=', Ok(Some(Token::Equals)));
-                Ok(Some(Token::Assign))
-            }
+            '=' => match self.source_code.peek() {
+                Some('=') => {
+                    self.source_code.next();
+                    Ok(Some(Token::Equals))
+                }
+                _ => Ok(Some(Token::Assign)),
+            },
             '+' => Ok(Some(Token::Plus)),
             '(' => Ok(Some(Token::OpeningRoundBracket)),
             ')' => Ok(Some(Token::ClosingRoundBracket)),
@@ -99,33 +118,39 @@ impl<'a> LexicalAnalysis<'a> {
             ',' => Ok(Some(Token::Comma)),
             ';' => Ok(Some(Token::SemiColon)),
             '"' => Ok(Some(Token::String {
-                literal: self.get_string()?,
+                literal: self.parse_string_object()?,
             })),
-            _ => Ok(None),
+            _ => {
+                trace!("Unable to parse the character {character:?} to a token.");
+                Ok(None)
+            }
         }
     }
 
-    fn get_string(&mut self) -> Result<String, LexicalError> {
-        let mut characters = vec![];
+    fn parse_string_object(&mut self) -> Result<String, LexicalError> {
+        trace!("Attempting to parse a string object.");
+        let mut string_object = vec![];
 
         loop {
             match self.source_code.next() {
                 Some('"') => break,
                 Some('\\') => match self.source_code.next() {
-                    Some('\\') => characters.push('\\'),
-                    Some('\'') => characters.push('\''),
-                    Some('"') => characters.push('"'),
-                    Some('t') => characters.push('\t'),
-                    Some('n') => characters.push('\n'),
-                    Some('r') => characters.push('\r'),
+                    Some('\\') => string_object.push('\\'),
+                    Some('\'') => string_object.push('\''),
+                    Some('"') => string_object.push('"'),
+                    Some('t') => string_object.push('\t'),
+                    Some('n') => string_object.push('\n'),
+                    Some('r') => string_object.push('\r'),
                     Some(character) => return Err(LexicalError::IllegalEscaping(character)),
                     None => return Err(LexicalError::StringNotClosed),
                 },
-                Some(character) => characters.push(character),
+                Some(character) => string_object.push(character),
                 None => return Err(LexicalError::StringNotClosed),
             }
         }
 
-        Ok(String::from_iter(characters.iter()))
+        let string = String::from_iter(string_object.iter());
+        trace!("Parsed the string object {string:?}.");
+        Ok(string)
     }
 }
