@@ -1,6 +1,3 @@
-// Disabling because of rstest_reuse.
-#![allow(clippy::single_component_path_imports)]
-
 #[macro_use]
 extern crate log;
 extern crate pretty_env_logger;
@@ -14,9 +11,6 @@ fn main() {
     pretty_env_logger::init();
     interpreter::repl();
 }
-
-#[cfg(test)]
-use rstest_reuse;
 
 #[cfg(test)]
 mod tests;
