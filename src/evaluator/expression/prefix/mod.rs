@@ -13,7 +13,7 @@ impl Evaluator {
         match object {
             Object::True => Ok(Object::False),
             Object::False => Ok(Object::True),
-            _ => Err(EvaluationError::UnknownOperator),
+            _ => Err(EvaluationError::TypeMismatch),
         }
     }
 
