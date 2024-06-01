@@ -3,5 +3,5 @@ source: src/tests/evaluation_error/type_mismatch_boolean_prefix_expression/mod.r
 expression: error
 ---
 Err(
-    UnknownOperator,
+    TypeMismatch,
 )
