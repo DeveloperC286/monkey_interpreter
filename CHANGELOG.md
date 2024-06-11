@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.16.2 (2024-06-11)
+
+## What's Changed
+* refactor: adding lexical analysis logging by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/24
+* fix: not returns type mismatch error on non boolean by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/26
+* fix: minus returns type mismatch error on non int by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/27
+* refactor: removing end of file token by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/28
+* refactor: inlining lexical analysis utilities by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/29
+
+
+**Full Changelog**: https://github.com/DeveloperC286/monkey_interpreter/compare/monkey_interpreter-v0.16.1...monkey_interpreter-v0.16.2
+
 ## 0.16.1 (2024-05-31)
 
 ## What's Changed
