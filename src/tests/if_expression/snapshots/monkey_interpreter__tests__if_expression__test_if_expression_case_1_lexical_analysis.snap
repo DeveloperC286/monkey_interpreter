@@ -33,5 +33,4 @@ expression: tokens
     False,
     SemiColon,
     ClosingCurlyBracket,
-    EndOfFile,
 ]

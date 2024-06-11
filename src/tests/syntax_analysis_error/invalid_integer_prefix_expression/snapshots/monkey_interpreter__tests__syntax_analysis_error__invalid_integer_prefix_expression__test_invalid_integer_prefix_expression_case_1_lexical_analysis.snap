@@ -10,5 +10,4 @@ expression: tokens
     Assign,
     Minus,
     SemiColon,
-    EndOfFile,
 ]

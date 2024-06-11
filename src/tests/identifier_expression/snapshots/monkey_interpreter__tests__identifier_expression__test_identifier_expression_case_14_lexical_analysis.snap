@@ -24,5 +24,4 @@ expression: tokens
     Identifier {
         literal: "timeout_ms_copy",
     },
-    EndOfFile,
 ]

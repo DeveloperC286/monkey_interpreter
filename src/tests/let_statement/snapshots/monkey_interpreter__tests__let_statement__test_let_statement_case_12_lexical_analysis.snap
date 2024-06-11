@@ -12,5 +12,4 @@ expression: tokens
         literal: "terrible format",
     },
     SemiColon,
-    EndOfFile,
 ]

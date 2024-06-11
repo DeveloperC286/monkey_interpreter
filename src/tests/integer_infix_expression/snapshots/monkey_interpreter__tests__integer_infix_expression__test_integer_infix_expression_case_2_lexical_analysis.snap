@@ -17,5 +17,4 @@ expression: tokens
         literal: 10,
     },
     SemiColon,
-    EndOfFile,
 ]

@@ -10,5 +10,4 @@ expression: tokens
     String {
         literal: "name123",
     },
-    EndOfFile,
 ]

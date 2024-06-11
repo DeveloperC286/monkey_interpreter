@@ -17,5 +17,4 @@ expression: tokens
         literal: "timeout_ms_copy",
     },
     SemiColon,
-    EndOfFile,
 ]

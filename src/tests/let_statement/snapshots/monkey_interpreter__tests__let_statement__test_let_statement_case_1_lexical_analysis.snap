@@ -12,5 +12,4 @@ expression: tokens
         literal: "this is a multiple words...\n",
     },
     SemiColon,
-    EndOfFile,
 ]

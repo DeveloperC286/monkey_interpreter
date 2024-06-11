@@ -13,5 +13,4 @@ expression: tokens
     Identifier {
         literal: "is_file",
     },
-    EndOfFile,
 ]

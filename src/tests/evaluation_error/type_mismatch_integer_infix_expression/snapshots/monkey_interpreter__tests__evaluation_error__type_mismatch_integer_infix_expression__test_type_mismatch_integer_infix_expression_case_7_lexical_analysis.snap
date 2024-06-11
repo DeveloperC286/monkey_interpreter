@@ -8,5 +8,4 @@ expression: tokens
     String {
         literal: "can't multiply",
     },
-    EndOfFile,
 ]

@@ -20,5 +20,4 @@ expression: tokens
         literal: "is_file",
     },
     SemiColon,
-    EndOfFile,
 ]

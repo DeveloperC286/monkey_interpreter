@@ -12,5 +12,4 @@ expression: tokens
     },
     Equals,
     False,
-    EndOfFile,
 ]

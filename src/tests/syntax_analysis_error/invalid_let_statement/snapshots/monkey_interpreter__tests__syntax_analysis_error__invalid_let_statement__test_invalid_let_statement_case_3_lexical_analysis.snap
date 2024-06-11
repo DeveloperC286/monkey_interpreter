@@ -8,5 +8,4 @@ expression: tokens
         literal: "file",
     },
     SemiColon,
-    EndOfFile,
 ]

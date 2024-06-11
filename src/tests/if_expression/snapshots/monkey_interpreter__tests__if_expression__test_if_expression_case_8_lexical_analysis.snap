@@ -20,5 +20,4 @@ expression: tokens
     OpeningCurlyBracket,
     False,
     ClosingCurlyBracket,
-    EndOfFile,
 ]

@@ -27,5 +27,4 @@ expression: tokens
     Identifier {
         literal: "double",
     },
-    EndOfFile,
 ]

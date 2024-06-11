@@ -13,5 +13,4 @@ expression: tokens
         literal: 10,
     },
     ClosingRoundBracket,
-    EndOfFile,
 ]

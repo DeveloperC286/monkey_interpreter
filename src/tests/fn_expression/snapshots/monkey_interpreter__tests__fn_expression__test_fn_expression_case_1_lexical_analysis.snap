@@ -18,5 +18,4 @@ expression: tokens
         literal: 3,
     },
     ClosingCurlyBracket,
-    EndOfFile,
 ]

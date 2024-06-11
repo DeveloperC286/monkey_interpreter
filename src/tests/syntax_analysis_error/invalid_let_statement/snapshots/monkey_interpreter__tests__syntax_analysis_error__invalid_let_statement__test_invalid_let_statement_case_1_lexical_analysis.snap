@@ -9,5 +9,4 @@ expression: tokens
     },
     Assign,
     SemiColon,
-    EndOfFile,
 ]

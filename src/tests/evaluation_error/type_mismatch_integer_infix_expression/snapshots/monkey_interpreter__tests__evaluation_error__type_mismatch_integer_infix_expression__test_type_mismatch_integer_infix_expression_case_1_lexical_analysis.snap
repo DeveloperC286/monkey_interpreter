@@ -8,5 +8,4 @@ expression: tokens
     },
     Plus,
     True,
-    EndOfFile,
 ]

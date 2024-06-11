@@ -6,5 +6,4 @@ expression: tokens
     True,
     Multiply,
     True,
-    EndOfFile,
 ]
