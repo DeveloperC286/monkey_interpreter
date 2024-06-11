@@ -12,5 +12,4 @@ expression: tokens
         literal: "/tmp/temp.txt",
     },
     SemiColon,
-    EndOfFile,
 ]

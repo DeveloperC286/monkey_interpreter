@@ -15,7 +15,7 @@ impl<'a> SyntaxAnalysis<'a> {
 
         while let Some(token) = self.tokens.peek() {
             match token {
-                Token::ClosingCurlyBracket | Token::EndOfFile => break,
+                Token::ClosingCurlyBracket => break,
                 _ => {
                     blocks.push(self.get_next_syntax_tree_node()?);
                 }

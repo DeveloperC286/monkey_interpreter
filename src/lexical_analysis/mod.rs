@@ -77,7 +77,6 @@ impl<'a> LexicalAnalysis<'a> {
                 None => {
                     debug!("End of the source code.");
                     parse_context!(tokens, context);
-                    add_token!(tokens, Token::EndOfFile);
                     break;
                 }
             }

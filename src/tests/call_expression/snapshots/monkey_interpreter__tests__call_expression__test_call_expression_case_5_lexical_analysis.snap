@@ -50,5 +50,4 @@ expression: tokens
     ClosingRoundBracket,
     ClosingRoundBracket,
     SemiColon,
-    EndOfFile,
 ]

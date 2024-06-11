@@ -6,5 +6,4 @@ expression: tokens
     String {
         literal: "column-1\tcolumn-2\n",
     },
-    EndOfFile,
 ]

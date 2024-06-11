@@ -30,5 +30,4 @@ expression: tokens
     Identifier {
         literal: "add",
     },
-    EndOfFile,
 ]

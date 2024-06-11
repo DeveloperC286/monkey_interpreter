@@ -12,5 +12,4 @@ expression: tokens
         literal: "col_1\tcol_2\tcol_3\n",
     },
     SemiColon,
-    EndOfFile,
 ]

@@ -23,5 +23,4 @@ expression: tokens
     Identifier {
         literal: "is_directory",
     },
-    EndOfFile,
 ]

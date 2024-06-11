@@ -10,5 +10,4 @@ expression: tokens
     Integer {
         literal: 4,
     },
-    EndOfFile,
 ]

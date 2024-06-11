@@ -27,5 +27,4 @@ expression: tokens
         literal: "y",
     },
     ClosingCurlyBracket,
-    EndOfFile,
 ]

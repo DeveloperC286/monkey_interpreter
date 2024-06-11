@@ -8,5 +8,4 @@ expression: tokens
     String {
         literal: "this is a string",
     },
-    EndOfFile,
 ]

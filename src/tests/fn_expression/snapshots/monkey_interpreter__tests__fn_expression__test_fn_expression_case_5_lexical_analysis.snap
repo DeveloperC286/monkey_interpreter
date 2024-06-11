@@ -8,5 +8,4 @@ expression: tokens
     ClosingRoundBracket,
     OpeningCurlyBracket,
     ClosingCurlyBracket,
-    EndOfFile,
 ]

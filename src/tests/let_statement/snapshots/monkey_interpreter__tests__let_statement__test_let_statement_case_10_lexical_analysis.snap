@@ -12,5 +12,4 @@ expression: tokens
         literal: 3,
     },
     SemiColon,
-    EndOfFile,
 ]

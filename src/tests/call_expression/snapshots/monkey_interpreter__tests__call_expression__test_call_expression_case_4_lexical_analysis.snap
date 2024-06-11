@@ -32,5 +32,4 @@ expression: tokens
     },
     ClosingRoundBracket,
     SemiColon,
-    EndOfFile,
 ]

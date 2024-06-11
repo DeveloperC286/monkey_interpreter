@@ -11,5 +11,4 @@ expression: tokens
     Integer {
         literal: 1,
     },
-    EndOfFile,
 ]

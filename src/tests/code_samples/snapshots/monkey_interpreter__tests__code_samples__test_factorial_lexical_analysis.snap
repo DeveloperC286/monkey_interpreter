@@ -85,5 +85,4 @@ expression: tokens
         literal: 9,
     },
     ClosingRoundBracket,
-    EndOfFile,
 ]

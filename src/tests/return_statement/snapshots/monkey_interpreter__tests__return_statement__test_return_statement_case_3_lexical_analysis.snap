@@ -8,5 +8,4 @@ expression: tokens
         literal: "string123",
     },
     SemiColon,
-    EndOfFile,
 ]

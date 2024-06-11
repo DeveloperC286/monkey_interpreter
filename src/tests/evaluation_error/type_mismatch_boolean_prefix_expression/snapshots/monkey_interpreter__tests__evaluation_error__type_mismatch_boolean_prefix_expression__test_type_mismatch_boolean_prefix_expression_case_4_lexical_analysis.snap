@@ -5,5 +5,4 @@ expression: tokens
 [
     Minus,
     False,
-    EndOfFile,
 ]

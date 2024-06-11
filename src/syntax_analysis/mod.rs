@@ -29,14 +29,9 @@ impl<'a> SyntaxAnalysis<'a> {
     pub(crate) fn get_abstract_syntax_tree(&mut self) -> Result<Vec<SyntaxTreeNode>, SyntaxError> {
         let mut abstract_syntax_tree: Vec<SyntaxTreeNode> = vec![];
 
-        while let Some(token) = self.tokens.peek() {
-            match token {
-                Token::EndOfFile => break,
-                _ => {
-                    let syntax_tree_node = self.get_next_syntax_tree_node()?;
-                    abstract_syntax_tree.push(syntax_tree_node)
-                }
-            }
+        while self.tokens.peek().is_some() {
+            let syntax_tree_node = self.get_next_syntax_tree_node()?;
+            abstract_syntax_tree.push(syntax_tree_node)
         }
 
         Ok(abstract_syntax_tree)

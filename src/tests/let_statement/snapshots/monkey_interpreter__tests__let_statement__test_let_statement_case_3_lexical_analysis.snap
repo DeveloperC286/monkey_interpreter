@@ -24,5 +24,4 @@ expression: tokens
     },
     ClosingCurlyBracket,
     SemiColon,
-    EndOfFile,
 ]
