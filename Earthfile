@@ -39,10 +39,14 @@ COPY_SOURCECODE:
     COPY --dir "Cargo.lock" "Cargo.toml" "src/" "./"
 
 
-check-rust-formatting:
+rust-formatting-base:
     FROM +rust-base
     RUN rustup component add rustfmt
     DO +COPY_SOURCECODE
+
+
+check-rust-formatting:
+    FROM +rust-formatting-base
     RUN ./ci/check-rust-formatting.sh
 
 
@@ -78,6 +82,12 @@ check-formatting:
     BUILD +check-rust-formatting
     BUILD +check-shell-formatting
     BUILD +check-yaml-formatting
+
+
+fix-rust-formatting:
+    FROM +rust-formatting-base
+    RUN ./ci/fix-rust-formatting.sh
+    SAVE ARTIFACT "src/" AS LOCAL "./"
 
 
 fix-shell-formatting:
