@@ -20,8 +20,7 @@ Monkey has a C-like syntax, supports **variable bindings**, **prefix** and **inf
 ## Content
  * [Usage](#usage)
    + [Usage - Logging](#usage-logging)
- * [Downloading Binary](#downloading-binary)
- * [Compiling via Local Repository](#compiling-via-local-repository)
+ * [Compiling](#compiling)
  * [Unit Testing](#unit-testing)
  * [Issues/Feature Requests](#issuesfeature-requests)
 
@@ -35,14 +34,7 @@ The environment variable `RUST_LOG` can be used to set the logging level.
 See [https://crates.io/crates/pretty_env_logger](https://crates.io/crates/pretty_env_logger) for more detailed documentation.
 
 
-## Downloading Binary
-Statically linked compiled binaries are available for download.
-Visit the releases page at [https://github.com/DeveloperC286/monkey_interpreter/releases](https://github.com/DeveloperC286/monkey_interpreter/releases) to see all the releases, the release notes contains links to binary downloads for various architectures.
-
-If you do not trust the provided binaries another option is to compile your own and then make it available for remote download, so your CICD etc can then download it.
-
-
-## Compiling via Local Repository
+## Compiling
 Checkout the code repository locally, change into the repository's directory and then build via Cargo.
 Using the `--release` flag produces an optimised binary but takes longer to compile.
 
