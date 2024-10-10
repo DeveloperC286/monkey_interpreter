@@ -22,7 +22,7 @@ thiserror = "1.0.61"
 
 [dev-dependencies]
 # For parameterised testing.
-rstest = "0.20.0"
+rstest = "0.23.0"
 rstest_reuse = "0.7.0"
 
 # For snapshot testing.
