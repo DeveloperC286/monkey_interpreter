@@ -3,7 +3,7 @@ use crate::evaluator::model::evaluation_error::EvaluationError;
 use crate::evaluator::model::object::Object;
 use crate::syntax_analysis::model::syntax_tree_node::*;
 
-mod model;
+pub mod model;
 
 mod expression;
 mod statement;
