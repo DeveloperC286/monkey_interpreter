@@ -12,19 +12,15 @@ COPY_METADATA:
     COPY --dir ".git/" "./"
 
 
-alpine-base:
-    FROM alpine:3.20.3@sha256:1e42bbe2508154c9126d48c2b8a75420c3544343bf86fd041fb7527e017a4b4a
+rust-base:
+    FROM rust:1.78.0-alpine3.20
     # renovate: datasource=repology depName=alpine_3_20/bash versioning=loose
     ENV BASH_VERSION="5.2.26-r0"
-    RUN apk add --no-cache bash=$BASH_VERSION
-    WORKDIR "/monkey_interpreter"
-
-
-rust-base:
-    FROM +alpine-base
-    # renovate: datasource=repology depName=alpine_3_20/rust versioning=loose
-    ENV RUST_VERSION="1.78.0-r0"
-    RUN apk add --no-cache cargo=$RUST_VERSION
+    # renovate: datasource=repology depName=alpine_3_20/musl-dev versioning=loose
+    ENV MUSL_VERSION="1.2.5-r0"
+    RUN apk add --no-cache bash=$BASH_VERSION musl-dev=$MUSL_VERSION
+    RUN rustup component add rustfmt clippy
+    WORKDIR "/consistent_whitespace"
 
 
 check-clean-git-history:
@@ -54,20 +50,19 @@ COPY_SOURCECODE:
     COPY --dir "Cargo.toml" "src/" "./"
 
 
-rust-formatting-base:
+sourcecode-base:
     FROM +rust-base
-    RUN apk add --no-cache rustfmt=$RUST_VERSION
     DO +COPY_SOURCECODE
 
 
 check-rust-formatting:
-    FROM +rust-formatting-base
+    FROM +sourcecode-base
     RUN ./ci/check-rust-formatting.sh
 
 
 golang-base:
     FROM golang:1.22.1
-    WORKDIR "/monkey_interpreter"
+    WORKDIR "/consistent_whitespace"
 
 
 shell-formatting-base:
@@ -104,7 +99,7 @@ check-formatting:
 
 
 fix-rust-formatting:
-    FROM +rust-formatting-base
+    FROM +sourcecode-base
     RUN ./ci/fix-rust-formatting.sh
     SAVE ARTIFACT "src/" AS LOCAL "./"
 
@@ -128,14 +123,12 @@ fix-formatting:
 
 
 check-rust-linting:
-    FROM +rust-base
-    RUN apk add --no-cache rust-clippy=$RUST_VERSION
-    DO +COPY_SOURCECODE
+    FROM +sourcecode-base
     RUN ./ci/check-rust-linting.sh
 
 
 check-shell-linting:
-    FROM +alpine-base
+    FROM +rust-base
     # renovate: datasource=repology depName=alpine_3_20/shellcheck versioning=loose
     ENV SHELLCHECK_VERSION="0.10.0-r1"
     RUN apk add --no-cache shellcheck=$SHELLCHECK_VERSION
@@ -159,14 +152,12 @@ check-linting:
 
 
 compile:
-    FROM +rust-base
-    DO +COPY_SOURCECODE
+    FROM +sourcecode-base
     RUN ./ci/compile.sh
     SAVE ARTIFACT "target/" AS LOCAL "./"
     SAVE ARTIFACT "Cargo.lock" AS LOCAL "./"
 
 
 unit-test:
-    FROM +rust-base
-    DO +COPY_SOURCECODE
+    FROM +sourcecode-base
     RUN ./ci/unit-test.sh
