@@ -1,5 +1,49 @@
 # Changelog
 
+## 0.17.0 (2024-12-18)
+
+## What's Changed
+* refactor: adding lexical analysis logging by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/24
+* fix: not returns type mismatch error on non boolean by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/26
+* fix: minus returns type mismatch error on non int by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/27
+* refactor: removing end of file token by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/28
+* refactor: inlining lexical analysis utilities by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/29
+* build: adding fix-rust-formatting target by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/30
+* build: correcting WORKDIR name by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/31
+* ci: adding GitHub Actions workflow formatting check by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/32
+* docs: updating repository link to GitHub by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/33
+* docs: changing URLs to GitHub by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/34
+* docs: removing release binary references by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/35
+* ci: removing component name from tag by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/36
+* ci: replacing deprecated release-please GitHub Action by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/39
+* chore: Configure Renovate by @renovate in https://github.com/DeveloperC286/monkey_interpreter/pull/40
+* chore(deps): update actions/checkout action to v4 by @renovate in https://github.com/DeveloperC286/monkey_interpreter/pull/44
+* ci: converting to earthly/actions-setup@v1 by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/47
+* docs: removing Continuous Integration (CI) badge by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/48
+* fix(deps): update rust crate log to v0.4.22 by @renovate in https://github.com/DeveloperC286/monkey_interpreter/pull/41
+* chore(deps): update rust crate rstest to 0.23.0 by @renovate in https://github.com/DeveloperC286/monkey_interpreter/pull/46
+* fix(deps): update rust crate thiserror to v1.0.64 by @renovate in https://github.com/DeveloperC286/monkey_interpreter/pull/42
+* chore(deps): update rust crate insta to v1.40.0 by @renovate in https://github.com/DeveloperC286/monkey_interpreter/pull/45
+* feat: converting error handing to anyhow by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/49
+* fix(deps): update rust crate thiserror to v2 by @renovate in https://github.com/DeveloperC286/monkey_interpreter/pull/55
+* chore(deps): update rust crate insta to v1.41.1 by @renovate in https://github.com/DeveloperC286/monkey_interpreter/pull/54
+* fix(deps): update rust crate anyhow to v1.0.93 by @renovate in https://github.com/DeveloperC286/monkey_interpreter/pull/52
+* fix(deps): update rust crate thiserror to v2.0.3 by @renovate in https://github.com/DeveloperC286/monkey_interpreter/pull/56
+* ci: Alpine migration for pinning/updating all dependencies by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/57
+* ci: adding Renovate GitHub Workflow Earthly updating by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/63
+* chore(deps): update earthly/earthly docker tag to v0.8.15 by @renovate in https://github.com/DeveloperC286/monkey_interpreter/pull/64
+* ci: removing name referencing Earthly version by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/69
+* build: converting to Rust's Alpine image by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/70
+* build: correcting WORKDIR name by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/72
+* chore(deps): update dependency developerc286/conventional_commits_linter to v0.14.3 by @renovate in https://github.com/DeveloperC286/monkey_interpreter/pull/65
+* build: adding cargo --locked and removing --workspace by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/73
+* ci: removing Alpine Renovate version updating by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/74
+
+## New Contributors
+* @renovate made their first contribution in https://github.com/DeveloperC286/monkey_interpreter/pull/40
+
+**Full Changelog**: https://github.com/DeveloperC286/monkey_interpreter/compare/v0.16.1...v0.17.0
+
 ## 0.16.1 (2024-05-31)
 
 ## What's Changed
