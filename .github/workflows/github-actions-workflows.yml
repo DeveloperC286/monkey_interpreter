@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Earthly.
-        uses: earthly/actions-setup@c406dd71d68ea713c1cff147005993ef54c9deed # v1.0.3
+        uses: earthly/actions-setup@v1
         with:
           version: v0.8.15
       - name: Checkout code.
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Earthly.
-        uses: earthly/actions-setup@c406dd71d68ea713c1cff147005993ef54c9deed # v1.0.3
+        uses: earthly/actions-setup@v1
         with:
           version: v0.8.15
       - name: Checkout code.

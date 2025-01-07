@@ -2,34 +2,5 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:best-practices"
-  ],
-  "dockerfile": {
-    "fileMatch": [
-      "(^|/)Earthfile$",
-      "(^|/|\\.)Dockerfile$",
-      "(^|/)Dockerfile[^/]*$"
-    ]
-  },
-  "customManagers": [
-    {
-      "customType": "regex",
-      "fileMatch": [
-        "^Earthfile$"
-      ],
-      "matchStrings": [
-        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.+_VERSION=\"(?<currentValue>.*?)\"\\s"
-      ]
-    },
-    {
-      "customType": "regex",
-      "fileMatch": [
-        "^[.]github/workflows/"
-      ],
-      "matchStrings": [
-        ".*version: (?<currentValue>.*?)\\s"
-      ],
-      "datasourceTemplate": "docker",
-      "depNameTemplate": "earthly/earthly"
-    }
   ]
 }
