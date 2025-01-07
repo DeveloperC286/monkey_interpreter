@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Earthly.
-        uses: earthly/actions-setup@v1
+        uses: earthly/actions-setup
         with:
           version: v0.8.15
       - name: Checkout code.
-        uses: actions/checkout@v4
+        uses: actions/checkout
       - name: Check GitHub Actions workflows linting.
         run: earthly +check-github-actions-workflows-linting
   formatting:
@@ -24,10 +24,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Earthly.
-        uses: earthly/actions-setup@v1
+        uses: earthly/actions-setup
         with:
           version: v0.8.15
       - name: Checkout code.
-        uses: actions/checkout@v4
+        uses: actions/checkout
       - name: Check formatting.
         run: earthly +check-yaml-formatting
