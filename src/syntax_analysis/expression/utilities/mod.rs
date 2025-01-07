@@ -3,7 +3,7 @@ use crate::syntax_analysis::model::syntax_error::SyntaxError;
 use crate::syntax_analysis::model::syntax_tree_node::Block;
 use crate::syntax_analysis::SyntaxAnalysis;
 
-impl<'a> SyntaxAnalysis<'a> {
+impl SyntaxAnalysis<'_> {
     pub(crate) fn parse_block(&mut self) -> Result<Block, SyntaxError> {
         debug!("Parsing a block.");
         assert_token!(

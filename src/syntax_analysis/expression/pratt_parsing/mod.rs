@@ -9,7 +9,7 @@ use crate::syntax_analysis::SyntaxAnalysis;
 mod call_expression;
 mod infix_expression;
 
-impl<'a> SyntaxAnalysis<'a> {
+impl SyntaxAnalysis<'_> {
     pub(crate) fn pratt_parsing(
         &mut self,
         mut expression: Expression,

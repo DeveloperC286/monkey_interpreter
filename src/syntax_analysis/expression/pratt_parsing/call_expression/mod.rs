@@ -4,7 +4,7 @@ use crate::syntax_analysis::model::syntax_error::SyntaxError;
 use crate::syntax_analysis::model::syntax_tree_node::Expression;
 use crate::syntax_analysis::SyntaxAnalysis;
 
-impl<'a> SyntaxAnalysis<'a> {
+impl SyntaxAnalysis<'_> {
     pub(crate) fn parse_call_expression(
         &mut self,
         function: Expression,

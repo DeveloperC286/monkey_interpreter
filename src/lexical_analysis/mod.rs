@@ -10,7 +10,7 @@ pub(crate) struct LexicalAnalysis<'a> {
     source_code: Peekable<Chars<'a>>,
 }
 
-impl<'a> LexicalAnalysis<'a> {
+impl LexicalAnalysis<'_> {
     pub(crate) fn from(code: &str) -> Result<Vec<Token>, LexicalError> {
         let mut lexical_analysis = LexicalAnalysis {
             source_code: code.chars().peekable(),

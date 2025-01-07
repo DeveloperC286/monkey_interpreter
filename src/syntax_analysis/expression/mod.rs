@@ -10,7 +10,7 @@ mod if_expression;
 mod pratt_parsing;
 mod utilities;
 
-impl<'a> SyntaxAnalysis<'a> {
+impl SyntaxAnalysis<'_> {
     pub(crate) fn get_expression_node(&mut self) -> Result<SyntaxTreeNode, SyntaxError> {
         let expression = self.get_expression(ExpressionPrecedence::Lowest)?;
         semicolon!(self);

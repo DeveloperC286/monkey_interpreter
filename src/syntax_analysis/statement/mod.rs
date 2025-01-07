@@ -4,7 +4,7 @@ use crate::syntax_analysis::model::syntax_error::SyntaxError;
 use crate::syntax_analysis::model::syntax_tree_node::{Statement, SyntaxTreeNode};
 use crate::syntax_analysis::SyntaxAnalysis;
 
-impl<'a> SyntaxAnalysis<'a> {
+impl SyntaxAnalysis<'_> {
     pub(crate) fn parse_return_statement(&mut self) -> Result<SyntaxTreeNode, SyntaxError> {
         debug!("Parsing a return statement.");
 
