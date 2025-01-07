@@ -14,7 +14,7 @@ jobs:
       - name: Download Earthly.
         uses: earthly/actions-setup@v1
         with:
-          version: v0.8.15
+          version: 23131ae7a7fc57b7121614bad290a4e5b06233d5f862c2ea821385e4943bdb0b # v0.8.15
       - name: Checkout code.
         uses: actions/checkout@v4
       - name: Check GitHub Actions workflows linting.
@@ -26,7 +26,7 @@ jobs:
       - name: Download Earthly.
         uses: earthly/actions-setup@v1
         with:
-          version: v0.8.15
+          version: sha256:23131ae7a7fc57b7121614bad290a4e5b06233d5f862c2ea821385e4943bdb0b # v0.8.15
       - name: Checkout code.
         uses: actions/checkout@v4
       - name: Check formatting.
