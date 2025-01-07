@@ -17,7 +17,7 @@ pub(crate) struct SyntaxAnalysis<'a> {
     tokens: Peekable<Iter<'a, Token>>,
 }
 
-impl<'a> SyntaxAnalysis<'a> {
+impl SyntaxAnalysis<'_> {
     pub(crate) fn from(tokens: Vec<Token>) -> Result<Vec<SyntaxTreeNode>, SyntaxError> {
         let mut syntax_analysis = SyntaxAnalysis {
             tokens: tokens.iter().peekable(),
