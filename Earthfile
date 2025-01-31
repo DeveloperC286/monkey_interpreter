@@ -13,7 +13,7 @@ COPY_METADATA:
 
 
 rust-base:
-    FROM rust:1.83.0-alpine3.20@sha256:1c3018a49193c7260e2fdbe46e05cc8057f1b13fa0840a6c7c7127d268b7bbd2
+    FROM rust:1.83.0-alpine3.20@sha256:d3f1be12d8b328cfa2e20ccfd149c52ddfaadfbaeca50b689df22b114ad4d7f7
     # renovate: datasource=repology depName=alpine_3_20/bash versioning=loose
     ENV BASH_VERSION="5.2.26-r0"
     # renovate: datasource=repology depName=alpine_3_20/musl-dev versioning=loose
