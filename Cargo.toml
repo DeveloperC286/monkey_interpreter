@@ -29,7 +29,7 @@ rstest = "=0.25.0"
 rstest_reuse = "=0.7.0"
 
 # For snapshot testing.
-insta = "=1.42.2"
+insta = "=1.43.0"
 
 
 [profile.release]
