@@ -21,7 +21,7 @@ fn main() {
 
     loop {
         if let Err(error) = repl(&mut evaluator) {
-            error!("{}", error);
+            error!("{error}");
         }
     }
 }
@@ -31,7 +31,7 @@ fn repl(evaluator: &mut Evaluator) -> Result<()> {
     let tokens = LexicalAnalysis::from(&input)?;
     let abstract_syntax_tree = SyntaxAnalysis::from(tokens)?;
     let object = evaluator.evaluate(abstract_syntax_tree)?;
-    println!("{:?}", object);
+    println!("{object:?}");
     Ok(())
 }
 
