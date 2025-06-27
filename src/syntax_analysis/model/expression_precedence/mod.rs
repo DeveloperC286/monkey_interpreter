@@ -23,10 +23,7 @@ pub(crate) fn get_current_expression_precedence(token: &Token) -> ExpressionPrec
         Token::Divide => ExpressionPrecedence::Multiply,
         Token::OpeningRoundBracket => ExpressionPrecedence::Call,
         _ => {
-            trace!(
-                "Could not find precedence for Token::{:?} so returning LOWEST.",
-                token
-            );
+            trace!("Could not find precedence for Token::{token:?} so returning LOWEST.");
             ExpressionPrecedence::Lowest
         }
     }
