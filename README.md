@@ -18,19 +18,18 @@ Monkey has a C-like syntax, supports **variable bindings**, **prefix** and **inf
 
 ## Content
  * [Usage](#usage)
-   + [Usage - Logging](#usage-logging)
  * [Compiling](#compiling)
  * [Unit Testing](#unit-testing)
  * [Issues/Feature Requests](#issuesfeature-requests)
 
 
 ## Usage
+Run the interpreter via
 
+```sh
+monkey_interpreter 
+```
 
-### Usage - Logging
-The crates `pretty_env_logger` and `log` are used to provide logging.
-The environment variable `RUST_LOG` can be used to set the logging level.
-See [https://crates.io/crates/pretty_env_logger](https://crates.io/crates/pretty_env_logger) for more detailed documentation.
 
 
 ## Compiling
