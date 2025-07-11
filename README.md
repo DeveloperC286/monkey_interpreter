@@ -24,12 +24,22 @@ Monkey has a C-like syntax, supports **variable bindings**, **prefix** and **inf
 
 
 ## Usage
+<<<<<<< HEAD
 Run the interpreter via
 
 ```sh
 monkey_interpreter 
 ```
 
+=======
+Run the interpreter with the `--verbose` flag to enable detailed logging:
+
+```sh
+monkey_interpreter --verbose
+```
+
+The verbose flag respects the `RUST_LOG` environment variable if set, otherwise defaults to info level logging.
+>>>>>>> 34c8bf5 (Add CLI argument parsing with verbose logging support)
 
 
 ## Compiling

@@ -28,6 +28,11 @@ fn main() {
     }
 
     pretty_env_logger::init();
+<<<<<<< HEAD
+=======
+    
+    info!("Starting Monkey Interpreter REPL...");
+>>>>>>> 34c8bf5 (Add CLI argument parsing with verbose logging support)
     let mut evaluator = crate::evaluator::Evaluator::new();
 
     loop {
@@ -39,9 +44,17 @@ fn main() {
 fn repl(evaluator: &mut Evaluator) -> Result<()> {
     print!(" >>> ");
     let input = read()?;
+    debug!("Read input: {:?}", input.trim());
+    
     let tokens = LexicalAnalysis::from(&input)?;
+    debug!("Lexical analysis completed with {} tokens", tokens.len());
+    
     let abstract_syntax_tree = SyntaxAnalysis::from(tokens)?;
+    debug!("Syntax analysis completed");
+    
     let object = evaluator.evaluate(abstract_syntax_tree)?;
+    debug!("Evaluation completed, result: {:?}", object);
+    
     println!("{object:?}");
     Ok(())
 }
