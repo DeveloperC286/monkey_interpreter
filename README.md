@@ -15,43 +15,12 @@ The [Monkey](https://monkeylang.org/) programming language was devised by Thorst
 
 Monkey has a C-like syntax, supports **variable bindings**, **prefix** and **infix operators**, has **first-class** and **higher-order functions**, can handle **closures** with ease and has **integers**, **booleans**, **arrays** and **hashes** built-in.
 
-
-## Content
- * [Usage](#usage)
- * [Compiling](#compiling)
- * [Unit Testing](#unit-testing)
- * [Issues/Feature Requests](#issuesfeature-requests)
-
-
 ## Usage
 Run the interpreter via
 
 ```sh
 monkey_interpreter 
 ```
-
-
-
-## Compiling
-Checkout the code repository locally, change into the repository's directory and then build via Cargo.
-Using the `--release` flag produces an optimised binary but takes longer to compile.
-
-```sh
-git clone git@github.com:DeveloperC286/monkey_interpreter.git
-cd monkey_interpreter/
-cargo build --release
-```
-
-The compiled binary is present in `target/release/monkey_interpreter`.
-
-
-## Unit Testing
-The unit test suite has several parameterised tests, Cargo is used to set up and run all the unit tests.
-
-```sh
-cargo test
-```
-
 
 ## Issues/Feature Requests
 To report a bug/issue or request a new feature use [https://github.com/DeveloperC286/monkey_interpreter/issues](https://github.com/DeveloperC286/monkey_interpreter/issues).
