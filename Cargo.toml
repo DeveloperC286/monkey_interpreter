@@ -1,6 +1,6 @@
 [package]
 name = "monkey_interpreter"
-version = "0.16.1"
+version = "0.17.0"
 description = "Implementation of an interpreter for the Monkey language written in Rust, currently under active development."
 authors = ["C <DeveloperC@protonmail.com>"]
 edition = "2021"
