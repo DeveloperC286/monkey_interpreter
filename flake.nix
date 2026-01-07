@@ -40,11 +40,13 @@
           buildInputs = [
             # Rust with cross-compilation targets built-in.
             rustWithTargets
-            # Shell scripts.
+            # Shell formatting.
             pkgs.shfmt
-            pkgs.shellcheck
-            # GitHub Action Workflows.
+            # YAML formatting.
             pkgs.yamlfmt
+            # Shell linting.
+            pkgs.shellcheck
+            # GitHub Actions workflows linting.
             pkgs.actionlint
             # Deploying.
             pkgs.gh
