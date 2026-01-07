@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.17.1 (2026-01-07)
+
+## What's Changed
+* ci: enabling Renovate for GitHub Actions by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/282
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/286
+* build: splitting packages by target by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/287
+
+
+**Full Changelog**: https://github.com/DeveloperC286/monkey_interpreter/compare/v0.17.0...v0.17.1
+
 ## 0.17.0 (2026-01-04)
 
 ## What's Changed
