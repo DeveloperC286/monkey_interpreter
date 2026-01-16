@@ -4,6 +4,9 @@
     "config:best-practices"
   ],
   "automerge": true,
+  "github-actions": {
+    "enabled": false
+  },
   "nix": {
     "enabled": true,
     "lockFileMaintenance": {

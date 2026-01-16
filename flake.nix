@@ -48,6 +48,8 @@
             pkgs.shellcheck
             # GitHub Actions workflows linting.
             pkgs.actionlint
+            # Rust dependencies check.
+            pkgs.cargo-machete
             # Deploying.
             pkgs.gh
           ];
