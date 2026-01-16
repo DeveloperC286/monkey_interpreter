@@ -1,8 +1,10 @@
 # Auto-detect musl target for static binaries (Linux only)
+# Only set MUSL_TARGET on supported architectures; targets that need it will check
 MUSL_TARGET := $(shell uname -m | sed 's/^x86_64$$/x86_64-unknown-linux-musl/;s/^aarch64$$/aarch64-unknown-linux-musl/')
-ifeq ($(filter %unknown-linux-musl,$(MUSL_TARGET)),)
-    $(error Unsupported architecture: $(shell uname -m). Static musl builds only supported on Linux x86_64 and aarch64)
-endif
+
+define check-musl-target
+$(if $(filter %unknown-linux-musl,$(MUSL_TARGET)),,$(error Unsupported architecture: $(shell uname -m). Static musl builds only supported on Linux x86_64 and aarch64))
+endef
 
 # Use --locked in CI to ensure reproducible builds
 CARGO_LOCKED := $(if $(CI),--locked,)
@@ -10,25 +12,29 @@ CARGO_LOCKED := $(if $(CI),--locked,)
 .PHONY: default
 default: compile
 
+.PHONY: check-shell-permissions
+check-shell-permissions:
+	./ci/check-scripts-permissions.sh
+
 .PHONY: check-rust-formatting
 check-rust-formatting:
 	cargo fmt --all -- --check --config=group_imports=StdExternalCrate
-
-.PHONY: check-shell-formatting
-check-shell-formatting:
-	shfmt --simplify --diff ci/*
-
-.PHONY: check-yaml-formatting
-check-yaml-formatting:
-	yamlfmt -verbose -lint -dstar .github/workflows/*
 
 .PHONY: fix-rust-formatting
 fix-rust-formatting:
 	cargo fmt --all -- --config=group_imports=StdExternalCrate
 
+.PHONY: check-shell-formatting
+check-shell-formatting:
+	shfmt --simplify --diff ci/*
+
 .PHONY: fix-shell-formatting
 fix-shell-formatting:
 	shfmt --simplify --write ci/*
+
+.PHONY: check-yaml-formatting
+check-yaml-formatting:
+	yamlfmt -verbose -lint -dstar .github/workflows/*
 
 .PHONY: fix-yaml-formatting
 fix-yaml-formatting:
@@ -46,9 +52,9 @@ check-shell-linting:
 check-github-actions-workflows-linting:
 	actionlint -verbose -color
 
-.PHONY: check-scripts-permissions
-check-scripts-permissions:
-	./ci/check-scripts-permissions.sh
+.PHONY: check-rust-dependencies
+check-rust-dependencies:
+	cargo machete
 
 .PHONY: compile
 compile:
@@ -60,6 +66,7 @@ unit-test:
 
 .PHONY: release
 release:
+	$(call check-musl-target)
 	cargo build --release --target=$(MUSL_TARGET) --locked --verbose
 
 .PHONY: publish-binary
