@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.17.1 (2026-02-11)
+
+## What's Changed
+* ci: enabling Renovate for GitHub Actions by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/282
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/286
+* build: splitting packages by target by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/287
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/288
+* chore(deps): update rust crate insta to v1.46.1 by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/289
+* ci: migrating to copier template by @DeveloperC286 in https://github.com/DeveloperC286/monkey_interpreter/pull/290
+* chore(deps): update rust crate thiserror to v2.0.18 by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/291
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/292
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/293
+* chore(deps): update rust crate clap to v4.5.55 by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/294
+* chore(deps): update alpine docker tag to v3.23.3 by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/295
+* chore(deps): update rust crate clap to v4.5.56 by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/296
+* chore(deps): update rust crate insta to v1.46.2 by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/297
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/298
+* chore(deps): update rust crate clap to v4.5.57 by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/300
+* chore(deps): update rust crate insta to v1.46.3 by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/299
+* chore(deps): update rust crate anyhow to v1.0.101 by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/301
+* chore(deps): update nix flake lock by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/303
+* chore(deps): update rust crate clap to v4.5.58 by @renovate[bot] in https://github.com/DeveloperC286/monkey_interpreter/pull/304
+
+
+**Full Changelog**: https://github.com/DeveloperC286/monkey_interpreter/compare/v0.17.0...v0.17.1
+
 ## 0.17.0 (2026-01-04)
 
 ## What's Changed
