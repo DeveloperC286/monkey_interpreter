@@ -1,4 +1,6 @@
-use crate::syntax_analysis::model::syntax_tree_node::Expression;
+use crate::lexical_analysis::model::token::Token;
+use crate::syntax_analysis::model::expression_precedence::get_infix_operator_precedence;
+use crate::syntax_analysis::model::syntax_tree_node::{Expression, InfixOperator};
 use crate::syntax_analysis::SyntaxAnalysis;
 
 impl SyntaxAnalysis<'_> {
@@ -8,20 +10,29 @@ impl SyntaxAnalysis<'_> {
     ) -> anyhow::Result<Expression> {
         debug!("Parsing a infix expression.");
 
-        let operator = self
+        let token = self
             .tokens
             .next()
             .ok_or_else(|| anyhow::anyhow!("No token to parse."))?;
 
-        let precedence =
-            crate::syntax_analysis::model::expression_precedence::get_current_expression_precedence(
-                operator,
-            );
+        let operator = match token {
+            Token::Plus => InfixOperator::Plus,
+            Token::Minus => InfixOperator::Minus,
+            Token::Multiply => InfixOperator::Multiply,
+            Token::Divide => InfixOperator::Divide,
+            Token::Equals => InfixOperator::Equals,
+            Token::NotEquals => InfixOperator::NotEquals,
+            Token::LesserThan => InfixOperator::LesserThan,
+            Token::GreaterThan => InfixOperator::GreaterThan,
+            _ => anyhow::bail!("Unknown infix operator token {:?}.", token),
+        };
+
+        let precedence = get_infix_operator_precedence(&operator);
 
         self.get_expression(precedence)
             .map(|right_hand| Expression::Infix {
                 left_hand: Box::new(left_hand),
-                operator: operator.clone(),
+                operator,
                 right_hand: Box::new(right_hand),
             })
     }
