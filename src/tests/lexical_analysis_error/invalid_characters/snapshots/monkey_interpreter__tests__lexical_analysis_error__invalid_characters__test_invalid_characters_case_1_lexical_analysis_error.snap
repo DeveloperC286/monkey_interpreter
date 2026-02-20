@@ -1,9 +1,8 @@
 ---
 source: src/tests/lexical_analysis_error/invalid_characters/mod.rs
+assertion_line: 15
 expression: error
 ---
 Err(
-    UnparsableContext(
-        "`2`",
-    ),
+    "Unparsable context for lexical analysis \"`2`\".",
 )

@@ -1,4 +1,3 @@
-use crate::evaluator::model::evaluation_error::EvaluationError;
 use crate::evaluator::model::object::Object;
 use crate::evaluator::Evaluator;
 use crate::syntax_analysis::model::syntax_tree_node::*;
@@ -8,11 +7,11 @@ impl Evaluator {
         &mut self,
         identifier: String,
         expression: Expression,
-    ) -> Result<Object, EvaluationError> {
+    ) -> anyhow::Result<Object> {
         let expression = self.evaluate_expression(expression)?;
 
         if let Object::Return { value: _ } = expression {
-            return Err(EvaluationError::UnassignableObject);
+            anyhow::bail!("UnassignableObject");
         }
 
         self.environment.set(identifier, expression);

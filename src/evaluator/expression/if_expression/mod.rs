@@ -1,4 +1,3 @@
-use crate::evaluator::model::evaluation_error::EvaluationError;
 use crate::evaluator::model::object::Object;
 use crate::evaluator::Evaluator;
 use crate::syntax_analysis::model::syntax_tree_node::{Block, Expression};
@@ -9,7 +8,7 @@ impl Evaluator {
         condition: Expression,
         consequence: Block,
         alternative: Option<Block>,
-    ) -> Result<Object, EvaluationError> {
+    ) -> anyhow::Result<Object> {
         match self.evaluate_expression(condition)? {
             Object::Null | Object::False => match alternative {
                 Some(block) => self.evaluate_block(block),

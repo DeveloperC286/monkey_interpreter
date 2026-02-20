@@ -1,5 +1,4 @@
 use crate::evaluator::model::environment::Environment;
-use crate::evaluator::model::evaluation_error::EvaluationError;
 use crate::evaluator::model::object::Object;
 use crate::syntax_analysis::model::syntax_tree_node::*;
 
@@ -23,7 +22,7 @@ impl Evaluator {
     pub(crate) fn evaluate(
         &mut self,
         abstract_syntax_tree: Vec<SyntaxTreeNode>,
-    ) -> Result<Object, EvaluationError> {
+    ) -> anyhow::Result<Object> {
         let mut object = Object::Null;
 
         for syntax_tree_node in abstract_syntax_tree {
@@ -38,7 +37,7 @@ impl Evaluator {
         Ok(object)
     }
 
-    fn evaluate_block(&mut self, block: Block) -> Result<Object, EvaluationError> {
+    fn evaluate_block(&mut self, block: Block) -> anyhow::Result<Object> {
         let mut object = Object::Null;
 
         for syntax_tree_node in block.nodes {
@@ -52,10 +51,7 @@ impl Evaluator {
         Ok(object)
     }
 
-    fn evaluate_node(
-        &mut self,
-        syntax_tree_node: SyntaxTreeNode,
-    ) -> Result<Object, EvaluationError> {
+    fn evaluate_node(&mut self, syntax_tree_node: SyntaxTreeNode) -> anyhow::Result<Object> {
         match syntax_tree_node {
             SyntaxTreeNode::Expression { expression } => self.evaluate_expression(expression),
             SyntaxTreeNode::Statement { statement } => self.evaluate_statement(statement),

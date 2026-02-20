@@ -1,7 +1,6 @@
 use std::iter::{FromIterator, Peekable};
 use std::str::Chars;
 
-use crate::lexical_analysis::model::lexical_error::LexicalError;
 use crate::lexical_analysis::model::token::Token;
 
 pub(crate) mod model;
@@ -11,7 +10,7 @@ pub(crate) struct LexicalAnalysis<'a> {
 }
 
 impl LexicalAnalysis<'_> {
-    pub(crate) fn from(code: &str) -> Result<Vec<Token>, LexicalError> {
+    pub(crate) fn from(code: &str) -> anyhow::Result<Vec<Token>> {
         let mut lexical_analysis = LexicalAnalysis {
             source_code: code.chars().peekable(),
         };
@@ -19,8 +18,8 @@ impl LexicalAnalysis<'_> {
         lexical_analysis.parse_source_code()
     }
 
-    fn parse_source_code(&mut self) -> Result<Vec<Token>, LexicalError> {
-        fn parse_context(context: &str) -> Result<Token, LexicalError> {
+    fn parse_source_code(&mut self) -> anyhow::Result<Vec<Token>> {
+        fn parse_context(context: &str) -> anyhow::Result<Token> {
             match (
                 parse_integer(context),
                 parse_keyword(context),
@@ -30,7 +29,9 @@ impl LexicalAnalysis<'_> {
                 // When it is a valid keyword and identifier, then it is a keyword.
                 (None, Some(keyword), _) => Ok(keyword),
                 (None, None, Some(identifier)) => Ok(identifier),
-                (_, _, _) => Err(LexicalError::UnparsableContext(context.to_string())),
+                (_, _, _) => {
+                    anyhow::bail!("Unparsable context for lexical analysis {:?}.", context)
+                }
             }
         }
 
@@ -85,7 +86,7 @@ impl LexicalAnalysis<'_> {
         Ok(tokens)
     }
 
-    fn parse_character(&mut self, character: &char) -> Result<Option<Token>, LexicalError> {
+    fn parse_character(&mut self, character: &char) -> anyhow::Result<Option<Token>> {
         trace!("Attempting to parse the character {character:?} to a token.");
         match character {
             '!' => match self.source_code.peek() {
@@ -124,7 +125,7 @@ impl LexicalAnalysis<'_> {
         }
     }
 
-    fn parse_string_object(&mut self) -> Result<String, LexicalError> {
+    fn parse_string_object(&mut self) -> anyhow::Result<String> {
         trace!("Attempting to parse a string object.");
         let mut string_object = vec![];
 
@@ -138,11 +139,13 @@ impl LexicalAnalysis<'_> {
                     Some('t') => string_object.push('\t'),
                     Some('n') => string_object.push('\n'),
                     Some('r') => string_object.push('\r'),
-                    Some(character) => return Err(LexicalError::IllegalEscaping(character)),
-                    None => return Err(LexicalError::StringNotClosed),
+                    Some(character) => {
+                        anyhow::bail!("Illegal escaping of the character {:?}.", character)
+                    }
+                    None => anyhow::bail!("String not closed before the end of the code."),
                 },
                 Some(character) => string_object.push(character),
-                None => return Err(LexicalError::StringNotClosed),
+                None => anyhow::bail!("String not closed before the end of the code."),
             }
         }
 

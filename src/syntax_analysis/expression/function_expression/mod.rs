@@ -1,15 +1,18 @@
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
-use crate::syntax_analysis::model::syntax_error::SyntaxError;
 use crate::syntax_analysis::model::syntax_tree_node::Expression;
 use crate::syntax_analysis::SyntaxAnalysis;
 
 impl SyntaxAnalysis<'_> {
-    pub(crate) fn parse_function_expression(&mut self) -> Result<Expression, SyntaxError> {
+    pub(crate) fn parse_function_expression(&mut self) -> anyhow::Result<Expression> {
         debug!("Parsing a function expression.");
 
         // parse function expression
-        assert_token!(self, Token::Function, Err(SyntaxError::MissingFunction));
+        assert_token!(
+            self,
+            Token::Function,
+            "A function expression must start with Function token."
+        );
         let parameters = self.parse_parameters()?;
 
         // check function expression was parsed correctly
@@ -21,13 +24,13 @@ impl SyntaxAnalysis<'_> {
         })
     }
 
-    fn parse_parameters(&mut self) -> Result<Vec<String>, SyntaxError> {
+    fn parse_parameters(&mut self) -> anyhow::Result<Vec<String>> {
         debug!("Parsing parameters.");
 
         assert_token!(
             self,
             Token::OpeningRoundBracket,
-            Err(SyntaxError::MissingFunctionOpeningRoundBracket)
+            "A function expression must have a OpeningRoundBracket token after the Function token."
         );
         let mut parameters = vec![];
 
@@ -40,7 +43,9 @@ impl SyntaxAnalysis<'_> {
                             parameters.push(identifier);
                         }
                         _ => {
-                            return Err(SyntaxError::FunctionParameterNotIdentifier);
+                            anyhow::bail!(
+                                "Only allowed identifiers in function expression's parameters."
+                            );
                         }
                     }
 
@@ -51,11 +56,11 @@ impl SyntaxAnalysis<'_> {
                                 self.tokens.next();
                             }
                             _ => {
-                                return Err(SyntaxError::FunctionParameterNotCommaSeperated);
+                                anyhow::bail!("Parameters must be comma seperated identifiers.");
                             }
                         },
                         None => {
-                            return Err(SyntaxError::FunctionParametersEndedAbruptly);
+                            anyhow::bail!("FunctionParametersEndedAbruptly.");
                         }
                     }
                 }
@@ -65,7 +70,7 @@ impl SyntaxAnalysis<'_> {
         assert_token!(
             self,
             Token::ClosingRoundBracket,
-            Err(SyntaxError::MissingFunctionClosingRoundBracket)
+            "A function expression must have a ClosingRoundBracket token after the parameters."
         );
         Ok(parameters)
     }

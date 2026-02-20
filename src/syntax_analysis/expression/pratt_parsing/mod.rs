@@ -2,7 +2,6 @@ use std::cmp::Ordering;
 
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
-use crate::syntax_analysis::model::syntax_error::SyntaxError;
 use crate::syntax_analysis::model::syntax_tree_node::Expression;
 use crate::syntax_analysis::SyntaxAnalysis;
 
@@ -14,7 +13,7 @@ impl SyntaxAnalysis<'_> {
         &mut self,
         mut expression: Expression,
         expression_precedence: ExpressionPrecedence,
-    ) -> Result<Expression, SyntaxError> {
+    ) -> anyhow::Result<Expression> {
         while let Some(token) = self.tokens.peek() {
             if **token == Token::SemiColon {
                 break;

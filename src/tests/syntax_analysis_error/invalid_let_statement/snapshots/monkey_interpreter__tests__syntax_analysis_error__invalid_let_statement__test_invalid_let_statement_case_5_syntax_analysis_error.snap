@@ -1,7 +1,8 @@
 ---
 source: src/tests/syntax_analysis_error/invalid_let_statement/mod.rs
+assertion_line: 28
 expression: error
 ---
 Err(
-    MissingLetAssignment,
+    "A let statement must have an assignment operator after the Identifier token.",
 )

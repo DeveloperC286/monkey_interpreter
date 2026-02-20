@@ -1,9 +1,8 @@
 ---
 source: src/tests/syntax_analysis_error/invalid_let_statement/mod.rs
+assertion_line: 28
 expression: error
 ---
 Err(
-    UnparsableAsExpression(
-        SemiColon,
-    ),
+    "Do not know how to parse SemiColon as an expression.",
 )

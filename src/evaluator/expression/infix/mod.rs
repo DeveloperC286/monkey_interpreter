@@ -1,4 +1,3 @@
-use crate::evaluator::model::evaluation_error::EvaluationError;
 use crate::evaluator::model::object::Object;
 use crate::evaluator::Evaluator;
 use crate::lexical_analysis::model::token::Token;
@@ -10,20 +9,20 @@ impl Evaluator {
         left_hand: Expression,
         operator_token: Token,
         right_hand: Expression,
-    ) -> Result<Object, EvaluationError> {
-        fn evaluate_same_boolean(operator_token: Token) -> Result<Object, EvaluationError> {
+    ) -> anyhow::Result<Object> {
+        fn evaluate_same_boolean(operator_token: Token) -> anyhow::Result<Object> {
             match operator_token {
                 Token::Equals => Ok(Object::True),
                 Token::NotEquals => Ok(Object::False),
-                _ => Err(EvaluationError::UnknownOperator),
+                _ => anyhow::bail!("UnknownOperator"),
             }
         }
 
-        fn evaluate_opposite_boolean(operator_token: Token) -> Result<Object, EvaluationError> {
+        fn evaluate_opposite_boolean(operator_token: Token) -> anyhow::Result<Object> {
             match operator_token {
                 Token::Equals => Ok(Object::False),
                 Token::NotEquals => Ok(Object::True),
-                _ => Err(EvaluationError::UnknownOperator),
+                _ => anyhow::bail!("UnknownOperator"),
             }
         }
 
@@ -58,19 +57,19 @@ impl Evaluator {
                         true => Ok(Object::True),
                         false => Ok(Object::False),
                     },
-                    _ => Err(EvaluationError::UnknownOperator),
+                    _ => anyhow::bail!("UnknownOperator"),
                 },
-                _ => Err(EvaluationError::TypeMismatch),
+                _ => anyhow::bail!("TypeMismatch"),
             },
             Object::True => match self.evaluate_expression(right_hand)? {
                 Object::True => evaluate_same_boolean(operator_token),
                 Object::False => evaluate_opposite_boolean(operator_token),
-                _ => Err(EvaluationError::TypeMismatch),
+                _ => anyhow::bail!("TypeMismatch"),
             },
             Object::False => match self.evaluate_expression(right_hand)? {
                 Object::False => evaluate_same_boolean(operator_token),
                 Object::True => evaluate_opposite_boolean(operator_token),
-                _ => Err(EvaluationError::TypeMismatch),
+                _ => anyhow::bail!("TypeMismatch"),
             },
             Object::String { value: left_value } => match self.evaluate_expression(right_hand)? {
                 Object::String { value: right_value } => match operator_token {
@@ -89,11 +88,11 @@ impl Evaluator {
                             value: concatenated,
                         })
                     }
-                    _ => Err(EvaluationError::UnknownOperator),
+                    _ => anyhow::bail!("UnknownOperator"),
                 },
-                _ => Err(EvaluationError::TypeMismatch),
+                _ => anyhow::bail!("TypeMismatch"),
             },
-            _ => Err(EvaluationError::UnknownOperator),
+            _ => anyhow::bail!("UnknownOperator"),
         }
     }
 }

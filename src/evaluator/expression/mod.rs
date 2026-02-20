@@ -1,4 +1,3 @@
-use crate::evaluator::model::evaluation_error::EvaluationError;
 use crate::evaluator::model::object::Object;
 use crate::evaluator::Evaluator;
 use crate::syntax_analysis::model::syntax_tree_node::*;
@@ -13,10 +12,7 @@ mod prefix;
 mod string;
 
 impl Evaluator {
-    pub(crate) fn evaluate_expression(
-        &mut self,
-        expression: Expression,
-    ) -> Result<Object, EvaluationError> {
+    pub(crate) fn evaluate_expression(&mut self, expression: Expression) -> anyhow::Result<Object> {
         match expression {
             Expression::Integer { literal } => self.evaluate_integer(literal),
             Expression::String { literal } => self.evaluate_string(literal),

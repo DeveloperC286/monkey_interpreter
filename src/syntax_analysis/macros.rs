@@ -13,15 +13,15 @@ macro_rules! semicolon {
 }
 
 macro_rules! assert_token {
-    ($self:expr, $expect_token:expr, $failure_returning:expr) => {
+    ($self:expr, $expect_token:expr, $failure_msg:expr) => {
         match $self.tokens.next() {
             Some(token) => {
                 if *token != $expect_token {
-                    return $failure_returning;
+                    anyhow::bail!($failure_msg);
                 }
             }
             None => {
-                return $failure_returning;
+                anyhow::bail!($failure_msg);
             }
         }
     };

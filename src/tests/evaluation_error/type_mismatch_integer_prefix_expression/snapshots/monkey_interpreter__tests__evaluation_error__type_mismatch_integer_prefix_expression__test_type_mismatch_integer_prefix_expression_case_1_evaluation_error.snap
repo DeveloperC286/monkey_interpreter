@@ -1,7 +1,8 @@
 ---
 source: src/tests/evaluation_error/type_mismatch_integer_prefix_expression/mod.rs
+assertion_line: 23
 expression: error
 ---
 Err(
-    TypeMismatch,
+    "TypeMismatch",
 )
