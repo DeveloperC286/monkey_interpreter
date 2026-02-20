@@ -1,5 +1,3 @@
-use crate::lexical_analysis::model::token::Token;
-
 #[derive(Debug, Clone, PartialEq)]
 pub(crate) struct Block {
     pub(crate) nodes: Vec<SyntaxTreeNode>,
@@ -23,6 +21,18 @@ pub(crate) enum Statement {
 }
 
 #[derive(Debug, Clone, PartialEq)]
+pub(crate) enum InfixOperator {
+    Plus,
+    Minus,
+    Multiply,
+    Divide,
+    Equals,
+    NotEquals,
+    LesserThan,
+    GreaterThan,
+}
+
+#[derive(Debug, Clone, PartialEq)]
 pub(crate) enum Expression {
     Identifier {
         identifier: String,
@@ -41,7 +51,7 @@ pub(crate) enum Expression {
     },
     Infix {
         left_hand: Box<Expression>,
-        operator: Token,
+        operator: InfixOperator,
         right_hand: Box<Expression>,
     },
     Boolean {

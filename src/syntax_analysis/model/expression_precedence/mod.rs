@@ -1,4 +1,5 @@
 use crate::lexical_analysis::model::token::Token;
+use crate::syntax_analysis::model::syntax_tree_node::InfixOperator;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
 pub(crate) enum ExpressionPrecedence {
@@ -26,5 +27,16 @@ pub(crate) fn get_current_expression_precedence(token: &Token) -> ExpressionPrec
             trace!("Could not find precedence for Token::{token:?} so returning LOWEST.");
             ExpressionPrecedence::Lowest
         }
+    }
+}
+
+pub(crate) fn get_infix_operator_precedence(operator: &InfixOperator) -> ExpressionPrecedence {
+    match operator {
+        InfixOperator::Equals | InfixOperator::NotEquals => ExpressionPrecedence::Equals,
+        InfixOperator::LesserThan | InfixOperator::GreaterThan => {
+            ExpressionPrecedence::LesserOrGreater
+        }
+        InfixOperator::Plus | InfixOperator::Minus => ExpressionPrecedence::Plus,
+        InfixOperator::Multiply | InfixOperator::Divide => ExpressionPrecedence::Multiply,
     }
 }
