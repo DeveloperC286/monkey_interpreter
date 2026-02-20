@@ -1,6 +1,5 @@
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
-use crate::syntax_analysis::model::syntax_error::SyntaxError;
 use crate::syntax_analysis::model::syntax_tree_node::{Expression, SyntaxTreeNode};
 use crate::syntax_analysis::SyntaxAnalysis;
 
@@ -11,7 +10,7 @@ mod pratt_parsing;
 mod utilities;
 
 impl SyntaxAnalysis<'_> {
-    pub(crate) fn get_expression_node(&mut self) -> Result<SyntaxTreeNode, SyntaxError> {
+    pub(crate) fn get_expression_node(&mut self) -> anyhow::Result<SyntaxTreeNode> {
         let expression = self.get_expression(ExpressionPrecedence::Lowest)?;
         semicolon!(self);
         Ok(SyntaxTreeNode::Expression { expression })
@@ -20,7 +19,7 @@ impl SyntaxAnalysis<'_> {
     pub(crate) fn get_expression(
         &mut self,
         expression_precedence: ExpressionPrecedence,
-    ) -> Result<Expression, SyntaxError> {
+    ) -> anyhow::Result<Expression> {
         debug!("Parsing an expression.");
 
         match self.tokens.peek() {
@@ -66,7 +65,7 @@ impl SyntaxAnalysis<'_> {
                         ),
                         Err(_) => {
                             // TODO what with other error?
-                            Err(SyntaxError::MissingRightHandToPrefixExpression)
+                            anyhow::bail!("A prefix expression must have a right hand expression.")
                         }
                     }
                 }
@@ -83,7 +82,7 @@ impl SyntaxAnalysis<'_> {
                         ),
                         Err(_) => {
                             // TODO what with other error?
-                            Err(SyntaxError::MissingRightHandToPrefixExpression)
+                            anyhow::bail!("A prefix expression must have a right hand expression.")
                         }
                     }
                 }
@@ -115,9 +114,9 @@ impl SyntaxAnalysis<'_> {
                     let function_expression = self.parse_function_expression()?;
                     self.pratt_parsing(function_expression, expression_precedence)
                 }
-                _ => Err(SyntaxError::UnparsableAsExpression((*token).clone())),
+                _ => anyhow::bail!("Do not know how to parse {:?} as an expression.", *token),
             },
-            None => Err(SyntaxError::NoTokenToParse),
+            None => anyhow::bail!("No token to parse."),
         }
     }
 }

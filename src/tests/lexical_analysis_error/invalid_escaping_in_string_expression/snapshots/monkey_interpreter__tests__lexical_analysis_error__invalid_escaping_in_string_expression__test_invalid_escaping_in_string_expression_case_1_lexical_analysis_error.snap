@@ -1,9 +1,8 @@
 ---
 source: src/tests/lexical_analysis_error/invalid_escaping_in_string_expression/mod.rs
+assertion_line: 19
 expression: error
 ---
 Err(
-    IllegalEscaping(
-        'x',
-    ),
+    "Illegal escaping of the character 'x'.",
 )

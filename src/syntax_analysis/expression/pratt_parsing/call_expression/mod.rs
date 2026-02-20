@@ -1,6 +1,5 @@
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
-use crate::syntax_analysis::model::syntax_error::SyntaxError;
 use crate::syntax_analysis::model::syntax_tree_node::Expression;
 use crate::syntax_analysis::SyntaxAnalysis;
 
@@ -8,7 +7,7 @@ impl SyntaxAnalysis<'_> {
     pub(crate) fn parse_call_expression(
         &mut self,
         function: Expression,
-    ) -> Result<Expression, SyntaxError> {
+    ) -> anyhow::Result<Expression> {
         debug!("Parsing a call expression.");
 
         // check call expression was correctly called by an identifier on inlined function.
@@ -19,7 +18,9 @@ impl SyntaxAnalysis<'_> {
                 block: _,
             } => {}
             _ => {
-                return Err(SyntaxError::CallExpressionNotIdentifierOrFunction);
+                anyhow::bail!(
+                    "A call expression is not calling either an identifier or an inlined function."
+                );
             }
         }
 
@@ -32,13 +33,13 @@ impl SyntaxAnalysis<'_> {
         })
     }
 
-    fn parse_arguments(&mut self) -> Result<Vec<Expression>, SyntaxError> {
+    fn parse_arguments(&mut self) -> anyhow::Result<Vec<Expression>> {
         debug!("Parsing arguments.");
 
         assert_token!(
             self,
             Token::OpeningRoundBracket,
-            Err(SyntaxError::MissingCallExpressionOpeningRoundBracket)
+            "A call expression must have a OpeningRoundBracket token after the Function token."
         );
         let mut arguments = vec![];
 
@@ -55,11 +56,11 @@ impl SyntaxAnalysis<'_> {
                                 self.tokens.next();
                             }
                             _ => {
-                                return Err(SyntaxError::CallExpressionParameterNotCommaSeperated);
+                                anyhow::bail!("Parameters must be comma seperated identifiers.");
                             }
                         },
                         None => {
-                            return Err(SyntaxError::CallExpressionParametersEndedAbruptly);
+                            anyhow::bail!("CallExpressionParametersEndedAbruptly.");
                         }
                     }
                 }
@@ -69,7 +70,7 @@ impl SyntaxAnalysis<'_> {
         assert_token!(
             self,
             Token::ClosingRoundBracket,
-            Err(SyntaxError::MissingCallExpressionClosingRoundBracket)
+            "A call expression must have a ClosingRoundBracket token after the parameters."
         );
         Ok(arguments)
     }

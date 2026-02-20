@@ -1,4 +1,3 @@
-use crate::evaluator::model::evaluation_error::EvaluationError;
 use crate::evaluator::model::object::Object;
 use crate::evaluator::Evaluator;
 use crate::syntax_analysis::model::syntax_tree_node::Expression;
@@ -8,7 +7,7 @@ impl Evaluator {
         &mut self,
         function: Expression,
         arguments: Vec<Expression>,
-    ) -> Result<Object, EvaluationError> {
+    ) -> anyhow::Result<Object> {
         match self.evaluate_expression(function)? {
             Object::Function { parameters, block } => {
                 self.environment.push();
@@ -24,7 +23,7 @@ impl Evaluator {
                 self.environment.pop();
                 Ok(block_call_evaluation)
             }
-            _ => Err(EvaluationError::UncallableObject),
+            _ => anyhow::bail!("UncallableObject"),
         }
     }
 }

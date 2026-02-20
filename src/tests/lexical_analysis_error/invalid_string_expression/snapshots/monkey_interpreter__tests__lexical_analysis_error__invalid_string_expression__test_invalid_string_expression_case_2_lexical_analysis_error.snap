@@ -1,9 +1,8 @@
 ---
 source: src/tests/lexical_analysis_error/invalid_string_expression/mod.rs
+assertion_line: 18
 expression: error
 ---
 Err(
-    UnparsableContext(
-        "'this",
-    ),
+    "Unparsable context for lexical analysis \"'this\".",
 )

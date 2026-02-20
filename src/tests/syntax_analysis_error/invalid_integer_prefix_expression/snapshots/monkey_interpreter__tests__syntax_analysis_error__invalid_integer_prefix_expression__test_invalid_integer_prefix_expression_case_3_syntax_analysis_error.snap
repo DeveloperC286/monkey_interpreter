@@ -1,7 +1,8 @@
 ---
 source: src/tests/syntax_analysis_error/invalid_integer_prefix_expression/mod.rs
+assertion_line: 20
 expression: error
 ---
 Err(
-    MissingRightHandToPrefixExpression,
+    "A prefix expression must have a right hand expression.",
 )

@@ -1,7 +1,8 @@
 ---
 source: src/tests/lexical_analysis_error/invalid_string_expression/mod.rs
+assertion_line: 18
 expression: error
 ---
 Err(
-    StringNotClosed,
+    "String not closed before the end of the code.",
 )

@@ -1,7 +1,8 @@
 ---
 source: src/tests/evaluation_error/unknown_operator_integer_infix_expression/mod.rs
+assertion_line: 32
 expression: error
 ---
 Err(
-    UnknownOperator,
+    "UnknownOperator",
 )
