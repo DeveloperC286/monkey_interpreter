@@ -1,6 +1,6 @@
-use crate::evaluator::model::object::Object;
+use crate::evaluator::Object;
 use crate::evaluator::Evaluator;
-use crate::syntax_analysis::model::syntax_tree_node::Block;
+use crate::syntax_analysis::Block;
 
 impl Evaluator {
     pub(super) fn evaluate_function_expression(

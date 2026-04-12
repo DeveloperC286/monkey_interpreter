@@ -1,8 +1,8 @@
-use crate::lexical_analysis::model::token::Token;
-use crate::syntax_analysis::model::syntax_tree_node::InfixOperator;
+use crate::lexical_analysis::Token;
+use super::syntax_tree_node::InfixOperator;
 
 #[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
-pub(crate) enum ExpressionPrecedence {
+pub enum ExpressionPrecedence {
     Lowest,
     Equals,
     LesserOrGreater,
@@ -12,7 +12,7 @@ pub(crate) enum ExpressionPrecedence {
     Call,
 }
 
-pub(crate) fn get_current_expression_precedence(token: &Token) -> ExpressionPrecedence {
+pub fn get_current_expression_precedence(token: &Token) -> ExpressionPrecedence {
     match token {
         Token::Equals => ExpressionPrecedence::Equals,
         Token::NotEquals => ExpressionPrecedence::Equals,
@@ -30,7 +30,7 @@ pub(crate) fn get_current_expression_precedence(token: &Token) -> ExpressionPrec
     }
 }
 
-pub(crate) fn get_infix_operator_precedence(operator: &InfixOperator) -> ExpressionPrecedence {
+pub fn get_infix_operator_precedence(operator: &InfixOperator) -> ExpressionPrecedence {
     match operator {
         InfixOperator::Equals | InfixOperator::NotEquals => ExpressionPrecedence::Equals,
         InfixOperator::LesserThan | InfixOperator::GreaterThan => {

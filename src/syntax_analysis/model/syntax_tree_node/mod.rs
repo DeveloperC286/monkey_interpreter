@@ -1,16 +1,16 @@
 #[derive(Debug, Clone, PartialEq)]
-pub(crate) struct Block {
-    pub(crate) nodes: Vec<SyntaxTreeNode>,
+pub struct Block {
+    pub nodes: Vec<SyntaxTreeNode>,
 }
 
 #[derive(Debug, Clone, PartialEq)]
-pub(crate) enum SyntaxTreeNode {
+pub enum SyntaxTreeNode {
     Statement { statement: Statement },
     Expression { expression: Expression },
 }
 
 #[derive(Debug, Clone, PartialEq)]
-pub(crate) enum Statement {
+pub enum Statement {
     Let {
         identifier: String,
         expression: Box<Expression>,
@@ -21,7 +21,7 @@ pub(crate) enum Statement {
 }
 
 #[derive(Debug, Clone, PartialEq)]
-pub(crate) enum InfixOperator {
+pub enum InfixOperator {
     Plus,
     Minus,
     Multiply,
@@ -33,7 +33,7 @@ pub(crate) enum InfixOperator {
 }
 
 #[derive(Debug, Clone, PartialEq)]
-pub(crate) enum Expression {
+pub enum Expression {
     Identifier {
         identifier: String,
     },

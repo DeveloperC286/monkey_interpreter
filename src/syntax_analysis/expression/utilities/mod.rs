@@ -1,5 +1,5 @@
-use crate::lexical_analysis::model::token::Token;
-use crate::syntax_analysis::model::syntax_tree_node::Block;
+use crate::lexical_analysis::Token;
+use crate::syntax_analysis::Block;
 use crate::syntax_analysis::SyntaxAnalysis;
 
 impl SyntaxAnalysis<'_> {

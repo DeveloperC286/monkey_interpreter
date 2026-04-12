@@ -1,25 +1,26 @@
-use crate::evaluator::model::environment::Environment;
-use crate::evaluator::model::object::Object;
-use crate::syntax_analysis::model::syntax_tree_node::*;
+use crate::syntax_analysis::*;
 
-pub mod model;
+mod model;
+
+pub use model::object::Object;
+use model::environment::Environment;
 
 mod expression;
 mod statement;
 
 #[derive(Debug)]
-pub(crate) struct Evaluator {
+pub struct Evaluator {
     environment: Environment,
 }
 
 impl Evaluator {
-    pub(crate) fn new() -> Evaluator {
+    pub fn new() -> Evaluator {
         Evaluator {
             environment: Environment::new(),
         }
     }
 
-    pub(crate) fn evaluate(
+    pub fn evaluate(
         &mut self,
         abstract_syntax_tree: Vec<SyntaxTreeNode>,
     ) -> anyhow::Result<Object> {

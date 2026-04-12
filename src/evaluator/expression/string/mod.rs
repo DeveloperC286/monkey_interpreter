@@ -1,4 +1,4 @@
-use crate::evaluator::model::object::Object;
+use crate::evaluator::Object;
 use crate::evaluator::Evaluator;
 
 impl Evaluator {

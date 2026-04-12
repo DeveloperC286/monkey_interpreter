@@ -1,6 +1,6 @@
-use crate::lexical_analysis::model::token::Token;
-use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
-use crate::syntax_analysis::model::syntax_tree_node::Expression;
+use crate::lexical_analysis::Token;
+use crate::syntax_analysis::ExpressionPrecedence;
+use crate::syntax_analysis::Expression;
 use crate::syntax_analysis::SyntaxAnalysis;
 
 impl SyntaxAnalysis<'_> {

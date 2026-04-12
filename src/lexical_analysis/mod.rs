@@ -1,16 +1,16 @@
 use std::iter::{FromIterator, Peekable};
 use std::str::Chars;
 
-use crate::lexical_analysis::model::token::Token;
+mod model;
 
-pub(crate) mod model;
+pub use model::token::Token;
 
-pub(crate) struct LexicalAnalysis<'a> {
+pub struct LexicalAnalysis<'a> {
     source_code: Peekable<Chars<'a>>,
 }
 
 impl LexicalAnalysis<'_> {
-    pub(crate) fn from(code: &str) -> anyhow::Result<Vec<Token>> {
+    pub fn from(code: &str) -> anyhow::Result<Vec<Token>> {
         let mut lexical_analysis = LexicalAnalysis {
             source_code: code.chars().peekable(),
         };
