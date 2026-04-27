@@ -1,13 +1,11 @@
 macro_rules! semicolon {
     ($self:expr) => {
         match $self.tokens.peek() {
-            Some(token) => {
-                if **token == Token::SemiColon {
-                    trace!("Ignoring expression's semi colon.");
-                    $self.tokens.next();
-                }
+            Some(token) if **token == Token::SemiColon => {
+                trace!("Ignoring expression's semi colon.");
+                $self.tokens.next();
             }
-            None => {}
+            _ => {}
         }
     };
 }
