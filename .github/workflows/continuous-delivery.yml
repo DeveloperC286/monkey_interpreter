@@ -26,22 +26,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by GitHub Actions.
 
-<<<<<<< before updating
-=======
-  publish-crate:
-    name: Publish Crate
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Checkout code.
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - name: Setup Nix.
-        uses: cachix/install-nix-action@ab739621df7a23f52766f9ccc97f38da6b7af14f # v31.10.5
-      - name: Publish crate.
-        run: nix develop -c make publish-crate
-        env:
-          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
-
->>>>>>> after updating
   publish-docker-image:
     name: Publish Docker Image (${{ matrix.platform }})
     runs-on: ${{ matrix.runner }}
