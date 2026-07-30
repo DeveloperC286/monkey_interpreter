@@ -1,11 +1,8 @@
-#[macro_use]
-extern crate log;
-extern crate pretty_env_logger;
-
 use std::io::{stdin, stdout, Write};
 
 use anyhow::{Context, Result};
 use clap::Parser;
+use log::{debug, error, info};
 
 use crate::cli::Arguments;
 use crate::evaluator::Evaluator;
@@ -20,12 +17,20 @@ mod syntax_analysis;
 fn main() {
     let arguments = Arguments::parse();
 
-    // Set up logging: if verbose is true and RUST_LOG is not set, default to info level
-    if arguments.verbose && std::env::var("RUST_LOG").is_err() {
-        std::env::set_var("RUST_LOG", "info");
+    // Set up logging. Log level precedence:
+    // - RUST_LOG, if set.
+    // - info, if --verbose is passed.
+    let mut logger = pretty_env_logger::formatted_builder();
+    match std::env::var("RUST_LOG") {
+        Ok(rust_log) => {
+            logger.parse_filters(&rust_log);
+        }
+        Err(_) if arguments.verbose => {
+            logger.filter_level(log::LevelFilter::Info);
+        }
+        Err(_) => {}
     }
-
-    pretty_env_logger::init();
+    logger.init();
 
     info!("Version {}.", env!("CARGO_PKG_VERSION"));
     debug!("The command line arguments provided are {arguments:?}.");

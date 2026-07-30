@@ -1,6 +1,8 @@
 use std::iter::{FromIterator, Peekable};
 use std::str::Chars;
 
+use log::{debug, info, trace};
+
 use crate::lexical_analysis::model::token::Token;
 
 pub(crate) mod model;

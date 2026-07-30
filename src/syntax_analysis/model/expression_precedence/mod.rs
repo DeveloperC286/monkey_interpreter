@@ -1,3 +1,5 @@
+use log::trace;
+
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::model::syntax_tree_node::InfixOperator;
 

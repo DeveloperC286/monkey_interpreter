@@ -1,3 +1,5 @@
+use log::debug;
+
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::model::expression_precedence::get_infix_operator_precedence;
 use crate::syntax_analysis::model::syntax_tree_node::{Expression, InfixOperator};
