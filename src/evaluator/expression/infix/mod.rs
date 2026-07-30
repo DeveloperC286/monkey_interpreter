@@ -1,5 +1,5 @@
-use crate::evaluator::model::object::Object;
 use crate::evaluator::Evaluator;
+use crate::evaluator::model::object::Object;
 use crate::syntax_analysis::model::syntax_tree_node::{Expression, InfixOperator};
 
 impl Evaluator {

@@ -1,9 +1,9 @@
 use log::debug;
 
 use crate::lexical_analysis::model::token::Token;
+use crate::syntax_analysis::SyntaxAnalysis;
 use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
 use crate::syntax_analysis::model::syntax_tree_node::Expression;
-use crate::syntax_analysis::SyntaxAnalysis;
 
 impl SyntaxAnalysis<'_> {
     pub(crate) fn parse_function_expression(&mut self) -> anyhow::Result<Expression> {
@@ -36,34 +36,34 @@ impl SyntaxAnalysis<'_> {
         );
         let mut parameters = vec![];
 
-        if let Some(token) = self.tokens.peek() {
-            if **token != Token::ClosingRoundBracket {
-                loop {
-                    let expression = self.get_expression(ExpressionPrecedence::Lowest)?;
-                    match expression {
-                        Expression::Identifier { identifier } => {
-                            parameters.push(identifier);
+        if let Some(token) = self.tokens.peek()
+            && **token != Token::ClosingRoundBracket
+        {
+            loop {
+                let expression = self.get_expression(ExpressionPrecedence::Lowest)?;
+                match expression {
+                    Expression::Identifier { identifier } => {
+                        parameters.push(identifier);
+                    }
+                    _ => {
+                        anyhow::bail!(
+                            "Only allowed identifiers in function expression's parameters."
+                        );
+                    }
+                }
+
+                match self.tokens.peek() {
+                    Some(token) => match token {
+                        Token::ClosingRoundBracket => break,
+                        Token::Comma => {
+                            self.tokens.next();
                         }
                         _ => {
-                            anyhow::bail!(
-                                "Only allowed identifiers in function expression's parameters."
-                            );
+                            anyhow::bail!("Parameters must be comma seperated identifiers.");
                         }
-                    }
-
-                    match self.tokens.peek() {
-                        Some(token) => match token {
-                            Token::ClosingRoundBracket => break,
-                            Token::Comma => {
-                                self.tokens.next();
-                            }
-                            _ => {
-                                anyhow::bail!("Parameters must be comma seperated identifiers.");
-                            }
-                        },
-                        None => {
-                            anyhow::bail!("FunctionParametersEndedAbruptly.");
-                        }
+                    },
+                    None => {
+                        anyhow::bail!("FunctionParametersEndedAbruptly.");
                     }
                 }
             }

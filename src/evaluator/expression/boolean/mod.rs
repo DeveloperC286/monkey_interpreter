@@ -1,5 +1,5 @@
-use crate::evaluator::model::object::Object;
 use crate::evaluator::Evaluator;
+use crate::evaluator::model::object::Object;
 
 impl Evaluator {
     pub(super) fn evaluate_boolean(&self, literal: bool) -> anyhow::Result<Object> {

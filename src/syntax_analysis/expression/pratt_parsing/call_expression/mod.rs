@@ -1,9 +1,9 @@
 use log::debug;
 
 use crate::lexical_analysis::model::token::Token;
+use crate::syntax_analysis::SyntaxAnalysis;
 use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
 use crate::syntax_analysis::model::syntax_tree_node::Expression;
-use crate::syntax_analysis::SyntaxAnalysis;
 
 impl SyntaxAnalysis<'_> {
     pub(crate) fn parse_call_expression(
@@ -45,25 +45,25 @@ impl SyntaxAnalysis<'_> {
         );
         let mut arguments = vec![];
 
-        if let Some(token) = self.tokens.peek() {
-            if **token != Token::ClosingRoundBracket {
-                loop {
-                    let expression = self.get_expression(ExpressionPrecedence::Lowest)?;
-                    arguments.push(expression);
+        if let Some(token) = self.tokens.peek()
+            && **token != Token::ClosingRoundBracket
+        {
+            loop {
+                let expression = self.get_expression(ExpressionPrecedence::Lowest)?;
+                arguments.push(expression);
 
-                    match self.tokens.peek() {
-                        Some(token) => match token {
-                            Token::ClosingRoundBracket => break,
-                            Token::Comma => {
-                                self.tokens.next();
-                            }
-                            _ => {
-                                anyhow::bail!("Parameters must be comma seperated identifiers.");
-                            }
-                        },
-                        None => {
-                            anyhow::bail!("CallExpressionParametersEndedAbruptly.");
+                match self.tokens.peek() {
+                    Some(token) => match token {
+                        Token::ClosingRoundBracket => break,
+                        Token::Comma => {
+                            self.tokens.next();
                         }
+                        _ => {
+                            anyhow::bail!("Parameters must be comma seperated identifiers.");
+                        }
+                    },
+                    None => {
+                        anyhow::bail!("CallExpressionParametersEndedAbruptly.");
                     }
                 }
             }

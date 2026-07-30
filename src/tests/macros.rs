@@ -43,12 +43,14 @@ macro_rules! assert_evaluation {
 
         // When
         let mut evaluator = crate::evaluator::Evaluator::new();
-        let evaluation = assert_ok!(evaluator.evaluate(
-            crate::syntax_analysis::SyntaxAnalysis::from(
-                crate::lexical_analysis::LexicalAnalysis::from($code).unwrap(),
+        let evaluation = assert_ok!(
+            evaluator.evaluate(
+                crate::syntax_analysis::SyntaxAnalysis::from(
+                    crate::lexical_analysis::LexicalAnalysis::from($code).unwrap(),
+                )
+                .unwrap(),
             )
-            .unwrap(),
-        ));
+        );
 
         // Then
         insta::assert_debug_snapshot!(format!("test_{}_evaluation", $snapshot_name), evaluation);
@@ -63,12 +65,14 @@ macro_rules! assert_environment {
 
         // When
         let mut evaluator = crate::evaluator::Evaluator::new();
-        let _evaluation = assert_ok!(evaluator.evaluate(
-            crate::syntax_analysis::SyntaxAnalysis::from(
-                crate::lexical_analysis::LexicalAnalysis::from($code).unwrap(),
+        let _evaluation = assert_ok!(
+            evaluator.evaluate(
+                crate::syntax_analysis::SyntaxAnalysis::from(
+                    crate::lexical_analysis::LexicalAnalysis::from($code).unwrap(),
+                )
+                .unwrap(),
             )
-            .unwrap(),
-        ));
+        );
 
         // Then
         insta::assert_debug_snapshot!(format!("test_{}_environment", $snapshot_name), evaluator);
@@ -82,12 +86,14 @@ macro_rules! assert_successive_environment {
         });
 
         // When
-        let evaluation = assert_ok!($evaluator.evaluate(
-            crate::syntax_analysis::SyntaxAnalysis::from(
-                crate::lexical_analysis::LexicalAnalysis::from($code).unwrap(),
+        let evaluation = assert_ok!(
+            $evaluator.evaluate(
+                crate::syntax_analysis::SyntaxAnalysis::from(
+                    crate::lexical_analysis::LexicalAnalysis::from($code).unwrap(),
+                )
+                .unwrap(),
             )
-            .unwrap(),
-        ));
+        );
 
         // Then
         insta::assert_debug_snapshot!(format!("test_{}_evaluation", $snapshot_name), evaluation);
