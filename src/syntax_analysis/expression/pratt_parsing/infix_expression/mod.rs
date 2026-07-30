@@ -1,9 +1,9 @@
 use log::debug;
 
 use crate::lexical_analysis::model::token::Token;
+use crate::syntax_analysis::SyntaxAnalysis;
 use crate::syntax_analysis::model::expression_precedence::get_infix_operator_precedence;
 use crate::syntax_analysis::model::syntax_tree_node::{Expression, InfixOperator};
-use crate::syntax_analysis::SyntaxAnalysis;
 
 impl SyntaxAnalysis<'_> {
     pub(crate) fn parse_infix_expression(

@@ -1,9 +1,9 @@
 use log::{debug, trace};
 
 use crate::lexical_analysis::model::token::Token;
+use crate::syntax_analysis::SyntaxAnalysis;
 use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
 use crate::syntax_analysis::model::syntax_tree_node::{Statement, SyntaxTreeNode};
-use crate::syntax_analysis::SyntaxAnalysis;
 
 impl SyntaxAnalysis<'_> {
     pub(crate) fn parse_return_statement(&mut self) -> anyhow::Result<SyntaxTreeNode> {
