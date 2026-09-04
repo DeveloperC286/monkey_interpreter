@@ -1,6 +1,8 @@
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::SyntaxAnalysis;
-use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
+use crate::syntax_analysis::model::expression_precedence::{
+    ExpressionPrecedence, get_current_expression_precedence,
+};
 use crate::syntax_analysis::model::syntax_tree_node::Expression;
 
 mod call_expression;
@@ -17,11 +19,9 @@ impl SyntaxAnalysis<'_> {
                 break;
             }
 
-            if expression_precedence
-                >= crate::syntax_analysis::model::expression_precedence::get_current_expression_precedence(
-                    token,
-                )
-            {
+            let current_expression_precedence = get_current_expression_precedence(token);
+
+            if expression_precedence >= current_expression_precedence {
                 break;
             }
 
