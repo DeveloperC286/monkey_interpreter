@@ -25,100 +25,107 @@ impl SyntaxAnalysis<'_> {
         debug!("Parsing an expression.");
 
         match self.tokens.peek() {
-            Some(token) => match token {
-                Token::Identifier { literal } => {
-                    debug!("Found a identifier expression.");
-                    self.tokens.next();
-                    self.pratt_parsing(
-                        Expression::Identifier {
-                            identifier: literal.clone(),
-                        },
-                        expression_precedence,
-                    )
-                }
-                Token::String { literal } => {
-                    debug!("Found a string expression.");
-                    self.tokens.next();
-                    self.pratt_parsing(
-                        Expression::String {
-                            literal: literal.clone(),
-                        },
-                        expression_precedence,
-                    )
-                }
-                Token::Integer { literal } => {
-                    debug!("Found a integer expression.");
-                    self.tokens.next();
-                    self.pratt_parsing(
-                        Expression::Integer { literal: *literal },
-                        expression_precedence,
-                    )
-                }
-                Token::Not => {
-                    debug!("Found a not prefix expression.");
-                    self.tokens.next().unwrap();
-
-                    match self.get_expression(ExpressionPrecedence::Prefix) {
-                        Ok(right_hand) => self.pratt_parsing(
-                            Expression::NotPrefix {
-                                right_hand: Box::new(right_hand),
-                            },
-                            expression_precedence,
-                        ),
-                        Err(_) => {
-                            // TODO what with other error?
-                            anyhow::bail!("A prefix expression must have a right hand expression.")
-                        }
-                    }
-                }
-                Token::Minus => {
-                    debug!("Found a minus prefix expression.");
-                    self.tokens.next().unwrap();
-
-                    match self.get_expression(ExpressionPrecedence::Prefix) {
-                        Ok(right_hand) => self.pratt_parsing(
-                            Expression::MinusPrefix {
-                                right_hand: Box::new(right_hand),
-                            },
-                            expression_precedence,
-                        ),
-                        Err(_) => {
-                            // TODO what with other error?
-                            anyhow::bail!("A prefix expression must have a right hand expression.")
-                        }
-                    }
-                }
-                Token::True => {
-                    debug!("Found a true boolean expression.");
-                    self.tokens.next().unwrap();
-                    self.pratt_parsing(Expression::Boolean { literal: true }, expression_precedence)
-                }
-                Token::False => {
-                    debug!("Found a false boolean expression.");
-                    self.tokens.next().unwrap();
-                    self.pratt_parsing(
-                        Expression::Boolean { literal: false },
-                        expression_precedence,
-                    )
-                }
-                Token::OpeningRoundBracket => {
-                    debug!("Found a grouped expression.");
-                    let grouped_expression = self.parse_grouped_expression()?;
-                    self.pratt_parsing(grouped_expression, expression_precedence)
-                }
-                Token::If => {
-                    debug!("Found a if expression.");
-                    let if_expression = self.parse_if_expression()?;
-                    self.pratt_parsing(if_expression, expression_precedence)
-                }
-                Token::Function => {
-                    debug!("Found a function expression.");
-                    let function_expression = self.parse_function_expression()?;
-                    self.pratt_parsing(function_expression, expression_precedence)
-                }
-                _ => anyhow::bail!("Do not know how to parse {:?} as an expression.", *token),
-            },
             None => anyhow::bail!("No token to parse."),
+            Some(Token::OpeningRoundBracket) => {
+                debug!("Found a grouped expression.");
+                let grouped_expression = self.parse_grouped_expression()?;
+                self.pratt_parsing(grouped_expression, expression_precedence)
+            }
+            Some(Token::If) => {
+                debug!("Found a if expression.");
+                let if_expression = self.parse_if_expression()?;
+                self.pratt_parsing(if_expression, expression_precedence)
+            }
+            Some(Token::Function) => {
+                debug!("Found a function expression.");
+                let function_expression = self.parse_function_expression()?;
+                self.pratt_parsing(function_expression, expression_precedence)
+            }
+            Some(token) => {
+                // Every remaining expression starts by consuming the token it was
+                // recognised by, the delegating arms above consume their own.
+                let token = *token;
+                self.tokens.next();
+
+                match token {
+                    Token::Identifier { literal } => {
+                        debug!("Found a identifier expression.");
+                        self.pratt_parsing(
+                            Expression::Identifier {
+                                identifier: literal.clone(),
+                            },
+                            expression_precedence,
+                        )
+                    }
+                    Token::String { literal } => {
+                        debug!("Found a string expression.");
+                        self.pratt_parsing(
+                            Expression::String {
+                                literal: literal.clone(),
+                            },
+                            expression_precedence,
+                        )
+                    }
+                    Token::Integer { literal } => {
+                        debug!("Found a integer expression.");
+                        self.pratt_parsing(
+                            Expression::Integer { literal: *literal },
+                            expression_precedence,
+                        )
+                    }
+                    Token::Not => {
+                        debug!("Found a not prefix expression.");
+
+                        match self.get_expression(ExpressionPrecedence::Prefix) {
+                            Ok(right_hand) => self.pratt_parsing(
+                                Expression::NotPrefix {
+                                    right_hand: Box::new(right_hand),
+                                },
+                                expression_precedence,
+                            ),
+                            Err(_) => {
+                                // TODO what with other error?
+                                anyhow::bail!(
+                                    "A prefix expression must have a right hand expression."
+                                )
+                            }
+                        }
+                    }
+                    Token::Minus => {
+                        debug!("Found a minus prefix expression.");
+
+                        match self.get_expression(ExpressionPrecedence::Prefix) {
+                            Ok(right_hand) => self.pratt_parsing(
+                                Expression::MinusPrefix {
+                                    right_hand: Box::new(right_hand),
+                                },
+                                expression_precedence,
+                            ),
+                            Err(_) => {
+                                // TODO what with other error?
+                                anyhow::bail!(
+                                    "A prefix expression must have a right hand expression."
+                                )
+                            }
+                        }
+                    }
+                    Token::True => {
+                        debug!("Found a true boolean expression.");
+                        self.pratt_parsing(
+                            Expression::Boolean { literal: true },
+                            expression_precedence,
+                        )
+                    }
+                    Token::False => {
+                        debug!("Found a false boolean expression.");
+                        self.pratt_parsing(
+                            Expression::Boolean { literal: false },
+                            expression_precedence,
+                        )
+                    }
+                    _ => anyhow::bail!("Do not know how to parse {:?} as an expression.", token),
+                }
+            }
         }
     }
 }
