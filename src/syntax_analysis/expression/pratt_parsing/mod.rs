@@ -1,5 +1,3 @@
-use std::cmp::Ordering;
-
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::SyntaxAnalysis;
 use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
@@ -19,13 +17,11 @@ impl SyntaxAnalysis<'_> {
                 break;
             }
 
-            let expression_precedence_comparison = expression_precedence.partial_cmp(
-            &crate::syntax_analysis::model::expression_precedence::get_current_expression_precedence(
-                token,
-            )
-        );
-
-            if expression_precedence_comparison != Some(Ordering::Less) {
+            if expression_precedence
+                >= crate::syntax_analysis::model::expression_precedence::get_current_expression_precedence(
+                    token,
+                )
+            {
                 break;
             }
 
