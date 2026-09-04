@@ -35,7 +35,7 @@ fn main() {
     info!("Version {}.", env!("CARGO_PKG_VERSION"));
     debug!("The command line arguments provided are {arguments:?}.");
 
-    let mut evaluator = crate::evaluator::Evaluator::new();
+    let mut evaluator = Evaluator::new();
 
     loop {
         if let Err(error) = repl(&mut evaluator) {
