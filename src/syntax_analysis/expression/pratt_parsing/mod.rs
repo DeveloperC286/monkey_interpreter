@@ -12,16 +12,16 @@ impl SyntaxAnalysis<'_> {
     pub(crate) fn pratt_parsing(
         &mut self,
         mut expression: Expression,
-        expression_precedence: ExpressionPrecedence,
+        minimum_expression_precedence: ExpressionPrecedence,
     ) -> anyhow::Result<Expression> {
         while let Some(token) = self.tokens.peek() {
             if **token == Token::SemiColon {
                 break;
             }
 
-            let current_expression_precedence = get_current_expression_precedence(token);
+            let next_expression_precedence = get_current_expression_precedence(token);
 
-            if expression_precedence >= current_expression_precedence {
+            if minimum_expression_precedence >= next_expression_precedence {
                 break;
             }
 
