@@ -2,7 +2,7 @@ use crate::evaluator::model::environment::Environment;
 use crate::evaluator::model::object::Object;
 use crate::syntax_analysis::model::syntax_tree_node::*;
 
-pub mod model;
+pub(crate) mod model;
 
 mod expression;
 mod statement;

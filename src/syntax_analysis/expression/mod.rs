@@ -56,7 +56,7 @@ impl SyntaxAnalysis<'_> {
                 }
                 Token::Not => {
                     debug!("Found a not prefix expression.");
-                    self.tokens.next().unwrap();
+                    self.tokens.next();
 
                     match self.get_expression(ExpressionPrecedence::Prefix) {
                         Ok(right_hand) => self.pratt_parsing(
@@ -73,7 +73,7 @@ impl SyntaxAnalysis<'_> {
                 }
                 Token::Minus => {
                     debug!("Found a minus prefix expression.");
-                    self.tokens.next().unwrap();
+                    self.tokens.next();
 
                     match self.get_expression(ExpressionPrecedence::Prefix) {
                         Ok(right_hand) => self.pratt_parsing(
@@ -90,12 +90,12 @@ impl SyntaxAnalysis<'_> {
                 }
                 Token::True => {
                     debug!("Found a true boolean expression.");
-                    self.tokens.next().unwrap();
+                    self.tokens.next();
                     self.pratt_parsing(Expression::Boolean { literal: true }, expression_precedence)
                 }
                 Token::False => {
                     debug!("Found a false boolean expression.");
-                    self.tokens.next().unwrap();
+                    self.tokens.next();
                     self.pratt_parsing(
                         Expression::Boolean { literal: false },
                         expression_precedence,
