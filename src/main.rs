@@ -39,7 +39,7 @@ fn main() {
 
     loop {
         if let Err(error) = repl(&mut evaluator) {
-            error!("{error}");
+            error!("{error:?}");
         }
     }
 }
