@@ -187,12 +187,7 @@ fn parse_identifier(parsing: &str) -> Option<Token> {
 }
 
 fn is_valid_identifier(verifying: &str) -> bool {
-    verifying
-        .chars()
-        .map(is_valid_identifier_character)
-        .filter(|results| !(*results))
-        .count()
-        == 0
+    verifying.chars().all(is_valid_identifier_character)
 }
 
 fn is_valid_identifier_character(character: char) -> bool {
