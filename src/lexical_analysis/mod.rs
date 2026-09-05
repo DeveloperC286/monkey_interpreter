@@ -27,18 +27,14 @@ impl LexicalAnalysis<'_> {
                 parse_keyword(context),
                 parse_identifier(context),
             ) {
-                (Some(integer), None, None) => Ok(integer),
+                (ParsedInteger::Valid(integer), None, None) => Ok(integer),
+                (ParsedInteger::OutOfRange, None, None) => anyhow::bail!(
+                    "The integer literal {:?} does not fit into a signed 64 bit integer.",
+                    context
+                ),
                 // When it is a valid keyword and identifier, then it is a keyword.
-                (None, Some(keyword), _) => Ok(keyword),
-                (None, None, Some(identifier)) => Ok(identifier),
-                (None, None, None)
-                    if context.chars().all(|character| character.is_ascii_digit()) =>
-                {
-                    anyhow::bail!(
-                        "The integer literal {:?} does not fit into a signed 64 bit integer.",
-                        context
-                    )
-                }
+                (ParsedInteger::NotAnInteger, Some(keyword), _) => Ok(keyword),
+                (ParsedInteger::NotAnInteger, None, Some(identifier)) => Ok(identifier),
                 (_, _, _) => {
                     anyhow::bail!("Unparsable context for lexical analysis {:?}.", context)
                 }
@@ -177,10 +173,21 @@ fn parse_keyword(parsing: &str) -> Option<Token> {
     }
 }
 
-fn parse_integer(parsing: &str) -> Option<Token> {
+enum ParsedInteger {
+    Valid(Token),
+    OutOfRange,
+    NotAnInteger,
+}
+
+fn parse_integer(parsing: &str) -> ParsedInteger {
     match parsing.parse() {
-        Ok(integer) => Some(Token::Integer { literal: integer }),
-        Err(_) => None,
+        Ok(literal) => ParsedInteger::Valid(Token::Integer { literal }),
+        Err(error) => match error.kind() {
+            std::num::IntErrorKind::PosOverflow | std::num::IntErrorKind::NegOverflow => {
+                ParsedInteger::OutOfRange
+            }
+            _ => ParsedInteger::NotAnInteger,
+        },
     }
 }
 
