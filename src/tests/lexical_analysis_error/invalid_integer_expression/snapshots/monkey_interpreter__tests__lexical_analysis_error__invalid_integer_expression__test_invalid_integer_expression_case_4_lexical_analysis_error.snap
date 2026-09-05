@@ -1,0 +1,8 @@
+---
+source: src/tests/lexical_analysis_error/invalid_integer_expression/mod.rs
+assertion_line: 19
+expression: error
+---
+Err(
+    "The integer literal \"99999999999999999999\" does not fit into a signed 64 bit integer.",
+)

@@ -31,6 +31,14 @@ impl LexicalAnalysis<'_> {
                 // When it is a valid keyword and identifier, then it is a keyword.
                 (None, Some(keyword), _) => Ok(keyword),
                 (None, None, Some(identifier)) => Ok(identifier),
+                (None, None, None)
+                    if context.chars().all(|character| character.is_ascii_digit()) =>
+                {
+                    anyhow::bail!(
+                        "The integer literal {:?} does not fit into a signed 64 bit integer.",
+                        context
+                    )
+                }
                 (_, _, _) => {
                     anyhow::bail!("Unparsable context for lexical analysis {:?}.", context)
                 }
