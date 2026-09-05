@@ -56,14 +56,9 @@ fn evaluate(evaluator: &mut Evaluator, read_input: impl FnOnce() -> Result<Strin
     let input = read_input()?;
     let tokens = LexicalAnalysis::from(&input)?;
     let abstract_syntax_tree = SyntaxAnalysis::from(tokens)?;
-
-    match evaluator.evaluate(abstract_syntax_tree) {
-        Ok(object) => {
-            println!("{object:?}");
-            Ok(())
-        }
-        Err(error) => Err(error),
-    }
+    let object = evaluator.evaluate(abstract_syntax_tree)?;
+    println!("{object}");
+    Ok(())
 }
 
 fn read_script(script: &std::path::Path) -> Result<String> {
