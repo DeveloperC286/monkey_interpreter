@@ -1,0 +1,31 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "x1",
+    },
+    Assign,
+    Integer {
+        literal: 5,
+    },
+    SemiColon,
+    Let,
+    Identifier {
+        literal: "arg2",
+    },
+    Assign,
+    Integer {
+        literal: 10,
+    },
+    SemiColon,
+    Identifier {
+        literal: "x1",
+    },
+    Plus,
+    Identifier {
+        literal: "arg2",
+    },
+]
