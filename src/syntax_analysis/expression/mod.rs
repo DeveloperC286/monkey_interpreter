@@ -1,3 +1,4 @@
+use anyhow::Context;
 use log::{debug, trace};
 
 use crate::lexical_analysis::model::token::Token;
@@ -76,38 +77,28 @@ impl SyntaxAnalysis<'_> {
                     Token::Not => {
                         debug!("Found a not prefix expression.");
 
-                        match self.get_expression(ExpressionPrecedence::Prefix) {
-                            Ok(right_hand) => self.pratt_parsing(
-                                Expression::NotPrefix {
-                                    right_hand: Box::new(right_hand),
-                                },
-                                expression_precedence,
-                            ),
-                            Err(_) => {
-                                // TODO what with other error?
-                                anyhow::bail!(
-                                    "A prefix expression must have a right hand expression."
-                                )
-                            }
-                        }
+                        let right_hand = self
+                            .get_expression(ExpressionPrecedence::Prefix)
+                            .context("A prefix expression must have a right hand expression.")?;
+                        self.pratt_parsing(
+                            Expression::NotPrefix {
+                                right_hand: Box::new(right_hand),
+                            },
+                            expression_precedence,
+                        )
                     }
                     Token::Minus => {
                         debug!("Found a minus prefix expression.");
 
-                        match self.get_expression(ExpressionPrecedence::Prefix) {
-                            Ok(right_hand) => self.pratt_parsing(
-                                Expression::MinusPrefix {
-                                    right_hand: Box::new(right_hand),
-                                },
-                                expression_precedence,
-                            ),
-                            Err(_) => {
-                                // TODO what with other error?
-                                anyhow::bail!(
-                                    "A prefix expression must have a right hand expression."
-                                )
-                            }
-                        }
+                        let right_hand = self
+                            .get_expression(ExpressionPrecedence::Prefix)
+                            .context("A prefix expression must have a right hand expression.")?;
+                        self.pratt_parsing(
+                            Expression::MinusPrefix {
+                                right_hand: Box::new(right_hand),
+                            },
+                            expression_precedence,
+                        )
                     }
                     Token::True => {
                         debug!("Found a true boolean expression.");
