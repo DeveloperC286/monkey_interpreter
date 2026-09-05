@@ -1,4 +1,5 @@
 use std::io::{Write, stdin, stdout};
+use std::ops::ControlFlow;
 
 use anyhow::{Context, Result};
 use clap::Parser;
@@ -46,8 +47,8 @@ fn main() {
         }
         None => loop {
             match evaluate(&mut evaluator, read_repl_line) {
-                Ok(true) => {}
-                Ok(false) => break,
+                Ok(ControlFlow::Continue(())) => {}
+                Ok(ControlFlow::Break(())) => break,
                 Err(error) => error!("{error:?}"),
             }
         },
@@ -57,16 +58,16 @@ fn main() {
 fn evaluate(
     evaluator: &mut Evaluator,
     read_input: impl FnOnce() -> Result<Option<String>>,
-) -> Result<bool> {
+) -> Result<ControlFlow<()>> {
     let input = match read_input()? {
         Some(input) => input,
-        None => return Ok(false),
+        None => return Ok(ControlFlow::Break(())),
     };
     let tokens = LexicalAnalysis::from(&input)?;
     let abstract_syntax_tree = SyntaxAnalysis::from(tokens)?;
     let object = evaluator.evaluate(abstract_syntax_tree)?;
     println!("{object}");
-    Ok(true)
+    Ok(ControlFlow::Continue(()))
 }
 
 fn read_script(script: &std::path::Path) -> Result<Option<String>> {
