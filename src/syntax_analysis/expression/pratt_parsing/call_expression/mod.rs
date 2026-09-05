@@ -1,8 +1,6 @@
 use log::debug;
 
-use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::SyntaxAnalysis;
-use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
 use crate::syntax_analysis::model::syntax_tree_node::Expression;
 
 impl SyntaxAnalysis<'_> {
@@ -27,53 +25,11 @@ impl SyntaxAnalysis<'_> {
         }
 
         // parse call expression
-        let arguments = self.parse_arguments()?;
+        let arguments = self.parse_comma_separated_list("call expression's arguments", Ok)?;
 
         Ok(Expression::Call {
             function: Box::new(function),
             arguments,
         })
-    }
-
-    fn parse_arguments(&mut self) -> anyhow::Result<Vec<Expression>> {
-        debug!("Parsing arguments.");
-
-        assert_token!(
-            self,
-            Token::OpeningRoundBracket,
-            "A call expression must have a OpeningRoundBracket token after the Function token."
-        );
-        let mut arguments = vec![];
-
-        if let Some(token) = self.tokens.peek()
-            && **token != Token::ClosingRoundBracket
-        {
-            loop {
-                let expression = self.get_expression(ExpressionPrecedence::Lowest)?;
-                arguments.push(expression);
-
-                match self.tokens.peek() {
-                    Some(token) => match token {
-                        Token::ClosingRoundBracket => break,
-                        Token::Comma => {
-                            self.tokens.next();
-                        }
-                        _ => {
-                            anyhow::bail!("Parameters must be comma seperated identifiers.");
-                        }
-                    },
-                    None => {
-                        anyhow::bail!("CallExpressionParametersEndedAbruptly.");
-                    }
-                }
-            }
-        }
-
-        assert_token!(
-            self,
-            Token::ClosingRoundBracket,
-            "A call expression must have a ClosingRoundBracket token after the parameters."
-        );
-        Ok(arguments)
     }
 }
