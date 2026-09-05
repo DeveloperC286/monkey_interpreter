@@ -33,10 +33,7 @@ impl SyntaxAnalysis<'_> {
         Ok(Block { nodes: blocks })
     }
 
-    // parses a round bracketed, comma separated, list of expressions, mapping every parsed
-    // expression via map_expression, i.e. a call expression's arguments or a function
-    // expression's parameters. context names the list in the failure messages.
-    pub(crate) fn parse_comma_separated_list<T>(
+    pub(super) fn parse_comma_separated_list<T>(
         &mut self,
         context: &str,
         map_expression: impl Fn(Expression) -> anyhow::Result<T>,
