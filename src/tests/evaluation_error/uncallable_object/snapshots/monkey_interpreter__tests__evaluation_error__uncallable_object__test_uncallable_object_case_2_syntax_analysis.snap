@@ -1,0 +1,14 @@
+---
+source: src/tests/evaluation_error/uncallable_object/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Call {
+            function: String {
+                literal: "this is a string",
+            },
+            arguments: [],
+        },
+    },
+]

@@ -1,0 +1,26 @@
+---
+source: src/tests/evaluation_error/uncallable_object/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "five",
+            expression: Integer {
+                literal: 5,
+            },
+        },
+    },
+    Expression {
+        expression: Call {
+            function: Identifier {
+                identifier: "five",
+            },
+            arguments: [
+                Integer {
+                    literal: 1,
+                },
+            ],
+        },
+    },
+]

@@ -1,0 +1,36 @@
+---
+source: src/tests/call_expression/mod.rs
+expression: tokens
+---
+[
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "y",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "y",
+    },
+    ClosingCurlyBracket,
+    ClosingCurlyBracket,
+    OpeningRoundBracket,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    OpeningRoundBracket,
+    Integer {
+        literal: 2,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+]

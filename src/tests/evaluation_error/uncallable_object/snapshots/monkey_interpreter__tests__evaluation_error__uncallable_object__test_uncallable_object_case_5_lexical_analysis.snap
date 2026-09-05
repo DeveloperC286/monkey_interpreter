@@ -1,0 +1,24 @@
+---
+source: src/tests/evaluation_error/uncallable_object/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "five",
+    },
+    Assign,
+    Integer {
+        literal: 5,
+    },
+    SemiColon,
+    Identifier {
+        literal: "five",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+]
