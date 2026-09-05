@@ -10,3 +10,4 @@ mod type_mismatch_integer_infix_expression;
 mod type_mismatch_integer_prefix_expression;
 mod uncallable_object;
 mod unknown_operator_integer_infix_expression;
+mod wrong_number_of_arguments;

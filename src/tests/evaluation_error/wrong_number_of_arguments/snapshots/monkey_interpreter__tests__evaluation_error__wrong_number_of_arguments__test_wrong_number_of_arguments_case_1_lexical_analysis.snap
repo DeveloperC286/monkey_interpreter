@@ -1,0 +1,31 @@
+---
+source: src/tests/evaluation_error/wrong_number_of_arguments/mod.rs
+expression: tokens
+---
+[
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    Comma,
+    Identifier {
+        literal: "y",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "x",
+    },
+    Plus,
+    Identifier {
+        literal: "y",
+    },
+    ClosingCurlyBracket,
+    OpeningRoundBracket,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+]

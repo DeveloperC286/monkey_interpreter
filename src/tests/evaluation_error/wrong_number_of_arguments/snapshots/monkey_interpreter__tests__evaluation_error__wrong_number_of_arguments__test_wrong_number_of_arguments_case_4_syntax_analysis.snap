@@ -1,0 +1,27 @@
+---
+source: src/tests/evaluation_error/wrong_number_of_arguments/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Call {
+            function: Function {
+                parameters: [],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: Integer {
+                                literal: 5,
+                            },
+                        },
+                    ],
+                },
+            },
+            arguments: [
+                Integer {
+                    literal: 1,
+                },
+            ],
+        },
+    },
+]

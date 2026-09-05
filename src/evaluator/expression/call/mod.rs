@@ -10,6 +10,14 @@ impl Evaluator {
     ) -> anyhow::Result<Object> {
         match self.evaluate_expression(function)? {
             Object::Function { parameters, block } => {
+                if arguments.len() != parameters.len() {
+                    anyhow::bail!(
+                        "Wrong number of arguments, want={}, got={}.",
+                        parameters.len(),
+                        arguments.len()
+                    );
+                }
+
                 self.environment.push();
 
                 for (argument, parameter_identifier) in arguments.into_iter().zip(parameters) {
