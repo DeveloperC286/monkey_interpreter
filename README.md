@@ -15,6 +15,11 @@ The [Monkey](https://monkeylang.org/) programming language was devised by Thorst
 
 Monkey has a C-like syntax, supports **variable bindings**, **prefix** and **infix operators**, has **first-class** and **higher-order functions**, can handle **closures** with ease and has **integers**, **booleans**, **arrays** and **hashes** built-in.
 
+## Deviations From Monkey
+This implementation deviates from the Monkey language as specified in the books in the following ways:
+
+- **Keywords are case-insensitive.** `let`, `fn`, `true`, `false`, `if`, `else` and `return` are matched case-insensitively, so `LET`, `Fn` and `Return` are all lexed as keywords rather than identifiers. This means identifiers such as `If` or `Let` cannot be used as variable names, and is asymmetric with identifiers, which remain case-sensitive.
+
 ## Usage
 Run the interpreter via
 
