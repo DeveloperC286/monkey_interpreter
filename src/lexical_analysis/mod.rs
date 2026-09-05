@@ -1,4 +1,4 @@
-use std::iter::{FromIterator, Peekable};
+use std::iter::Peekable;
 use std::str::Chars;
 
 use log::{debug, info, trace};
@@ -129,7 +129,7 @@ impl LexicalAnalysis<'_> {
 
     fn parse_string_object(&mut self) -> anyhow::Result<String> {
         trace!("Attempting to parse a string object.");
-        let mut string_object = vec![];
+        let mut string_object = String::new();
 
         loop {
             match self.source_code.next() {
@@ -151,9 +151,8 @@ impl LexicalAnalysis<'_> {
             }
         }
 
-        let string = String::from_iter(string_object.iter());
-        trace!("Parsed the string object {string:?}.");
-        Ok(string)
+        trace!("Parsed the string object {string_object:?}.");
+        Ok(string_object)
     }
 }
 
