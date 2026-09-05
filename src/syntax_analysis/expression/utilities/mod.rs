@@ -6,7 +6,7 @@ use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
 use crate::syntax_analysis::model::syntax_tree_node::{Block, Expression};
 
 impl SyntaxAnalysis<'_> {
-    pub(crate) fn parse_block(&mut self) -> anyhow::Result<Block> {
+    pub(super) fn parse_block(&mut self) -> anyhow::Result<Block> {
         debug!("Parsing a block.");
         assert_token!(
             self,
