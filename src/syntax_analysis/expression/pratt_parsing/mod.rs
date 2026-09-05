@@ -1,8 +1,8 @@
-use std::cmp::Ordering;
-
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::SyntaxAnalysis;
-use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
+use crate::syntax_analysis::model::expression_precedence::{
+    ExpressionPrecedence, get_current_expression_precedence,
+};
 use crate::syntax_analysis::model::syntax_tree_node::Expression;
 
 mod call_expression;
@@ -12,20 +12,16 @@ impl SyntaxAnalysis<'_> {
     pub(crate) fn pratt_parsing(
         &mut self,
         mut expression: Expression,
-        expression_precedence: ExpressionPrecedence,
+        minimum_expression_precedence: ExpressionPrecedence,
     ) -> anyhow::Result<Expression> {
         while let Some(token) = self.tokens.peek() {
             if **token == Token::SemiColon {
                 break;
             }
 
-            let expression_precedence_comparison = expression_precedence.partial_cmp(
-            &crate::syntax_analysis::model::expression_precedence::get_current_expression_precedence(
-                token,
-            )
-        );
+            let next_expression_precedence = get_current_expression_precedence(token);
 
-            if expression_precedence_comparison != Some(Ordering::Less) {
+            if minimum_expression_precedence >= next_expression_precedence {
                 break;
             }
 

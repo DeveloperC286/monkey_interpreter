@@ -3,7 +3,7 @@ use log::trace;
 use crate::lexical_analysis::model::token::Token;
 use crate::syntax_analysis::model::syntax_tree_node::InfixOperator;
 
-#[derive(Debug, Copy, Clone, PartialEq, PartialOrd)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub(crate) enum ExpressionPrecedence {
     Lowest,
     Equals,
