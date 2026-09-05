@@ -22,20 +22,24 @@ impl LexicalAnalysis<'_> {
 
     fn parse_source_code(&mut self) -> anyhow::Result<Vec<Token>> {
         fn parse_context(context: &str) -> anyhow::Result<Token> {
-            match (
-                parse_integer(context),
-                parse_keyword(context),
-                parse_identifier(context),
-            ) {
-                (ParsedInteger::Valid(integer), None, None) => Ok(integer),
-                (ParsedInteger::OutOfRange, None, None) => anyhow::bail!(
-                    "The integer literal {:?} does not fit into a signed 64 bit integer.",
-                    context
-                ),
-                // When it is a valid keyword and identifier, then it is a keyword.
-                (ParsedInteger::NotAnInteger, Some(keyword), _) => Ok(keyword),
-                (ParsedInteger::NotAnInteger, None, Some(identifier)) => Ok(identifier),
-                (_, _, _) => {
+            match (parse_integer(context), parse_identifier(context)) {
+                (IntegerParseOutcome::Valid(integer), IdentifierParseOutcome::NotAnIdentifier) => {
+                    Ok(integer)
+                }
+                (IntegerParseOutcome::OutOfRange, IdentifierParseOutcome::NotAnIdentifier) => {
+                    anyhow::bail!(
+                        "The integer literal {:?} does not fit into a signed 64 bit integer.",
+                        context
+                    )
+                }
+                (IntegerParseOutcome::NotAnInteger, IdentifierParseOutcome::Keyword(keyword)) => {
+                    Ok(keyword)
+                }
+                (
+                    IntegerParseOutcome::NotAnInteger,
+                    IdentifierParseOutcome::Identifier(identifier),
+                ) => Ok(identifier),
+                (_, _) => {
                     anyhow::bail!("Unparsable context for lexical analysis {:?}.", context)
                 }
             }
@@ -160,44 +164,46 @@ impl LexicalAnalysis<'_> {
     }
 }
 
-fn parse_keyword(parsing: &str) -> Option<Token> {
-    match parsing.to_lowercase().as_str() {
-        "fn" => Some(Token::Function),
-        "let" => Some(Token::Let),
-        "true" => Some(Token::True),
-        "false" => Some(Token::False),
-        "if" => Some(Token::If),
-        "else" => Some(Token::Else),
-        "return" => Some(Token::Return),
-        _ => None,
-    }
-}
-
-enum ParsedInteger {
+enum IntegerParseOutcome {
     Valid(Token),
     OutOfRange,
     NotAnInteger,
 }
 
-fn parse_integer(parsing: &str) -> ParsedInteger {
+fn parse_integer(parsing: &str) -> IntegerParseOutcome {
     match parsing.parse() {
-        Ok(literal) => ParsedInteger::Valid(Token::Integer { literal }),
+        Ok(literal) => IntegerParseOutcome::Valid(Token::Integer { literal }),
         Err(error) => match error.kind() {
             std::num::IntErrorKind::PosOverflow | std::num::IntErrorKind::NegOverflow => {
-                ParsedInteger::OutOfRange
+                IntegerParseOutcome::OutOfRange
             }
-            _ => ParsedInteger::NotAnInteger,
+            _ => IntegerParseOutcome::NotAnInteger,
         },
     }
 }
 
-fn parse_identifier(parsing: &str) -> Option<Token> {
-    if is_valid_identifier(parsing) {
-        Some(Token::Identifier {
+enum IdentifierParseOutcome {
+    Keyword(Token),
+    Identifier(Token),
+    NotAnIdentifier,
+}
+
+fn parse_identifier(parsing: &str) -> IdentifierParseOutcome {
+    if !is_valid_identifier(parsing) {
+        return IdentifierParseOutcome::NotAnIdentifier;
+    }
+
+    match parsing.to_lowercase().as_str() {
+        "fn" => IdentifierParseOutcome::Keyword(Token::Function),
+        "let" => IdentifierParseOutcome::Keyword(Token::Let),
+        "true" => IdentifierParseOutcome::Keyword(Token::True),
+        "false" => IdentifierParseOutcome::Keyword(Token::False),
+        "if" => IdentifierParseOutcome::Keyword(Token::If),
+        "else" => IdentifierParseOutcome::Keyword(Token::Else),
+        "return" => IdentifierParseOutcome::Keyword(Token::Return),
+        _ => IdentifierParseOutcome::Identifier(Token::Identifier {
             literal: parsing.to_string(),
-        })
-    } else {
-        None
+        }),
     }
 }
 
