@@ -43,9 +43,15 @@ impl Evaluator {
                     InfixOperator::Multiply => Ok(Object::Integer {
                         value: left_value * right_value,
                     }),
-                    InfixOperator::Divide => Ok(Object::Integer {
-                        value: left_value / right_value,
-                    }),
+                    InfixOperator::Divide => match right_value {
+                        0 => anyhow::bail!(
+                            "Division by zero, cannot apply the {} infix operator to a right hand operand of 0.",
+                            operator
+                        ),
+                        right_value => Ok(Object::Integer {
+                            value: left_value / right_value,
+                        }),
+                    },
                     InfixOperator::GreaterThan => match left_value > right_value {
                         true => Ok(Object::True),
                         false => Ok(Object::False),

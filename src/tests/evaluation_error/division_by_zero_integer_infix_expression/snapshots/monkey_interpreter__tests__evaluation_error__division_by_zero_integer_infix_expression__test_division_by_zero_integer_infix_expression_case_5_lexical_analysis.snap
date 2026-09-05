@@ -1,0 +1,23 @@
+---
+source: src/tests/evaluation_error/division_by_zero_integer_infix_expression/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "denominator",
+    },
+    Assign,
+    Integer {
+        literal: 0,
+    },
+    SemiColon,
+    Integer {
+        literal: 100,
+    },
+    Divide,
+    Identifier {
+        literal: "denominator",
+    },
+    SemiColon,
+]

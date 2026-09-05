@@ -1,0 +1,13 @@
+---
+source: src/tests/evaluation_error/division_by_zero_integer_infix_expression/mod.rs
+expression: tokens
+---
+[
+    Integer {
+        literal: 5,
+    },
+    Divide,
+    Integer {
+        literal: 0,
+    },
+]
