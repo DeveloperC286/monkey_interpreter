@@ -1,0 +1,28 @@
+---
+source: src/tests/evaluation_error/uncallable_object/mod.rs
+expression: tokens
+---
+[
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "x",
+    },
+    ClosingCurlyBracket,
+    OpeningRoundBracket,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    OpeningRoundBracket,
+    Integer {
+        literal: 2,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+]

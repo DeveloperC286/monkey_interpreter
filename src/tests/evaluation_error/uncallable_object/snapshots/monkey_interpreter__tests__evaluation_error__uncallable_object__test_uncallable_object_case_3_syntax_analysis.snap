@@ -1,0 +1,18 @@
+---
+source: src/tests/evaluation_error/uncallable_object/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Call {
+            function: Boolean {
+                literal: true,
+            },
+            arguments: [
+                Integer {
+                    literal: 1,
+                },
+            ],
+        },
+    },
+]

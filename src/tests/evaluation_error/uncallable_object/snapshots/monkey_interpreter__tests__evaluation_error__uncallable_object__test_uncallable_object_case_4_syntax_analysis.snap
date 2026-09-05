@@ -1,0 +1,24 @@
+---
+source: src/tests/evaluation_error/uncallable_object/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Call {
+            function: Infix {
+                left_hand: Integer {
+                    literal: 1,
+                },
+                operator: Plus,
+                right_hand: Integer {
+                    literal: 2,
+                },
+            },
+            arguments: [
+                Integer {
+                    literal: 3,
+                },
+            ],
+        },
+    },
+]

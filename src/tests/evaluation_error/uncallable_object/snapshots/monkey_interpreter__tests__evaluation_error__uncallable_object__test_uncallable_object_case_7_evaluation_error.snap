@@ -1,0 +1,7 @@
+---
+source: src/tests/evaluation_error/uncallable_object/mod.rs
+expression: error
+---
+Err(
+    "Cannot call an object of type INTEGER, only functions are callable.",
+)

@@ -1,0 +1,13 @@
+---
+source: src/tests/evaluation_error/uncallable_object/mod.rs
+expression: tokens
+---
+[
+    True,
+    OpeningRoundBracket,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+]

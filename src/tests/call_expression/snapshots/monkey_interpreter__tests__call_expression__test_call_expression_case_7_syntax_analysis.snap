@@ -1,0 +1,55 @@
+---
+source: src/tests/call_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "curried",
+            expression: Function {
+                parameters: [
+                    "x",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: Function {
+                                parameters: [
+                                    "y",
+                                ],
+                                block: Block {
+                                    nodes: [
+                                        Expression {
+                                            expression: Identifier {
+                                                identifier: "y",
+                                            },
+                                        },
+                                    ],
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    Expression {
+        expression: Call {
+            function: Call {
+                function: Identifier {
+                    identifier: "curried",
+                },
+                arguments: [
+                    Integer {
+                        literal: 1,
+                    },
+                ],
+            },
+            arguments: [
+                Integer {
+                    literal: 2,
+                },
+            ],
+        },
+    },
+]

@@ -11,6 +11,15 @@ use super::*;
     case(
         "let add = fn(x, y) { x + y }; add(1, add(2, 3));",
         "call_expression_case_5"
+    ),
+    case("fn(x) { fn(y) { y } }(1)(2);", "call_expression_case_6"),
+    case(
+        "let curried = fn(x) { fn(y) { y } }; curried(1)(2);",
+        "call_expression_case_7"
+    ),
+    case(
+        "fn(x) { fn(y) { fn(z) { z * 2 } } }(1)(2)(3);",
+        "call_expression_case_8"
     )
 )]
 fn call_expression_cases(code: &str, snapshot_name: &str) {}

@@ -1,0 +1,12 @@
+---
+source: src/tests/evaluation_error/uncallable_object/mod.rs
+expression: tokens
+---
+[
+    String {
+        literal: "this is a string",
+    },
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    SemiColon,
+]

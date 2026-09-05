@@ -10,21 +10,7 @@ impl SyntaxAnalysis<'_> {
     ) -> anyhow::Result<Expression> {
         debug!("Parsing a call expression.");
 
-        // check call expression was correctly called by an identifier on inlined function.
-        match &function {
-            Expression::Identifier { identifier: _ } => {}
-            Expression::Function {
-                parameters: _,
-                block: _,
-            } => {}
-            _ => {
-                anyhow::bail!(
-                    "A call expression is not calling either an identifier or an inlined function."
-                );
-            }
-        }
-
-        // parse call expression
+        // Callability is a runtime concern, the evaluator rejects uncallable objects.
         let arguments = self.parse_comma_separated_list("call expression's arguments", Ok)?;
 
         Ok(Expression::Call {
