@@ -58,8 +58,9 @@ fn evaluate(
     evaluator: &mut Evaluator,
     read_input: impl FnOnce() -> Result<Option<String>>,
 ) -> Result<bool> {
-    let Some(input) = read_input()? else {
-        return Ok(false);
+    let input = match read_input()? {
+        Some(input) => input,
+        None => return Ok(false),
     };
     let tokens = LexicalAnalysis::from(&input)?;
     let abstract_syntax_tree = SyntaxAnalysis::from(tokens)?;
