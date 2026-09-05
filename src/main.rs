@@ -37,11 +37,29 @@ fn main() {
 
     let mut evaluator = Evaluator::new();
 
-    loop {
-        if let Err(error) = repl(&mut evaluator) {
-            error!("{error:?}");
+    match arguments.script {
+        Some(script) => {
+            if let Err(error) = run_script(&mut evaluator, &script) {
+                error!("{error:?}");
+                std::process::exit(1);
+            }
         }
+        None => loop {
+            if let Err(error) = repl(&mut evaluator) {
+                error!("{error:?}");
+            }
+        },
     }
+}
+
+fn run_script(evaluator: &mut Evaluator, script: &std::path::Path) -> Result<()> {
+    let input = std::fs::read_to_string(script)
+        .with_context(|| format!("Unable to read script file {}.", script.display()))?;
+    let tokens = LexicalAnalysis::from(&input)?;
+    let abstract_syntax_tree = SyntaxAnalysis::from(tokens)?;
+    let object = evaluator.evaluate(abstract_syntax_tree)?;
+    println!("{object:?}");
+    Ok(())
 }
 fn repl(evaluator: &mut Evaluator) -> Result<()> {
     print!(" >>> ");
