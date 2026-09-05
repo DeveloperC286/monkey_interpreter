@@ -65,7 +65,9 @@ impl SyntaxAnalysis<'_> {
                         }
                     },
                     None => {
-                        anyhow::bail!("A {context} ended abruptly.");
+                        anyhow::bail!(
+                            "A {context} ended abruptly, expecting either a Comma or ClosingRoundBracket token."
+                        );
                     }
                 }
             }

@@ -11,7 +11,10 @@ impl Evaluator {
         let expression = self.evaluate_expression(expression)?;
 
         if let Object::Return { value: _ } = expression {
-            anyhow::bail!("UnassignableObject");
+            anyhow::bail!(
+                "Cannot assign an object of type RETURN to the identifier {}.",
+                identifier
+            );
         }
 
         self.environment.set(identifier, expression);

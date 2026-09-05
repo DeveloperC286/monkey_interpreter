@@ -13,7 +13,10 @@ impl Evaluator {
             match operator {
                 InfixOperator::Equals => Ok(Object::True),
                 InfixOperator::NotEquals => Ok(Object::False),
-                _ => anyhow::bail!("UnknownOperator"),
+                _ => anyhow::bail!(
+                    "Unknown operator, the {} infix operator is not supported for operands of type BOOLEAN.",
+                    operator
+                ),
             }
         }
 
@@ -21,7 +24,10 @@ impl Evaluator {
             match operator {
                 InfixOperator::Equals => Ok(Object::False),
                 InfixOperator::NotEquals => Ok(Object::True),
-                _ => anyhow::bail!("UnknownOperator"),
+                _ => anyhow::bail!(
+                    "Unknown operator, the {} infix operator is not supported for operands of type BOOLEAN.",
+                    operator
+                ),
             }
         }
 
@@ -57,17 +63,29 @@ impl Evaluator {
                         false => Ok(Object::False),
                     },
                 },
-                _ => anyhow::bail!("TypeMismatch"),
+                right_hand_object => anyhow::bail!(
+                    "Type mismatch, cannot apply the {} infix operator to operands of type INTEGER and {}.",
+                    operator,
+                    right_hand_object.type_name()
+                ),
             },
             Object::True => match self.evaluate_expression(right_hand)? {
                 Object::True => evaluate_same_boolean(operator),
                 Object::False => evaluate_opposite_boolean(operator),
-                _ => anyhow::bail!("TypeMismatch"),
+                right_hand_object => anyhow::bail!(
+                    "Type mismatch, cannot apply the {} infix operator to operands of type BOOLEAN and {}.",
+                    operator,
+                    right_hand_object.type_name()
+                ),
             },
             Object::False => match self.evaluate_expression(right_hand)? {
                 Object::False => evaluate_same_boolean(operator),
                 Object::True => evaluate_opposite_boolean(operator),
-                _ => anyhow::bail!("TypeMismatch"),
+                right_hand_object => anyhow::bail!(
+                    "Type mismatch, cannot apply the {} infix operator to operands of type BOOLEAN and {}.",
+                    operator,
+                    right_hand_object.type_name()
+                ),
             },
             Object::String { value: left_value } => match self.evaluate_expression(right_hand)? {
                 Object::String { value: right_value } => match operator {
@@ -86,11 +104,22 @@ impl Evaluator {
                             value: concatenated,
                         })
                     }
-                    _ => anyhow::bail!("UnknownOperator"),
+                    _ => anyhow::bail!(
+                        "Unknown operator, the {} infix operator is not supported for operands of type STRING.",
+                        operator
+                    ),
                 },
-                _ => anyhow::bail!("TypeMismatch"),
+                right_hand_object => anyhow::bail!(
+                    "Type mismatch, cannot apply the {} infix operator to operands of type STRING and {}.",
+                    operator,
+                    right_hand_object.type_name()
+                ),
             },
-            _ => anyhow::bail!("UnknownOperator"),
+            left_hand_object => anyhow::bail!(
+                "Unknown operator, the {} infix operator is not supported for operands of type {}.",
+                operator,
+                left_hand_object.type_name()
+            ),
         }
     }
 }

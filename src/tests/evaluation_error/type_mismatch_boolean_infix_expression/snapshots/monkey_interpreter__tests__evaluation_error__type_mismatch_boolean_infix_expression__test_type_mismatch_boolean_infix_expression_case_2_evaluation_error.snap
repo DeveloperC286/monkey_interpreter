@@ -4,5 +4,5 @@ assertion_line: 31
 expression: error
 ---
 Err(
-    "TypeMismatch",
+    "Type mismatch, cannot apply the == infix operator to operands of type STRING and BOOLEAN.",
 )

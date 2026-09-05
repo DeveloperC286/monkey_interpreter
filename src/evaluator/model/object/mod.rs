@@ -37,3 +37,16 @@ impl fmt::Display for Object {
         }
     }
 }
+
+impl Object {
+    pub(crate) fn type_name(&self) -> &'static str {
+        match self {
+            Object::Return { .. } => "RETURN",
+            Object::Integer { .. } => "INTEGER",
+            Object::String { .. } => "STRING",
+            Object::True | Object::False => "BOOLEAN",
+            Object::Null => "NULL",
+            Object::Function { .. } => "FUNCTION",
+        }
+    }
+}

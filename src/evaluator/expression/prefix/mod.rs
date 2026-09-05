@@ -12,7 +12,10 @@ impl Evaluator {
         match object {
             Object::True => Ok(Object::False),
             Object::False => Ok(Object::True),
-            _ => anyhow::bail!("TypeMismatch"),
+            object => anyhow::bail!(
+                "Type mismatch, cannot apply the ! prefix operator to an operand of type {}.",
+                object.type_name()
+            ),
         }
     }
 
@@ -24,7 +27,10 @@ impl Evaluator {
 
         match object {
             Object::Integer { value } => Ok(Object::Integer { value: -value }),
-            _ => anyhow::bail!("TypeMismatch"),
+            object => anyhow::bail!(
+                "Type mismatch, cannot apply the - prefix operator to an operand of type {}.",
+                object.type_name()
+            ),
         }
     }
 }
