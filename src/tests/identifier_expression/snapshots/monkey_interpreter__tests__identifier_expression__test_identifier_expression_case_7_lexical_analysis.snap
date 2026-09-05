@@ -1,16 +1,53 @@
 ---
 source: src/tests/identifier_expression/mod.rs
+assertion_line: 51
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "is_file",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    Assign,
-    True,
-    SemiColon,
-    Identifier {
-        literal: "is_file",
+    PositionedToken {
+        token: Identifier {
+            literal: "is_file",
+        },
+        position: Position {
+            line: 1,
+            column: 5,
+        },
+    },
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 13,
+        },
+    },
+    PositionedToken {
+        token: True,
+        position: Position {
+            line: 1,
+            column: 15,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 1,
+            column: 19,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "is_file",
+        },
+        position: Position {
+            line: 2,
+            column: 1,
+        },
     },
 ]

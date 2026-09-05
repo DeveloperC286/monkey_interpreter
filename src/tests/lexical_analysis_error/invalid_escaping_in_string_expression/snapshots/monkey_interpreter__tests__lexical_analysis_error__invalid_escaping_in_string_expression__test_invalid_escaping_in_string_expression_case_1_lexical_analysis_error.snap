@@ -4,5 +4,5 @@ assertion_line: 19
 expression: error
 ---
 Err(
-    "Illegal escaping of the character 'x'.",
+    "Illegal escaping of the character 'x' at line 1, column 35.",
 )

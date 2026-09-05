@@ -1,11 +1,42 @@
 ---
 source: src/tests/fn_expression/mod.rs
+assertion_line: 17
 expression: tokens
 ---
 [
-    Function,
-    OpeningRoundBracket,
-    ClosingRoundBracket,
-    OpeningCurlyBracket,
-    ClosingCurlyBracket,
+    PositionedToken {
+        token: Function,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
+    },
+    PositionedToken {
+        token: OpeningRoundBracket,
+        position: Position {
+            line: 1,
+            column: 3,
+        },
+    },
+    PositionedToken {
+        token: ClosingRoundBracket,
+        position: Position {
+            line: 1,
+            column: 4,
+        },
+    },
+    PositionedToken {
+        token: OpeningCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 5,
+        },
+    },
+    PositionedToken {
+        token: ClosingCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 6,
+        },
+    },
 ]

@@ -1,13 +1,32 @@
 ---
 source: src/tests/integer_infix_boolean_expression/mod.rs
+assertion_line: 24
 expression: tokens
 ---
 [
-    Integer {
-        literal: 11,
+    PositionedToken {
+        token: Integer {
+            literal: 11,
+        },
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    Equals,
-    Integer {
-        literal: 19,
+    PositionedToken {
+        token: Equals,
+        position: Position {
+            line: 1,
+            column: 4,
+        },
+    },
+    PositionedToken {
+        token: Integer {
+            literal: 19,
+        },
+        position: Position {
+            line: 1,
+            column: 7,
+        },
     },
 ]

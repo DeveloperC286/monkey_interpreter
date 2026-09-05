@@ -1,15 +1,46 @@
 ---
 source: src/tests/let_statement/mod.rs
+assertion_line: 39
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "flatcase",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 5,
+        },
     },
-    Assign,
-    Integer {
-        literal: 3,
+    PositionedToken {
+        token: Identifier {
+            literal: "flatcase",
+        },
+        position: Position {
+            line: 1,
+            column: 9,
+        },
     },
-    SemiColon,
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 18,
+        },
+    },
+    PositionedToken {
+        token: Integer {
+            literal: 3,
+        },
+        position: Position {
+            line: 1,
+            column: 21,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 1,
+            column: 22,
+        },
+    },
 ]

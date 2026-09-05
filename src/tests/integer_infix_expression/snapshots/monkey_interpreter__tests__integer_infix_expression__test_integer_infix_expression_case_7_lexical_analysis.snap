@@ -1,14 +1,39 @@
 ---
 source: src/tests/integer_infix_expression/mod.rs
+assertion_line: 25
 expression: tokens
 ---
 [
-    Minus,
-    Integer {
-        literal: 5,
+    PositionedToken {
+        token: Minus,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    Multiply,
-    Integer {
-        literal: 10,
+    PositionedToken {
+        token: Integer {
+            literal: 5,
+        },
+        position: Position {
+            line: 1,
+            column: 2,
+        },
+    },
+    PositionedToken {
+        token: Multiply,
+        position: Position {
+            line: 1,
+            column: 4,
+        },
+    },
+    PositionedToken {
+        token: Integer {
+            literal: 10,
+        },
+        position: Position {
+            line: 1,
+            column: 6,
+        },
     },
 ]

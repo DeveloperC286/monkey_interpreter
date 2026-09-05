@@ -1,7 +1,14 @@
 ---
 source: src/tests/boolean_expression/mod.rs
+assertion_line: 16
 expression: tokens
 ---
 [
-    False,
+    PositionedToken {
+        token: False,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
+    },
 ]

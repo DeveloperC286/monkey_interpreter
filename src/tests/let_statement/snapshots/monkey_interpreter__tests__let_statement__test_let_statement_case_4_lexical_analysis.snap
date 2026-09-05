@@ -1,30 +1,115 @@
 ---
 source: src/tests/let_statement/mod.rs
+assertion_line: 39
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "add",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    Assign,
-    Function,
-    OpeningRoundBracket,
-    Identifier {
-        literal: "x",
+    PositionedToken {
+        token: Identifier {
+            literal: "add",
+        },
+        position: Position {
+            line: 1,
+            column: 5,
+        },
     },
-    Comma,
-    Identifier {
-        literal: "y",
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 9,
+        },
     },
-    ClosingRoundBracket,
-    OpeningCurlyBracket,
-    Identifier {
-        literal: "x",
+    PositionedToken {
+        token: Function,
+        position: Position {
+            line: 1,
+            column: 11,
+        },
     },
-    Plus,
-    Identifier {
-        literal: "y",
+    PositionedToken {
+        token: OpeningRoundBracket,
+        position: Position {
+            line: 1,
+            column: 13,
+        },
     },
-    ClosingCurlyBracket,
+    PositionedToken {
+        token: Identifier {
+            literal: "x",
+        },
+        position: Position {
+            line: 1,
+            column: 14,
+        },
+    },
+    PositionedToken {
+        token: Comma,
+        position: Position {
+            line: 1,
+            column: 15,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "y",
+        },
+        position: Position {
+            line: 1,
+            column: 17,
+        },
+    },
+    PositionedToken {
+        token: ClosingRoundBracket,
+        position: Position {
+            line: 1,
+            column: 18,
+        },
+    },
+    PositionedToken {
+        token: OpeningCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 20,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "x",
+        },
+        position: Position {
+            line: 1,
+            column: 22,
+        },
+    },
+    PositionedToken {
+        token: Plus,
+        position: Position {
+            line: 1,
+            column: 24,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "y",
+        },
+        position: Position {
+            line: 1,
+            column: 26,
+        },
+    },
+    PositionedToken {
+        token: ClosingCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 28,
+        },
+    },
 ]

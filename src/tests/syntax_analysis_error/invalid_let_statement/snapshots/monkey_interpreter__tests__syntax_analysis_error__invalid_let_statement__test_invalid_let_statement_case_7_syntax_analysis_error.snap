@@ -4,5 +4,5 @@ assertion_line: 28
 expression: error
 ---
 Err(
-    "Do not know how to parse SemiColon as an expression.",
+    "Do not know how to parse SemiColon as an expression at line 1, column 29.",
 )

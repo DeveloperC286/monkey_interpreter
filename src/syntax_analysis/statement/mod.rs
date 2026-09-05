@@ -33,10 +33,19 @@ impl SyntaxAnalysis<'_> {
             "A let statement must start with Let token."
         );
         let identifier = match self.tokens.next() {
-            Some(Token::Identifier { literal }) => literal,
-            _ => {
+            Some(positioned_token) => match &positioned_token.token {
+                Token::Identifier { literal } => literal,
+                _ => {
+                    anyhow::bail!(
+                        "A let statement must have a variable identifier after the Let token. Found {:?} at {} instead.",
+                        positioned_token.token,
+                        positioned_token.position
+                    );
+                }
+            },
+            None => {
                 anyhow::bail!(
-                    "A let statement must have a variable identifier after the Let token."
+                    "A let statement must have a variable identifier after the Let token. Reached the end of the code instead."
                 );
             }
         };

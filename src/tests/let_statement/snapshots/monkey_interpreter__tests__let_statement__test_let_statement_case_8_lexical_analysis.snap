@@ -1,13 +1,44 @@
 ---
 source: src/tests/let_statement/mod.rs
+assertion_line: 39
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "is_directory",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    Assign,
-    False,
-    SemiColon,
+    PositionedToken {
+        token: Identifier {
+            literal: "is_directory",
+        },
+        position: Position {
+            line: 1,
+            column: 5,
+        },
+    },
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 18,
+        },
+    },
+    PositionedToken {
+        token: False,
+        position: Position {
+            line: 1,
+            column: 20,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 1,
+            column: 25,
+        },
+    },
 ]

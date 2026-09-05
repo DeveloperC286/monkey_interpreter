@@ -1,13 +1,32 @@
 ---
 source: src/tests/string_infix_boolean_expression/mod.rs
+assertion_line: 27
 expression: tokens
 ---
 [
-    String {
-        literal: "name",
+    PositionedToken {
+        token: String {
+            literal: "name",
+        },
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    Equals,
-    String {
-        literal: "name",
+    PositionedToken {
+        token: Equals,
+        position: Position {
+            line: 1,
+            column: 8,
+        },
+    },
+    PositionedToken {
+        token: String {
+            literal: "name",
+        },
+        position: Position {
+            line: 1,
+            column: 11,
+        },
     },
 ]

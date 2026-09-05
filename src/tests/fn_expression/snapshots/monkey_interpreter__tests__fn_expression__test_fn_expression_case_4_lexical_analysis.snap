@@ -1,27 +1,106 @@
 ---
 source: src/tests/fn_expression/mod.rs
+assertion_line: 17
 expression: tokens
 ---
 [
-    Function,
-    OpeningRoundBracket,
-    Identifier {
-        literal: "x",
+    PositionedToken {
+        token: Function,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    Comma,
-    Identifier {
-        literal: "y",
+    PositionedToken {
+        token: OpeningRoundBracket,
+        position: Position {
+            line: 1,
+            column: 3,
+        },
     },
-    ClosingRoundBracket,
-    OpeningCurlyBracket,
-    Return,
-    Identifier {
-        literal: "x",
+    PositionedToken {
+        token: Identifier {
+            literal: "x",
+        },
+        position: Position {
+            line: 1,
+            column: 4,
+        },
     },
-    Plus,
-    Identifier {
-        literal: "y",
+    PositionedToken {
+        token: Comma,
+        position: Position {
+            line: 1,
+            column: 5,
+        },
     },
-    SemiColon,
-    ClosingCurlyBracket,
+    PositionedToken {
+        token: Identifier {
+            literal: "y",
+        },
+        position: Position {
+            line: 1,
+            column: 6,
+        },
+    },
+    PositionedToken {
+        token: ClosingRoundBracket,
+        position: Position {
+            line: 1,
+            column: 7,
+        },
+    },
+    PositionedToken {
+        token: OpeningCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 9,
+        },
+    },
+    PositionedToken {
+        token: Return,
+        position: Position {
+            line: 2,
+            column: 2,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "x",
+        },
+        position: Position {
+            line: 2,
+            column: 9,
+        },
+    },
+    PositionedToken {
+        token: Plus,
+        position: Position {
+            line: 2,
+            column: 11,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "y",
+        },
+        position: Position {
+            line: 2,
+            column: 13,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 2,
+            column: 14,
+        },
+    },
+    PositionedToken {
+        token: ClosingCurlyBracket,
+        position: Position {
+            line: 3,
+            column: 1,
+        },
+    },
 ]

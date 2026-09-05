@@ -14,18 +14,19 @@ impl SyntaxAnalysis<'_> {
         mut expression: Expression,
         minimum_expression_precedence: ExpressionPrecedence,
     ) -> anyhow::Result<Expression> {
-        while let Some(token) = self.tokens.peek() {
-            if **token == Token::SemiColon {
+        while let Some(positioned_token) = self.tokens.peek() {
+            if positioned_token.token == Token::SemiColon {
                 break;
             }
 
-            let next_expression_precedence = get_current_expression_precedence(token);
+            let next_expression_precedence =
+                get_current_expression_precedence(&positioned_token.token);
 
             if minimum_expression_precedence >= next_expression_precedence {
                 break;
             }
 
-            match token {
+            match positioned_token.token {
                 Token::Plus
                 | Token::Minus
                 | Token::Divide

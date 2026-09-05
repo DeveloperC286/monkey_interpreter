@@ -4,5 +4,5 @@ assertion_line: 28
 expression: error
 ---
 Err(
-    "A let statement must have a variable identifier after the Let token.",
+    "A let statement must have a variable identifier after the Let token. Reached the end of the code instead.",
 )

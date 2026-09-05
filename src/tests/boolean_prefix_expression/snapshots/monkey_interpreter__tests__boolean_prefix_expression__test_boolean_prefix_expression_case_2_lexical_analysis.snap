@@ -1,8 +1,21 @@
 ---
 source: src/tests/boolean_prefix_expression/mod.rs
+assertion_line: 15
 expression: tokens
 ---
 [
-    Not,
-    True,
+    PositionedToken {
+        token: Not,
+        position: Position {
+            line: 1,
+            column: 2,
+        },
+    },
+    PositionedToken {
+        token: True,
+        position: Position {
+            line: 1,
+            column: 3,
+        },
+    },
 ]

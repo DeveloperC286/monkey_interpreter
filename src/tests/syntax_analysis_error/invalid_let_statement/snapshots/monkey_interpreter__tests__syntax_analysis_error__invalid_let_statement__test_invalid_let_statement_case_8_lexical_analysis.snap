@@ -1,20 +1,69 @@
 ---
 source: src/tests/syntax_analysis_error/invalid_let_statement/mod.rs
+assertion_line: 23
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "timeout_ms",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 2,
+        },
     },
-    Assign,
-    Integer {
-        literal: 5,
+    PositionedToken {
+        token: Identifier {
+            literal: "timeout_ms",
+        },
+        position: Position {
+            line: 1,
+            column: 6,
+        },
     },
-    SemiColon,
-    Let,
-    Identifier {
-        literal: "timeout_ms_copy",
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 17,
+        },
     },
-    SemiColon,
+    PositionedToken {
+        token: Integer {
+            literal: 5,
+        },
+        position: Position {
+            line: 1,
+            column: 19,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 1,
+            column: 20,
+        },
+    },
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 2,
+            column: 2,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "timeout_ms_copy",
+        },
+        position: Position {
+            line: 2,
+            column: 6,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 2,
+            column: 21,
+        },
+    },
 ]

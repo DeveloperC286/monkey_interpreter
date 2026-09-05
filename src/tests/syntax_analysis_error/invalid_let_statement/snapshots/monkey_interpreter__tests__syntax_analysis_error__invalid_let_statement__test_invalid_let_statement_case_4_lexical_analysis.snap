@@ -1,10 +1,23 @@
 ---
 source: src/tests/syntax_analysis_error/invalid_let_statement/mod.rs
+assertion_line: 23
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "flatcase",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 5,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "flatcase",
+        },
+        position: Position {
+            line: 1,
+            column: 9,
+        },
     },
 ]

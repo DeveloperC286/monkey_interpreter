@@ -1,12 +1,37 @@
 ---
 source: src/tests/let_statement/mod.rs
+assertion_line: 39
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "camelCase",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 3,
+        },
     },
-    Assign,
-    False,
+    PositionedToken {
+        token: Identifier {
+            literal: "camelCase",
+        },
+        position: Position {
+            line: 1,
+            column: 7,
+        },
+    },
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 17,
+        },
+    },
+    PositionedToken {
+        token: False,
+        position: Position {
+            line: 1,
+            column: 19,
+        },
+    },
 ]

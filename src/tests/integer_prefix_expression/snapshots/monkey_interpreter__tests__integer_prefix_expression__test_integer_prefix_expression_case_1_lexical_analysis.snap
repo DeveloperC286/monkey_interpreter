@@ -1,10 +1,23 @@
 ---
 source: src/tests/integer_prefix_expression/mod.rs
+assertion_line: 14
 expression: tokens
 ---
 [
-    Minus,
-    Integer {
-        literal: 5,
+    PositionedToken {
+        token: Minus,
+        position: Position {
+            line: 1,
+            column: 2,
+        },
+    },
+    PositionedToken {
+        token: Integer {
+            literal: 5,
+        },
+        position: Position {
+            line: 1,
+            column: 3,
+        },
     },
 ]

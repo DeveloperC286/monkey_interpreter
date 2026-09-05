@@ -25,8 +25,8 @@ impl SyntaxAnalysis<'_> {
         let consequence = self.parse_block()?;
         let mut alternative = None;
 
-        if let Some(token) = self.tokens.peek()
-            && **token == Token::Else
+        if let Some(positioned_token) = self.tokens.peek()
+            && positioned_token.token == Token::Else
         {
             // Consume else.
             self.tokens.next();

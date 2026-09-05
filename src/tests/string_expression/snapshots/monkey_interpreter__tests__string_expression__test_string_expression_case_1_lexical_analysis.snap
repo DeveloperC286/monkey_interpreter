@@ -1,9 +1,16 @@
 ---
 source: src/tests/string_expression/mod.rs
+assertion_line: 15
 expression: tokens
 ---
 [
-    String {
-        literal: "this is a string",
+    PositionedToken {
+        token: String {
+            literal: "this is a string",
+        },
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
 ]

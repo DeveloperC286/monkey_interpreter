@@ -6,6 +6,6 @@ expression: error
 Err(
     Error {
         context: "A prefix expression must have a right hand expression.",
-        source: "No token to parse.",
+        source: "No token to parse, reached the end of the code.",
     },
 )

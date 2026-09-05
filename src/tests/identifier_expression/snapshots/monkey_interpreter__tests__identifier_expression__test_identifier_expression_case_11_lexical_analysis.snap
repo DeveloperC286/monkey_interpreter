@@ -1,15 +1,46 @@
 ---
 source: src/tests/identifier_expression/mod.rs
+assertion_line: 51
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "camelCase",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 3,
+        },
     },
-    Assign,
-    False,
-    Identifier {
-        literal: "camelCase",
+    PositionedToken {
+        token: Identifier {
+            literal: "camelCase",
+        },
+        position: Position {
+            line: 1,
+            column: 7,
+        },
+    },
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 17,
+        },
+    },
+    PositionedToken {
+        token: False,
+        position: Position {
+            line: 1,
+            column: 19,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "camelCase",
+        },
+        position: Position {
+            line: 2,
+            column: 1,
+        },
     },
 ]

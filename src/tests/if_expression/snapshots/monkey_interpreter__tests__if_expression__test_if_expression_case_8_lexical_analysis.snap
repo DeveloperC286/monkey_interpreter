@@ -1,23 +1,102 @@
 ---
 source: src/tests/if_expression/mod.rs
+assertion_line: 24
 expression: tokens
 ---
 [
-    If,
-    OpeningRoundBracket,
-    Integer {
-        literal: 4,
+    PositionedToken {
+        token: If,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    GreaterThan,
-    Integer {
-        literal: 6,
+    PositionedToken {
+        token: OpeningRoundBracket,
+        position: Position {
+            line: 1,
+            column: 4,
+        },
     },
-    ClosingRoundBracket,
-    OpeningCurlyBracket,
-    True,
-    ClosingCurlyBracket,
-    Else,
-    OpeningCurlyBracket,
-    False,
-    ClosingCurlyBracket,
+    PositionedToken {
+        token: Integer {
+            literal: 4,
+        },
+        position: Position {
+            line: 1,
+            column: 5,
+        },
+    },
+    PositionedToken {
+        token: GreaterThan,
+        position: Position {
+            line: 1,
+            column: 7,
+        },
+    },
+    PositionedToken {
+        token: Integer {
+            literal: 6,
+        },
+        position: Position {
+            line: 1,
+            column: 9,
+        },
+    },
+    PositionedToken {
+        token: ClosingRoundBracket,
+        position: Position {
+            line: 1,
+            column: 10,
+        },
+    },
+    PositionedToken {
+        token: OpeningCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 12,
+        },
+    },
+    PositionedToken {
+        token: True,
+        position: Position {
+            line: 1,
+            column: 14,
+        },
+    },
+    PositionedToken {
+        token: ClosingCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 19,
+        },
+    },
+    PositionedToken {
+        token: Else,
+        position: Position {
+            line: 1,
+            column: 21,
+        },
+    },
+    PositionedToken {
+        token: OpeningCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 26,
+        },
+    },
+    PositionedToken {
+        token: False,
+        position: Position {
+            line: 1,
+            column: 28,
+        },
+    },
+    PositionedToken {
+        token: ClosingCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 34,
+        },
+    },
 ]

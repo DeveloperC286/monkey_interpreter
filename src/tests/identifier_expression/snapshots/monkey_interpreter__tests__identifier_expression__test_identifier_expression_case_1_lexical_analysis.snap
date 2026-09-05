@@ -1,18 +1,55 @@
 ---
 source: src/tests/identifier_expression/mod.rs
+assertion_line: 51
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "sentence",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    Assign,
-    String {
-        literal: "this is a multiple words...\n",
+    PositionedToken {
+        token: Identifier {
+            literal: "sentence",
+        },
+        position: Position {
+            line: 1,
+            column: 5,
+        },
     },
-    SemiColon,
-    Identifier {
-        literal: "sentence",
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 14,
+        },
+    },
+    PositionedToken {
+        token: String {
+            literal: "this is a multiple words...\n",
+        },
+        position: Position {
+            line: 1,
+            column: 16,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 1,
+            column: 47,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "sentence",
+        },
+        position: Position {
+            line: 2,
+            column: 1,
+        },
     },
 ]

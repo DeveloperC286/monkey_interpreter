@@ -1,13 +1,44 @@
 ---
 source: src/tests/let_statement/mod.rs
+assertion_line: 39
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "UPPER_CASE_SNAKE_CASE",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    Assign,
-    False,
-    SemiColon,
+    PositionedToken {
+        token: Identifier {
+            literal: "UPPER_CASE_SNAKE_CASE",
+        },
+        position: Position {
+            line: 1,
+            column: 5,
+        },
+    },
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 27,
+        },
+    },
+    PositionedToken {
+        token: False,
+        position: Position {
+            line: 1,
+            column: 29,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 1,
+            column: 34,
+        },
+    },
 ]

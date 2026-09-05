@@ -4,5 +4,5 @@ assertion_line: 15
 expression: error
 ---
 Err(
-    "Unparsable context for lexical analysis \"0xFF\".",
+    "Unparsable context for lexical analysis \"0xFF\" at line 1, column 2.",
 )

@@ -15,8 +15,8 @@ impl SyntaxAnalysis<'_> {
         );
         let mut blocks = vec![];
 
-        while let Some(token) = self.tokens.peek() {
-            match token {
+        while let Some(positioned_token) = self.tokens.peek() {
+            match positioned_token.token {
                 Token::ClosingCurlyBracket => break,
                 _ => {
                     blocks.push(self.get_next_syntax_tree_node()?);
@@ -47,25 +47,29 @@ impl SyntaxAnalysis<'_> {
         );
         let mut list = vec![];
 
-        if let Some(token) = self.tokens.peek()
-            && **token != Token::ClosingRoundBracket
+        if let Some(positioned_token) = self.tokens.peek()
+            && positioned_token.token != Token::ClosingRoundBracket
         {
             loop {
                 let expression = self.get_expression(ExpressionPrecedence::Lowest)?;
                 list.push(map_expression(expression)?);
 
                 match self.tokens.peek() {
-                    Some(token) => match token {
+                    Some(positioned_token) => match positioned_token.token {
                         Token::ClosingRoundBracket => break,
                         Token::Comma => {
                             self.tokens.next();
                         }
                         _ => {
-                            anyhow::bail!("A {context} must be comma separated.");
+                            anyhow::bail!(
+                                "A {context} must be comma separated. Found {:?} at {} instead.",
+                                positioned_token.token,
+                                positioned_token.position
+                            );
                         }
                     },
                     None => {
-                        anyhow::bail!("A {context} ended abruptly.");
+                        anyhow::bail!("A {context} ended abruptly, reached the end of the code.");
                     }
                 }
             }

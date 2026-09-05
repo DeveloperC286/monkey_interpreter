@@ -1,11 +1,30 @@
 ---
 source: src/tests/evaluation_error/type_mismatch_integer_infix_expression/mod.rs
+assertion_line: 38
 expression: tokens
 ---
 [
-    False,
-    Multiply,
-    String {
-        literal: "can't multiply",
+    PositionedToken {
+        token: False,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
+    },
+    PositionedToken {
+        token: Multiply,
+        position: Position {
+            line: 1,
+            column: 7,
+        },
+    },
+    PositionedToken {
+        token: String {
+            literal: "can't multiply",
+        },
+        position: Position {
+            line: 1,
+            column: 9,
+        },
     },
 ]

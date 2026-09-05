@@ -1,9 +1,28 @@
 ---
 source: src/tests/evaluation_error/unknown_operator_integer_infix_expression/mod.rs
+assertion_line: 19
 expression: tokens
 ---
 [
-    False,
-    Divide,
-    False,
+    PositionedToken {
+        token: False,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
+    },
+    PositionedToken {
+        token: Divide,
+        position: Position {
+            line: 1,
+            column: 7,
+        },
+    },
+    PositionedToken {
+        token: False,
+        position: Position {
+            line: 1,
+            column: 9,
+        },
+    },
 ]

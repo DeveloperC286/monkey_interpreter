@@ -12,12 +12,12 @@ impl SyntaxAnalysis<'_> {
     ) -> anyhow::Result<Expression> {
         debug!("Parsing a infix expression.");
 
-        let token = self
+        let positioned_token = self
             .tokens
             .next()
-            .ok_or_else(|| anyhow::anyhow!("No token to parse."))?;
+            .ok_or_else(|| anyhow::anyhow!("No token to parse, reached the end of the code."))?;
 
-        let operator = match token {
+        let operator = match positioned_token.token {
             Token::Plus => InfixOperator::Plus,
             Token::Minus => InfixOperator::Minus,
             Token::Multiply => InfixOperator::Multiply,
@@ -26,7 +26,11 @@ impl SyntaxAnalysis<'_> {
             Token::NotEquals => InfixOperator::NotEquals,
             Token::LesserThan => InfixOperator::LesserThan,
             Token::GreaterThan => InfixOperator::GreaterThan,
-            _ => anyhow::bail!("Unknown infix operator token {:?}.", token),
+            _ => anyhow::bail!(
+                "Unknown infix operator token {:?} at {}.",
+                positioned_token.token,
+                positioned_token.position
+            ),
         };
 
         let precedence = get_infix_operator_precedence(&operator);

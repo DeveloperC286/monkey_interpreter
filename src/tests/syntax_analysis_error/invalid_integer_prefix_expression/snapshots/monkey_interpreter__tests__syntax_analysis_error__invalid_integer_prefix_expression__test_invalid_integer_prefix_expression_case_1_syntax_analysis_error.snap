@@ -6,6 +6,6 @@ expression: error
 Err(
     Error {
         context: "A prefix expression must have a right hand expression.",
-        source: "Do not know how to parse SemiColon as an expression.",
+        source: "Do not know how to parse SemiColon as an expression at line 1, column 17.",
     },
 )

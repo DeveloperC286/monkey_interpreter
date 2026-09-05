@@ -1,11 +1,30 @@
 ---
 source: src/tests/return_statement/mod.rs
+assertion_line: 15
 expression: tokens
 ---
 [
-    Return,
-    String {
-        literal: "string123",
+    PositionedToken {
+        token: Return,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    SemiColon,
+    PositionedToken {
+        token: String {
+            literal: "string123",
+        },
+        position: Position {
+            line: 1,
+            column: 8,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 1,
+            column: 19,
+        },
+    },
 ]

@@ -4,5 +4,5 @@ assertion_line: 28
 expression: error
 ---
 Err(
-    "A let statement must have an assignment operator after the Identifier token.",
+    "A let statement must have an assignment operator after the Identifier token. Reached the end of the code instead.",
 )

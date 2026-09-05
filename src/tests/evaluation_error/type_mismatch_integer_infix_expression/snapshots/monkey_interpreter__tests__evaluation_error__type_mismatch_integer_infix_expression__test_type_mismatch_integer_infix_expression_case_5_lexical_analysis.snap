@@ -1,11 +1,30 @@
 ---
 source: src/tests/evaluation_error/type_mismatch_integer_infix_expression/mod.rs
+assertion_line: 38
 expression: tokens
 ---
 [
-    String {
-        literal: "123",
+    PositionedToken {
+        token: String {
+            literal: "123",
+        },
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    Plus,
-    False,
+    PositionedToken {
+        token: Plus,
+        position: Position {
+            line: 1,
+            column: 7,
+        },
+    },
+    PositionedToken {
+        token: False,
+        position: Position {
+            line: 1,
+            column: 9,
+        },
+    },
 ]

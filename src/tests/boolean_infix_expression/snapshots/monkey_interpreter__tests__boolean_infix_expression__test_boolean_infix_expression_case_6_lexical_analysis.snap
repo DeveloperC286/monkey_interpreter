@@ -1,9 +1,28 @@
 ---
 source: src/tests/boolean_infix_expression/mod.rs
+assertion_line: 20
 expression: tokens
 ---
 [
-    False,
-    NotEquals,
-    True,
+    PositionedToken {
+        token: False,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
+    },
+    PositionedToken {
+        token: NotEquals,
+        position: Position {
+            line: 1,
+            column: 7,
+        },
+    },
+    PositionedToken {
+        token: True,
+        position: Position {
+            line: 1,
+            column: 10,
+        },
+    },
 ]

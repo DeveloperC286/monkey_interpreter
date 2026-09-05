@@ -1,11 +1,30 @@
 ---
 source: src/tests/evaluation_error/type_mismatch_boolean_infix_expression/mod.rs
+assertion_line: 21
 expression: tokens
 ---
 [
-    String {
-        literal: "this is a string",
+    PositionedToken {
+        token: String {
+            literal: "this is a string",
+        },
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    Equals,
-    True,
+    PositionedToken {
+        token: Equals,
+        position: Position {
+            line: 1,
+            column: 20,
+        },
+    },
+    PositionedToken {
+        token: True,
+        position: Position {
+            line: 1,
+            column: 23,
+        },
+    },
 ]

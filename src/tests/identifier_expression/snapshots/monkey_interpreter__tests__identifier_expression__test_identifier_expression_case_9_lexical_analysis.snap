@@ -1,18 +1,55 @@
 ---
 source: src/tests/identifier_expression/mod.rs
+assertion_line: 51
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "file",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 2,
+        },
     },
-    Assign,
-    String {
-        literal: "/tmp/temp.txt",
+    PositionedToken {
+        token: Identifier {
+            literal: "file",
+        },
+        position: Position {
+            line: 1,
+            column: 6,
+        },
     },
-    SemiColon,
-    Identifier {
-        literal: "file",
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 11,
+        },
+    },
+    PositionedToken {
+        token: String {
+            literal: "/tmp/temp.txt",
+        },
+        position: Position {
+            line: 1,
+            column: 13,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 1,
+            column: 28,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "file",
+        },
+        position: Position {
+            line: 2,
+            column: 1,
+        },
     },
 ]

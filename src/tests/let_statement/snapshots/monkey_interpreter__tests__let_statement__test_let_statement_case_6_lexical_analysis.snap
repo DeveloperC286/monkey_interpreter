@@ -1,24 +1,85 @@
 ---
 source: src/tests/let_statement/mod.rs
+assertion_line: 39
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "a",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    Assign,
-    Integer {
-        literal: 25,
+    PositionedToken {
+        token: Identifier {
+            literal: "a",
+        },
+        position: Position {
+            line: 1,
+            column: 5,
+        },
     },
-    SemiColon,
-    Let,
-    Identifier {
-        literal: "b",
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 7,
+        },
     },
-    Assign,
-    Integer {
-        literal: 91,
+    PositionedToken {
+        token: Integer {
+            literal: 25,
+        },
+        position: Position {
+            line: 1,
+            column: 9,
+        },
     },
-    SemiColon,
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 1,
+            column: 11,
+        },
+    },
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 2,
+            column: 1,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "b",
+        },
+        position: Position {
+            line: 2,
+            column: 5,
+        },
+    },
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 2,
+            column: 7,
+        },
+    },
+    PositionedToken {
+        token: Integer {
+            literal: 91,
+        },
+        position: Position {
+            line: 2,
+            column: 9,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 2,
+            column: 11,
+        },
+    },
 ]

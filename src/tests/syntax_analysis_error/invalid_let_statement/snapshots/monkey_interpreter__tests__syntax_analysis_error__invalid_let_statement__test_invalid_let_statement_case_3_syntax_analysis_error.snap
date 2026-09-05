@@ -4,5 +4,5 @@ assertion_line: 28
 expression: error
 ---
 Err(
-    "A let statement must have an assignment operator after the Identifier token.",
+    "A let statement must have an assignment operator after the Identifier token. Found SemiColon at line 1, column 10 instead.",
 )

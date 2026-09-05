@@ -1,17 +1,60 @@
 ---
 source: src/tests/if_expression/mod.rs
+assertion_line: 24
 expression: tokens
 ---
 [
-    If,
-    OpeningRoundBracket,
-    Integer {
-        literal: 1,
+    PositionedToken {
+        token: If,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    ClosingRoundBracket,
-    OpeningCurlyBracket,
-    Integer {
-        literal: 1,
+    PositionedToken {
+        token: OpeningRoundBracket,
+        position: Position {
+            line: 1,
+            column: 4,
+        },
     },
-    ClosingCurlyBracket,
+    PositionedToken {
+        token: Integer {
+            literal: 1,
+        },
+        position: Position {
+            line: 1,
+            column: 5,
+        },
+    },
+    PositionedToken {
+        token: ClosingRoundBracket,
+        position: Position {
+            line: 1,
+            column: 6,
+        },
+    },
+    PositionedToken {
+        token: OpeningCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 8,
+        },
+    },
+    PositionedToken {
+        token: Integer {
+            literal: 1,
+        },
+        position: Position {
+            line: 1,
+            column: 10,
+        },
+    },
+    PositionedToken {
+        token: ClosingCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 12,
+        },
+    },
 ]

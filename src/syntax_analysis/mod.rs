@@ -1,6 +1,6 @@
 use log::debug;
 
-use crate::lexical_analysis::model::token::Token;
+use crate::lexical_analysis::model::token::{PositionedToken, Token};
 use crate::syntax_analysis::model::syntax_tree_node::SyntaxTreeNode;
 
 #[macro_use]
@@ -15,11 +15,11 @@ use std::iter::Peekable;
 use std::slice::Iter;
 
 pub(crate) struct SyntaxAnalysis<'a> {
-    tokens: Peekable<Iter<'a, Token>>,
+    tokens: Peekable<Iter<'a, PositionedToken>>,
 }
 
 impl SyntaxAnalysis<'_> {
-    pub(crate) fn from(tokens: Vec<Token>) -> anyhow::Result<Vec<SyntaxTreeNode>> {
+    pub(crate) fn from(tokens: Vec<PositionedToken>) -> anyhow::Result<Vec<SyntaxTreeNode>> {
         let mut syntax_analysis = SyntaxAnalysis {
             tokens: tokens.iter().peekable(),
         };
@@ -42,9 +42,14 @@ impl SyntaxAnalysis<'_> {
         debug!("Parsing next SyntaxTreeNode.");
 
         match self.tokens.peek() {
-            None => anyhow::bail!("No token to parse."),
-            Some(Token::Let) => self.parse_let_statement(),
-            Some(Token::Return) => self.parse_return_statement(),
+            None => anyhow::bail!("No token to parse, reached the end of the code."),
+            Some(PositionedToken {
+                token: Token::Let, ..
+            }) => self.parse_let_statement(),
+            Some(PositionedToken {
+                token: Token::Return,
+                ..
+            }) => self.parse_return_statement(),
             Some(_) => self.get_expression_node(),
         }
     }

@@ -1,21 +1,76 @@
 ---
 source: src/tests/fn_expression/mod.rs
+assertion_line: 17
 expression: tokens
 ---
 [
-    Function,
-    OpeningRoundBracket,
-    Identifier {
-        literal: "x",
+    PositionedToken {
+        token: Function,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    ClosingRoundBracket,
-    OpeningCurlyBracket,
-    Identifier {
-        literal: "x",
+    PositionedToken {
+        token: OpeningRoundBracket,
+        position: Position {
+            line: 1,
+            column: 3,
+        },
     },
-    Plus,
-    Integer {
-        literal: 3,
+    PositionedToken {
+        token: Identifier {
+            literal: "x",
+        },
+        position: Position {
+            line: 1,
+            column: 4,
+        },
     },
-    ClosingCurlyBracket,
+    PositionedToken {
+        token: ClosingRoundBracket,
+        position: Position {
+            line: 1,
+            column: 5,
+        },
+    },
+    PositionedToken {
+        token: OpeningCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 7,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "x",
+        },
+        position: Position {
+            line: 2,
+            column: 2,
+        },
+    },
+    PositionedToken {
+        token: Plus,
+        position: Position {
+            line: 2,
+            column: 4,
+        },
+    },
+    PositionedToken {
+        token: Integer {
+            literal: 3,
+        },
+        position: Position {
+            line: 2,
+            column: 6,
+        },
+    },
+    PositionedToken {
+        token: ClosingCurlyBracket,
+        position: Position {
+            line: 3,
+            column: 1,
+        },
+    },
 ]

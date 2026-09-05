@@ -1,21 +1,88 @@
 ---
 source: src/tests/if_expression/mod.rs
+assertion_line: 24
 expression: tokens
 ---
 [
-    If,
-    OpeningRoundBracket,
-    False,
-    ClosingRoundBracket,
-    OpeningCurlyBracket,
-    Integer {
-        literal: 85,
+    PositionedToken {
+        token: If,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    ClosingCurlyBracket,
-    Else,
-    OpeningCurlyBracket,
-    Integer {
-        literal: 58,
+    PositionedToken {
+        token: OpeningRoundBracket,
+        position: Position {
+            line: 1,
+            column: 4,
+        },
     },
-    ClosingCurlyBracket,
+    PositionedToken {
+        token: False,
+        position: Position {
+            line: 1,
+            column: 5,
+        },
+    },
+    PositionedToken {
+        token: ClosingRoundBracket,
+        position: Position {
+            line: 1,
+            column: 10,
+        },
+    },
+    PositionedToken {
+        token: OpeningCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 12,
+        },
+    },
+    PositionedToken {
+        token: Integer {
+            literal: 85,
+        },
+        position: Position {
+            line: 1,
+            column: 14,
+        },
+    },
+    PositionedToken {
+        token: ClosingCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 17,
+        },
+    },
+    PositionedToken {
+        token: Else,
+        position: Position {
+            line: 1,
+            column: 19,
+        },
+    },
+    PositionedToken {
+        token: OpeningCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 24,
+        },
+    },
+    PositionedToken {
+        token: Integer {
+            literal: 58,
+        },
+        position: Position {
+            line: 1,
+            column: 26,
+        },
+    },
+    PositionedToken {
+        token: ClosingCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 29,
+        },
+    },
 ]

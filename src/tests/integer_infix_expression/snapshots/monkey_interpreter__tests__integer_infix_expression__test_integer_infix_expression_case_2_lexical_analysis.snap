@@ -1,20 +1,69 @@
 ---
 source: src/tests/integer_infix_expression/mod.rs
+assertion_line: 25
 expression: tokens
 ---
 [
-    OpeningRoundBracket,
-    Integer {
-        literal: 5,
+    PositionedToken {
+        token: OpeningRoundBracket,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    Minus,
-    Integer {
-        literal: 10,
+    PositionedToken {
+        token: Integer {
+            literal: 5,
+        },
+        position: Position {
+            line: 1,
+            column: 2,
+        },
     },
-    ClosingRoundBracket,
-    Multiply,
-    Integer {
-        literal: 10,
+    PositionedToken {
+        token: Minus,
+        position: Position {
+            line: 1,
+            column: 4,
+        },
     },
-    SemiColon,
+    PositionedToken {
+        token: Integer {
+            literal: 10,
+        },
+        position: Position {
+            line: 1,
+            column: 6,
+        },
+    },
+    PositionedToken {
+        token: ClosingRoundBracket,
+        position: Position {
+            line: 1,
+            column: 8,
+        },
+    },
+    PositionedToken {
+        token: Multiply,
+        position: Position {
+            line: 1,
+            column: 10,
+        },
+    },
+    PositionedToken {
+        token: Integer {
+            literal: 10,
+        },
+        position: Position {
+            line: 1,
+            column: 12,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 1,
+            column: 14,
+        },
+    },
 ]

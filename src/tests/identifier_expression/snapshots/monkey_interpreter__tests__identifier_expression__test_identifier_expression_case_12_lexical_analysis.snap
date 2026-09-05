@@ -1,18 +1,55 @@
 ---
 source: src/tests/identifier_expression/mod.rs
+assertion_line: 51
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "PascalCase",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 5,
+        },
     },
-    Assign,
-    String {
-        literal: "terrible format",
+    PositionedToken {
+        token: Identifier {
+            literal: "PascalCase",
+        },
+        position: Position {
+            line: 1,
+            column: 9,
+        },
     },
-    SemiColon,
-    Identifier {
-        literal: "PascalCase",
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 19,
+        },
+    },
+    PositionedToken {
+        token: String {
+            literal: "terrible format",
+        },
+        position: Position {
+            line: 1,
+            column: 20,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 1,
+            column: 37,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "PascalCase",
+        },
+        position: Position {
+            line: 2,
+            column: 1,
+        },
     },
 ]

@@ -1,13 +1,44 @@
 ---
 source: src/tests/syntax_analysis_error/invalid_integer_prefix_expression/mod.rs
+assertion_line: 15
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "file",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 2,
+        },
     },
-    Assign,
-    Minus,
-    SemiColon,
+    PositionedToken {
+        token: Identifier {
+            literal: "file",
+        },
+        position: Position {
+            line: 1,
+            column: 6,
+        },
+    },
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 11,
+        },
+    },
+    PositionedToken {
+        token: Minus,
+        position: Position {
+            line: 1,
+            column: 13,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 1,
+            column: 14,
+        },
+    },
 ]

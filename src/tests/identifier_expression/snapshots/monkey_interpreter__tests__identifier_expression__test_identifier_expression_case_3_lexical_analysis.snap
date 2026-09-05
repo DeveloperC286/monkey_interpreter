@@ -1,30 +1,115 @@
 ---
 source: src/tests/identifier_expression/mod.rs
+assertion_line: 51
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "double",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    Assign,
-    Function,
-    OpeningRoundBracket,
-    Identifier {
-        literal: "x",
+    PositionedToken {
+        token: Identifier {
+            literal: "double",
+        },
+        position: Position {
+            line: 1,
+            column: 5,
+        },
     },
-    ClosingRoundBracket,
-    OpeningCurlyBracket,
-    Identifier {
-        literal: "x",
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 12,
+        },
     },
-    Multiply,
-    Integer {
-        literal: 2,
+    PositionedToken {
+        token: Function,
+        position: Position {
+            line: 1,
+            column: 14,
+        },
     },
-    ClosingCurlyBracket,
-    SemiColon,
-    Identifier {
-        literal: "double",
+    PositionedToken {
+        token: OpeningRoundBracket,
+        position: Position {
+            line: 1,
+            column: 16,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "x",
+        },
+        position: Position {
+            line: 1,
+            column: 17,
+        },
+    },
+    PositionedToken {
+        token: ClosingRoundBracket,
+        position: Position {
+            line: 1,
+            column: 18,
+        },
+    },
+    PositionedToken {
+        token: OpeningCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 20,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "x",
+        },
+        position: Position {
+            line: 1,
+            column: 22,
+        },
+    },
+    PositionedToken {
+        token: Multiply,
+        position: Position {
+            line: 1,
+            column: 24,
+        },
+    },
+    PositionedToken {
+        token: Integer {
+            literal: 2,
+        },
+        position: Position {
+            line: 1,
+            column: 26,
+        },
+    },
+    PositionedToken {
+        token: ClosingCurlyBracket,
+        position: Position {
+            line: 1,
+            column: 28,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 1,
+            column: 29,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "double",
+        },
+        position: Position {
+            line: 2,
+            column: 1,
+        },
     },
 ]

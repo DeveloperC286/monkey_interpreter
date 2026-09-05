@@ -1,27 +1,94 @@
 ---
 source: src/tests/identifier_expression/mod.rs
+assertion_line: 51
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "timeout_ms",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 2,
+        },
     },
-    Assign,
-    Integer {
-        literal: 5,
+    PositionedToken {
+        token: Identifier {
+            literal: "timeout_ms",
+        },
+        position: Position {
+            line: 1,
+            column: 6,
+        },
     },
-    SemiColon,
-    Let,
-    Identifier {
-        literal: "timeout_ms_copy",
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 17,
+        },
     },
-    Assign,
-    Identifier {
-        literal: "timeout_ms",
+    PositionedToken {
+        token: Integer {
+            literal: 5,
+        },
+        position: Position {
+            line: 1,
+            column: 19,
+        },
     },
-    SemiColon,
-    Identifier {
-        literal: "timeout_ms_copy",
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 1,
+            column: 20,
+        },
+    },
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 2,
+            column: 2,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "timeout_ms_copy",
+        },
+        position: Position {
+            line: 2,
+            column: 6,
+        },
+    },
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 2,
+            column: 22,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "timeout_ms",
+        },
+        position: Position {
+            line: 2,
+            column: 24,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 2,
+            column: 34,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "timeout_ms_copy",
+        },
+        position: Position {
+            line: 3,
+            column: 1,
+        },
     },
 ]

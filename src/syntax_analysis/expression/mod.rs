@@ -1,7 +1,7 @@
 use anyhow::Context;
 use log::{debug, trace};
 
-use crate::lexical_analysis::model::token::Token;
+use crate::lexical_analysis::model::token::{PositionedToken, Token};
 use crate::syntax_analysis::SyntaxAnalysis;
 use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
 use crate::syntax_analysis::model::syntax_tree_node::{Expression, SyntaxTreeNode};
@@ -26,29 +26,37 @@ impl SyntaxAnalysis<'_> {
         debug!("Parsing an expression.");
 
         match self.tokens.peek() {
-            None => anyhow::bail!("No token to parse."),
-            Some(Token::OpeningRoundBracket) => {
+            None => anyhow::bail!("No token to parse, reached the end of the code."),
+            Some(PositionedToken {
+                token: Token::OpeningRoundBracket,
+                ..
+            }) => {
                 debug!("Found a grouped expression.");
                 let grouped_expression = self.parse_grouped_expression()?;
                 self.pratt_parsing(grouped_expression, expression_precedence)
             }
-            Some(Token::If) => {
+            Some(PositionedToken {
+                token: Token::If, ..
+            }) => {
                 debug!("Found a if expression.");
                 let if_expression = self.parse_if_expression()?;
                 self.pratt_parsing(if_expression, expression_precedence)
             }
-            Some(Token::Function) => {
+            Some(PositionedToken {
+                token: Token::Function,
+                ..
+            }) => {
                 debug!("Found a function expression.");
                 let function_expression = self.parse_function_expression()?;
                 self.pratt_parsing(function_expression, expression_precedence)
             }
-            Some(token) => {
+            Some(positioned_token) => {
                 // Every remaining expression starts by consuming the token it was
                 // recognised by, the delegating arms above consume their own.
-                let token = *token;
+                let positioned_token = *positioned_token;
                 self.tokens.next();
 
-                match token {
+                match &positioned_token.token {
                     Token::Identifier { literal } => {
                         debug!("Found a identifier expression.");
                         self.pratt_parsing(
@@ -114,7 +122,11 @@ impl SyntaxAnalysis<'_> {
                             expression_precedence,
                         )
                     }
-                    _ => anyhow::bail!("Do not know how to parse {:?} as an expression.", token),
+                    _ => anyhow::bail!(
+                        "Do not know how to parse {:?} as an expression at {}.",
+                        positioned_token.token,
+                        positioned_token.position
+                    ),
                 }
             }
         }

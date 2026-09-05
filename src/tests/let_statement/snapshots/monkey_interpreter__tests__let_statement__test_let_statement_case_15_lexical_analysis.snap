@@ -1,23 +1,90 @@
 ---
 source: src/tests/let_statement/mod.rs
+assertion_line: 39
 expression: tokens
 ---
 [
-    Let,
-    Identifier {
-        literal: "is_file",
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
     },
-    Assign,
-    False,
-    SemiColon,
-    Let,
-    Identifier {
-        literal: "is_directory",
+    PositionedToken {
+        token: Identifier {
+            literal: "is_file",
+        },
+        position: Position {
+            line: 1,
+            column: 5,
+        },
     },
-    Assign,
-    Not,
-    Identifier {
-        literal: "is_file",
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 13,
+        },
     },
-    SemiColon,
+    PositionedToken {
+        token: False,
+        position: Position {
+            line: 1,
+            column: 15,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 1,
+            column: 20,
+        },
+    },
+    PositionedToken {
+        token: Let,
+        position: Position {
+            line: 1,
+            column: 22,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "is_directory",
+        },
+        position: Position {
+            line: 1,
+            column: 26,
+        },
+    },
+    PositionedToken {
+        token: Assign,
+        position: Position {
+            line: 1,
+            column: 39,
+        },
+    },
+    PositionedToken {
+        token: Not,
+        position: Position {
+            line: 1,
+            column: 41,
+        },
+    },
+    PositionedToken {
+        token: Identifier {
+            literal: "is_file",
+        },
+        position: Position {
+            line: 1,
+            column: 42,
+        },
+    },
+    PositionedToken {
+        token: SemiColon,
+        position: Position {
+            line: 1,
+            column: 49,
+        },
+    },
 ]

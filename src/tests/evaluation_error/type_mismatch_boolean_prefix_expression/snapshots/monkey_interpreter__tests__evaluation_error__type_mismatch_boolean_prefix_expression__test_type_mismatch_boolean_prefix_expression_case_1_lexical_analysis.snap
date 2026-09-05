@@ -1,8 +1,21 @@
 ---
 source: src/tests/evaluation_error/type_mismatch_boolean_prefix_expression/mod.rs
+assertion_line: 16
 expression: tokens
 ---
 [
-    Minus,
-    True,
+    PositionedToken {
+        token: Minus,
+        position: Position {
+            line: 1,
+            column: 1,
+        },
+    },
+    PositionedToken {
+        token: True,
+        position: Position {
+            line: 1,
+            column: 2,
+        },
+    },
 ]
