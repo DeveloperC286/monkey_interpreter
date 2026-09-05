@@ -1,3 +1,5 @@
+use std::path::PathBuf;
+
 use clap::Parser;
 
 #[derive(Parser, Debug)]
@@ -8,4 +10,7 @@ pub(crate) struct Arguments {
         help = "Enable verbose output, respects RUST_LOG environment variable if set."
     )]
     pub(crate) verbose: bool,
+
+    #[arg(help = "Path to a Monkey script (.mk) to execute. If omitted, starts a REPL.")]
+    pub(crate) script: Option<PathBuf>,
 }

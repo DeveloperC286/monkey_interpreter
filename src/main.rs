@@ -37,23 +37,42 @@ fn main() {
 
     let mut evaluator = Evaluator::new();
 
-    loop {
-        if let Err(error) = repl(&mut evaluator) {
-            error!("{error:?}");
+    match arguments.script {
+        Some(script) => {
+            if let Err(error) = evaluate(&mut evaluator, || read_script(&script)) {
+                error!("{error:?}");
+                std::process::exit(1);
+            }
         }
+        None => loop {
+            if let Err(error) = evaluate(&mut evaluator, read_repl_line) {
+                error!("{error:?}");
+            }
+        },
     }
 }
-fn repl(evaluator: &mut Evaluator) -> Result<()> {
-    print!(" >>> ");
-    let input = read()?;
+
+fn evaluate(evaluator: &mut Evaluator, read_input: impl FnOnce() -> Result<String>) -> Result<()> {
+    let input = read_input()?;
     let tokens = LexicalAnalysis::from(&input)?;
     let abstract_syntax_tree = SyntaxAnalysis::from(tokens)?;
-    let object = evaluator.evaluate(abstract_syntax_tree)?;
-    println!("{object:?}");
-    Ok(())
+
+    match evaluator.evaluate(abstract_syntax_tree) {
+        Ok(object) => {
+            println!("{object:?}");
+            Ok(())
+        }
+        Err(error) => Err(error),
+    }
 }
 
-fn read() -> Result<String> {
+fn read_script(script: &std::path::Path) -> Result<String> {
+    std::fs::read_to_string(script)
+        .with_context(|| format!("Unable to read script file {}.", script.display()))
+}
+
+fn read_repl_line() -> Result<String> {
+    print!(" >>> ");
     let mut buffer = String::new();
 
     let _ = stdout().flush();
