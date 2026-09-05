@@ -10,10 +10,10 @@ mod expression_precedence;
 mod statement;
 mod syntax_tree_node;
 
-pub use syntax_tree_node::{Block, Expression, InfixOperator, Statement, SyntaxTreeNode};
-
 use std::iter::Peekable;
 use std::slice::Iter;
+
+pub use syntax_tree_node::{Block, Expression, InfixOperator, Statement, SyntaxTreeNode};
 
 pub(crate) struct SyntaxAnalysis<'a> {
     tokens: Peekable<Iter<'a, Token>>,
