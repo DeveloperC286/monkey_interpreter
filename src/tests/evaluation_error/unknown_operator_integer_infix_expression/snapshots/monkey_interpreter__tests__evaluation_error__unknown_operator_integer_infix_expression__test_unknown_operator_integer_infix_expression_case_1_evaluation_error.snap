@@ -4,5 +4,5 @@ assertion_line: 32
 expression: error
 ---
 Err(
-    "UnknownOperator",
+    "Unknown operator, the + infix operator is not supported for operands of type BOOLEAN.",
 )

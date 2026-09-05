@@ -71,3 +71,20 @@ pub(crate) enum Expression {
         arguments: Vec<Expression>,
     },
 }
+
+impl std::fmt::Display for InfixOperator {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let operator = match self {
+            InfixOperator::Plus => "+",
+            InfixOperator::Minus => "-",
+            InfixOperator::Multiply => "*",
+            InfixOperator::Divide => "/",
+            InfixOperator::Equals => "==",
+            InfixOperator::NotEquals => "!=",
+            InfixOperator::LesserThan => "<",
+            InfixOperator::GreaterThan => ">",
+        };
+
+        formatter.write_str(operator)
+    }
+}

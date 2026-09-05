@@ -4,5 +4,5 @@ assertion_line: 23
 expression: error
 ---
 Err(
-    "TypeMismatch",
+    "Type mismatch, cannot apply the ! prefix operator to an operand of type INTEGER.",
 )

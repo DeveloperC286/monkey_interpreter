@@ -23,7 +23,10 @@ impl Evaluator {
                 self.environment.pop();
                 Ok(block_call_evaluation)
             }
-            _ => anyhow::bail!("UncallableObject"),
+            object => anyhow::bail!(
+                "Cannot call an object of type {}, only functions are callable.",
+                object.type_name()
+            ),
         }
     }
 }
