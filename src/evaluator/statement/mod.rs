@@ -1,6 +1,6 @@
 use crate::evaluator::Evaluator;
-use crate::evaluator::model::object::Object;
-use crate::syntax_analysis::model::syntax_tree_node::*;
+use crate::evaluator::Object;
+use crate::syntax_analysis::*;
 
 mod let_statement;
 mod return_statement;

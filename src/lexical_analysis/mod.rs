@@ -3,9 +3,9 @@ use std::str::Chars;
 
 use log::{debug, info, trace};
 
-use crate::lexical_analysis::model::token::Token;
+mod token;
 
-pub(crate) mod model;
+pub use token::Token;
 
 pub(crate) struct LexicalAnalysis<'a> {
     source_code: Peekable<Chars<'a>>,

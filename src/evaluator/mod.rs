@@ -1,11 +1,12 @@
-use crate::evaluator::model::environment::Environment;
-use crate::evaluator::model::object::Object;
-use crate::syntax_analysis::model::syntax_tree_node::*;
+use crate::evaluator::environment::Environment;
+use crate::syntax_analysis::*;
 
-pub(crate) mod model;
-
+mod environment;
 mod expression;
+mod object;
 mod statement;
+
+pub use object::Object;
 
 #[derive(Debug)]
 pub(crate) struct Evaluator {
