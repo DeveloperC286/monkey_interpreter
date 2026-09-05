@@ -42,6 +42,10 @@ use super::*;
     case(
         "let is_file = FALSE; let is_directory = !is_file;\nis_directory",
         "identifier_expression_case_15"
+    ),
+    case(
+        "let x1 = 5;\nlet arg2 = 10;\nx1 + arg2",
+        "identifier_expression_case_16"
     )
 )]
 fn identifier_expression_cases(code: &str, snapshot_name: &str) {}

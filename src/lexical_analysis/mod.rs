@@ -187,9 +187,20 @@ fn parse_identifier(parsing: &str) -> Option<Token> {
 }
 
 fn is_valid_identifier(verifying: &str) -> bool {
-    verifying.chars().all(is_valid_identifier_character)
+    let mut characters = verifying.chars();
+
+    let starts_valid = match characters.next() {
+        Some(character) => is_valid_identifier_start_character(character),
+        None => false,
+    };
+
+    starts_valid && characters.all(is_valid_identifier_character)
+}
+
+fn is_valid_identifier_start_character(character: char) -> bool {
+    character.is_alphabetic() || character == '_'
 }
 
 fn is_valid_identifier_character(character: char) -> bool {
-    character.is_alphabetic() || character == '_'
+    is_valid_identifier_start_character(character) || character.is_ascii_digit()
 }

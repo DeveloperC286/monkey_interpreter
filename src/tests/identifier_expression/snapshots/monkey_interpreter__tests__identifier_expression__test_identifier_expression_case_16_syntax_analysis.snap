@@ -1,0 +1,33 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "x1",
+            expression: Integer {
+                literal: 5,
+            },
+        },
+    },
+    Statement {
+        statement: Let {
+            identifier: "arg2",
+            expression: Integer {
+                literal: 10,
+            },
+        },
+    },
+    Expression {
+        expression: Infix {
+            left_hand: Identifier {
+                identifier: "x1",
+            },
+            operator: Plus,
+            right_hand: Identifier {
+                identifier: "arg2",
+            },
+        },
+    },
+]

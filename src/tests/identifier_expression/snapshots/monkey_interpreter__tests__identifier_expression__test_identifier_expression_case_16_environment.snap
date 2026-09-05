@@ -1,0 +1,17 @@
+---
+source: src/tests/identifier_expression/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "arg2": Integer {
+                value: 10,
+            },
+            "x1": Integer {
+                value: 5,
+            },
+        },
+        sub_environment: None,
+    },
+}
