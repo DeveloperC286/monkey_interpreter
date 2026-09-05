@@ -1,10 +1,10 @@
 use anyhow::Context;
 use log::{debug, trace};
 
-use crate::lexical_analysis::model::token::Token;
+use crate::lexical_analysis::Token;
 use crate::syntax_analysis::SyntaxAnalysis;
-use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
-use crate::syntax_analysis::model::syntax_tree_node::{Expression, SyntaxTreeNode};
+use crate::syntax_analysis::expression_precedence::ExpressionPrecedence;
+use crate::syntax_analysis::{Expression, SyntaxTreeNode};
 
 mod function_expression;
 mod grouped_expression;
@@ -13,13 +13,13 @@ mod pratt_parsing;
 mod utilities;
 
 impl SyntaxAnalysis<'_> {
-    pub(crate) fn get_expression_node(&mut self) -> anyhow::Result<SyntaxTreeNode> {
+    pub(super) fn get_expression_node(&mut self) -> anyhow::Result<SyntaxTreeNode> {
         let expression = self.get_expression(ExpressionPrecedence::Lowest)?;
         semicolon!(self);
         Ok(SyntaxTreeNode::Expression { expression })
     }
 
-    pub(crate) fn get_expression(
+    pub(super) fn get_expression(
         &mut self,
         expression_precedence: ExpressionPrecedence,
     ) -> anyhow::Result<Expression> {

@@ -1,6 +1,6 @@
 use crate::evaluator::Evaluator;
-use crate::evaluator::model::object::Object;
-use crate::syntax_analysis::model::syntax_tree_node::{Block, Expression};
+use crate::evaluator::Object;
+use crate::syntax_analysis::{Block, Expression};
 
 impl Evaluator {
     pub(super) fn evaluate_if_expression(

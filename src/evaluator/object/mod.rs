@@ -1,9 +1,9 @@
 use std::fmt;
 
-use crate::syntax_analysis::model::syntax_tree_node::Block;
+use crate::syntax_analysis::Block;
 
 #[derive(Debug, Clone, PartialEq)]
-pub(crate) enum Object {
+pub enum Object {
     Return {
         value: Box<Object>,
     },

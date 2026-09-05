@@ -1,12 +1,12 @@
 use log::debug;
 
-use crate::lexical_analysis::model::token::Token;
+use crate::lexical_analysis::Token;
+use crate::syntax_analysis::Expression;
 use crate::syntax_analysis::SyntaxAnalysis;
-use crate::syntax_analysis::model::expression_precedence::ExpressionPrecedence;
-use crate::syntax_analysis::model::syntax_tree_node::Expression;
+use crate::syntax_analysis::expression_precedence::ExpressionPrecedence;
 
 impl SyntaxAnalysis<'_> {
-    pub(crate) fn parse_if_expression(&mut self) -> anyhow::Result<Expression> {
+    pub(super) fn parse_if_expression(&mut self) -> anyhow::Result<Expression> {
         debug!("Parsing a if expression.");
 
         // parse if expression

@@ -1,11 +1,11 @@
 use log::debug;
 
-use crate::lexical_analysis::model::token::Token;
+use crate::lexical_analysis::Token;
+use crate::syntax_analysis::Expression;
 use crate::syntax_analysis::SyntaxAnalysis;
-use crate::syntax_analysis::model::syntax_tree_node::Expression;
 
 impl SyntaxAnalysis<'_> {
-    pub(crate) fn parse_function_expression(&mut self) -> anyhow::Result<Expression> {
+    pub(super) fn parse_function_expression(&mut self) -> anyhow::Result<Expression> {
         debug!("Parsing a function expression.");
 
         // parse function expression

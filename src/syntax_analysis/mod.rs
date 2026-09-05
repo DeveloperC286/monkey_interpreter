@@ -1,15 +1,16 @@
 use log::debug;
 
-use crate::lexical_analysis::model::token::Token;
-use crate::syntax_analysis::model::syntax_tree_node::SyntaxTreeNode;
+use crate::lexical_analysis::Token;
 
 #[macro_use]
 mod macros;
 
-pub(crate) mod model;
-
 mod expression;
+mod expression_precedence;
 mod statement;
+mod syntax_tree_node;
+
+pub use syntax_tree_node::{Block, Expression, InfixOperator, Statement, SyntaxTreeNode};
 
 use std::iter::Peekable;
 use std::slice::Iter;
@@ -27,7 +28,7 @@ impl SyntaxAnalysis<'_> {
         syntax_analysis.get_abstract_syntax_tree()
     }
 
-    pub(crate) fn get_abstract_syntax_tree(&mut self) -> anyhow::Result<Vec<SyntaxTreeNode>> {
+    pub(super) fn get_abstract_syntax_tree(&mut self) -> anyhow::Result<Vec<SyntaxTreeNode>> {
         let mut abstract_syntax_tree: Vec<SyntaxTreeNode> = vec![];
 
         while self.tokens.peek().is_some() {

@@ -1,15 +1,15 @@
-use crate::lexical_analysis::model::token::Token;
+use crate::lexical_analysis::Token;
+use crate::syntax_analysis::Expression;
 use crate::syntax_analysis::SyntaxAnalysis;
-use crate::syntax_analysis::model::expression_precedence::{
+use crate::syntax_analysis::expression_precedence::{
     ExpressionPrecedence, get_current_expression_precedence,
 };
-use crate::syntax_analysis::model::syntax_tree_node::Expression;
 
 mod call_expression;
 mod infix_expression;
 
 impl SyntaxAnalysis<'_> {
-    pub(crate) fn pratt_parsing(
+    pub(super) fn pratt_parsing(
         &mut self,
         mut expression: Expression,
         minimum_expression_precedence: ExpressionPrecedence,

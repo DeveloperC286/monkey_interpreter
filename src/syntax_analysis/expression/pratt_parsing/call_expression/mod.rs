@@ -1,10 +1,10 @@
 use log::debug;
 
+use crate::syntax_analysis::Expression;
 use crate::syntax_analysis::SyntaxAnalysis;
-use crate::syntax_analysis::model::syntax_tree_node::Expression;
 
 impl SyntaxAnalysis<'_> {
-    pub(crate) fn parse_call_expression(
+    pub(super) fn parse_call_expression(
         &mut self,
         function: Expression,
     ) -> anyhow::Result<Expression> {
