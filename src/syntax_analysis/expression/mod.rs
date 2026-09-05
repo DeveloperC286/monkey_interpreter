@@ -20,7 +20,7 @@ impl SyntaxAnalysis<'_> {
 
     pub(crate) fn get_expression(
         &mut self,
-        minimum_expression_precedence: ExpressionPrecedence,
+        expression_precedence: ExpressionPrecedence,
     ) -> anyhow::Result<Expression> {
         debug!("Parsing an expression.");
 
