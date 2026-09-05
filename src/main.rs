@@ -45,37 +45,50 @@ fn main() {
             }
         }
         None => loop {
-            if let Err(error) = evaluate(&mut evaluator, read_repl_line) {
-                error!("{error:?}");
+            match evaluate(&mut evaluator, read_repl_line) {
+                Ok(true) => {}
+                Ok(false) => break,
+                Err(error) => error!("{error:?}"),
             }
         },
     }
 }
 
-fn evaluate(evaluator: &mut Evaluator, read_input: impl FnOnce() -> Result<String>) -> Result<()> {
-    let input = read_input()?;
+fn evaluate(
+    evaluator: &mut Evaluator,
+    read_input: impl FnOnce() -> Result<Option<String>>,
+) -> Result<bool> {
+    let Some(input) = read_input()? else {
+        return Ok(false);
+    };
     let tokens = LexicalAnalysis::from(&input)?;
     let abstract_syntax_tree = SyntaxAnalysis::from(tokens)?;
     let object = evaluator.evaluate(abstract_syntax_tree)?;
     println!("{object}");
-    Ok(())
+    Ok(true)
 }
 
-fn read_script(script: &std::path::Path) -> Result<String> {
+fn read_script(script: &std::path::Path) -> Result<Option<String>> {
     std::fs::read_to_string(script)
         .with_context(|| format!("Unable to read script file {}.", script.display()))
+        .map(Some)
 }
 
-fn read_repl_line() -> Result<String> {
+fn read_repl_line() -> Result<Option<String>> {
     print!(" >>> ");
     let mut buffer = String::new();
 
     let _ = stdout().flush();
-    stdin()
+    let bytes_read = stdin()
         .read_line(&mut buffer)
         .context("Unable to read user input from standard input.")?;
 
-    Ok(buffer)
+    if bytes_read == 0 {
+        println!();
+        return Ok(None);
+    }
+
+    Ok(Some(buffer))
 }
 
 #[cfg(test)]
