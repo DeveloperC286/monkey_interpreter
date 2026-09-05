@@ -4,5 +4,8 @@ assertion_line: 20
 expression: error
 ---
 Err(
-    "A prefix expression must have a right hand expression.",
+    Error {
+        context: "A prefix expression must have a right hand expression.",
+        source: "No token to parse.",
+    },
 )
