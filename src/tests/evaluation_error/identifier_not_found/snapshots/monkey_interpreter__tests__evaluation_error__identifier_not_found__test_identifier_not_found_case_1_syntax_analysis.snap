@@ -1,0 +1,11 @@
+---
+source: src/tests/evaluation_error/identifier_not_found/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: Identifier {
+            identifier: "foobar",
+        },
+    },
+]

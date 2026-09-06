@@ -1,0 +1,25 @@
+---
+source: src/tests/evaluation_error/identifier_not_found/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "a",
+            expression: Integer {
+                literal: 5,
+            },
+        },
+    },
+    Expression {
+        expression: Infix {
+            left_hand: Identifier {
+                identifier: "a",
+            },
+            operator: Plus,
+            right_hand: Identifier {
+                identifier: "b",
+            },
+        },
+    },
+]
