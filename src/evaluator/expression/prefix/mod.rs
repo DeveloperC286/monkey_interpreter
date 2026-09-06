@@ -5,7 +5,7 @@ use crate::syntax_analysis::Expression;
 impl Evaluator {
     pub(super) fn evaluate_not_prefix_expression(
         &mut self,
-        right_hand_expression: Expression,
+        right_hand_expression: &Expression,
     ) -> anyhow::Result<Object> {
         let object = self.evaluate_expression(right_hand_expression)?;
 
@@ -21,7 +21,7 @@ impl Evaluator {
 
     pub(super) fn evaluate_minus_prefix_expression(
         &mut self,
-        right_hand_expression: Expression,
+        right_hand_expression: &Expression,
     ) -> anyhow::Result<Object> {
         let object = self.evaluate_expression(right_hand_expression)?;
 

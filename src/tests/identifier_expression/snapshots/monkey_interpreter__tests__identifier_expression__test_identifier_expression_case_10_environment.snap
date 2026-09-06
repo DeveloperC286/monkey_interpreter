@@ -4,11 +4,13 @@ expression: evaluator
 ---
 Evaluator {
     environment: Environment {
-        variables: {
-            "flatcase": Integer {
-                value: 3,
+        current: Scope {
+            variables: {
+                "flatcase": Integer {
+                    value: 3,
+                },
             },
+            enclosing: None,
         },
-        sub_environment: None,
     },
 }

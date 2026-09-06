@@ -4,11 +4,13 @@ expression: evaluator
 ---
 Evaluator {
     environment: Environment {
-        variables: {
-            "csv_content": String {
-                value: "col_1\tcol_2\tcol_3\n",
+        current: Scope {
+            variables: {
+                "csv_content": String {
+                    value: "col_1\tcol_2\tcol_3\n",
+                },
             },
+            enclosing: None,
         },
-        sub_environment: None,
     },
 }

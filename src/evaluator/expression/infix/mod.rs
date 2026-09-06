@@ -5,11 +5,11 @@ use crate::syntax_analysis::{Expression, InfixOperator};
 impl Evaluator {
     pub(super) fn evaluate_infix_expression(
         &mut self,
-        left_hand: Expression,
-        operator: InfixOperator,
-        right_hand: Expression,
+        left_hand: &Expression,
+        operator: &InfixOperator,
+        right_hand: &Expression,
     ) -> anyhow::Result<Object> {
-        fn evaluate_same_boolean(operator: InfixOperator) -> anyhow::Result<Object> {
+        fn evaluate_same_boolean(operator: &InfixOperator) -> anyhow::Result<Object> {
             match operator {
                 InfixOperator::Equals => Ok(Object::True),
                 InfixOperator::NotEquals => Ok(Object::False),
@@ -20,7 +20,7 @@ impl Evaluator {
             }
         }
 
-        fn evaluate_opposite_boolean(operator: InfixOperator) -> anyhow::Result<Object> {
+        fn evaluate_opposite_boolean(operator: &InfixOperator) -> anyhow::Result<Object> {
             match operator {
                 InfixOperator::Equals => Ok(Object::False),
                 InfixOperator::NotEquals => Ok(Object::True),

@@ -1,0 +1,66 @@
+---
+source: src/tests/closure/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        current: Scope {
+            variables: {
+                "addTwo": Function {
+                    parameters: [
+                        "y",
+                    ],
+                    block: Block {
+                        nodes: [
+                            Expression {
+                                expression: Infix {
+                                    left_hand: Identifier {
+                                        identifier: "x",
+                                    },
+                                    operator: Plus,
+                                    right_hand: Identifier {
+                                        identifier: "y",
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                    ..
+                },
+                "newAdder": Function {
+                    parameters: [
+                        "x",
+                    ],
+                    block: Block {
+                        nodes: [
+                            Expression {
+                                expression: Function {
+                                    parameters: [
+                                        "y",
+                                    ],
+                                    block: Block {
+                                        nodes: [
+                                            Expression {
+                                                expression: Infix {
+                                                    left_hand: Identifier {
+                                                        identifier: "x",
+                                                    },
+                                                    operator: Plus,
+                                                    right_hand: Identifier {
+                                                        identifier: "y",
+                                                    },
+                                                },
+                                            },
+                                        ],
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                    ..
+                },
+            },
+            enclosing: None,
+        },
+    },
+}

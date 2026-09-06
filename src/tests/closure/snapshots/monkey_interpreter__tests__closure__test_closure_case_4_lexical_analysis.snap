@@ -1,0 +1,57 @@
+---
+source: src/tests/closure/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "x",
+    },
+    Assign,
+    Integer {
+        literal: 10,
+    },
+    SemiColon,
+    Let,
+    Identifier {
+        literal: "getX",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "x",
+    },
+    ClosingCurlyBracket,
+    SemiColon,
+    Let,
+    Identifier {
+        literal: "shadowX",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "getX",
+    },
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    ClosingCurlyBracket,
+    SemiColon,
+    Identifier {
+        literal: "shadowX",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 99,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+]

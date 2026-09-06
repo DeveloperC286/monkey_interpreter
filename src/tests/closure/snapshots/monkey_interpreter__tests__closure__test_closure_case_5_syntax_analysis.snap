@@ -1,0 +1,51 @@
+---
+source: src/tests/closure/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "value",
+            expression: Integer {
+                literal: 5,
+            },
+        },
+    },
+    Statement {
+        statement: Let {
+            identifier: "identity",
+            expression: Function {
+                parameters: [
+                    "value",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: Identifier {
+                                identifier: "value",
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    Expression {
+        expression: Call {
+            function: Identifier {
+                identifier: "identity",
+            },
+            arguments: [
+                Infix {
+                    left_hand: Identifier {
+                        identifier: "value",
+                    },
+                    operator: Plus,
+                    right_hand: Integer {
+                        literal: 1,
+                    },
+                },
+            ],
+        },
+    },
+]

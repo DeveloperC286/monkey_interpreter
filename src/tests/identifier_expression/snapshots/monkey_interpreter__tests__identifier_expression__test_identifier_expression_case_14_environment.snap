@@ -4,14 +4,16 @@ expression: evaluator
 ---
 Evaluator {
     environment: Environment {
-        variables: {
-            "timeout_ms": Integer {
-                value: 5,
+        current: Scope {
+            variables: {
+                "timeout_ms": Integer {
+                    value: 5,
+                },
+                "timeout_ms_copy": Integer {
+                    value: 5,
+                },
             },
-            "timeout_ms_copy": Integer {
-                value: 5,
-            },
+            enclosing: None,
         },
-        sub_environment: None,
     },
 }

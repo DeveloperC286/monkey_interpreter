@@ -1,0 +1,45 @@
+---
+source: src/tests/closure/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "value",
+    },
+    Assign,
+    Integer {
+        literal: 5,
+    },
+    SemiColon,
+    Let,
+    Identifier {
+        literal: "identity",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "value",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "value",
+    },
+    ClosingCurlyBracket,
+    SemiColon,
+    Identifier {
+        literal: "identity",
+    },
+    OpeningRoundBracket,
+    Identifier {
+        literal: "value",
+    },
+    Plus,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+]

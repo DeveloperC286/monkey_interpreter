@@ -1,0 +1,7 @@
+---
+source: src/tests/closure/mod.rs
+expression: evaluation
+---
+Integer {
+    value: 5,
+}

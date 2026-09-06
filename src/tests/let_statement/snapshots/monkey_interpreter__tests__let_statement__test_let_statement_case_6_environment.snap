@@ -4,14 +4,16 @@ expression: evaluator
 ---
 Evaluator {
     environment: Environment {
-        variables: {
-            "a": Integer {
-                value: 25,
+        current: Scope {
+            variables: {
+                "a": Integer {
+                    value: 25,
+                },
+                "b": Integer {
+                    value: 91,
+                },
             },
-            "b": Integer {
-                value: 91,
-            },
+            enclosing: None,
         },
-        sub_environment: None,
     },
 }

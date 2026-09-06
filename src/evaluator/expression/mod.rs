@@ -12,35 +12,36 @@ mod prefix;
 mod string;
 
 impl Evaluator {
-    pub(super) fn evaluate_expression(&mut self, expression: Expression) -> anyhow::Result<Object> {
+    pub(super) fn evaluate_expression(
+        &mut self,
+        expression: &Expression,
+    ) -> anyhow::Result<Object> {
         match expression {
-            Expression::Integer { literal } => self.evaluate_integer(literal),
+            Expression::Integer { literal } => self.evaluate_integer(*literal),
             Expression::String { literal } => self.evaluate_string(literal),
-            Expression::Boolean { literal } => self.evaluate_boolean(literal),
-            Expression::NotPrefix { right_hand } => {
-                self.evaluate_not_prefix_expression(*right_hand)
-            }
+            Expression::Boolean { literal } => self.evaluate_boolean(*literal),
+            Expression::NotPrefix { right_hand } => self.evaluate_not_prefix_expression(right_hand),
             Expression::MinusPrefix { right_hand } => {
-                self.evaluate_minus_prefix_expression(*right_hand)
+                self.evaluate_minus_prefix_expression(right_hand)
             }
             Expression::Infix {
                 left_hand,
                 operator,
                 right_hand,
-            } => self.evaluate_infix_expression(*left_hand, operator, *right_hand),
+            } => self.evaluate_infix_expression(left_hand, operator, right_hand),
             Expression::If {
                 condition,
                 consequence,
                 alternative,
-            } => self.evaluate_if_expression(*condition, *consequence, *alternative),
+            } => self.evaluate_if_expression(condition, consequence, alternative),
             Expression::Identifier { identifier } => Ok(self.environment.get(identifier)),
             Expression::Function { parameters, block } => {
-                self.evaluate_function_expression(parameters, *block)
+                self.evaluate_function_expression(parameters, block)
             }
             Expression::Call {
                 function,
                 arguments,
-            } => self.evaluate_call_expression(*function, arguments),
+            } => self.evaluate_call_expression(function, arguments),
         }
     }
 }

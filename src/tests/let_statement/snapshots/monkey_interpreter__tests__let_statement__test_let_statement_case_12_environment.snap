@@ -4,11 +4,13 @@ expression: evaluator
 ---
 Evaluator {
     environment: Environment {
-        variables: {
-            "PascalCase": String {
-                value: "terrible format",
+        current: Scope {
+            variables: {
+                "PascalCase": String {
+                    value: "terrible format",
+                },
             },
+            enclosing: None,
         },
-        sub_environment: None,
     },
 }

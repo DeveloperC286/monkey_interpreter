@@ -26,7 +26,7 @@ impl Evaluator {
     ) -> anyhow::Result<Object> {
         let mut object = Object::Null;
 
-        for syntax_tree_node in abstract_syntax_tree {
+        for syntax_tree_node in &abstract_syntax_tree {
             match self.evaluate_node(syntax_tree_node)? {
                 Object::Return { value } => {
                     return Ok(*value);
@@ -38,10 +38,10 @@ impl Evaluator {
         Ok(object)
     }
 
-    fn evaluate_block(&mut self, block: Block) -> anyhow::Result<Object> {
+    fn evaluate_block(&mut self, block: &Block) -> anyhow::Result<Object> {
         let mut object = Object::Null;
 
-        for syntax_tree_node in block.nodes {
+        for syntax_tree_node in &block.nodes {
             object = self.evaluate_node(syntax_tree_node)?;
 
             if let Object::Return { value: _ } = &object {
@@ -52,7 +52,7 @@ impl Evaluator {
         Ok(object)
     }
 
-    fn evaluate_node(&mut self, syntax_tree_node: SyntaxTreeNode) -> anyhow::Result<Object> {
+    fn evaluate_node(&mut self, syntax_tree_node: &SyntaxTreeNode) -> anyhow::Result<Object> {
         match syntax_tree_node {
             SyntaxTreeNode::Expression { expression } => self.evaluate_expression(expression),
             SyntaxTreeNode::Statement { statement } => self.evaluate_statement(statement),

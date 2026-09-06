@@ -1,0 +1,42 @@
+---
+source: src/tests/closure/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "makeCounter",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Let,
+    Identifier {
+        literal: "count",
+    },
+    Assign,
+    Integer {
+        literal: 7,
+    },
+    SemiColon,
+    Function,
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "count",
+    },
+    ClosingCurlyBracket,
+    ClosingCurlyBracket,
+    SemiColon,
+    Identifier {
+        literal: "makeCounter",
+    },
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    SemiColon,
+]

@@ -1,0 +1,96 @@
+---
+source: src/tests/closure/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        current: Scope {
+            variables: {
+                "addOne": Function {
+                    parameters: [
+                        "x",
+                    ],
+                    block: Block {
+                        nodes: [
+                            Expression {
+                                expression: Infix {
+                                    left_hand: Identifier {
+                                        identifier: "x",
+                                    },
+                                    operator: Plus,
+                                    right_hand: Integer {
+                                        literal: 1,
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                    ..
+                },
+                "compose": Function {
+                    parameters: [
+                        "f",
+                        "g",
+                    ],
+                    block: Block {
+                        nodes: [
+                            Expression {
+                                expression: Function {
+                                    parameters: [
+                                        "x",
+                                    ],
+                                    block: Block {
+                                        nodes: [
+                                            Expression {
+                                                expression: Call {
+                                                    function: Identifier {
+                                                        identifier: "f",
+                                                    },
+                                                    arguments: [
+                                                        Call {
+                                                            function: Identifier {
+                                                                identifier: "g",
+                                                            },
+                                                            arguments: [
+                                                                Identifier {
+                                                                    identifier: "x",
+                                                                },
+                                                            ],
+                                                        },
+                                                    ],
+                                                },
+                                            },
+                                        ],
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                    ..
+                },
+                "double": Function {
+                    parameters: [
+                        "x",
+                    ],
+                    block: Block {
+                        nodes: [
+                            Expression {
+                                expression: Infix {
+                                    left_hand: Identifier {
+                                        identifier: "x",
+                                    },
+                                    operator: Multiply,
+                                    right_hand: Integer {
+                                        literal: 2,
+                                    },
+                                },
+                            },
+                        ],
+                    },
+                    ..
+                },
+            },
+            enclosing: None,
+        },
+    },
+}

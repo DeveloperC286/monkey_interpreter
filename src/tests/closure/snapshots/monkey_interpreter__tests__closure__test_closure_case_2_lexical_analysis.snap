@@ -1,0 +1,81 @@
+---
+source: src/tests/closure/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "newAdder",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "y",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "x",
+    },
+    Plus,
+    Identifier {
+        literal: "y",
+    },
+    ClosingCurlyBracket,
+    ClosingCurlyBracket,
+    SemiColon,
+    Let,
+    Identifier {
+        literal: "addTwo",
+    },
+    Assign,
+    Identifier {
+        literal: "newAdder",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 2,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+    Let,
+    Identifier {
+        literal: "addThree",
+    },
+    Assign,
+    Identifier {
+        literal: "newAdder",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 3,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+    Identifier {
+        literal: "addTwo",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 10,
+    },
+    ClosingRoundBracket,
+    Plus,
+    Identifier {
+        literal: "addThree",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 10,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+]

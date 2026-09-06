@@ -7,4 +7,5 @@ Function {
     block: Block {
         nodes: [],
     },
+    ..
 }

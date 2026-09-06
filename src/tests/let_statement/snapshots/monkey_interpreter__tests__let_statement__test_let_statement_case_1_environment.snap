@@ -4,11 +4,13 @@ expression: evaluator
 ---
 Evaluator {
     environment: Environment {
-        variables: {
-            "sentence": String {
-                value: "this is a multiple words...\n",
+        current: Scope {
+            variables: {
+                "sentence": String {
+                    value: "this is a multiple words...\n",
+                },
             },
+            enclosing: None,
         },
-        sub_environment: None,
     },
 }

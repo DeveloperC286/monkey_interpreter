@@ -4,29 +4,32 @@ expression: evaluator
 ---
 Evaluator {
     environment: Environment {
-        variables: {
-            "add": Function {
-                parameters: [
-                    "x",
-                    "y",
-                ],
-                block: Block {
-                    nodes: [
-                        Expression {
-                            expression: Infix {
-                                left_hand: Identifier {
-                                    identifier: "x",
-                                },
-                                operator: Plus,
-                                right_hand: Identifier {
-                                    identifier: "y",
+        current: Scope {
+            variables: {
+                "add": Function {
+                    parameters: [
+                        "x",
+                        "y",
+                    ],
+                    block: Block {
+                        nodes: [
+                            Expression {
+                                expression: Infix {
+                                    left_hand: Identifier {
+                                        identifier: "x",
+                                    },
+                                    operator: Plus,
+                                    right_hand: Identifier {
+                                        identifier: "y",
+                                    },
                                 },
                             },
-                        },
-                    ],
+                        ],
+                    },
+                    ..
                 },
             },
+            enclosing: None,
         },
-        sub_environment: None,
     },
 }

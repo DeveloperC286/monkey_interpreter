@@ -1,0 +1,47 @@
+---
+source: src/tests/closure/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        current: Scope {
+            variables: {
+                "getX": Function {
+                    parameters: [],
+                    block: Block {
+                        nodes: [
+                            Expression {
+                                expression: Identifier {
+                                    identifier: "x",
+                                },
+                            },
+                        ],
+                    },
+                    ..
+                },
+                "shadowX": Function {
+                    parameters: [
+                        "x",
+                    ],
+                    block: Block {
+                        nodes: [
+                            Expression {
+                                expression: Call {
+                                    function: Identifier {
+                                        identifier: "getX",
+                                    },
+                                    arguments: [],
+                                },
+                            },
+                        ],
+                    },
+                    ..
+                },
+                "x": Integer {
+                    value: 10,
+                },
+            },
+            enclosing: None,
+        },
+    },
+}

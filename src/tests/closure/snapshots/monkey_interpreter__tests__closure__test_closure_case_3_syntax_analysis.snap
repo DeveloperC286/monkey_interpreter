@@ -1,0 +1,51 @@
+---
+source: src/tests/closure/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "makeCounter",
+            expression: Function {
+                parameters: [],
+                block: Block {
+                    nodes: [
+                        Statement {
+                            statement: Let {
+                                identifier: "count",
+                                expression: Integer {
+                                    literal: 7,
+                                },
+                            },
+                        },
+                        Expression {
+                            expression: Function {
+                                parameters: [],
+                                block: Block {
+                                    nodes: [
+                                        Expression {
+                                            expression: Identifier {
+                                                identifier: "count",
+                                            },
+                                        },
+                                    ],
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    Expression {
+        expression: Call {
+            function: Call {
+                function: Identifier {
+                    identifier: "makeCounter",
+                },
+                arguments: [],
+            },
+            arguments: [],
+        },
+    },
+]

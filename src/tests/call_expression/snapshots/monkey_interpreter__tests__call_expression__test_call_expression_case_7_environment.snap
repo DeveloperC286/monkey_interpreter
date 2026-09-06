@@ -4,33 +4,36 @@ expression: evaluator
 ---
 Evaluator {
     environment: Environment {
-        variables: {
-            "curried": Function {
-                parameters: [
-                    "x",
-                ],
-                block: Block {
-                    nodes: [
-                        Expression {
-                            expression: Function {
-                                parameters: [
-                                    "y",
-                                ],
-                                block: Block {
-                                    nodes: [
-                                        Expression {
-                                            expression: Identifier {
-                                                identifier: "y",
-                                            },
-                                        },
+        current: Scope {
+            variables: {
+                "curried": Function {
+                    parameters: [
+                        "x",
+                    ],
+                    block: Block {
+                        nodes: [
+                            Expression {
+                                expression: Function {
+                                    parameters: [
+                                        "y",
                                     ],
+                                    block: Block {
+                                        nodes: [
+                                            Expression {
+                                                expression: Identifier {
+                                                    identifier: "y",
+                                                },
+                                            },
+                                        ],
+                                    },
                                 },
                             },
-                        },
-                    ],
+                        ],
+                    },
+                    ..
                 },
             },
+            enclosing: None,
         },
-        sub_environment: None,
     },
 }

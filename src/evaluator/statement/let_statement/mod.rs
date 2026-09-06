@@ -5,8 +5,8 @@ use crate::syntax_analysis::*;
 impl Evaluator {
     pub(super) fn evaluate_let_statement(
         &mut self,
-        identifier: String,
-        expression: Expression,
+        identifier: &str,
+        expression: &Expression,
     ) -> anyhow::Result<Object> {
         let expression = self.evaluate_expression(expression)?;
 
@@ -17,7 +17,7 @@ impl Evaluator {
             );
         }
 
-        self.environment.set(identifier, expression);
+        self.environment.set(identifier.to_owned(), expression);
 
         Ok(Object::Null)
     }

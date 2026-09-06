@@ -1,3 +1,5 @@
+use std::rc::Rc;
+
 use log::debug;
 
 use crate::lexical_analysis::Token;
@@ -31,7 +33,7 @@ impl SyntaxAnalysis<'_> {
 
         Ok(Expression::Function {
             parameters,
-            block: Box::new(block),
+            block: Rc::new(block),
         })
     }
 }

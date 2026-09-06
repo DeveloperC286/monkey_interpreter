@@ -1,0 +1,105 @@
+---
+source: src/tests/closure/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "compose",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "f",
+    },
+    Comma,
+    Identifier {
+        literal: "g",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "f",
+    },
+    OpeningRoundBracket,
+    Identifier {
+        literal: "g",
+    },
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    ClosingRoundBracket,
+    ClosingRoundBracket,
+    ClosingCurlyBracket,
+    ClosingCurlyBracket,
+    SemiColon,
+    Let,
+    Identifier {
+        literal: "addOne",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "x",
+    },
+    Plus,
+    Integer {
+        literal: 1,
+    },
+    ClosingCurlyBracket,
+    SemiColon,
+    Let,
+    Identifier {
+        literal: "double",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "x",
+    },
+    Multiply,
+    Integer {
+        literal: 2,
+    },
+    ClosingCurlyBracket,
+    SemiColon,
+    Identifier {
+        literal: "compose",
+    },
+    OpeningRoundBracket,
+    Identifier {
+        literal: "addOne",
+    },
+    Comma,
+    Identifier {
+        literal: "double",
+    },
+    ClosingRoundBracket,
+    OpeningRoundBracket,
+    Integer {
+        literal: 5,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+]

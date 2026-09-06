@@ -4,7 +4,9 @@ expression: evaluator
 ---
 Evaluator {
     environment: Environment {
-        variables: {},
-        sub_environment: None,
+        current: Scope {
+            variables: {},
+            enclosing: None,
+        },
     },
 }

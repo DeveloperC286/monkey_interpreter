@@ -1,0 +1,51 @@
+---
+source: src/tests/closure/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "getHidden",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "hidden",
+    },
+    ClosingCurlyBracket,
+    SemiColon,
+    Let,
+    Identifier {
+        literal: "caller",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Let,
+    Identifier {
+        literal: "hidden",
+    },
+    Assign,
+    Integer {
+        literal: 5,
+    },
+    SemiColon,
+    Identifier {
+        literal: "getHidden",
+    },
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    ClosingCurlyBracket,
+    SemiColon,
+    Identifier {
+        literal: "caller",
+    },
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    SemiColon,
+]

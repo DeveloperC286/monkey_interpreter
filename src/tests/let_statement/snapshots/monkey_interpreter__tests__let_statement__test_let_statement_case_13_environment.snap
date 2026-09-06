@@ -4,9 +4,11 @@ expression: evaluator
 ---
 Evaluator {
     environment: Environment {
-        variables: {
-            "UPPER_CASE_SNAKE_CASE": False,
+        current: Scope {
+            variables: {
+                "UPPER_CASE_SNAKE_CASE": False,
+            },
+            enclosing: None,
         },
-        sub_environment: None,
     },
 }

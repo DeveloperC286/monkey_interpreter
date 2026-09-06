@@ -1,0 +1,65 @@
+---
+source: src/tests/closure/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "x",
+            expression: Integer {
+                literal: 10,
+            },
+        },
+    },
+    Statement {
+        statement: Let {
+            identifier: "getX",
+            expression: Function {
+                parameters: [],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: Identifier {
+                                identifier: "x",
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    Statement {
+        statement: Let {
+            identifier: "shadowX",
+            expression: Function {
+                parameters: [
+                    "x",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: Call {
+                                function: Identifier {
+                                    identifier: "getX",
+                                },
+                                arguments: [],
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    Expression {
+        expression: Call {
+            function: Identifier {
+                identifier: "shadowX",
+            },
+            arguments: [
+                Integer {
+                    literal: 99,
+                },
+            ],
+        },
+    },
+]

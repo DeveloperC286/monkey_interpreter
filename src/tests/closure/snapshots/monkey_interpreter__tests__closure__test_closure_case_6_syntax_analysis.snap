@@ -1,0 +1,123 @@
+---
+source: src/tests/closure/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "compose",
+            expression: Function {
+                parameters: [
+                    "f",
+                    "g",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: Function {
+                                parameters: [
+                                    "x",
+                                ],
+                                block: Block {
+                                    nodes: [
+                                        Expression {
+                                            expression: Call {
+                                                function: Identifier {
+                                                    identifier: "f",
+                                                },
+                                                arguments: [
+                                                    Call {
+                                                        function: Identifier {
+                                                            identifier: "g",
+                                                        },
+                                                        arguments: [
+                                                            Identifier {
+                                                                identifier: "x",
+                                                            },
+                                                        ],
+                                                    },
+                                                ],
+                                            },
+                                        },
+                                    ],
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    Statement {
+        statement: Let {
+            identifier: "addOne",
+            expression: Function {
+                parameters: [
+                    "x",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: Infix {
+                                left_hand: Identifier {
+                                    identifier: "x",
+                                },
+                                operator: Plus,
+                                right_hand: Integer {
+                                    literal: 1,
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    Statement {
+        statement: Let {
+            identifier: "double",
+            expression: Function {
+                parameters: [
+                    "x",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: Infix {
+                                left_hand: Identifier {
+                                    identifier: "x",
+                                },
+                                operator: Multiply,
+                                right_hand: Integer {
+                                    literal: 2,
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    Expression {
+        expression: Call {
+            function: Call {
+                function: Identifier {
+                    identifier: "compose",
+                },
+                arguments: [
+                    Identifier {
+                        identifier: "addOne",
+                    },
+                    Identifier {
+                        identifier: "double",
+                    },
+                ],
+            },
+            arguments: [
+                Integer {
+                    literal: 5,
+                },
+            ],
+        },
+    },
+]

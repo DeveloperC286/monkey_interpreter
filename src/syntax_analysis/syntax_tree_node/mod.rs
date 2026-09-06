@@ -1,3 +1,5 @@
+use std::rc::Rc;
+
 #[derive(Debug, Clone, PartialEq)]
 pub struct Block {
     pub nodes: Vec<SyntaxTreeNode>,
@@ -64,7 +66,8 @@ pub enum Expression {
     },
     Function {
         parameters: Vec<String>,
-        block: Box<Block>,
+        /// Shared so a function object can capture the body without copying it.
+        block: Rc<Block>,
     },
     Call {
         function: Box<Expression>,

@@ -1,0 +1,97 @@
+---
+source: src/tests/closure/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "newAdder",
+            expression: Function {
+                parameters: [
+                    "x",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: Function {
+                                parameters: [
+                                    "y",
+                                ],
+                                block: Block {
+                                    nodes: [
+                                        Expression {
+                                            expression: Infix {
+                                                left_hand: Identifier {
+                                                    identifier: "x",
+                                                },
+                                                operator: Plus,
+                                                right_hand: Identifier {
+                                                    identifier: "y",
+                                                },
+                                            },
+                                        },
+                                    ],
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    Statement {
+        statement: Let {
+            identifier: "addTwo",
+            expression: Call {
+                function: Identifier {
+                    identifier: "newAdder",
+                },
+                arguments: [
+                    Integer {
+                        literal: 2,
+                    },
+                ],
+            },
+        },
+    },
+    Statement {
+        statement: Let {
+            identifier: "addThree",
+            expression: Call {
+                function: Identifier {
+                    identifier: "newAdder",
+                },
+                arguments: [
+                    Integer {
+                        literal: 3,
+                    },
+                ],
+            },
+        },
+    },
+    Expression {
+        expression: Infix {
+            left_hand: Call {
+                function: Identifier {
+                    identifier: "addTwo",
+                },
+                arguments: [
+                    Integer {
+                        literal: 10,
+                    },
+                ],
+            },
+            operator: Plus,
+            right_hand: Call {
+                function: Identifier {
+                    identifier: "addThree",
+                },
+                arguments: [
+                    Integer {
+                        literal: 10,
+                    },
+                ],
+            },
+        },
+    },
+]

@@ -4,11 +4,13 @@ expression: evaluator
 ---
 Evaluator {
     environment: Environment {
-        variables: {
-            "file": String {
-                value: "/tmp/temp.txt",
+        current: Scope {
+            variables: {
+                "file": String {
+                    value: "/tmp/temp.txt",
+                },
             },
+            enclosing: None,
         },
-        sub_environment: None,
     },
 }

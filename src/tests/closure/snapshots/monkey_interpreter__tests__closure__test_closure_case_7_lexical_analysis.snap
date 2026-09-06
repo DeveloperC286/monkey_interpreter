@@ -1,0 +1,63 @@
+---
+source: src/tests/closure/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "sum",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "n",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    If,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "n",
+    },
+    Equals,
+    Integer {
+        literal: 0,
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Integer {
+        literal: 0,
+    },
+    ClosingCurlyBracket,
+    Else,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "n",
+    },
+    Plus,
+    Identifier {
+        literal: "sum",
+    },
+    OpeningRoundBracket,
+    Identifier {
+        literal: "n",
+    },
+    Minus,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    ClosingCurlyBracket,
+    ClosingCurlyBracket,
+    SemiColon,
+    Identifier {
+        literal: "sum",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 5,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+]

@@ -4,10 +4,12 @@ expression: evaluator
 ---
 Evaluator {
     environment: Environment {
-        variables: {
-            "is_directory": True,
-            "is_file": False,
+        current: Scope {
+            variables: {
+                "is_directory": True,
+                "is_file": False,
+            },
+            enclosing: None,
         },
-        sub_environment: None,
     },
 }

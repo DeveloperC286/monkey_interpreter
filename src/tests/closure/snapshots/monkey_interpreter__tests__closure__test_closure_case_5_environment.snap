@@ -1,0 +1,31 @@
+---
+source: src/tests/closure/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        current: Scope {
+            variables: {
+                "identity": Function {
+                    parameters: [
+                        "value",
+                    ],
+                    block: Block {
+                        nodes: [
+                            Expression {
+                                expression: Identifier {
+                                    identifier: "value",
+                                },
+                            },
+                        ],
+                    },
+                    ..
+                },
+                "value": Integer {
+                    value: 5,
+                },
+            },
+            enclosing: None,
+        },
+    },
+}
