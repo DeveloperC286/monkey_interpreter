@@ -1,0 +1,42 @@
+---
+source: src/tests/evaluation_error/identifier_not_found/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "identity",
+            expression: Function {
+                parameters: [
+                    "x",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: Identifier {
+                                identifier: "x",
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    Expression {
+        expression: Call {
+            function: Identifier {
+                identifier: "identity",
+            },
+            arguments: [
+                Integer {
+                    literal: 1,
+                },
+            ],
+        },
+    },
+    Expression {
+        expression: Identifier {
+            identifier: "x",
+        },
+    },
+]

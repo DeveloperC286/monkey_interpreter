@@ -1,0 +1,24 @@
+---
+source: src/tests/evaluation_error/identifier_not_found/mod.rs
+expression: tokens
+---
+[
+    If,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "unknown",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Integer {
+        literal: 1,
+    },
+    ClosingCurlyBracket,
+    Else,
+    OpeningCurlyBracket,
+    Integer {
+        literal: 2,
+    },
+    ClosingCurlyBracket,
+    SemiColon,
+]
