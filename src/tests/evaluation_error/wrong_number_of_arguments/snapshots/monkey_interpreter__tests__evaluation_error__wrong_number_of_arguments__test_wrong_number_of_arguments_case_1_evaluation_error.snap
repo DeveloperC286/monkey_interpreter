@@ -1,0 +1,7 @@
+---
+source: src/tests/evaluation_error/wrong_number_of_arguments/mod.rs
+expression: error
+---
+Err(
+    "Wrong number of arguments, want=2, got=1.",
+)
