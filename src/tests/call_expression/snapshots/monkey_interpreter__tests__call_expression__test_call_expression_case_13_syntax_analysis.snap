@@ -1,0 +1,75 @@
+---
+source: src/tests/call_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "early",
+            expression: Function {
+                parameters: [
+                    "x",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: If {
+                                condition: Infix {
+                                    left_hand: Identifier {
+                                        identifier: "x",
+                                    },
+                                    operator: GreaterThan,
+                                    right_hand: Integer {
+                                        literal: 10,
+                                    },
+                                },
+                                consequence: Block {
+                                    nodes: [
+                                        Statement {
+                                            statement: Return {
+                                                expression: Identifier {
+                                                    identifier: "x",
+                                                },
+                                            },
+                                        },
+                                    ],
+                                },
+                                alternative: None,
+                            },
+                        },
+                        Expression {
+                            expression: Integer {
+                                literal: 0,
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    Expression {
+        expression: Infix {
+            left_hand: Call {
+                function: Identifier {
+                    identifier: "early",
+                },
+                arguments: [
+                    Integer {
+                        literal: 20,
+                    },
+                ],
+            },
+            operator: Plus,
+            right_hand: Call {
+                function: Identifier {
+                    identifier: "early",
+                },
+                arguments: [
+                    Integer {
+                        literal: 1,
+                    },
+                ],
+            },
+        },
+    },
+]
