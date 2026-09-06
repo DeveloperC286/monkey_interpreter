@@ -1,0 +1,64 @@
+---
+source: src/tests/call_expression/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "factorial",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "n",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    If,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "n",
+    },
+    LesserThan,
+    Integer {
+        literal: 2,
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Return,
+    Integer {
+        literal: 1,
+    },
+    SemiColon,
+    ClosingCurlyBracket,
+    Return,
+    Identifier {
+        literal: "n",
+    },
+    Multiply,
+    Identifier {
+        literal: "factorial",
+    },
+    OpeningRoundBracket,
+    Identifier {
+        literal: "n",
+    },
+    Minus,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+    ClosingCurlyBracket,
+    SemiColon,
+    Identifier {
+        literal: "factorial",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 5,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+]
