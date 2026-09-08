@@ -1,0 +1,161 @@
+---
+source: src/tests/code_samples/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "factorial",
+            expression: Function {
+                parameters: [
+                    "n",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: If {
+                                condition: Infix {
+                                    left_hand: Identifier {
+                                        identifier: "n",
+                                    },
+                                    operator: LesserThan,
+                                    right_hand: Integer {
+                                        literal: 2,
+                                    },
+                                },
+                                consequence: Block {
+                                    nodes: [
+                                        Statement {
+                                            statement: Return {
+                                                expression: Integer {
+                                                    literal: 1,
+                                                },
+                                            },
+                                        },
+                                    ],
+                                },
+                                alternative: None,
+                            },
+                        },
+                        Statement {
+                            statement: Return {
+                                expression: Infix {
+                                    left_hand: Identifier {
+                                        identifier: "n",
+                                    },
+                                    operator: Multiply,
+                                    right_hand: Call {
+                                        function: Identifier {
+                                            identifier: "factorial",
+                                        },
+                                        arguments: [
+                                            Infix {
+                                                left_hand: Identifier {
+                                                    identifier: "n",
+                                                },
+                                                operator: Minus,
+                                                right_hand: Integer {
+                                                    literal: 1,
+                                                },
+                                            },
+                                        ],
+                                    },
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    Statement {
+        statement: Let {
+            identifier: "clamp",
+            expression: Function {
+                parameters: [
+                    "n",
+                    "limit",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: If {
+                                condition: Infix {
+                                    left_hand: Identifier {
+                                        identifier: "n",
+                                    },
+                                    operator: GreaterThan,
+                                    right_hand: Identifier {
+                                        identifier: "limit",
+                                    },
+                                },
+                                consequence: Block {
+                                    nodes: [
+                                        Statement {
+                                            statement: Return {
+                                                expression: Identifier {
+                                                    identifier: "limit",
+                                                },
+                                            },
+                                        },
+                                    ],
+                                },
+                                alternative: None,
+                            },
+                        },
+                        Expression {
+                            expression: Identifier {
+                                identifier: "n",
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    Expression {
+        expression: Infix {
+            left_hand: Call {
+                function: Identifier {
+                    identifier: "clamp",
+                },
+                arguments: [
+                    Call {
+                        function: Identifier {
+                            identifier: "factorial",
+                        },
+                        arguments: [
+                            Integer {
+                                literal: 5,
+                            },
+                        ],
+                    },
+                    Integer {
+                        literal: 100,
+                    },
+                ],
+            },
+            operator: Plus,
+            right_hand: Call {
+                function: Identifier {
+                    identifier: "clamp",
+                },
+                arguments: [
+                    Call {
+                        function: Identifier {
+                            identifier: "factorial",
+                        },
+                        arguments: [
+                            Integer {
+                                literal: 3,
+                            },
+                        ],
+                    },
+                    Integer {
+                        literal: 100,
+                    },
+                ],
+            },
+        },
+    },
+]

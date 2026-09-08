@@ -1,0 +1,83 @@
+---
+source: src/tests/call_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "describe",
+            expression: Function {
+                parameters: [
+                    "x",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: If {
+                                condition: Infix {
+                                    left_hand: Identifier {
+                                        identifier: "x",
+                                    },
+                                    operator: GreaterThan,
+                                    right_hand: Integer {
+                                        literal: 0,
+                                    },
+                                },
+                                consequence: Block {
+                                    nodes: [
+                                        Statement {
+                                            statement: Return {
+                                                expression: String {
+                                                    literal: "positive",
+                                                },
+                                            },
+                                        },
+                                    ],
+                                },
+                                alternative: None,
+                            },
+                        },
+                        Statement {
+                            statement: Return {
+                                expression: String {
+                                    literal: "negative",
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    Expression {
+        expression: Infix {
+            left_hand: Call {
+                function: Identifier {
+                    identifier: "describe",
+                },
+                arguments: [
+                    Integer {
+                        literal: 1,
+                    },
+                ],
+            },
+            operator: Plus,
+            right_hand: Call {
+                function: Identifier {
+                    identifier: "describe",
+                },
+                arguments: [
+                    Infix {
+                        left_hand: Integer {
+                            literal: 0,
+                        },
+                        operator: Minus,
+                        right_hand: Integer {
+                            literal: 1,
+                        },
+                    },
+                ],
+            },
+        },
+    },
+]

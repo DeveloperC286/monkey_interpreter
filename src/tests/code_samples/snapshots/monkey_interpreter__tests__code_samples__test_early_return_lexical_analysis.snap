@@ -1,0 +1,126 @@
+---
+source: src/tests/code_samples/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "factorial",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "n",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    If,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "n",
+    },
+    LesserThan,
+    Integer {
+        literal: 2,
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Return,
+    Integer {
+        literal: 1,
+    },
+    SemiColon,
+    ClosingCurlyBracket,
+    Return,
+    Identifier {
+        literal: "n",
+    },
+    Multiply,
+    Identifier {
+        literal: "factorial",
+    },
+    OpeningRoundBracket,
+    Identifier {
+        literal: "n",
+    },
+    Minus,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+    ClosingCurlyBracket,
+    Let,
+    Identifier {
+        literal: "clamp",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "n",
+    },
+    Comma,
+    Identifier {
+        literal: "limit",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    If,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "n",
+    },
+    GreaterThan,
+    Identifier {
+        literal: "limit",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Return,
+    Identifier {
+        literal: "limit",
+    },
+    SemiColon,
+    ClosingCurlyBracket,
+    Identifier {
+        literal: "n",
+    },
+    ClosingCurlyBracket,
+    Identifier {
+        literal: "clamp",
+    },
+    OpeningRoundBracket,
+    Identifier {
+        literal: "factorial",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 5,
+    },
+    ClosingRoundBracket,
+    Comma,
+    Integer {
+        literal: 100,
+    },
+    ClosingRoundBracket,
+    Plus,
+    Identifier {
+        literal: "clamp",
+    },
+    OpeningRoundBracket,
+    Identifier {
+        literal: "factorial",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 3,
+    },
+    ClosingRoundBracket,
+    Comma,
+    Integer {
+        literal: 100,
+    },
+    ClosingRoundBracket,
+]

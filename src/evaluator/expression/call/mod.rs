@@ -29,7 +29,13 @@ impl Evaluator {
 
                 let block_call_evaluation = self.evaluate_block(block)?;
                 self.environment.pop();
-                Ok(block_call_evaluation)
+
+                // A return only unwinds as far as the function it is in, unwrap
+                // it here so it does not leak into the caller as a value.
+                Ok(match block_call_evaluation {
+                    Object::Return { value } => *value,
+                    object => object,
+                })
             }
             object => anyhow::bail!(
                 "Cannot call an object of type {}, only functions are callable.",

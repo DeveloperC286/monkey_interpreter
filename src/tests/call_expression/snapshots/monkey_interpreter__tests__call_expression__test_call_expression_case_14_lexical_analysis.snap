@@ -1,0 +1,64 @@
+---
+source: src/tests/call_expression/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "describe",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    If,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    GreaterThan,
+    Integer {
+        literal: 0,
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Return,
+    String {
+        literal: "positive",
+    },
+    SemiColon,
+    ClosingCurlyBracket,
+    Return,
+    String {
+        literal: "negative",
+    },
+    SemiColon,
+    ClosingCurlyBracket,
+    SemiColon,
+    Identifier {
+        literal: "describe",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    Plus,
+    Identifier {
+        literal: "describe",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 0,
+    },
+    Minus,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+]
