@@ -1,0 +1,11 @@
+---
+source: src/tests/evaluation_error/identifier_not_found/mod.rs
+expression: tokens
+---
+[
+    Not,
+    Identifier {
+        literal: "undefined_boolean",
+    },
+    SemiColon,
+]

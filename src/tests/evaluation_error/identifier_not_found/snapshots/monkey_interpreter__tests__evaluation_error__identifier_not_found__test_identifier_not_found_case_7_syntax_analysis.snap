@@ -1,0 +1,33 @@
+---
+source: src/tests/evaluation_error/identifier_not_found/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Expression {
+        expression: If {
+            condition: Identifier {
+                identifier: "unknown",
+            },
+            consequence: Block {
+                nodes: [
+                    Expression {
+                        expression: Integer {
+                            literal: 1,
+                        },
+                    },
+                ],
+            },
+            alternative: Some(
+                Block {
+                    nodes: [
+                        Expression {
+                            expression: Integer {
+                                literal: 2,
+                            },
+                        },
+                    ],
+                },
+            ),
+        },
+    },
+]

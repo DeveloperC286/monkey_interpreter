@@ -1,0 +1,22 @@
+---
+source: src/tests/evaluation_error/identifier_not_found/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "a",
+    },
+    Assign,
+    Integer {
+        literal: 5,
+    },
+    SemiColon,
+    Identifier {
+        literal: "a",
+    },
+    Plus,
+    Identifier {
+        literal: "b",
+    },
+]

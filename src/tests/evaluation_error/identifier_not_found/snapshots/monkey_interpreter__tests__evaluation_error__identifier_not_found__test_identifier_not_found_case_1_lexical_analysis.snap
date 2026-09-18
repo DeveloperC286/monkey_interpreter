@@ -1,0 +1,10 @@
+---
+source: src/tests/evaluation_error/identifier_not_found/mod.rs
+expression: tokens
+---
+[
+    Identifier {
+        literal: "foobar",
+    },
+    SemiColon,
+]

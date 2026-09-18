@@ -1,5 +1,5 @@
 ---
-source: src/tests/identifier_expression/mod.rs
+source: src/tests/evaluation_error/identifier_not_found/mod.rs
 expression: tokens
 ---
 [
@@ -11,6 +11,6 @@ expression: tokens
     False,
     SemiColon,
     Identifier {
-        literal: "is_directory",
+        literal: "is_file",
     },
 ]

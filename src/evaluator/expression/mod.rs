@@ -5,6 +5,7 @@ use crate::syntax_analysis::*;
 mod boolean;
 mod call;
 mod function;
+mod identifier;
 mod if_expression;
 mod infix;
 mod integer;
@@ -33,7 +34,9 @@ impl Evaluator {
                 consequence,
                 alternative,
             } => self.evaluate_if_expression(*condition, *consequence, *alternative),
-            Expression::Identifier { identifier } => Ok(self.environment.get(identifier)),
+            Expression::Identifier { identifier } => {
+                self.evaluate_identifier_expression(identifier)
+            }
             Expression::Function { parameters, block } => {
                 self.evaluate_function_expression(parameters, *block)
             }
