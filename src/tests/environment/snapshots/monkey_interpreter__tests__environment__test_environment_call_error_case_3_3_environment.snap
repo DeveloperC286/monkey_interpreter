@@ -1,0 +1,60 @@
+---
+source: src/tests/environment/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "a": Integer {
+                value: 25,
+            },
+            "call_divide": Function {
+                parameters: [
+                    "x",
+                ],
+                block: Block {
+                    nodes: [
+                        Statement {
+                            statement: Let {
+                                identifier: "divide",
+                                expression: Function {
+                                    parameters: [
+                                        "y",
+                                    ],
+                                    block: Block {
+                                        nodes: [
+                                            Expression {
+                                                expression: Infix {
+                                                    left_hand: Identifier {
+                                                        identifier: "y",
+                                                    },
+                                                    operator: Divide,
+                                                    right_hand: Integer {
+                                                        literal: 0,
+                                                    },
+                                                },
+                                            },
+                                        ],
+                                    },
+                                },
+                            },
+                        },
+                        Expression {
+                            expression: Call {
+                                function: Identifier {
+                                    identifier: "divide",
+                                },
+                                arguments: [
+                                    Identifier {
+                                        identifier: "x",
+                                    },
+                                ],
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+        sub_environment: None,
+    },
+}
