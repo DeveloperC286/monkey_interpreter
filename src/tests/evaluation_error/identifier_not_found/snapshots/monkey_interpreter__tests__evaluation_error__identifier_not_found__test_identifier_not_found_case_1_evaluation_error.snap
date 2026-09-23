@@ -1,0 +1,7 @@
+---
+source: src/tests/evaluation_error/identifier_not_found/mod.rs
+expression: error
+---
+Err(
+    "Identifier not found: foobar.",
+)

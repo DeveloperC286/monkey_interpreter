@@ -1,0 +1,35 @@
+---
+source: src/tests/evaluation_error/identifier_not_found/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "identity",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Identifier {
+        literal: "x",
+    },
+    ClosingCurlyBracket,
+    SemiColon,
+    Identifier {
+        literal: "identity",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+    Identifier {
+        literal: "x",
+    },
+]
