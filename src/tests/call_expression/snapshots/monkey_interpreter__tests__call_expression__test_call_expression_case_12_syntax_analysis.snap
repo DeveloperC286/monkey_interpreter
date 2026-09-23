@@ -1,0 +1,47 @@
+---
+source: src/tests/call_expression/mod.rs
+expression: abstract_syntax_tree
+---
+[
+    Statement {
+        statement: Let {
+            identifier: "outer",
+            expression: Function {
+                parameters: [],
+                block: Block {
+                    nodes: [
+                        Statement {
+                            statement: Return {
+                                expression: Function {
+                                    parameters: [],
+                                    block: Block {
+                                        nodes: [
+                                            Statement {
+                                                statement: Return {
+                                                    expression: Integer {
+                                                        literal: 7,
+                                                    },
+                                                },
+                                            },
+                                        ],
+                                    },
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+    Expression {
+        expression: Call {
+            function: Call {
+                function: Identifier {
+                    identifier: "outer",
+                },
+                arguments: [],
+            },
+            arguments: [],
+        },
+    },
+]

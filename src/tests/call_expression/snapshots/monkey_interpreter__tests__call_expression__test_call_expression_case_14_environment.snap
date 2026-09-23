@@ -1,0 +1,52 @@
+---
+source: src/tests/call_expression/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "describe": Function {
+                parameters: [
+                    "x",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: If {
+                                condition: Infix {
+                                    left_hand: Identifier {
+                                        identifier: "x",
+                                    },
+                                    operator: GreaterThan,
+                                    right_hand: Integer {
+                                        literal: 0,
+                                    },
+                                },
+                                consequence: Block {
+                                    nodes: [
+                                        Statement {
+                                            statement: Return {
+                                                expression: String {
+                                                    literal: "positive",
+                                                },
+                                            },
+                                        },
+                                    ],
+                                },
+                                alternative: None,
+                            },
+                        },
+                        Statement {
+                            statement: Return {
+                                expression: String {
+                                    literal: "negative",
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+        sub_environment: None,
+    },
+}

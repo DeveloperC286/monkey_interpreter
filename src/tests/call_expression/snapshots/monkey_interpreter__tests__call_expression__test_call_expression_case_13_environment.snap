@@ -1,0 +1,50 @@
+---
+source: src/tests/call_expression/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "early": Function {
+                parameters: [
+                    "x",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: If {
+                                condition: Infix {
+                                    left_hand: Identifier {
+                                        identifier: "x",
+                                    },
+                                    operator: GreaterThan,
+                                    right_hand: Integer {
+                                        literal: 10,
+                                    },
+                                },
+                                consequence: Block {
+                                    nodes: [
+                                        Statement {
+                                            statement: Return {
+                                                expression: Identifier {
+                                                    identifier: "x",
+                                                },
+                                            },
+                                        },
+                                    ],
+                                },
+                                alternative: None,
+                            },
+                        },
+                        Expression {
+                            expression: Integer {
+                                literal: 0,
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+        sub_environment: None,
+    },
+}
