@@ -20,6 +20,24 @@ use super::*;
     case(
         "fn(x) { fn(y) { fn(z) { z * 2 } } }(1)(2)(3);",
         "call_expression_case_8"
+    ),
+    case("let a = fn() { return 5; }(); a;", "call_expression_case_9"),
+    case("fn() { return 5; }() + 1;", "call_expression_case_10"),
+    case(
+        "let factorial = fn(n) { if (n < 2) { return 1; } return n * factorial(n - 1); }; factorial(5);",
+        "call_expression_case_11"
+    ),
+    case(
+        "let outer = fn() { return fn() { return 7; }; }; outer()();",
+        "call_expression_case_12"
+    ),
+    case(
+        "let early = fn(x) { if (x > 10) { return x; } 0; }; early(20) + early(1);",
+        "call_expression_case_13"
+    ),
+    case(
+        "let describe = fn(x) { if (x > 0) { return \"positive\"; } return \"negative\"; }; describe(1) + describe(0 - 1);",
+        "call_expression_case_14"
     )
 )]
 fn call_expression_cases(code: &str, snapshot_name: &str) {}

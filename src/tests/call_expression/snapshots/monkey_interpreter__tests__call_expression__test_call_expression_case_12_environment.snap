@@ -1,0 +1,36 @@
+---
+source: src/tests/call_expression/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "outer": Function {
+                parameters: [],
+                block: Block {
+                    nodes: [
+                        Statement {
+                            statement: Return {
+                                expression: Function {
+                                    parameters: [],
+                                    block: Block {
+                                        nodes: [
+                                            Statement {
+                                                statement: Return {
+                                                    expression: Integer {
+                                                        literal: 7,
+                                                    },
+                                                },
+                                            },
+                                        ],
+                                    },
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+        sub_environment: None,
+    },
+}
