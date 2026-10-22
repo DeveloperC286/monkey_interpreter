@@ -11,6 +11,6 @@ expression: tokens
     False,
     SemiColon,
     Identifier {
-        literal: "is_file",
+        literal: "is_directory",
     },
 ]

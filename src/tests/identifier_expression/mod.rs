@@ -20,7 +20,10 @@ use super::*;
     case("let a = 5;\na", "identifier_expression_case_5"),
     case("let a = 25;\nlet b = 91;\nb", "identifier_expression_case_6"),
     case("let is_file = true;\nis_file", "identifier_expression_case_7"),
-    case("let is_directory = false;\nis_file", "identifier_expression_case_8"),
+    case(
+        "let is_directory = false;\nis_directory",
+        "identifier_expression_case_8"
+    ),
     case(
         "\tlet file = \"/tmp/temp.txt\";\nfile",
         "identifier_expression_case_9"
