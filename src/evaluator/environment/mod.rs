@@ -32,16 +32,13 @@ impl Environment {
         self.variables.insert(identifier, value);
     }
 
-    pub(super) fn get<T: AsRef<str>>(&self, identifier: T) -> Object {
+    pub(super) fn get<T: AsRef<str>>(&self, identifier: T) -> Option<Object> {
         match self.variables.get(identifier.as_ref()) {
-            Some(value) => value.clone(),
-            None => {
-                if let Some(sub_environment) = &self.sub_environment {
-                    return sub_environment.get(identifier);
-                }
-
-                Object::Null
-            }
+            Some(value) => Some(value.clone()),
+            None => match &self.sub_environment {
+                Some(sub_environment) => sub_environment.get(identifier),
+                None => None,
+            },
         }
     }
 }

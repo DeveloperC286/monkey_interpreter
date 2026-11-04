@@ -1,0 +1,11 @@
+---
+source: src/tests/evaluation_error/identifier_not_found/mod.rs
+expression: tokens
+---
+[
+    Return,
+    Identifier {
+        literal: "missing",
+    },
+    SemiColon,
+]
