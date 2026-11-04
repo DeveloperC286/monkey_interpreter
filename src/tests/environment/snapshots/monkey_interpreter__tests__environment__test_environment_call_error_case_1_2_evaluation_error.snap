@@ -1,0 +1,7 @@
+---
+source: src/tests/environment/mod.rs
+expression: error
+---
+Err(
+    "Division by zero, cannot apply the / infix operator to a right hand operand of 0.",
+)

@@ -111,3 +111,24 @@ macro_rules! assert_ok {
         }
     };
 }
+
+macro_rules! assert_successive_environment_error {
+    ($evaluator:expr, $code:expr, $snapshot_name:expr) => {
+        INIT.call_once(|| {
+            pretty_env_logger::init();
+        });
+
+        // When
+        let error = $evaluator.evaluate(
+            crate::syntax_analysis::SyntaxAnalysis::from(
+                crate::lexical_analysis::LexicalAnalysis::from($code).unwrap(),
+            )
+            .unwrap(),
+        );
+
+        // Then
+        assert!(error.is_err());
+        insta::assert_debug_snapshot!(format!("test_{}_evaluation_error", $snapshot_name), error);
+        insta::assert_debug_snapshot!(format!("test_{}_environment", $snapshot_name), $evaluator);
+    };
+}

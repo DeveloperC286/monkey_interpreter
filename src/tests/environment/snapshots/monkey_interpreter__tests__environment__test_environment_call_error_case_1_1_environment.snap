@@ -1,0 +1,31 @@
+---
+source: src/tests/environment/mod.rs
+expression: evaluator
+---
+Evaluator {
+    environment: Environment {
+        variables: {
+            "divide": Function {
+                parameters: [
+                    "x",
+                ],
+                block: Block {
+                    nodes: [
+                        Expression {
+                            expression: Infix {
+                                left_hand: Identifier {
+                                    identifier: "x",
+                                },
+                                operator: Divide,
+                                right_hand: Integer {
+                                    literal: 0,
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+        sub_environment: None,
+    },
+}
