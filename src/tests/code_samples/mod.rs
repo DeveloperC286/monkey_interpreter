@@ -1,7 +1,7 @@
 use super::*;
 
 #[template]
-#[rstest(name, case("factorial"))]
+#[rstest(name, case("factorial"), case("early_return"))]
 fn code_samples(name: &str) {}
 
 fn get_code(name: &str) -> String {

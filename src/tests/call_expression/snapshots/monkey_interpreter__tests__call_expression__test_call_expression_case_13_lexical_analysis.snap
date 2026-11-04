@@ -1,0 +1,59 @@
+---
+source: src/tests/call_expression/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "early",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    If,
+    OpeningRoundBracket,
+    Identifier {
+        literal: "x",
+    },
+    GreaterThan,
+    Integer {
+        literal: 10,
+    },
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Return,
+    Identifier {
+        literal: "x",
+    },
+    SemiColon,
+    ClosingCurlyBracket,
+    Integer {
+        literal: 0,
+    },
+    SemiColon,
+    ClosingCurlyBracket,
+    SemiColon,
+    Identifier {
+        literal: "early",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 20,
+    },
+    ClosingRoundBracket,
+    Plus,
+    Identifier {
+        literal: "early",
+    },
+    OpeningRoundBracket,
+    Integer {
+        literal: 1,
+    },
+    ClosingRoundBracket,
+    SemiColon,
+]

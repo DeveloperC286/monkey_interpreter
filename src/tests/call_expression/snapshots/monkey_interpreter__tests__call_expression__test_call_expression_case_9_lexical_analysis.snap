@@ -1,0 +1,28 @@
+---
+source: src/tests/call_expression/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "a",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Return,
+    Integer {
+        literal: 5,
+    },
+    SemiColon,
+    ClosingCurlyBracket,
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    SemiColon,
+    Identifier {
+        literal: "a",
+    },
+    SemiColon,
+]

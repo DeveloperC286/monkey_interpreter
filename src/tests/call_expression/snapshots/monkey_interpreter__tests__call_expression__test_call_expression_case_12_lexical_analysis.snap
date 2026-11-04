@@ -1,0 +1,37 @@
+---
+source: src/tests/call_expression/mod.rs
+expression: tokens
+---
+[
+    Let,
+    Identifier {
+        literal: "outer",
+    },
+    Assign,
+    Function,
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Return,
+    Function,
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    OpeningCurlyBracket,
+    Return,
+    Integer {
+        literal: 7,
+    },
+    SemiColon,
+    ClosingCurlyBracket,
+    SemiColon,
+    ClosingCurlyBracket,
+    SemiColon,
+    Identifier {
+        literal: "outer",
+    },
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    OpeningRoundBracket,
+    ClosingRoundBracket,
+    SemiColon,
+]
